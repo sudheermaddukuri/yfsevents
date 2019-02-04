@@ -27,7 +27,7 @@
     "zone.js": "~0.8.26",
     "ag-grid-community": "latest",
     "ag-grid-angular": "latest",
-    "@ng-bootstrap/ng-bootstrap": "latest"
+    "ngx-bootstrap": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.12.0",

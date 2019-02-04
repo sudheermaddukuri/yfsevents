@@ -1,4 +1,4 @@
-<form>
+<form >
         <div class="form-row">
             <div class="col-md-1"></div>
           <div class="form-group col-md-5">
@@ -22,7 +22,7 @@
                 <div class="col-md-1"></div>
               <div class="form-group col-md-5">
                 <label for="ngoname">Partner Name</label>
-                <input type="text" class="form-control" id="ngoname" placeholder="NGO Name">
+                <input type="text" class="form-control" id="ngoname" placeholder="NGO Name" >
               </div>
               <div class="form-group col-md-5">
                     <label for="eventcategory">Event category</label>
@@ -36,6 +36,23 @@
               </div>
               <div class="col-md-1"></div>
             </div>
+
+            <div class="form-row">
+              <div class="col-md-1"></div>
+            <div class="form-group col-md-5">
+                <label for="datepicker">Select Date Range</label>
+                <input id="datepicker" class="form-control"
+                bsDaterangepicker [(ngModel)]="bsRangeValue" >
+            </div>
+            <div class="form-group col-md-5">
+                <label for="eventaction">Recurring Event</label>
+                <select id="eventaction" class="form-control">
+                  <option selected>No</option>
+                  <option>Yes</option>
+                </select>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
 
 
         

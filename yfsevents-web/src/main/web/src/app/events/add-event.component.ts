@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
     selector:'add-event',
@@ -8,7 +9,14 @@ import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 
   export class AddEventComponent implements OnInit{
 
-    model;
+    bsValue = new Date();
+    bsRangeValue: Date[];
+    maxDate = new Date();
+    constructor() {
+      this.maxDate.setDate(this.maxDate.getDate() + 7);
+      this.bsRangeValue = [this.bsValue, this.maxDate];
+    }
+   
   
     ngOnInit():void{
 
