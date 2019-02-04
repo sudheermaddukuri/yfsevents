@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+.page-header{
+    background-color: #00ADB5;
+}
+
+.row-bottom-margin { 
+    margin-bottom:2px; 
+}
+
+.form-table {
+    width: 100%;
+    border-collapse: collapse;
+}

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="page-header well well-sm">
+        <h3><strong> Partner NGO Registration</strong></h3>
+      </div>
+
+        <!-- ToDo: Decrease space between the table rows-->
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <label>Basic Information</label>
+          </div>
+          <div class="panel-body">
+            <div formGroupName="basicInfo">
+              <table class="table-condensed form-table">
+                <tr class="row">
+                  <td class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">Name</label>
+                      <input type="text" formControlName = "name" class="form-control well well-sm">
+                    </div>
+                  </td>
+                  <td class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">Description</label>
+                      <input type="text" formControlName = "description" class="form-control well well-sm">
+                    </div>
+                  </td>
+                </tr>
+                <tr class="row">
+                  <td class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">Branch</label>
+                      <input type="text" formControlName = "branch" class="form-control well well-sm">
+                    </div>
+                  </td>
+                  <td class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">Registration Number</label>
+                      <input type="text" formControlName = "registrationNumber" class="form-control well well-sm">
+                    </div>
+                  </td>
+                </tr>
+              </table>              
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <label>Address</label>
+          </div>
+          <div class="panel-body">
+            <div formGroupName="address">
+              <table class="table-condensed form-table">
+                <tr class="row">
+                  <td class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">Address Line 1</label>
+                      <input type="text" formControlName = "addressLine1" class="form-control well well-sm">
+                    </div>
+                  </td>
+                  <td class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">Address Line 2</label>
+                      <input type="text" formControlName = "addressLine2" class="form-control well well-sm">
+                    </div>
+                  </td>
+                </tr>
+                <tr class="row">
+                  <td class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">City</label>
+                      <input type="text" formControlName = "city" class="form-control well well-sm">
+                    </div>
+                  </td>
+                  <td class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">State</label>
+                      <input type="text" formControlName = "state" class="form-control well well-sm">
+                    </div>
+                  </td>
+                </tr>
+                <tr class="row">
+                    <td class="col-md-6 offset-md-3">
+                      <div class="form-group">
+                        <label class="control-label">Pincode</label>
+                        <input type="text" formControlName = "pincode" class="form-control well well-sm">
+                      </div>
+                    </td>
+                    <td class="col-md-6 offset-md-3">
+                    </td>
+                  </tr>
+              </table>              
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <label>Authorised Persons</label>
+          </div>
+          <div class="panel-body">
+            <ul class="nav nav-tabs">
+              <li><a href="content">Person 1</a></li>
+              <li class="active"><a href="content">Person 2</a></li>
+              <li><a href="content">Person 3</a></li>
+              <li><a href="content">Person 4</a></li>
+              <li><a href="content">Person 5</a></li>
+              <button class="btn btn-primary pull-right" (click)=addAuthorisedPerson()>Add Person</button>
+              <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->
+            </ul>
+
+            <div class="tab-content">
+              <div formArrayName="authorisedPersons" *ngFor="let person of authorisedPersons; let i=index">
+                <!--ToDo: NgFor not working: Check-->
+                <div formGroupName="i" id="content">
+                  <table class="table-condensed form-table">
+                    <tr class="row">
+                      <td class="col-md-6 offset-md-3">
+                        <div class="form-group">
+                          <label class="control-label">Name</label>
+                          <input type="text" formControlName = "name" class="form-control well well-sm">
+                        </div>
+                      </td>
+                      <td class="col-md-6 offset-md-3">
+                      </td>
+                    </tr>
+                    <tr class="row">
+                      <td class="col-md-6 offset-md-3">
+                        <div class="form-group">
+                          <label class="control-label">Contact Details</label>
+                          <input type="text" formControlName = "contact1" class="form-control well well-sm">
+                        </div>
+                      </td>
+                      <td class="col-md-6 offset-md-3">
+                        <div class="form-group">
+                          <label class="control-label">Alternate Contact Details</label>
+                          <input type="text" formControlName = "contact2" class="form-control well well-sm">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col-md-6 offset-md-3">
+                          <div class="form-group">
+                            <label class="control-label">Email ID</label>
+                            <input type="text" formControlName = "email1" class="form-control well well-sm">
+                          </div>
+                        </td>
+                        <td class="col-md-6 offset-md-3">
+                          <div class="form-group">
+                            <label class="control-label">Alternate Email ID</label>
+                            <input type="text" formControlName = "email2" class="form-control well well-sm">
+                          </div>
+                        </td>
+                      </tr>
+                  </table>              
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+      <button class="btn btn-primary pull-right" (click)="fx(myForm.get('authorisedPersons'))">Register</button>
+    </div>
+
+  </body>
+</html>
