@@ -8,12 +8,16 @@ import { AddEventComponent } from './events/add-event.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
+import { VolunteerComponent } from './volunteer/volunteer.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     EventListComponent,
     AddEventComponent
+    AppComponent,
+    VolunteerComponent
   ],
   imports: [
     BrowserModule,
