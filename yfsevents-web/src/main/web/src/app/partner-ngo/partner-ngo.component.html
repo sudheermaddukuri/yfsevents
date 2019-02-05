@@ -9,7 +9,8 @@
       <div class="page-header well well-sm">
         <h3><strong> Partner NGO Registration</strong></h3>
       </div>
-
+      
+      <form [formGroup]="myForm">
         <!-- ToDo: Decrease space between the table rows-->
         <div class="panel panel-info">
           <div class="panel-heading">
@@ -87,15 +88,15 @@
                   </td>
                 </tr>
                 <tr class="row">
-                    <td class="col-md-6 offset-md-3">
-                      <div class="form-group">
-                        <label class="control-label">Pincode</label>
-                        <input type="text" formControlName = "pincode" class="form-control well well-sm">
-                      </div>
-                    </td>
-                    <td class="col-md-6 offset-md-3">
-                    </td>
-                  </tr>
+                  <td class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">Pincode</label>
+                      <input type="text" formControlName = "pincode" class="form-control well well-sm">
+                    </div>
+                  </td>
+                  <td class="col-md-6 offset-md-3">
+                  </td>
+                </tr>
               </table>              
             </div>
           </div>
