@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray }  from '@angular/forms';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-partner-ngo',
@@ -10,27 +11,27 @@ export class PartnerNGOComponent implements OnInit {
 
   myForm: FormGroup;
 
-  private numberOfAuthorisedPersons=0;
+  private numberOfAuthorisedPersons: number=0;
+  private selectedTab: number=-1;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-      let me = this;
-      this.numberOfAuthorisedPersons=0;
-      this.myForm = this.formBuilder.group({
-        basicInfo: this.partnerNgoGroup(),
-        address: this.address(),
-        authorisedPersons: [this.formBuilder.array([this.authorisedPerson()]), [
-          Validators.required
-        ]]
-      });
+    console.log("Started");
+    this.myForm = this.formBuilder.group({
+      basicInfo: this.partnerNgoGroup(),
+      address: this.address(),
+      authorisedPersons: this.formBuilder.array([this.authorisedPerson()])
+    });
+    this.numberOfAuthorisedPersons=this.getAuthorisedPersons().length;
+    this.activateTab(this.numberOfAuthorisedPersons);
+    console.log(this.myForm.value);
   }
 
   partnerNgoGroup(): FormGroup{
-    let me=this;
-    const aboutPartnerNgo = this.formBuilder.group({
+    return this.formBuilder.group({
       name: ['',[
-        Validators.required, Validators.name, Validators.maxLength(200)
+        Validators.required, Validators.maxLength(200)
       ]],
       description: ['',[
         Validators.maxLength(200)
@@ -43,12 +44,10 @@ export class PartnerNGOComponent implements OnInit {
       ]]
       //todo: registrationNumber Validation.
     });
-    return aboutPartnerNgo;
   }
 
   address(): FormGroup{
-    let me=this;
-    const address = this.formBuilder.group({
+    return this.formBuilder.group({
       addressLine1: ['', [
         Validators.required, Validators.maxLength(2000)
       ]],
@@ -65,12 +64,10 @@ export class PartnerNGOComponent implements OnInit {
         Validators.pattern("^[0-9]+$"), Validators.minLength(6), Validators.maxLength(6)
       ]]
     });
-    return address;
   }
 
   authorisedPerson(): FormGroup{
-    let me=this;
-    const authorisedPerson = this.formBuilder.group({
+    return this.formBuilder.group({
       name: ['',[
         Validators.required, Validators.maxLength(200)
       ]],
@@ -87,26 +84,46 @@ export class PartnerNGOComponent implements OnInit {
         Validators.email, Validators.maxLength(50)
       ]]
     });
-    this.numberOfAuthorisedPersons++;
-    return authorisedPerson;
+  }
+
+  getAuthorisedPersons(): FormArray{
+    return this.myForm.get('authorisedPersons') as FormArray;
   }
 
   addAuthorisedPerson():void{
     if(this.numberOfAuthorisedPersons<5){
-      (this.myForm.get('authorisedPersons') as FormArray).push(this.authorisedPerson());
-    }
+      (this.getAuthorisedPersons()).push(this.authorisedPerson());
+      this.numberOfAuthorisedPersons=this.getAuthorisedPersons().length;
+      //this.activateTab(this.numberOfAuthorisedPersons);
+    }console.log(this.selectedTab);
+    console.log(this.numberOfAuthorisedPersons);
   }
 
-  deleteAuthorisedPerson(index): void{
-
+  removeAuthorisedPerson(index): void{
+    if(this.numberOfAuthorisedPersons>1){
+      (this.getAuthorisedPersons()).removeAt(index);
+      this.numberOfAuthorisedPersons=this.getAuthorisedPersons().length;
+      this.selectedTab=this.numberOfAuthorisedPersons-1;
+    }
   }
 
   getNumberOfAuthorisedPersons(): Number{
     return this.numberOfAuthorisedPersons;
   }
 
-  fx(val){
-    console.log(val);
+  isMaxLimitReached(val):boolean{
+    return this.numberOfAuthorisedPersons>=val;
+  }
+
+  getArray(val): number[]{
+    console.log(Array(val))
+    return Array(val);
+  }
+
+  activateTab(val): void{
+      this.selectedTab=val-1;
+      console.log(this.selectedTab);
+      console.log(this.numberOfAuthorisedPersons);
   }
 
 }

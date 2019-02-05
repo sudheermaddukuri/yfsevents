@@ -9,5 +9,7 @@
 
 .form-table {
     width: 100%;
-    border-collapse: collapse;
+    margin: 0;
+    margin-block-end: 0;
+    padding-block-end: 0;
 }
