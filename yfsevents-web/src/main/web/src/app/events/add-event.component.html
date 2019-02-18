@@ -1,0 +1,61 @@
+<form >
+        <div class="form-row">
+            <div class="col-md-1"></div>
+          <div class="form-group col-md-5">
+            <label for="eventname">Event Name</label>
+            <input type="text" class="form-control" id="eventname" placeholder="Name">
+          </div>
+          <div class="form-group col-md-5">
+                <label for="eventaction">Action</label>
+                <select id="eventaction" class="form-control">
+                  <option selected>Choose...</option>
+                  <option>Not Started</option>
+                  <option>In progress</option>
+                  <option>completed</option>
+                  <option>Abandoned</option>
+                </select>
+          </div>
+          <div class="col-md-1"></div>
+        </div>
+
+        <div class="form-row">
+                <div class="col-md-1"></div>
+              <div class="form-group col-md-5">
+                <label for="ngoname">Partner Name</label>
+                <input type="text" class="form-control" id="ngoname" placeholder="NGO Name" >
+              </div>
+              <div class="form-group col-md-5">
+                    <label for="eventcategory">Event category</label>
+                    <select id="eventcategory" class="form-control">
+                      <option selected>Choose...</option>
+                      <option>Not Started</option>
+                      <option>In progress</option>
+                      <option>completed</option>
+                      <option>Abandoned</option>
+                    </select>
+              </div>
+              <div class="col-md-1"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-1"></div>
+            <div class="form-group col-md-5">
+                <label for="datepicker">Select Date Range</label>
+                <input id="datepicker" class="form-control"
+                bsDaterangepicker [(ngModel)]="bsRangeValue" >
+            </div>
+            <div class="form-group col-md-5">
+                <label for="eventaction">Recurring Event</label>
+                <select id="eventaction" class="form-control">
+                  <option selected>No</option>
+                  <option>Yes</option>
+                </select>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+
+
+        
+
+            
+</form>
