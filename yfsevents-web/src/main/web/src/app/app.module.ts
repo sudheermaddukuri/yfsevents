@@ -27,7 +27,7 @@ import { VolunteerComponent } from './volunteer/volunteer.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
     AgGridModule.withComponents([]),
     BsDatepickerModule.forRoot(),
     FormsModule,
