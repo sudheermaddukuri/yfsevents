@@ -3,3 +3,18 @@
 @import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~ngx-bootstrap/datepicker/bs-datepicker.css";
+
+.page-header{
+    background-color: #00ADB5;
+}
+
+.row-bottom-margin { 
+    margin-bottom:2px; 
+}
+
+.form-table {
+    width: 100%;
+    margin: 0;
+    margin-block-end: 0;
+    padding-block-end: 0;
+}
