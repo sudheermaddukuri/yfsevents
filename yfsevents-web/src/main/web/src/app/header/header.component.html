@@ -12,15 +12,15 @@
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <!--ToDO: Change on Hover Colour-->
-              <li><a href="/partnerngo">Partner NGO</a></li>
-              <li><a href="/volunteer">Volunteer</a></li>
-              <li><a href="#">College</a></li> 
+              <li><a [routerLink]="['/partnerngo']">Partner NGO</a></li>
+              <li><a [routerLink]="['/volunteer']">Volunteer</a></li>
+              <li><a [routerLink]="">College</a></li> 
             </ul>
           </li>
-          <li><a href="/events">EVENTS</a></li>
-          <li><a href="">TOUR</a></li>
-          <li><a href="">CONTACT</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+          <li><a [routerLink]="['/events']">EVENTS</a></li>
+          <li><a [routerLink]="">TOUR</a></li>
+          <li><a [routerLink]="">CONTACT</a></li>
+          <li><a [routerLink]=""><span class="glyphicon glyphicon-search"></span></a></li>
         </ul>
       </div>
     </div>
