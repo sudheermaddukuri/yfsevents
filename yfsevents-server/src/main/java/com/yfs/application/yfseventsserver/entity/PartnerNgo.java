@@ -7,7 +7,7 @@ import java.util.Set;
 public class PartnerNgo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String Name;
@@ -20,6 +20,22 @@ public class PartnerNgo {
     private String state;
     private String pincode;
 
+    @Override
+    public String toString() {
+        return "PartnerNgo{" +
+            "id=" + id +
+            ", Name='" + Name + '\'' +
+            ", description='" + description + '\'' +
+            ", branch='" + branch + '\'' +
+            ", registrationNumber='" + registrationNumber + '\'' +
+            ", addressLine1='" + addressLine1 + '\'' +
+            ", addressLine2='" + addressLine2 + '\'' +
+            ", city='" + city + '\'' +
+            ", state='" + state + '\'' +
+            ", pincode='" + pincode + '\'' +
+            ", authorizedPerson=" + authorizedPerson +
+            '}';
+    }
 
     @OneToMany(mappedBy = "partnerNgo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<AuthorizedPerson> authorizedPerson;

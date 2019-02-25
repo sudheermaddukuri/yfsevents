@@ -6,18 +6,18 @@ import javax.persistence.*;
 public class AuthorizedPerson {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "partnerNgo_id")
+    @JoinColumn(name = "partner_ngo_id")
     private PartnerNgo partnerNgo;
 
     private String name;
-    private String contactDetails;
-    private String alternateContactDetails;
-    private String email;
-    private String alternateEmail;
+    private String contact1;
+    private String contact2;
+    private String email1;
+    private String email2;
 
     public long getId() {
         return id;
@@ -43,35 +43,35 @@ public class AuthorizedPerson {
         this.name = name;
     }
 
-    public String getContactDetails() {
-        return contactDetails;
+    public String getContact1() {
+        return contact1;
     }
 
-    public void setContactDetails(String contactDetails) {
-        this.contactDetails = contactDetails;
+    public void setContact1(String contact1) {
+        this.contact1 = contact1;
     }
 
-    public String getAlternateContactDetails() {
-        return alternateContactDetails;
+    public String getContact2() {
+        return contact2;
     }
 
-    public void setAlternateContactDetails(String alternateContactDetails) {
-        this.alternateContactDetails = alternateContactDetails;
+    public void setContact2(String contact2) {
+        this.contact2 = contact2;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmail1() {
+        return email1;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail1(String email1) {
+        this.email1 = email1;
     }
 
-    public String getAlternateEmail() {
-        return alternateEmail;
+    public String getEmail2() {
+        return email2;
     }
 
-    public void setAlternateEmail(String alternateEmail) {
-        this.alternateEmail = alternateEmail;
+    public void setEmail2(String email2) {
+        this.email2 = email2;
     }
 }
