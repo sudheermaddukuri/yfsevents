@@ -1,6 +1,7 @@
 package com.yfs.application.yfseventsserver.entity;
 
 import javax.persistence.*;
+import java.awt.datatransfer.FlavorEvent;
 
 @Entity
 public class AuthorizedPerson {
@@ -10,7 +11,7 @@ public class AuthorizedPerson {
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "partnerNgo_id")
+    @JoinColumn(name = "partner_ngo_id")
     private PartnerNgo partnerNgo;
 
     private String name;
