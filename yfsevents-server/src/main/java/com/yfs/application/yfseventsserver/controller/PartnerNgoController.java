@@ -20,7 +20,7 @@ public class PartnerNgoController {
     AuthorizedPersonRepository authorizedPersonRepository;
 
 
-    @RequestMapping(value ="/part", method = RequestMethod.POST)
+    @RequestMapping(value ="/partner-ngo", method = RequestMethod.POST)
     public void createPartnerNgo(@RequestBody PartnerNgo partnerNgo)  {
 
 
