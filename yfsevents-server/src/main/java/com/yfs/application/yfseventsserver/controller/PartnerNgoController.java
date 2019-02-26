@@ -1,6 +1,5 @@
 package com.yfs.application.yfseventsserver.controller;
 
-
 import com.yfs.application.yfseventsserver.entity.PartnerNgo;
 import com.yfs.application.yfseventsserver.repository.PartnerNgoRepository;
 import org.slf4j.Logger;
@@ -50,5 +49,15 @@ public class PartnerNgoController {
     public boolean deletePartnerNgo(@PathVariable Long id){
         partnerNgoRepository.deleteById(id);
         return true;
+
+
+    @RequestMapping(value ="/part", method = RequestMethod.POST)
+    public void createPartnerNgo(@RequestBody PartnerNgo partnerNgo)  {
+
+
+        PartnerNgo partnerNgo1 = partnerNgoRepository.save(partnerNgo);
+
+        partnerNgo1.getAuthorizedPerson().stream().forEach((auth)-> { auth.setPartnerNgo(partnerNgo1);
+        authorizedPersonRepository.save(auth);});
     }
 }

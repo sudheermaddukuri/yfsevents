@@ -1,0 +1,164 @@
+<div class="container-fluid">
+  <div class="page-header well well-sm">
+    <h3><strong> College Registration</strong></h3>
+  </div>
+
+  <form [formGroup]="collegeForm">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <label>About College</label>
+      </div>
+      <div class="panel-body">
+        <div formGroupName="collegeDetails">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="form-group">
+                <label class="control-label">College Name</label>
+                <input type="text" formControlName="name" class="form-control well well-sm">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="form-group">
+                <label class="control-label">Registration Id</label>
+                <input type="text" formControlName="registrationId" class="form-control well well-sm">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <label>Address</label>
+      </div>
+      <div class="panel-body">
+        <div formGroupName="address">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="form-group">
+                <label class="control-label">Address Line 1</label>
+                <input type="text" formControlName="addressLine1" class="form-control well well-sm">
+              </div>
+            </div>
+            <div class="col-md-6 offset-md-3">
+              <div class="form-group">
+                <label class="control-label">Address Line 2</label>
+                <input type="text" formControlName="addressLine2" class="form-control well well-sm">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="form-group">
+                <label class="control-label">City</label>
+                <input type="text" formControlName="city" class="form-control well well-sm">
+              </div>
+            </div>
+            <div class="col-md-6 offset-md-3">
+              <div class="form-group">
+                <label class="control-label">State</label>
+                <input type="text" formControlName="state" class="form-control well well-sm">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="form-group">
+                <label class="control-label">Pincode</label>
+                <input type="text" formControlName="pincode" class="form-control well well-sm">
+              </div>
+            </div>
+            <div class="col-md-6 offset-md-3">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <label>MOU Details</label>
+      </div>
+      <div class="panel-body">
+        <ul class="nav nav-tabs" active="selectedTab">
+          <li class="nav active" *ngIf="numberOfMOUs>0"><a href="#tab0" data-toggle="tab" (click)="activateTab(1)">MOU
+              1</a></li>
+          <li class="nav" *ngFor="let num of getArray(numberOfMOUs-1); let i=index;"><a href="#tab{{i+1}}" data-toggle="tab"
+              (click)="activateTab(i+2)">MOU {{i+2}}</a></li>
+
+          <div class="pull-right">
+            <button class="btn btn-primary" (click)=addMOU() [disabled]="isMaxLimitReached(10)">Add MOU</button>
+            <button class="btn btn-primary" (click)=removeMOU() >Remove MOU</button>
+
+          </div>
+
+        </ul>
+
+        <div class="tab-content">
+          <div formArrayName="mouDetails">
+            <div class="tab-pane" *ngFor="let person of collegeForm.get('mouDetails').controls;let i=index"
+              formGroupName="{{i}}" id="tab{{i}}">
+
+              <div *ngIf="selectedTab==i">
+                <div class="row">
+                  <div class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">MOU ID</label>
+                      <input type="text" formControlName="mouID" class="form-control well well-sm">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">MOU Name</label>
+                      <input type="text" formControlName="mouName" class="form-control well well-sm">
+                    </div>
+                  </div>
+                  <div class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">Number Of Events Agreed</label>
+                      <input type="text" formControlName="noOfEvents" class="form-control well well-sm">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">Valid From</label>
+                      <input type="text" formControlName="fromDate" class="form-control well well-sm" bsDatepicker>
+                    </div>
+                  </div>
+                  <div class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">Valid To</label>
+                      <input type="text" formControlName="toDate" class="form-control well well-sm" bsDatepicker>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">Comments</label>
+                      <textarea type="text" formControlName="comments" class="form-control well well-sm"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+  <div class="text-center">
+    <button class="btn btn-primary btn-sx">Register</button>
+  </div>
+</div>

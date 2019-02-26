@@ -1,6 +1,7 @@
 package com.yfs.application.yfseventsserver.entity;
 
 import javax.persistence.*;
+import java.awt.datatransfer.FlavorEvent;
 
 @Entity
 public class AuthorizedPerson {

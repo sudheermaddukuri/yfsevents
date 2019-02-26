@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="page-header well well-sm">
+    <h3><strong> Inventory Data</strong></h3>
+  </div>
+  <form [formGroup]="inventoryData">
+    <div class="panel panel-info">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+              <label class="control-label">ItemName</label>
+              <input type="text" formControlName="itemName" class="form-control well well-sm">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+              <label class="control-label">EventCategory</label>
+              <div class="dropdown">
+                <button class="btn btn default dropdown-toggle" type="button" data-toggle="dropdown">Select EventCategory
+                  <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Partner NGO</a></li>
+                  <li><a href="#">Education</a></li>
+                  <li><a href="#">Environment</a></li>
+                  <li><a href="#">Health</a></li>
+                  <li><a href="#">Other</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+              <label class="control-label">Comments</label>
+              <textarea type="text" formControlName="comments" class="form-control well well-sm"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="text-center">
+    <button class="btn btn-primary btn-sx">Save</button>
+  </div>
+</div>

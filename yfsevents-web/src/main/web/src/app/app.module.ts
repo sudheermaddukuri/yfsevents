@@ -14,6 +14,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule } from '@angular/forms';
 import { VolunteerComponent } from './volunteer/volunteer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { InventoryDataComponent } from './inventory-data/inventory-data.component';
+import { CollegeRegistrationComponent } from './college-registration/college-registration.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     EventListComponent,
     AddEventComponent,
-    VolunteerComponent
+    VolunteerComponent,
+    InventoryDataComponent,
+    CollegeRegistrationComponent
   ],
   imports: [
     BrowserModule,
