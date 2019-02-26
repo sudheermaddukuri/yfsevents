@@ -63,15 +63,15 @@ public class PartnerNgoController {
 
     }
 
-    @RequestMapping(value ="/partner-ngo", method = RequestMethod.POST)
-    public void createPartnerNgo(@RequestBody PartnerNgo partnerNgo)  {
-
-
-        PartnerNgo partnerNgo1 = partnerNgoRepository.save(partnerNgo);
-
-        partnerNgo1.getAuthorizedPerson().stream().forEach((auth)-> { auth.setPartnerNgo(partnerNgo1);
-        authorizedPersonRepository.save(auth);
-        
-        });
-    }
+//    @RequestMapping(value ="/partner-ngo", method = RequestMethod.POST)
+//    public void createPartnerNgo(@RequestBody PartnerNgo partnerNgo)  {
+//
+//
+//        PartnerNgo partnerNgo1 = partnerNgoRepository.save(partnerNgo);
+//
+//        partnerNgo1.getAuthorizedPerson().stream().forEach((auth)-> { auth.setPartnerNgo(partnerNgo1);
+//        authorizedPersonRepository.save(auth);
+//
+//        });
+//    }
 }

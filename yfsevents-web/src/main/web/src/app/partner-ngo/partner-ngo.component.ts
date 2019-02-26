@@ -128,6 +128,6 @@ export class PartnerNGOComponent implements OnInit {
     console.log('submitting: ',json);
     this.apiService.postData(json,'partnerngo');
     //To test only
-    this.apiService.getData('partnerngo');
+    // this.apiService.getData('partnerngo');
   }
 }

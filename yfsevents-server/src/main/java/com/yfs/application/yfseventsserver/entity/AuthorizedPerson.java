@@ -1,7 +1,8 @@
 package com.yfs.application.yfseventsserver.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.awt.datatransfer.FlavorEvent;
 
 @Entity
 public class AuthorizedPerson {
@@ -10,7 +11,8 @@ public class AuthorizedPerson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "partner_ngo_id")
     private PartnerNgo partnerNgo;
 
