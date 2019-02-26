@@ -21,8 +21,24 @@ public class PartnerNgo {
     private String state;
     private String pincode;
 
+    @Override
+    public String toString() {
+        return "PartnerNgo{" +
+            "id=" + id +
+            ", Name='" + Name + '\'' +
+            ", description='" + description + '\'' +
+            ", branch='" + branch + '\'' +
+            ", registrationNumber='" + registrationNumber + '\'' +
+            ", addressLine1='" + addressLine1 + '\'' +
+            ", addressLine2='" + addressLine2 + '\'' +
+            ", city='" + city + '\'' +
+            ", state='" + state + '\'' +
+            ", pincode='" + pincode + '\'' +
+            ", authorizedPerson=" + authorizedPerson +
+            '}';
+    }
 
-    @OneToMany(mappedBy = "partnerNgo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "partnerNgo", cascade = CascadeType.ALL)
     private List<AuthorizedPerson> authorizedPerson;
 
     public long getId() {

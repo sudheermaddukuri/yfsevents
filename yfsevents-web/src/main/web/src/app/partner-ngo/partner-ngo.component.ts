@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray }  from '@angular/forms';
+import { FormsModule, FormGroup, FormControl, Validators, FormBuilder, FormArray }  from '@angular/forms';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-partner-ngo',
@@ -14,10 +15,11 @@ export class PartnerNGOComponent implements OnInit {
   private numberOfAuthorisedPersons: number=0;
   private selectedTab: number=-1;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private apiService: ApiService) { }
 
   ngOnInit() {
-    console.log("Started");
+    console.log('Loading PartnerNgo Screen');
     this.myForm = this.formBuilder.group({
       basicInfo: this.partnerNgoGroup(),
       address: this.address(),
@@ -25,7 +27,6 @@ export class PartnerNGOComponent implements OnInit {
     });
     this.numberOfAuthorisedPersons=this.getAuthorisedPersons().length;
     this.activateTab(this.numberOfAuthorisedPersons);
-    console.log(this.myForm.value);
   }
 
   partnerNgoGroup(): FormGroup{
@@ -95,8 +96,7 @@ export class PartnerNGOComponent implements OnInit {
       (this.getAuthorisedPersons()).push(this.authorisedPerson());
       this.numberOfAuthorisedPersons=this.getAuthorisedPersons().length;
       //this.activateTab(this.numberOfAuthorisedPersons);
-    }console.log(this.selectedTab);
-    console.log(this.numberOfAuthorisedPersons);
+    }
   }
 
   removeAuthorisedPerson(index): void{
@@ -116,14 +116,18 @@ export class PartnerNGOComponent implements OnInit {
   }
 
   getArray(val): number[]{
-    console.log(Array(val))
     return Array(val);
   }
 
   activateTab(val): void{
       this.selectedTab=val-1;
-      console.log(this.selectedTab);
-      console.log(this.numberOfAuthorisedPersons);
   }
 
+  onSubmit(){
+    let json= Object.assign({authorizedPerson:this.getAuthorisedPersons().value}, this.myForm.get('basicInfo').value, this.myForm.get('address').value);
+    console.log('submitting: ',json);
+    this.apiService.postData(json,'partnerngo');
+    //To test only
+    // this.apiService.getData('partnerngo');
+  }
 }
