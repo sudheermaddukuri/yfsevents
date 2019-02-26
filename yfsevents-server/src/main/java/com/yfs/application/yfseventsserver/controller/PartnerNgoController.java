@@ -1,6 +1,8 @@
 package com.yfs.application.yfseventsserver.controller;
 
+import com.yfs.application.yfseventsserver.entity.AuthorizedPerson;
 import com.yfs.application.yfseventsserver.entity.PartnerNgo;
+import com.yfs.application.yfseventsserver.repository.AuthorizedPersonRepository;
 import com.yfs.application.yfseventsserver.repository.PartnerNgoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,9 @@ public class PartnerNgoController {
     @Autowired
     private PartnerNgoRepository partnerNgoRepository;
 
+    @Autowired
+    private AuthorizedPersonRepository authorizedPersonRepository;
+
     @ResponseBody
     @GetMapping("/partnerngo")
     public Iterable<PartnerNgo> getPartnerNgos() {
@@ -36,7 +41,13 @@ public class PartnerNgoController {
     @PostMapping("/partnerngo")
     public PartnerNgo savePartnerNgo(@RequestBody PartnerNgo partnerNgo){
         logger.info(partnerNgo.toString());
-        return partnerNgoRepository.save(partnerNgo);
+        PartnerNgo partnerNgo1 = partnerNgoRepository.save(partnerNgo);
+
+        partnerNgo1.getAuthorizedPerson().stream().forEach((auth)-> { auth.setPartnerNgo(partnerNgo1);
+        authorizedPersonRepository.save(auth);
+        
+        });
+        return partnerNgo1;
     }
 
     @ResponseBody
@@ -46,10 +57,11 @@ public class PartnerNgoController {
     }
 
     @DeleteMapping("partnerngo/{id}")
-    public boolean deletePartnerNgo(@PathVariable Long id){
+    public boolean deletePartnerNgo(@PathVariable Long id) {
         partnerNgoRepository.deleteById(id);
         return true;
 
+    }
 
     @RequestMapping(value ="/part", method = RequestMethod.POST)
     public void createPartnerNgo(@RequestBody PartnerNgo partnerNgo)  {
@@ -58,6 +70,8 @@ public class PartnerNgoController {
         PartnerNgo partnerNgo1 = partnerNgoRepository.save(partnerNgo);
 
         partnerNgo1.getAuthorizedPerson().stream().forEach((auth)-> { auth.setPartnerNgo(partnerNgo1);
-        authorizedPersonRepository.save(auth);});
+        authorizedPersonRepository.save(auth);
+        
+        });
     }
 }

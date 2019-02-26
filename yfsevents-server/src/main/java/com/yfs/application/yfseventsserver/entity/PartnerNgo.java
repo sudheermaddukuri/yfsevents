@@ -38,7 +38,7 @@ public class PartnerNgo {
             '}';
     }
 
-    @OneToMany(mappedBy = "partnerNgo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "partnerNgo", cascade = CascadeType.ALL)
     private List<AuthorizedPerson> authorizedPerson;
 
     public long getId() {

@@ -79,10 +79,10 @@ export class PartnerNGOComponent implements OnInit {
         Validators.pattern("^[0-9]+$"), Validators.minLength(10), Validators.maxLength(10)
       ]],
       email1: ['', [
-        Validators.email1, Validators.maxLength(50)
+        Validators.email, Validators.maxLength(50)
       ]],
       email2: ['', [
-        Validators.email1, Validators.maxLength(50)
+        Validators.email, Validators.maxLength(50)
       ]]
     });
   }
