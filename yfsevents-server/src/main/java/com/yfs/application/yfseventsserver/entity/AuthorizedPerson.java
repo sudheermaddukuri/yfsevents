@@ -7,7 +7,7 @@ import java.awt.datatransfer.FlavorEvent;
 public class AuthorizedPerson {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
