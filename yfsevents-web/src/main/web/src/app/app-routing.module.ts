@@ -7,6 +7,7 @@ import { AddEventComponent } from './events/add-event.component';
 import {VolunteerComponent}  from './volunteer/volunteer.component';
 import { InventoryDataComponent } from './inventory-data/inventory-data.component';
 import { CollegeRegistrationComponent } from './college-registration/college-registration.component';
+import {SendMailComponent} from "./send-mail/send-mail.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,9 @@ const routes: Routes = [
   {path:'events',component:EventListComponent},
   {path:'addevent',component:AddEventComponent},
   {path:'volunteer',component:VolunteerComponent},
+  {
+    path:'email',component:SendMailComponent
+  },
   {
     path: '**', component: AppComponent
     //to-do: update route
