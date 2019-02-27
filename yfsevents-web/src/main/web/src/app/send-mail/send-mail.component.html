@@ -1,0 +1,210 @@
+<!--<div class="row custom-row" id="mainDiv">-->
+  <!--<div class= "col-sm-5 custom-container jumbotron">-->
+    <!--<form class="form-horizontal"  #sendmailForm="ngForm"-->
+          <!--(ngSubmit)="onFormSubmit(sendmailForm)" >-->
+      <!--<fieldset>-->
+        <!--<legend>SignUp</legend>-->
+
+        <!--&lt;!&ndash;- To Block -&ndash;&gt;-->
+        <!--<div class="form-group">-->
+          <!--<label for="toEmail">to</label>-->
+          <!--&lt;!&ndash;<input type="text"&ndash;&gt;-->
+                 <!--&lt;!&ndash;id="toEmail"&ndash;&gt;-->
+                 <!--&lt;!&ndash;[(ngModel)]="email.to"&ndash;&gt;-->
+                 <!--&lt;!&ndash;name="to"&ndash;&gt;-->
+                 <!--&lt;!&ndash;placeholder="to"&ndash;&gt;-->
+                 <!--&lt;!&ndash;#emailTo = "ngModel"&ndash;&gt;-->
+                 <!--&lt;!&ndash;pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>&ndash;&gt;-->
+        <!--</div>-->
+        <!---->
+
+        <!--<div class="form-group">-->
+          <!--<label for="ccEmail">cc</label>-->
+          <!--&lt;!&ndash;<input type="text"&ndash;&gt;-->
+                 <!--&lt;!&ndash;id="ccEmail"&ndash;&gt;-->
+                 <!--&lt;!&ndash;[(ngModel)]="email.cc"&ndash;&gt;-->
+                 <!--&lt;!&ndash;name="cc"&ndash;&gt;-->
+                 <!--&lt;!&ndash;#emailCc = "ngModel"&ndash;&gt;-->
+
+                 <!--&lt;!&ndash;pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"&ndash;&gt;-->
+                 <!--&lt;!&ndash;placeholder="cc">&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+          <!--<label for="bccEmail">bcc</label>-->
+          <!--&lt;!&ndash;<input type="text"&ndash;&gt;-->
+                 <!--&lt;!&ndash;id="bccEmail"&ndash;&gt;-->
+                 <!--&lt;!&ndash;[(ngModel)]="email.bcc"&ndash;&gt;-->
+                 <!--&lt;!&ndash;name="bcc"&ndash;&gt;-->
+                 <!--&lt;!&ndash;#emailBcc = "ngModel"&ndash;&gt;-->
+                 <!--&lt;!&ndash;pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"&ndash;&gt;-->
+                 <!--&lt;!&ndash;placeholder="bcc" >&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+          <!--<label for="subjectEmail">Subject</label>-->
+          <!--&lt;!&ndash;<input type="text"&ndash;&gt;-->
+                 <!--&lt;!&ndash;id="subjectEmail"&ndash;&gt;-->
+                 <!--&lt;!&ndash;[(ngModel)]="email.subject"&ndash;&gt;-->
+                 <!--&lt;!&ndash;name="subject"&ndash;&gt;-->
+                 <!--&lt;!&ndash;placeholder="subject" required>&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+          <!--<label for="textEmail">Text</label>-->
+          <!--&lt;!&ndash;<input type="text"&ndash;&gt;-->
+                 <!--&lt;!&ndash;id="textEmail"&ndash;&gt;-->
+                 <!--&lt;!&ndash;[(ngModel)]="email.text"&ndash;&gt;-->
+                 <!--&lt;!&ndash;name="text"&ndash;&gt;-->
+                 <!--&lt;!&ndash;placeholder="text"&ndash;&gt;-->
+                 <!--&lt;!&ndash;#pwd = "ngModel"&ndash;&gt;-->
+                 <!--&lt;!&ndash;minlength="8"&ndash;&gt;-->
+                 <!--&lt;!&ndash;required>&ndash;&gt;-->
+        <!--</div>-->
+
+
+        <!--&lt;!&ndash;- Buttons Block -&ndash;&gt;-->
+
+      <!--</fieldset>-->
+    <!--</form>-->
+    <!--{{email | json}}-->
+  <!--</div>-->
+  <div id="heading">
+    Enter Email Details
+  </div>
+  <div id="mainDiv">
+    <form class="form-horizontal"  #sendmailForm="ngForm"
+          (ngSubmit)="onFormSubmit(sendmailForm)" >
+    <table class="table-condensed form-table">
+      <tr class="row">
+        <td class="col-md-6 offset-md-3">
+          <div class="form-group">
+            <label class="control-label">To</label>
+            <input type="text"
+                   id="toEmail"
+                   [(ngModel)]="email.to"
+                   name="to"
+                   placeholder="to"
+                   #emailTo = "ngModel"
+                   pattern="([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3},?)*$"
+                   class="form-control well well-sm" required>
+          </div>
+        </td>
+        <td class="col-md-4 offset-md-3">
+          <div class="form-group">
+            <div *ngIf="emailTo.invalid && (emailTo.dirty || emailTo.touched)"
+                 class="alert alert-danger">
+              <div *ngIf = "emailTo.errors?.required">
+                Email field can't be blank
+              </div>
+              <div *ngIf = "emailTo.errors?.dirty">
+                Enter in correct Format
+              </div>
+              <div *ngIf = "emailTo.errors?.pattern && emailTo.touched">
+                The email id doesn't seem right
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+
+      <tr class="row">
+        <td class="col-md-6 offset-md-3">
+          <div class="form-group">
+            <label class="control-label">Cc</label>
+            <input type="text"
+                   id="ccEmail"
+                   [(ngModel)]="email.cc"
+                   name="cc"
+                   #emailCc = "ngModel"
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                   placeholder="cc"
+                   class="form-control well well-sm">
+          </div>
+        </td>
+        <td class="col-md-4 offset-md-3">
+          <div class="form-group">
+            <div *ngIf="emailCc.invalid && (emailCc.dirty || emailCc.touched)"
+                 class="alert alert-danger">
+              <div *ngIf = "emailCc.errors?.required">
+                Email field can't be blank
+              </div>
+              <div *ngIf = "emailCc.errors?.dirty">
+                Enter in correct Format
+              </div>
+              <div *ngIf = "emailCc.errors?.pattern && emailCc.touched">
+                The email id doesn't seem right
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr class="row">
+        <td class="col-md-6 offset-md-3">
+          <div class="form-group">
+            <label class="control-label">Bcc</label>
+            <input type="text"
+                   id="bccEmail"
+                   [(ngModel)]="email.bcc"
+                   name="bcc"
+                   #emailBcc = "ngModel"
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3},?$"
+                   placeholder="bcc"
+                   class="form-control well well-sm">
+          </div>
+        </td>
+        <td class="col-md-4 offset-md-3">
+          <div class="form-group">
+            <div *ngIf="emailBcc.invalid && (emailBcc.dirty || emailBcc.touched)"
+                 class="alert alert-danger">
+              <div *ngIf = "emailBcc.errors?.required">
+                Email field can't be blank
+              </div>
+              <div *ngIf = "emailBcc.errors?.dirty">
+                Enter in correct Format
+              </div>
+              <div *ngIf = "emailBcc.errors?.pattern && emailBcc.touched">
+                The email id doesn't seem right
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr class="row">
+        <td class="col-md-2 offset-md-3">
+          <div class="form-group">
+
+            <label class="control-label" for="subjectEmail">Subject</label>
+            <input type="text"
+                   id="subjectEmail"
+                   [(ngModel)]="email.subject"
+                   name="subject"
+                   placeholder="subject"
+                   class="form-control well well-sm"
+                   required>
+          </div>
+        </td>
+      </tr>
+      <tr class="row">
+        <td class="col-md-2 offset-md-3">
+          <div class="form-group">
+
+            <label class="control-label" for="subjectEmail">Text</label>
+            <input type="text"
+                   id="textEmail"
+                   [(ngModel)]="email.text"
+                   name="text"
+                   placeholder="text"
+                   #pwd = "ngModel"
+                   minlength="8"
+                   class="form-control well well-sm"
+                   required>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div class="form-group" id="buttonTab">
+      <button type="reset" class="btn btn-default" id="buttonCancel" >Cancel</button>
+      <button type="submit" class="btn btn-primary"
+              [disabled]="!sendmailForm.form.valid" id="buttonSubmit">Submit</button>
+    </div>
+</form>
+</div>
