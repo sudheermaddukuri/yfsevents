@@ -1,0 +1,29 @@
+#mainDiv
+{
+  height: 100%;
+  width:70%;
+  margin:auto;
+}
+
+#heading
+{
+  height: 50px;
+  width: 100%;
+  padding-left: 35%;
+  margin: auto;
+  font-size: 25px;
+  margin-top: 50px;
+  background-color: silver;
+}
+#buttonTab
+{
+  paing-left:10%;
+}
+#buttonCancel
+{
+margin-left: 30%;
+}
+#buttonSubmit
+{
+  margin-left: 4%;
+}
