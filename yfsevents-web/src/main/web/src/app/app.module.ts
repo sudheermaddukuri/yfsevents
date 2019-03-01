@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InventoryDataComponent } from './inventory-data/inventory-data.component';
 import { CollegeRegistrationComponent } from './college-registration/college-registration.component';
 import { SendMailComponent } from './send-mail/send-mail.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SendMailComponent } from './send-mail/send-mail.component';
     VolunteerComponent,
     InventoryDataComponent,
     CollegeRegistrationComponent,
-    SendMailComponent
+    SendMailComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,

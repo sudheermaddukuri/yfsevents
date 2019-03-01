@@ -1,4 +1,64 @@
-<form >
+<div class="container-fluid">
+    <div class="page-header well text-center well-sm">
+      <h3><strong> Event Registration</strong></h3>
+    </div>
+
+    <form [formGroup]="eventForm" class="form-group">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <label class="control-label">Event Name</label>
+                <input type="text" formControlName="eventName" class="form-control" placeholder="Event Name">
+            </div>
+            <div class="col-md-6">
+                <label class="control-label">Action</label>
+                <select formControlName="eventAction" class="form-control">
+                  <option *ngFor="let action of eventActions" [value]="action">{{action}}</option>
+                </select>
+            </div>
+          </div>
+
+          <!-- <div class="row">
+              <div class="col-md-6 offset-md-3">
+                <label class="control-label">Partner Name</label>
+                <input type="text" formControlName="partnerName"  id="ngoname" placeholder="NGO Name" >
+              </div>
+              <div class="col-md-6">
+                  <label class="control-label">Action</label>
+                  <select id="eventaction"  formControlName="eventAction">
+                    <option selected>Choose...</option>
+                    <option>Not Started</option>
+                    <option>In progress</option>
+                    <option>completed</option>
+                    <option>Abandoned</option>
+                  </select>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-md-6 offset-md-3">
+                <label for="datepicker">Select Date Range</label>
+                <input id="datepicker" formControlName="eventDuration" class="form-control" bsDaterangepicker >
+              </div>
+              <!-- <div class="col-md-6">
+                  <label for="eventaction">Recurring Event</label>
+                  <select id="eventaction" class="form-control">
+                    <option selected>No</option>
+                    <option>Yes</option>
+                  </select>
+              </div> -->
+            </div>
+
+        </div>
+      </div>
+    </form>
+</div>  
+
+
+
+
+
+<!-- <form >
         <div class="form-row">
             <div class="col-md-1"></div>
           <div class="form-group col-md-5">
@@ -58,4 +118,4 @@
         
 
             
-</form>
+</form> -->

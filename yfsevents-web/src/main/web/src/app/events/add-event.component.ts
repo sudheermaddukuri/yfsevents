@@ -1,25 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector:'add-event',
-    templateUrl: './add-event.component.html'
+    templateUrl: './add-event.component.html',
+    styleUrls: ['./add-event.component.css']
   })
 
   export class AddEventComponent implements OnInit{
-
+    eventForm :FormGroup;
     bsValue = new Date();
     bsRangeValue: Date[];
     maxDate = new Date();
-    constructor() {
-      this.maxDate.setDate(this.maxDate.getDate() + 7);
-      this.bsRangeValue = [this.bsValue, this.maxDate];
+    eventActions: string[];
+    constructor(private formBuilder: FormBuilder) {
+      // this.maxDate.setDate(this.maxDate.getDate() + 7);
+      // this.bsRangeValue = [this.bsValue, this.maxDate];
+      this.eventActions=["Not Started","In progress","Completed","Abandoned"];
     }
    
   
-    ngOnInit():void{
+    ngOnInit(){
+      this.eventForm=this.formBuilder.group({
+        eventName: '',
+        eventAction: '',
+        eventDuration:''
 
+      });
 	}
 
 }
