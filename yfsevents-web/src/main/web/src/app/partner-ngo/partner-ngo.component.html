@@ -113,7 +113,7 @@
               <!--li class="nav active" *ngIf="numberOfAuthorisedPersons>0"><a href="#tab{{numberOfAuthorisedPersons-1}}" data-toggle="tab" (click)="activateTab(numberOfAuthorisedPersons)">Person {{numberOfAuthorisedPersons}}</a></li-->
               <!--li class="nav active" *ngIf="numberOfAuthorisedPersons>0"><a href="#tab{{numberOfAuthorisedPersons-1}}" data-toggle="tab" (click)="selectedTab=i">Person {{numberOfAuthorisedPersons}}</a></li-->
               <div class="pull-right">
-                <button class="btn btn-primary" (click)=addAuthorisedPerson() [disabled]="isMaxLimitReached(5)">Add Person</button>
+                <button class="btn btn-primary" (click)="addAuthorisedPerson()" [disabled]="isMaxLimitReached(5)">Add Person</button>
                 <!-- <button class="btn btn-primary" (click)=removeAuthorisedPerson() [disabled]="numberOfAuthorisedPersons">Remove Person</button> -->
               </div>
               <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->
@@ -172,7 +172,8 @@
         </div>
 
       </form>
-      <button class="btn btn-primary pull-right">Register</button>
+      <!--<span>{{myForm.value | json}}</span>-->
+      <button class="btn btn-primary pull-right" (click)="onSubmit()">Register</button>
     </div>
 
   </body>

@@ -10,7 +10,7 @@ import java.util.Set;
 public class Volunteer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String firstName;
@@ -26,11 +26,11 @@ public class Volunteer {
     private String state;
     private String pincode;
 
-    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<VolunteerPreferredTime> preferredTimes;
+    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
+    private List<VolunteerPreferredTime> preferredTimes;
 
-    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<VolunteerInterestedArea> interstedAreas;
+    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
+    private List<VolunteerInterestedArea> interstedAreas;
 
     public long getId() {
         return id;
@@ -136,5 +136,19 @@ public class Volunteer {
         this.pincode = pincode;
     }
 
+    public List<VolunteerPreferredTime> getPreferredTimes() {
+        return preferredTimes;
+    }
 
+    public void setPreferredTimes(List<VolunteerPreferredTime> preferredTimes) {
+        this.preferredTimes = preferredTimes;
+    }
+
+    public List<VolunteerInterestedArea> getInterstedAreas() {
+        return interstedAreas;
+    }
+
+    public void setInterstedAreas(List<VolunteerInterestedArea> interstedAreas) {
+        this.interstedAreas = interstedAreas;
+    }
 }
