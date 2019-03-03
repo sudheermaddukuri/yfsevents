@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-college-registration',
@@ -9,10 +10,11 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 export class CollegeRegistrationComponent  {
   collegeForm: FormGroup;
 
+
   private numberOfMOUs: number=0;
   private selectedTab: number=-1;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private apiService: ApiService) { }
 
   ngOnInit() {
     this.collegeForm= this.formBuilder.group({
@@ -109,6 +111,13 @@ export class CollegeRegistrationComponent  {
       this.selectedTab=val-1;
   }
 
+  onSubmit(){
+    console.log('inside method onsubmit');
+    let json= Object.assign({mouDetails:this.getMOUDetails().value}, this.collegeForm.get('collegeDetails').value, this.collegeForm.get('address').value);
+    console.log('submitting: ',json);
+    this.apiService.postData(json,'collegeregistration');
+    
+  }
   
 
 }
