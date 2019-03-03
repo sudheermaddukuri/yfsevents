@@ -1,3 +1,7 @@
 .row {
     margin-bottom:25px;
 }
+
+.itemsrow{
+    margin-bottom:0px !important;
+}

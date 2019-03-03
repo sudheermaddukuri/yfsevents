@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { EventListComponent } from './events/event-list.component';
 import { AddEventComponent } from './events/add-event.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { FormsModule } from '@angular/forms';
 import { VolunteerComponent } from './volunteer/volunteer.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,6 +19,7 @@ import { InventoryDataComponent } from './inventory-data/inventory-data.componen
 import { CollegeRegistrationComponent } from './college-registration/college-registration.component';
 import { SendMailComponent } from './send-mail/send-mail.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AgGridModule.withComponents([]),
     BsDatepickerModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TimepickerModule.forRoot(),
+    AngularMultiSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

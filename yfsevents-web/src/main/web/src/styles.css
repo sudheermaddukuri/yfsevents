@@ -3,6 +3,7 @@
 @import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~ngx-bootstrap/datepicker/bs-datepicker.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 
 .page-header{
     

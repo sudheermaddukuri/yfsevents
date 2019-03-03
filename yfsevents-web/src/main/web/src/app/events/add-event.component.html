@@ -3,15 +3,16 @@
       <h3><strong> Event Registration</strong></h3>
     </div>
 
-    <form [formGroup]="eventForm" class="form-group">
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
       <div class="panel panel-default">
         <div class="panel-body">
-          <div class="row">
-            <div class="col-md-6 offset-md-3">
+          
+          <div class="row form-row">
+            <div class="col-md-6 offset-md-3 form-group">
                 <label class="control-label">Event Name</label>
-                <input type="text" formControlName="eventName" class="form-control" placeholder="Event Name">
+                <input type="text" formControlName="eventName" placeholder="Event Name" class="form-control">
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 form-group">
                 <label class="control-label">Action</label>
                 <select formControlName="eventAction" class="form-control">
                   <option *ngFor="let action of eventActions" [value]="action">{{action}}</option>
@@ -19,38 +20,57 @@
             </div>
           </div>
 
-          <!-- <div class="row">
-              <div class="col-md-6 offset-md-3">
-                <label class="control-label">Partner Name</label>
-                <input type="text" formControlName="partnerName"  id="ngoname" placeholder="NGO Name" >
+          <div class="row form-row">
+            <div class="col-md-6 offset-md-3 form-group">
+                <label class="control-label">PartnerNGO Name</label>
+                <input type="text" formControlName="ngoName" placeholder="PartnerNGO Name" class="form-control">
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="control-label">Category</label>
+                <select formControlName="eventCategory" class="form-control">
+                  <option *ngFor="let category of eventCategories" [value]="category">{{category}}</option>
+                </select>
+            </div>
+            <div class="col-md-2 form-group">
+              <label class="control-label">Recurring Event:</label>
+              <select formControlName="recurringEvent" class="form-control">
+                <option *ngFor="let value of recurringEventOptions" [value]="value">{{value}}</option>
+              </select>
+            </div>
+          </div>
+
+            <div class="row form-row itemsrow">
+              <div class="col-md-6 offset-md-3 form-group">
+                <label for="datepicker">Select Date & Time Range</label>
+                <input type="text" class="form-control" id="datepicker" formControlName="eventDuration" bsDaterangepicker/>
               </div>
-              <div class="col-md-6">
-                  <label class="control-label">Action</label>
-                  <select id="eventaction"  formControlName="eventAction">
-                    <option selected>Choose...</option>
-                    <option>Not Started</option>
-                    <option>In progress</option>
-                    <option>completed</option>
-                    <option>Abandoned</option>
-                  </select>
+              <div class="col-md-3 form-group">
+                <timepicker [formControlName]="'fromTime'">
+                  </timepicker>
               </div>
-            </div> -->
-            <div class="row">
-              <div class="col-md-6 offset-md-3">
-                <label for="datepicker">Select Date Range</label>
-                <input id="datepicker" formControlName="eventDuration" class="form-control" bsDaterangepicker >
+              <div class="col-md-3 form-group">
+                <timepicker [formControlName]="'toTime'"></timepicker>
               </div>
-              <!-- <div class="col-md-6">
-                  <label for="eventaction">Recurring Event</label>
-                  <select id="eventaction" class="form-control">
-                    <option selected>No</option>
-                    <option>Yes</option>
-                  </select>
-              </div> -->
             </div>
 
+            <div class="row form-row">
+              <div class="col-md-9 offset-md-3 form-group">
+                <label class="control-label">Items Required:</label>
+                <angular2-multiselect [data]="itemList" [(ngModel)]="selectedItems" [settings]="settings" 
+                  (onSelect)="log($event)"
+                  (onDeSelect)="log($event)" 
+                  (onSelectAll)="log($event)" 
+                  (onDeSelectAll)="log($event)" formControlName="items">
+                </angular2-multiselect>
+              </div>
+              <div class="col-md-3  form-group">
+                  <label class="control-label">No. of Volunteers</label>
+                  <input type="text" formControlName="volunteers" placeholder="Number of Volunteers" class="form-control">
+              </div>
+            </div>
         </div>
       </div>
+      <button type="submit" [disabled]="eventForm.pristine">Save</button>
     </form>
 </div>  
 
