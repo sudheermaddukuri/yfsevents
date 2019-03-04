@@ -70,15 +70,18 @@ public class EmailController {
     public static Boolean sendMailController(String to,String Subject,String Content)
     {
         boolean result=false;
-        String from = "rainatushar221995@gmail.com";
-        String username = "rainatushar221995@gmail.com";
-        String password = "";
+        String from = "rainatushar221995221995@gmail.com";
+        String username = "rainatushar221995221995@gmail.com";
+        String password = "youthforseva";
         String host = "smtp.gmail.com";
 
         Properties props = setProperties();
         Session session=createSession(props,username,password);
 
         result=sendMail(session,from,to,Subject,Content);
+        System.out.println(result);
+
+
         return result;
     }
 
