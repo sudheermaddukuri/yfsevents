@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Injectable } from '@angular/core';
 import { FormBuilder, FormGroup,FormControl, Validators,FormArray } from '@angular/forms';
-
+import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../api.service'
 @Component({
   selector: 'app-volunteer',
   templateUrl: './volunteer.component.html',
@@ -12,7 +13,8 @@ export class VolunteerComponent implements OnInit {
 
 
 
-    constructor(private formBuilder: FormBuilder) { }
+    constructor(private formBuilder: FormBuilder,
+                private apiService:ApiService) { }
 
     ngOnInit() {
 
@@ -81,7 +83,12 @@ export class VolunteerComponent implements OnInit {
          }
 
     onSubmit(){console.log("Insubmit");console.log(this.address);if (this.myForm.valid) {
-                                                   console.log("valid")
+                                                   console.log("valid");
+                                                   let json= Object.assign(this.myForm.get('personalInfo').value, this.myForm.get('address').value);
+                                                       console.log('submitting: ',json);
+                                                       this.apiService.postData(json,'volunteer-create');
+
+                                                       // this.apiService.getData('partnerngo');
                                                }
                                                else{console.log("invalid");}console.log("address is"+this.myForm.valid);
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class VolunteerController {
 
     @Autowired
@@ -27,7 +28,7 @@ public class VolunteerController {
     public void createVolunteer(@RequestBody Volunteer volunteer)  {
 
         Volunteer volunteer1 = volunteerRepository.save(volunteer);
-
+/*
         volunteer1.getInterstedAreas().stream().forEach((interestedArea)-> {
             interestedArea.setVolunteer(volunteer1);
             volunteerInterestedAreaRepository.save(interestedArea);
@@ -36,6 +37,6 @@ public class VolunteerController {
         volunteer1.getPreferredTimes().stream().forEach((preferredTime)-> {
             preferredTime.setVolunteer(volunteer1);
         volunteerPreferredTimeRepository.save(preferredTime);
-        });
+        });*/
     }
 }
