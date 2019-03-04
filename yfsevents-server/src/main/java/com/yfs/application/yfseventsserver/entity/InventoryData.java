@@ -12,13 +12,13 @@ import java.util.stream.Stream;
 
 @Entity
 public class InventoryData {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private String eventCategory;
     private String itemName;
     private String comments;
-    private String eventCategory;
-
 
     public long getId() {
         return id;
@@ -26,6 +26,14 @@ public class InventoryData {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getEventCategory() {
+        return eventCategory;
+    }
+
+    public void setEventCategory(String eventCategory) {
+        this.eventCategory = eventCategory;
     }
 
     public String getItemName() {
@@ -44,11 +52,13 @@ public class InventoryData {
         this.comments = comments;
     }
 
-    public List<KeyValuePair> getEventCategory(){
+    public List<KeyValuePair> getEventCategoryList(){
         return EventCategory.getEnumList();
     }
 
-    enum EventCategory{
+
+}
+enum EventCategory {
         PARTNER_NGO(1, "Partner_Ngo"),
         EDUCATION(2, "Education"),
         ENVIRONMENT(3, "Environment"),
@@ -58,23 +68,21 @@ public class InventoryData {
         private final int key;
         private final String value;
 
-        EventCategory(int key,String value)
-        {
+        EventCategory(int key, String value) {
             this.key = key;
             this.value = value;
         }
 
-        private String getValue(){
+        private String getValue() {
             return this.value;
         }
-        private int getKey(){
+
+        private int getKey() {
             return this.key;
         }
 
-        public static List<KeyValuePair> getEnumList(){
+        public static List<KeyValuePair> getEnumList() {
             return Stream.of(EventCategory.values()).map(o -> new KeyValuePair(o.getKey(), o.getValue())).collect(Collectors.toList());
         }
-
-
-    }
 }
+

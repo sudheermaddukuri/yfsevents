@@ -16,6 +16,7 @@ export class ApiService {
 
   initialiseUrlList():void{
     this.urlList.set('partnerngo', '/partnerngo');
+    this.urlList.set('volunteer-create','/volunteer-create');
   }
   postData(data, type:string){
     console.log('posting', data);
