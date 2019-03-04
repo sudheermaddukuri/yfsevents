@@ -1,35 +1,42 @@
 package com.yfs.application.yfseventsserver.controller;
 
 
-import com.yfs.application.yfseventsserver.InventoryService;
+import com.yfs.application.yfseventsserver.KeyValuePair;
 import com.yfs.application.yfseventsserver.entity.InventoryData;
+import com.yfs.application.yfseventsserver.repository.InventoryDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.awt.*;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/inventorydata")
 
 public class InventoryDataController {
     @Autowired
-    InventoryService inventoryService;
+    InventoryDataRepository inventoryDataRepository;
 
-    @RequestMapping(value="/",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<InventoryData> saveInventoryData(@RequestBody InventoryData inventoryData){
-        InventoryData savedInventoryData = inventoryService.save(inventoryData);
-        if(savedInventoryData != null){
-            return new ResponseEntity<InventoryData>(savedInventoryData, HttpStatus.OK);
-        }
-        else
-        {
-            return new ResponseEntity<InventoryData>(savedInventoryData,HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @ResponseBody
+    @PostMapping("/list")
+    public InventoryData saveInventoryData(@RequestBody InventoryData inventoryData){
+        InventoryData savedInventoryData = inventoryDataRepository.save(inventoryData);
+        return savedInventoryData;
+
     }
+
+    @ResponseBody
+    @GetMapping("/list")
+    public Iterable<InventoryData> getInventoryData(){
+        return inventoryDataRepository.findAll();
+
+    }
+    @ResponseBody
+    @GetMapping("/eventcategory")
+    public Iterable<KeyValuePair> getEventCategoryList(){
+         InventoryData inventoryData = new InventoryData();
+         return inventoryData.getEventCategoryList();
+
+    }
+
+
+
 }
