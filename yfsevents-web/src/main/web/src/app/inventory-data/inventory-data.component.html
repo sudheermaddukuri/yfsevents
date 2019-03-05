@@ -9,7 +9,7 @@
           <div class="col-md-6 offset-md-3">
             <div class="form-group">
               <label class="control-label">ItemName</label>
-              <input type="text" formControlName="itemName" class="form-control well well-sm">
+              <input type="text" formControlName="itemName" class="form-control well well-sm" required>
             </div>
           </div>
         </div>
@@ -17,16 +17,10 @@
           <div class="col-md-6 offset-md-3">
             <div class="form-group">
               <label class="control-label">EventCategory</label>
-              <div class="dropdown">
-                <button class="btn btn default dropdown-toggle" type="button" data-toggle="dropdown">Select EventCategory
-                  <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Partner NGO</a></li>
-                  <li><a href="#">Education</a></li>
-                  <li><a href="#">Environment</a></li>
-                  <li><a href="#">Health</a></li>
-                  <li><a href="#">Other</a></li>
-                </ul>
+              <div>
+                <select [(ngModel)]="selected" [ngModelOptions]="{standalone:true}" class="form-control well well-sm" required>
+                  <option *ngFor="let evCat of eventCategory" [(ngValue)]="evCat.value">{{evCat.value}}</option>
+                </select>          
               </div>
             </div>
           </div>
@@ -43,6 +37,6 @@
     </div>
   </form>
   <div class="text-center">
-    <button class="btn btn-primary btn-sx">Save</button>
+    <button class="btn btn-primary btn-sx" (click)="onSubmit()">Save</button>
   </div>
 </div>
