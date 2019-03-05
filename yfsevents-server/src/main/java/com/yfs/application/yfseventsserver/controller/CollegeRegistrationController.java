@@ -28,7 +28,7 @@ public class CollegeRegistrationController {
     {
         CollegeRegistration collegeRegistration1 = collegeRegistrationRepository.save(collegeRegistration);
 
-        collegeRegistration1.getMou().stream().forEach((mou) ->{mou.setCollegeRegistration(collegeRegistration1);
+        collegeRegistration1.getMouDetails().stream().forEach((mou)-> { mou.setCollegeRegistration(collegeRegistration1);
         mouRepository.save(mou);
         });
         return collegeRegistration1;

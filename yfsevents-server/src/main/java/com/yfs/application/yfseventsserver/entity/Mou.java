@@ -16,11 +16,11 @@ public class Mou {
     @JoinColumn(name = "mou_id_id")
     private  CollegeRegistration collegeRegistration;
 
-    private String mouId;
+    private String mouID;
     private String mouName;
-    private String noOfEventsAgreed;
-    private String validFrom;
-    private String validTo;
+    private String noOfEvents;
+    private String fromDate;
+    private String toDate;
     private String comments;
 
     public long getId() {
@@ -39,12 +39,12 @@ public class Mou {
         this.collegeRegistration = collegeRegistration;
     }
 
-    public String getMouId() {
-        return mouId;
+    public String getMouID() {
+        return mouID;
     }
 
-    public void setMouId(String mouId) {
-        this.mouId = mouId;
+    public void setMouID(String mouID) {
+        this.mouID = mouID;
     }
 
     public String getMouName() {
@@ -55,28 +55,28 @@ public class Mou {
         this.mouName = mouName;
     }
 
-    public String getNoOfEventsAgreed() {
-        return noOfEventsAgreed;
+    public String getNoOfEvents() {
+        return noOfEvents;
     }
 
-    public void setNoOfEventsAgreed(String noOfEventsAgreed) {
-        this.noOfEventsAgreed = noOfEventsAgreed;
+    public void setNoOfEvents(String noOfEvents) {
+        this.noOfEvents = noOfEvents;
     }
 
-    public String getValidFrom() {
-        return validFrom;
+    public String getFromDate() {
+        return fromDate;
     }
 
-    public void setValidFrom(String validFrom) {
-        this.validFrom = validFrom;
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public String getValidTo() {
-        return validTo;
+    public String getToDate() {
+        return toDate;
     }
 
-    public void setValidTo(String validTo) {
-        this.validTo = validTo;
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 
     public String getComments() {

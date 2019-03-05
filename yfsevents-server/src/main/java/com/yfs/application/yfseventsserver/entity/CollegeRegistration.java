@@ -10,7 +10,7 @@ public class CollegeRegistration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String collegeName;
+    private String name;
     private String registrationId;
     private String addressLine1;
     private String addressLine2;
@@ -20,7 +20,7 @@ public class CollegeRegistration {
 
 
     @OneToMany(mappedBy = "collegeRegistration",cascade = CascadeType.ALL)
-    private List<Mou> mou;
+    private List<Mou> mouDetails;
 
     public long getId() {
         return id;
@@ -30,12 +30,12 @@ public class CollegeRegistration {
         this.id = id;
     }
 
-    public String getCollegeName() {
-        return collegeName;
+    public String getName() {
+        return name;
     }
 
-    public void setCollegeName(String collegeName) {
-        this.collegeName = collegeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getRegistrationId() {
@@ -86,11 +86,11 @@ public class CollegeRegistration {
         this.pincode = pincode;
     }
 
-    public List<Mou> getMou() {
-        return mou;
+    public List<Mou> getMouDetails() {
+        return mouDetails;
     }
 
-    public void setMou(List<Mou> mou) {
-        this.mou = mou;
+    public void setMouDetails(List<Mou> mouDetails) {
+        this.mouDetails = mouDetails;
     }
 }

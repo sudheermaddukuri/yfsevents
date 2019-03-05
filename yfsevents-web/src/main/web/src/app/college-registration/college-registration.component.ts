@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class CollegeRegistrationComponent  {
   private numberOfMOUs: number=0;
   private selectedTab: number=-1;
 
-  constructor(private formBuilder: FormBuilder, private apiService: ApiService) { }
+  constructor(private formBuilder: FormBuilder,
+              private apiService: ApiService) { }
 
   ngOnInit() {
     this.collegeForm= this.formBuilder.group({
