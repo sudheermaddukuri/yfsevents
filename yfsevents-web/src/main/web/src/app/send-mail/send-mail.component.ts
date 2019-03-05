@@ -10,7 +10,7 @@ import {ApiServiceMail} from "../api.service.mail";
   styleUrls: ['./send-mail.component.css']
 })
 export class SendMailComponent implements OnInit {
-  private email:Email;
+  public email:Email;
   constructor(
               private apiServiceMail: ApiServiceMail) { }
   ngOnInit() {
