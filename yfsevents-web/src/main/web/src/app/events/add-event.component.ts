@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 @Component({
     selector:'add-event',
@@ -12,6 +13,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
     bsValue = new Date();
     bsRangeValue: Date[];
     maxDate = new Date();
+    eventData = new Eventdata();
     itemList = [];
     selectedItems = [];
     settings={};
@@ -60,6 +62,35 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
   onSubmit():void{
     console.log(this.eventForm.value);
+    this.eventData.eventName= this.eventForm.value.eventName;
+    this.eventData.eventAction=this.eventForm.value.eventAction;
+    this.eventData.eventfromTime= formatDate(this.eventForm.value.fromTime,'shortTime','en-US');
+    this.eventData.eventtoTime = formatDate(this.eventForm.value.toTime,'shortTime','en-US');
+    this.eventData.ngoName = this.eventForm.value.ngoName;
+    this.eventData.volunteers = this.eventForm.value.volunteers;
+    // this.eventData.eventDuration=[];
+    // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[0],'fullDate','en-US'));
+    // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[1],'fullDate','en-US'));
+    this.eventData.eventDuration=this.eventForm.value.eventDuration.map(date=>formatDate(date,'fullDate','en-US'));
+    this.eventData.eventItems=this.eventForm.value.items.map(item => item.itemName);
+    console.log(this.eventData);
   }
+
+  
+
+}
+
+
+export class Eventdata {
+  eventName:string;
+  eventAction:string;
+  eventfromTime:string;
+  eventtoTime:string;
+  ngoName:string;
+  eventCategory: string;
+  recurringEvent:string;
+  volunteers:string;
+  eventDuration:string[];
+  eventItems:string[];
 
 }
