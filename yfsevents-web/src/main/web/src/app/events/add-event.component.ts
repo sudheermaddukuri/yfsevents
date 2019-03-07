@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
+import { ApiService } from '../api.service';
 
 @Component({
     selector:'add-event',
@@ -20,7 +21,7 @@ import { formatDate } from '@angular/common';
     eventActions: string[] = ['Not Started','In progress','Completed','Abandoned'];
     eventCategories: string[] = ['PartnerNGO','Education','Environment','Health','Other'];
     recurringEventOptions: string[] = ['Yes','No'];
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder,private apiService: ApiService) {
       this.eventForm=this.formBuilder.group({
         eventName: '',
         eventAction: 'Not Started',
@@ -74,6 +75,7 @@ import { formatDate } from '@angular/common';
     this.eventData.eventDuration=this.eventForm.value.eventDuration.map(date=>formatDate(date,'fullDate','en-US'));
     this.eventData.eventItems=this.eventForm.value.items.map(item => item.itemName);
     console.log(this.eventData);
+    this.apiService.postData(this.eventData,'event')
   }
 
   

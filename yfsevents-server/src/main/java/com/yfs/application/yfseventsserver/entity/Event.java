@@ -20,7 +20,7 @@ public class Event {
     private String recurringEvent;
     private String volunteers;
 
-    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<String> eventDuration;
 
     public List<String> getEventItems() {
@@ -31,7 +31,7 @@ public class Event {
         this.eventItems = eventItems;
     }
 
-    @OneToMany(mappedBy = "volunteer", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "event", cascade=CascadeType.ALL)
     private List<String> eventItems;
 
 
@@ -51,11 +51,11 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public List<Date> getEventDuration() {
+    public List<String> getEventDuration() {
         return eventDuration;
     }
 
-    public void setEventDuration(List<Date> eventDuration) {
+    public void setEventDuration(List<String> eventDuration) {
         this.eventDuration = eventDuration;
     }
 
@@ -67,19 +67,19 @@ public class Event {
         this.eventAction = eventAction;
     }
 
-    public Date getEventfromTime() {
+    public String getEventfromTime() {
         return eventfromTime;
     }
 
-    public void setEventfromTime(Date eventfromTime) {
+    public void setEventfromTime(String eventfromTime) {
         this.eventfromTime = eventfromTime;
     }
 
-    public Date getEventToTime() {
+    public String getEventToTime() {
         return eventToTime;
     }
 
-    public void setEventToTime(Date eventToTime) {
+    public void setEventToTime(String eventToTime) {
         this.eventToTime = eventToTime;
     }
 
