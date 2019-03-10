@@ -20,7 +20,7 @@ public class Event {
     private String recurringEvent;
     private String volunteers;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    @ElementCollection
     private List<String> eventDuration;
 
     public List<String> getEventItems() {
@@ -31,7 +31,7 @@ public class Event {
         this.eventItems = eventItems;
     }
 
-    @OneToMany(mappedBy = "event", cascade=CascadeType.ALL)
+    @ElementCollection
     private List<String> eventItems;
 
 

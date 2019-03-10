@@ -69,6 +69,7 @@ import { ApiService } from '../api.service';
     this.eventData.eventtoTime = formatDate(this.eventForm.value.toTime,'shortTime','en-US');
     this.eventData.ngoName = this.eventForm.value.ngoName;
     this.eventData.volunteers = this.eventForm.value.volunteers;
+    this.eventData.recurringEvent=this.eventForm.value.recurringEvent;
     // this.eventData.eventDuration=[];
     // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[0],'fullDate','en-US'));
     // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[1],'fullDate','en-US'));
