@@ -67,7 +67,12 @@
     <!--{{email | json}}-->
   <!--</div>-->
   <div id="heading">
+    <div id="backButton">
+      <a [routerLink]="['/events']">Back to Events</a>
+    </div>
+    <div id="headingText">
     Enter Email Details
+    </div>
   </div>
   <div id="mainDiv">
     <form class="form-horizontal"  #sendmailForm="ngForm"

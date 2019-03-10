@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {path:'events',component:EventListComponent},
   {path:'addevent',component:AddEventComponent},
-  {path:'volunteer',component:VolunteerComponent},
+  {path:'volunteer-create',component:VolunteerComponent},
   {
     path:'email',component:SendMailComponent
   },
