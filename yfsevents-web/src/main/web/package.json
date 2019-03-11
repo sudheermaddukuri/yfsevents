@@ -28,7 +28,9 @@
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26",
     "ag-grid-community": "latest",
-    "ag-grid-angular": "latest"
+    "ag-grid-angular": "latest",
+    "ng-pick-datetime": "^7.0.0",
+    "angular2-multiselect-dropdown": "^4.2.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.12.0",

@@ -8,6 +8,7 @@ import {VolunteerComponent}  from './volunteer/volunteer.component';
 import { InventoryDataComponent } from './inventory-data/inventory-data.component';
 import { CollegeRegistrationComponent } from './college-registration/college-registration.component';
 import {SendMailComponent} from "./send-mail/send-mail.component";
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
   {
@@ -26,7 +27,8 @@ const routes: Routes = [
     path:'email',component:SendMailComponent
   },
   {
-    path: '**', component: AppComponent
+  
+    path: '**', component: WelcomeComponent
     //to-do: update route
   }
 ];
