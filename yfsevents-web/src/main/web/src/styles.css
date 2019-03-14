@@ -5,9 +5,9 @@
 @import "~ngx-bootstrap/datepicker/bs-datepicker.css";
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 
-.page-header{
+/* .page-header{
     
-}
+} */
 
 .row-bottom-margin { 
     margin-bottom:2px; 
@@ -18,4 +18,17 @@
     margin: 0;
     margin-block-end: 0;
     padding-block-end: 0;
+}
+
+.form-group.required .control-label:after{
+    content:"*";
+    color: red;
+}
+
+/*.invalid-feedback{
+    display: false;
+}*/
+
+.btn-space{
+    margin-right: 5px;
 }

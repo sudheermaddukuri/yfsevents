@@ -19,9 +19,9 @@
           <div class="panel-body">
             <div formGroupName="basicInfo">
               <!-- <table class="form-table"> -->
-                <div class="row">
+                <div class="form-row">
                   <div class="col-md-6 offset-md-3">
-                    <div class="form-group">
+                    <div class="form-group required">
                       <label class="control-label">Name</label>
                       <input type="text" formControlName = "name" class="form-control well well-sm">
                     </div>
@@ -33,7 +33,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <div class="form-row">
                   <div class="col-md-6 offset-md-3">
                     <div class="form-group">
                       <label class="control-label">Branch</label>
@@ -61,7 +61,7 @@
               <!-- <table class="form-table"> -->
                 <div class="row">
                   <div class="col-md-6 offset-md-3">
-                    <div class="form-group">
+                    <div class="form-group required">
                       <label class="control-label">Address Line 1</label>
                       <input type="text" formControlName = "addressLine1" class="form-control well well-sm">
                     </div>
@@ -75,13 +75,13 @@
                 </div>
                 <div class="row">
                   <div class="col-md-6 offset-md-3">
-                    <div class="form-group">
+                    <div class="form-group required">
                       <label class="control-label">City</label>
                       <input type="text" formControlName = "city" class="form-control well well-sm">
                     </div>
                   </div>
                   <div class="col-md-6 offset-md-3">
-                    <div class="form-group">
+                    <div class="form-group required">
                       <label class="control-label">State</label>
                       <input type="text" formControlName = "state" class="form-control well well-sm">
                     </div>
@@ -113,8 +113,8 @@
               <!--li class="nav active" *ngIf="numberOfAuthorisedPersons>0"><a href="#tab{{numberOfAuthorisedPersons-1}}" data-toggle="tab" (click)="activateTab(numberOfAuthorisedPersons)">Person {{numberOfAuthorisedPersons}}</a></li-->
               <!--li class="nav active" *ngIf="numberOfAuthorisedPersons>0"><a href="#tab{{numberOfAuthorisedPersons-1}}" data-toggle="tab" (click)="selectedTab=i">Person {{numberOfAuthorisedPersons}}</a></li-->
               <div class="pull-right">
-                <button class="btn btn-primary" (click)="addAuthorisedPerson()" [disabled]="isMaxLimitReached(5)">Add Person</button>
-                <!-- <button class="btn btn-primary" (click)=removeAuthorisedPerson() [disabled]="numberOfAuthorisedPersons">Remove Person</button> -->
+                <button class="btn btn-sm btn-primary btn-space" (click)="addAuthorisedPerson()" [disabled]="isMaxLimitReached(5)">Add Person</button>
+                <button class="btn btn-sm btn-primary" (click)="removeAuthorisedPerson(selectedTab)" confirm="Are you sure you want to delete?" confirm-ok="Yes" confirm-cancel="No" [disabled]="isMinLimitReached()">Remove Person</button>
               </div>
               <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->
             </ul>
@@ -127,7 +127,7 @@
                   <div *ngIf="selectedTab==i">
                     <div class="row">
                       <div class="col-md-6 offset-md-3">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Name</label>
                           <input type="text" formControlName = "name" class="form-control well well-sm">
                         </div>
@@ -137,7 +137,7 @@
                     </div>
                     <div class="row">
                       <div class="col-md-6 offset-md-3">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Contact Details</label>
                           <input type="text" formControlName = "contact1" class="form-control well well-sm">
                         </div>

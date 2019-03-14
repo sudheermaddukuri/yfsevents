@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, FormGroup, FormControl, Validators, FormBuilder, FormArray }  from '@angular/forms';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ApiService } from '../api.service';
+// import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-partner-ngo',
@@ -101,9 +101,17 @@ export class PartnerNGOComponent implements OnInit {
 
   removeAuthorisedPerson(index): void{
     if(this.numberOfAuthorisedPersons>1){
-      (this.getAuthorisedPersons()).removeAt(index);
-      this.numberOfAuthorisedPersons=this.getAuthorisedPersons().length;
-      this.selectedTab=this.numberOfAuthorisedPersons-1;
+      // var authorizedPerson = this.getAuthorisedPersons();
+      // var name = authorizedPerson[index].get('name');
+      // confirm("Do you want to delete "
+      if(confirm("Do you want to delete ")){
+        (this.getAuthorisedPersons()).removeAt(index);
+        this.numberOfAuthorisedPersons=this.getAuthorisedPersons().length;
+        if(this.selectedTab==this.numberOfAuthorisedPersons)
+          this.selectedTab=this.numberOfAuthorisedPersons-1;
+      }
+    }else{
+
     }
   }
 
@@ -113,6 +121,10 @@ export class PartnerNGOComponent implements OnInit {
 
   isMaxLimitReached(val):boolean{
     return this.numberOfAuthorisedPersons>=val;
+  }
+
+  isMinLimitReached():boolean{
+    return this.numberOfAuthorisedPersons===1;
   }
 
   getArray(val): number[]{
