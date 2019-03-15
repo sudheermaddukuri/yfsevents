@@ -18,6 +18,7 @@ const routes: Routes = [
     path: 'inventorydata', component: InventoryDataComponent
   },
   {
+    //path: 'partnerngo/:mode/:id', component: PartnerNGOComponent
     path: 'partnerngo', component: PartnerNGOComponent
   },
   {path:'events',component:EventListComponent},

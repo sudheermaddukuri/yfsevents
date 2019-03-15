@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, FormGroup, FormControl, Validators, FormBuilder, FormArray }  from '@angular/forms';
 import { ApiService } from '../api.service';
+import { ActivatedRoute } from '@angular/router';
 // import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -14,9 +15,14 @@ export class PartnerNGOComponent implements OnInit {
 
   private numberOfAuthorisedPersons: number=0;
   private selectedTab: number=-1;
+  //private mode: String='new';
+  //private id: LongRange;
 
   constructor(private formBuilder: FormBuilder,
-              private apiService: ApiService) { }
+             private apiService: ApiService
+             //,
+      //       private route: ActivatedRoute)
+       { }
 
   ngOnInit() {
     console.log('Loading PartnerNgo Screen');
@@ -25,8 +31,15 @@ export class PartnerNGOComponent implements OnInit {
       address: this.address(),
       authorisedPersons: this.formBuilder.array([this.authorisedPerson()])
     });
+
+   // this.route.params.subscribe(params=>{
+     // this.mode=params['mode']||this.mode;
+      //this.id=params['id']||null;
+
+    //});
+
     this.numberOfAuthorisedPersons=this.getAuthorisedPersons().length;
-    this.activateTab(this.numberOfAuthorisedPersons);
+    this.activateTab(1);
   }
 
   partnerNgoGroup(): FormGroup{
