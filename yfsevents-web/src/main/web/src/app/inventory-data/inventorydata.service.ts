@@ -10,17 +10,23 @@ export class InventorydataService {
   constructor(private http:HttpClient) { }
 
   saveInventoryData(data:any){
-    this.http.post(`${environment.serverHost}/inventorydata/list`,data).subscribe(response=>{
-      console.log('response: ',response);
-    });
+    return this.http.post(`${environment.serverHost}/inventorydata/list`,data);
   }
 
   getInventoryData(){
-    this.http.get(`${environment.serverHost}/inventorydata/list`);
+    return this.http.get(`${environment.serverHost}/inventorydata/list`);
   }
 
   getEventCategoryList(){
     return this.http.get(`${environment.serverHost}/inventorydata/eventcategory`);
+  }
+  
+  getInventoryDataById(id:any){
+    return this.http.get(`${environment.serverHost}/inventorydata/list/${id}`)
+  }
+  
+  updateInventoryDataById(data:any,id:any){
+    return this.http.put(`${environment.serverHost}/inventorydata/list/${id}`,data)
   }
   
  
