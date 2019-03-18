@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector:'event-list',
@@ -8,24 +9,36 @@ import { Component, OnInit } from '@angular/core';
 
 export class EventListComponent implements OnInit{
 
+  rowData = new TableData();
+
 	columnDefs = [
-        {headerName: 'EventId', field: 'event_id',filter:true },
-        {headerName: 'Action', field: 'action',filter:true},
-        {headerName: 'Event Name', field: 'event_name',filter:true},
-        {headerName: 'Event Category', field: 'event_category',filter:true},
-        {headerName: 'Partner NGO', field: 'ngo_name',filter:true},
+        {headerName: 'EventId', field: 'id',filter:true },
+        {headerName: 'Action', field: 'eventAction',filter:true},
+        {headerName: 'Event Name', field: 'eventName',filter:true},
+        {headerName: 'Event Category', field: 'eventCategory',filter:true},
+        {headerName: 'Partner NGO', field: 'ngoName',filter:true},
         {headerName: 'Event Start Date', field: 'event_start_date',filter:true},
         {headerName: 'Event End Date', field: 'event_end_date',filter:true},
         
     ];
 
-    rowData = [
-        { event_id: '1001', action: 'Not Started', event_name: 'ABC', event_category :'Partner NGO',ngo_name:'XYZ',event_start_date:'15/2/2019',event_end_date:'17/2/2019' },
-    
-    ];
-	
+    eventData :any;
+    constructor(private apiService: ApiService){}
 
 	ngOnInit():void{
+      this.eventData = this.apiService.getData('events');
+      this.rowData = this.eventData;
+      this.rowData.eventStartDate= this.eventData.eventDuration.get(0);
+    this.rowData.eventEndDate = this.eventData.eventDuration.get(1);
+  console.log(this.rowData);	}
+}
 
-	}
+export class TableData{
+  id:string;
+  eventAction:string;
+  eventName:string;
+  eventCategory:string;
+  ngoName:string;
+  eventStartDate:string;
+  eventEndDate:string;
 }

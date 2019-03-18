@@ -17,6 +17,7 @@ export class ApiService {
   initialiseUrlList():void{
     this.urlList.set('partnerngo', '/partnerngo');
     this.urlList.set('event','/event');
+    this.urlList.set('events','/events');
     this.urlList.set('volunteer-create','/volunteer-create');
     this.urlList.set('collegeregistration','/collegeregistration');
   }

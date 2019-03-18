@@ -14,7 +14,7 @@ public class Event {
     private String eventName;
     private String eventAction;
     private String eventfromTime;
-    private String eventToTime;
+    private String eventtoTime;
     private String ngoName;
     private String eventCategory;
     private String recurringEvent;
@@ -23,6 +23,11 @@ public class Event {
     @ElementCollection
     private List<String> eventDuration;
 
+
+
+    @ElementCollection
+    private List<String> eventItems;
+
     public List<String> getEventItems() {
         return eventItems;
     }
@@ -30,9 +35,6 @@ public class Event {
     public void setEventItems(List<String> eventItems) {
         this.eventItems = eventItems;
     }
-
-    @ElementCollection
-    private List<String> eventItems;
 
 
     public long getId() {
@@ -75,12 +77,12 @@ public class Event {
         this.eventfromTime = eventfromTime;
     }
 
-    public String getEventToTime() {
-        return eventToTime;
+    public String getEventtoTime() {
+        return eventtoTime;
     }
 
-    public void setEventToTime(String eventToTime) {
-        this.eventToTime = eventToTime;
+    public void setEventtoTime(String eventToTime) {
+        this.eventtoTime = eventToTime;
     }
 
     public String getNgoName() {
