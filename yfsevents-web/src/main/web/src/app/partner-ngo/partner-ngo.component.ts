@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormsModule, FormGroup, FormControl, Validators, FormBuilder, FormArray }  from '@angular/forms';
 import { ApiService } from '../api.service';
 import { ActivatedRoute } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 // import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -9,37 +10,60 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './partner-ngo.component.html',
   styleUrls: ['./partner-ngo.component.css']
 })
-export class PartnerNGOComponent implements OnInit {
+export class PartnerNGOComponent implements OnInit, AfterViewInit {
 
   myForm: FormGroup;
 
-  private numberOfAuthorisedPersons: number=0;
+  private numberOfAuthorizedPersons: number=0;
   private selectedTab: number=-1;
-  //private mode: String='new';
-  //private id: LongRange;
+  private mode: String;
+  private id: number;
 
   constructor(private formBuilder: FormBuilder,
-             private apiService: ApiService
-             //,
-      //       private route: ActivatedRoute)
-       { }
+             private apiService: ApiService,
+             private route: ActivatedRoute){ }
 
   ngOnInit() {
     console.log('Loading PartnerNgo Screen');
     this.myForm = this.formBuilder.group({
       basicInfo: this.partnerNgoGroup(),
       address: this.address(),
-      authorisedPersons: this.formBuilder.array([this.authorisedPerson()])
+      authorizedPersons: this.formBuilder.array([this.authorisedPerson()])
     });
 
-   // this.route.params.subscribe(params=>{
-     // this.mode=params['mode']||this.mode;
-      //this.id=params['id']||null;
+    this.route.paramMap.subscribe(params=>{
+      console.log(params);
+      this.mode=params.get('mode');
+      this.id=+params.get('id');
+      if(!isNaN(this.id)){
+        this.apiService.getData('partnerngo',this.id).subscribe(data =>{
+          console.log("GetResponse: "+data);
+          this.myForm.setValue(data);
+          this.myForm.get('basicInfo').setValue(data);
+          this.myForm.get('address').setValue(data);
+          this.myForm.get('authorizedPersons').setValue(data);
+          this.myForm.updateValueAndValidity(data);
+        });
+      }else{
 
-    //});
+      }
+    });
+    // if(this.route.snapshot.paramMap.get('mode')){
+    //   this.mode = this.route.snapshot.paramMap.get('mode');
+    //   this.id = +this.route.snapshot.paramMap.get('id');
+      
+    // }
 
-    this.numberOfAuthorisedPersons=this.getAuthorisedPersons().length;
+    this.numberOfAuthorizedPersons=this.getAuthorizedPersons().length;
     this.activateTab(1);
+  }
+
+  ngAfterViewInit(){
+    if(this.mode==='view'){
+      Array.from(document.getElementsByClassName('form-control')).forEach(element => {
+        (<HTMLInputElement>element).disabled = true;
+      });
+    }
   }
 
   partnerNgoGroup(): FormGroup{
@@ -100,44 +124,44 @@ export class PartnerNGOComponent implements OnInit {
     });
   }
 
-  getAuthorisedPersons(): FormArray{
-    return this.myForm.get('authorisedPersons') as FormArray;
+  getAuthorizedPersons(): FormArray{
+    return this.myForm.get('authorizedPersons') as FormArray;
   }
 
   addAuthorisedPerson():void{
-    if(this.numberOfAuthorisedPersons<5){
-      (this.getAuthorisedPersons()).push(this.authorisedPerson());
-      this.numberOfAuthorisedPersons=this.getAuthorisedPersons().length;
-      //this.activateTab(this.numberOfAuthorisedPersons);
+    if(this.numberOfAuthorizedPersons<5){
+      (this.getAuthorizedPersons()).push(this.authorisedPerson());
+      this.numberOfAuthorizedPersons=this.getAuthorizedPersons().length;
+      //this.activateTab(this.numberOfAuthorizedPersons);
     }
   }
 
   removeAuthorisedPerson(index): void{
-    if(this.numberOfAuthorisedPersons>1){
-      // var authorizedPerson = this.getAuthorisedPersons();
+    if(this.numberOfAuthorizedPersons>1){
+      // var authorizedPerson = this.getAuthorizedPersons();
       // var name = authorizedPerson[index].get('name');
       // confirm("Do you want to delete "
       if(confirm("Do you want to delete ")){
-        (this.getAuthorisedPersons()).removeAt(index);
-        this.numberOfAuthorisedPersons=this.getAuthorisedPersons().length;
-        if(this.selectedTab==this.numberOfAuthorisedPersons)
-          this.selectedTab=this.numberOfAuthorisedPersons-1;
+        (this.getAuthorizedPersons()).removeAt(index);
+        this.numberOfAuthorizedPersons=this.getAuthorizedPersons().length;
+        if(this.selectedTab==this.numberOfAuthorizedPersons)
+          this.selectedTab=this.numberOfAuthorizedPersons-1;
       }
     }else{
 
     }
   }
 
-  getNumberOfAuthorisedPersons(): Number{
-    return this.numberOfAuthorisedPersons;
+  getNumberOfAuthorizedPersons(): Number{
+    return this.numberOfAuthorizedPersons;
   }
 
   isMaxLimitReached(val):boolean{
-    return this.numberOfAuthorisedPersons>=val;
+    return this.numberOfAuthorizedPersons>=val;
   }
 
   isMinLimitReached():boolean{
-    return this.numberOfAuthorisedPersons===1;
+    return this.numberOfAuthorizedPersons===1;
   }
 
   getArray(val): number[]{
@@ -149,7 +173,7 @@ export class PartnerNGOComponent implements OnInit {
   }
 
   onSubmit(){
-    let json= Object.assign({authorizedPerson:this.getAuthorisedPersons().value}, this.myForm.get('basicInfo').value, this.myForm.get('address').value);
+    let json= Object.assign({authorizedPerson:this.getAuthorizedPersons().value}, this.myForm.get('basicInfo').value, this.myForm.get('address').value);
     console.log('submitting: ',json);
     this.apiService.postData(json,'partnerngo');
     //To test only

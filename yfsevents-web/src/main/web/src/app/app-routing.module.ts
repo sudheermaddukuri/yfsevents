@@ -9,6 +9,7 @@ import { InventoryDataComponent } from './inventory-data/inventory-data.componen
 import { CollegeRegistrationComponent } from './college-registration/college-registration.component';
 import {SendMailComponent} from "./send-mail/send-mail.component";
 import { WelcomeComponent } from './welcome/welcome.component';
+import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
 
 const routes: Routes = [
   {
@@ -18,8 +19,13 @@ const routes: Routes = [
     path: 'inventorydata', component: InventoryDataComponent
   },
   {
-    //path: 'partnerngo/:mode/:id', component: PartnerNGOComponent
-    path: 'partnerngo', component: PartnerNGOComponent
+    path: 'partnerngo', children:[
+      { path: '', component:PartnerNGOComponent },
+      { path: ':mode/:id', component: PartnerNGOComponent}
+    ]
+  },
+  {
+    path: 'grid/partnerngo', component: PartnerNgoGridComponent
   },
   {path:'events',component:EventListComponent},
   {path:'addevent',component:AddEventComponent},

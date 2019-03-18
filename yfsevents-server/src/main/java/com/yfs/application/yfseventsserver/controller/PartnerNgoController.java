@@ -27,7 +27,7 @@ public class PartnerNgoController {
 
     @ResponseBody
     @GetMapping("/partnerngo")
-    public Iterable<PartnerNgo> getPartnerNgos() {
+    public Iterable<PartnerNgo> getAllPartnerNgos() {
         return partnerNgoRepository.findAll();
     }
 

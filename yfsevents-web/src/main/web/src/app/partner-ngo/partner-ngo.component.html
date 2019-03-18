@@ -108,10 +108,10 @@
           </div>
           <div class="panel-body">
             <ul class="nav nav-tabs" active="selectedTab">
-              <li class="nav active" *ngIf="numberOfAuthorisedPersons>0"><a href="#tab0" data-toggle="tab" (click)="activateTab(1)">Person 1</a></li>
-              <li class="nav" *ngFor="let num of getArray(numberOfAuthorisedPersons-1); let i=index;"><a href="#tab{{i+1}}" data-toggle="tab" (click)="activateTab(i+2)">Person {{i+2}}</a></li>
-              <!--li class="nav active" *ngIf="numberOfAuthorisedPersons>0"><a href="#tab{{numberOfAuthorisedPersons-1}}" data-toggle="tab" (click)="activateTab(numberOfAuthorisedPersons)">Person {{numberOfAuthorisedPersons}}</a></li-->
-              <!--li class="nav active" *ngIf="numberOfAuthorisedPersons>0"><a href="#tab{{numberOfAuthorisedPersons-1}}" data-toggle="tab" (click)="selectedTab=i">Person {{numberOfAuthorisedPersons}}</a></li-->
+              <li class="nav active" *ngIf="numberOfAuthorizedPersons>0"><a href="#tab0" data-toggle="tab" (click)="activateTab(1)">Person 1</a></li>
+              <li class="nav" *ngFor="let num of getArray(numberOfAuthorizedPersons-1); let i=index;"><a href="#tab{{i+1}}" data-toggle="tab" (click)="activateTab(i+2)">Person {{i+2}}</a></li>
+              <!--li class="nav active" *ngIf="numberOfAuthorizedPersons>0"><a href="#tab{{numberOfAuthorizedPersons-1}}" data-toggle="tab" (click)="activateTab(numberOfAuthorizedPersons)">Person {{numberOfAuthorizedPersons}}</a></li-->
+              <!--li class="nav active" *ngIf="numberOfAuthorizedPersons>0"><a href="#tab{{numberOfAuthorizedPersons-1}}" data-toggle="tab" (click)="selectedTab=i">Person {{numberOfAuthorizedPersons}}</a></li-->
               <div class="pull-right">
                 <button class="btn btn-sm btn-primary btn-space" (click)="addAuthorisedPerson()" [disabled]="isMaxLimitReached(5)">Add Person</button>
                 <button class="btn btn-sm btn-primary" (click)="removeAuthorisedPerson(selectedTab)" confirm="Are you sure you want to delete?" confirm-ok="Yes" confirm-cancel="No" [disabled]="isMinLimitReached()">Remove Person</button>
@@ -120,9 +120,9 @@
             </ul>
 
             <div class="tab-content">
-              <div formArrayName="authorisedPersons">
+              <div formArrayName="authorizedPersons">
                 <!--ToDo: NgFor not working: Check-->
-                <div class="tab-pane" *ngFor="let person of myForm.get('authorisedPersons').controls;let i=index" formGroupName="{{i}}" id="tab{{i}}">
+                <div class="tab-pane" *ngFor="let person of myForm.get('authorizedPersons').controls;let i=index" formGroupName="{{i}}" id="tab{{i}}">
                   <!-- <table class="form-table"> -->
                   <div *ngIf="selectedTab==i">
                     <div class="row">

@@ -75,8 +75,7 @@ var ApiServiceMail = /** @class */ (function () {
         console.log('postingggg', data);
         this.http.post(this.basicURL + this.urlList.get("send"), data).subscribe(function (response) {
             console.log('postResponse: ', response);
-            var tmp = response.toString();
-            alert(tmp);
+            alert("Sucessfully Sent Email");
         });
     };
     ApiServiceMail = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -127,10 +126,12 @@ var ApiService = /** @class */ (function () {
             console.log('postResponse: ', response);
         });
     };
-    ApiService.prototype.getData = function (type) {
-        this.http.get(this.basicURL + this.urlList.get(type)).subscribe(function (response) {
-            console.log('getResponse: ', response);
-        });
+    ApiService.prototype.getData = function (type, id) {
+        var uri = this.basicURL + this.urlList.get(type);
+        if (id) {
+            uri = uri + '/' + id;
+        }
+        return this.http.get(uri);
     };
     ApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -166,6 +167,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./college-registration/college-registration.component */ "./src/app/college-registration/college-registration.component.ts");
 /* harmony import */ var _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./send-mail/send-mail.component */ "./src/app/send-mail/send-mail.component.ts");
 /* harmony import */ var _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./welcome/welcome.component */ "./src/app/welcome/welcome.component.ts");
+/* harmony import */ var _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./partner-ngo-grid/partner-ngo-grid.component */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts");
+
 
 
 
@@ -185,7 +188,13 @@ var routes = [
         path: 'inventorydata', component: _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_7__["InventoryDataComponent"]
     },
     {
-        path: 'partnerngo', component: _partner_ngo_partner_ngo_component__WEBPACK_IMPORTED_MODULE_3__["PartnerNGOComponent"]
+        path: 'partnerngo', children: [
+            { path: '', component: _partner_ngo_partner_ngo_component__WEBPACK_IMPORTED_MODULE_3__["PartnerNGOComponent"] },
+            { path: ':mode/:id', component: _partner_ngo_partner_ngo_component__WEBPACK_IMPORTED_MODULE_3__["PartnerNGOComponent"] }
+        ]
+    },
+    {
+        path: 'grid/partnerngo', component: _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_11__["PartnerNgoGridComponent"]
     },
     { path: 'events', component: _events_event_list_component__WEBPACK_IMPORTED_MODULE_4__["EventListComponent"] },
     { path: 'addevent', component: _events_add_event_component__WEBPACK_IMPORTED_MODULE_5__["AddEventComponent"] },
@@ -301,6 +310,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./send-mail/send-mail.component */ "./src/app/send-mail/send-mail.component.ts");
 /* harmony import */ var _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./welcome/welcome.component */ "./src/app/welcome/welcome.component.ts");
 /* harmony import */ var angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! angular2-multiselect-dropdown */ "./node_modules/angular2-multiselect-dropdown/fesm5/angular2-multiselect-dropdown.js");
+/* harmony import */ var _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./partner-ngo-grid/partner-ngo-grid.component */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts");
+
 
 
 
@@ -340,7 +351,8 @@ var AppModule = /** @class */ (function () {
                 _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_17__["InventoryDataComponent"],
                 _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_18__["CollegeRegistrationComponent"],
                 _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_19__["SendMailComponent"],
-                _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_20__["WelcomeComponent"]
+                _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_20__["WelcomeComponent"],
+                _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_22__["PartnerNgoGridComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -943,6 +955,104 @@ var InventorydataService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/partner-ngo-grid/partner-ngo-grid.component.css":
+/*!*****************************************************************!*\
+  !*** ./src/app/partner-ngo-grid/partner-ngo-grid.component.css ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJwYXJ0bmVyLW5nby1ncmlkL3BhcnRuZXItbmdvLWdyaWQuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/partner-ngo-grid/partner-ngo-grid.component.html":
+/*!******************************************************************!*\
+  !*** ./src/app/partner-ngo-grid/partner-ngo-grid.component.html ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> Partner NGO </strong></h3>\n  </div>\n  <div class=\"col-md-10\" #myGrid  style=\"width: 100%; height: 100%;\">\n    <ag-grid-angular \n      class=\"ag-theme-balham\" \n      [rowData]=\"data\" \n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\"\n      (rowDoubleClicked)=\"onRowDoubleCilcked(event)\"\n    >\n      <!-- [rowSelection]=\"single\" \n      (gridReady)=\"onGridReady($event)\"\n      (cellDoubleClicked)=\"onCellDoubleClicked($event)\"-->\n    </ag-grid-angular>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/partner-ngo-grid/partner-ngo-grid.component.ts ***!
+  \****************************************************************/
+/*! exports provided: PartnerNgoGridComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PartnerNgoGridComponent", function() { return PartnerNgoGridComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+var PartnerNgoGridComponent = /** @class */ (function () {
+    function PartnerNgoGridComponent(apiService, router) {
+        this.apiService = apiService;
+        this.router = router;
+        this.data = [];
+        this.headers = [
+            { headerName: 'Name', field: 'name', filter: true, sortable: true },
+            { headerName: 'Description', field: 'description', filter: true },
+            { headerName: 'City', field: 'city', filter: true },
+            { headerName: 'State', field: 'state', filter: true }
+            //{headerName: 'authorized Person', field: 'authorizedPersonName'}
+        ];
+    }
+    PartnerNgoGridComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        /*this.data=[
+          {name:'n1', description: 'd1', city: 'c1', state: 's1', authorizedPerson: [
+            {name: 'a1'},{name:'a2'}
+          ]},
+          {name:'n2', description: 'd2', city: 'c2', state: 's2', authorizedPerson: [
+            {name: 'b1'},{name:'b2'},{name:'b3'},{name:'b4'},{name:'b5'}
+          ]}
+        ];*/
+        this.apiService.getData('partnerngo').subscribe(function (response) {
+            _this.data = response;
+            console.log(_this.data);
+        });
+    };
+    /*onGridReady(params){
+      this.gridApi=params.api;
+      console.log(this.gridApi);
+    }*/
+    PartnerNgoGridComponent.prototype.onRowCilcked = function (event) {
+        console.log(event.rowIndex);
+        this.router.navigateByUrl("/partnerngo/view/" + ((event.rowIndex) + 1));
+        //console.log(this.(event.data));
+    };
+    PartnerNgoGridComponent.prototype.onRowDoubleCilcked = function (event) {
+        console.log(event.rowIndex);
+        this.router.navigateByUrl("/partnerngo/edit/" + event.rowIndex);
+        //console.log(this.(event.data));
+    };
+    PartnerNgoGridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-partner-ngo-grid',
+            template: __webpack_require__(/*! ./partner-ngo-grid.component.html */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.html"),
+            styles: [__webpack_require__(/*! ./partner-ngo-grid.component.css */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    ], PartnerNgoGridComponent);
+    return PartnerNgoGridComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/partner-ngo/partner-ngo.component.css":
 /*!*******************************************************!*\
   !*** ./src/app/partner-ngo/partner-ngo.component.css ***!
@@ -961,7 +1071,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1 user-scalable=no\">\n  </head>\n\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"page-header well well-sm\">\n        <h3><strong> Partner NGO Registration</strong></h3>\n      </div>\n      \n      <form [formGroup]=\"myForm\">\n        <!-- ToDo: Decrease space between the table rows-->\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Basic Information</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"basicInfo\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Name</label>\n                      <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Description</label>\n                      <input type=\"text\" formControlName = \"description\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Branch</label>\n                      <input type=\"text\" formControlName = \"branch\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Registration Number</label>\n                      <input type=\"text\" formControlName = \"registrationNumber\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Address</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"address\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Address Line 1</label>\n                      <input type=\"text\" formControlName = \"addressLine1\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Address Line 2</label>\n                      <input type=\"text\" formControlName = \"addressLine2\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">City</label>\n                      <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">State</label>\n                      <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Pincode</label>\n                      <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Authorised Persons</label>\n          </div>\n          <div class=\"panel-body\">\n            <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n              <li class=\"nav active\" *ngIf=\"numberOfAuthorisedPersons>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">Person 1</a></li>\n              <li class=\"nav\" *ngFor=\"let num of getArray(numberOfAuthorisedPersons-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\" (click)=\"activateTab(i+2)\">Person {{i+2}}</a></li>\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorisedPersons>0\"><a href=\"#tab{{numberOfAuthorisedPersons-1}}\" data-toggle=\"tab\" (click)=\"activateTab(numberOfAuthorisedPersons)\">Person {{numberOfAuthorisedPersons}}</a></li-->\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorisedPersons>0\"><a href=\"#tab{{numberOfAuthorisedPersons-1}}\" data-toggle=\"tab\" (click)=\"selectedTab=i\">Person {{numberOfAuthorisedPersons}}</a></li-->\n              <div class=\"pull-right\">\n                <button class=\"btn btn-primary\" (click)=\"addAuthorisedPerson()\" [disabled]=\"isMaxLimitReached(5)\">Add Person</button>\n                <!-- <button class=\"btn btn-primary\" (click)=removeAuthorisedPerson() [disabled]=\"numberOfAuthorisedPersons\">Remove Person</button> -->\n              </div>\n              <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->\n            </ul>\n\n            <div class=\"tab-content\">\n              <div formArrayName=\"authorisedPersons\">\n                <!--ToDo: NgFor not working: Check-->\n                <div class=\"tab-pane\" *ngFor=\"let person of myForm.get('authorisedPersons').controls;let i=index\" formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n                  <!-- <table class=\"form-table\"> -->\n                  <div *ngIf=\"selectedTab==i\">\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Name</label>\n                          <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Contact Details</label>\n                          <input type=\"text\" formControlName = \"contact1\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Alternate Contact Details</label>\n                          <input type=\"text\" formControlName = \"contact2\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Email ID</label>\n                            <input type=\"text\" formControlName = \"email1\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Alternate Email ID</label>\n                            <input type=\"text\" formControlName = \"email2\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  <!-- </table>               -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </form>\n      <!--<span>{{myForm.value | json}}</span>-->\n      <button class=\"btn btn-primary pull-right\" (click)=\"onSubmit()\">Register</button>\n    </div>\n\n  </body>\n</html>\n"
+module.exports = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1 user-scalable=no\">\n  </head>\n\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"page-header well well-sm\">\n        <h3><strong> Partner NGO Registration</strong></h3>\n      </div>\n      \n      <form [formGroup]=\"myForm\">\n        <!-- ToDo: Decrease space between the table rows-->\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Basic Information</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"basicInfo\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"form-row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Name</label>\n                      <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Description</label>\n                      <input type=\"text\" formControlName = \"description\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"form-row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Branch</label>\n                      <input type=\"text\" formControlName = \"branch\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Registration Number</label>\n                      <input type=\"text\" formControlName = \"registrationNumber\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Address</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"address\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Address Line 1</label>\n                      <input type=\"text\" formControlName = \"addressLine1\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Address Line 2</label>\n                      <input type=\"text\" formControlName = \"addressLine2\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">City</label>\n                      <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">State</label>\n                      <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Pincode</label>\n                      <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Authorised Persons</label>\n          </div>\n          <div class=\"panel-body\">\n            <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n              <li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">Person 1</a></li>\n              <li class=\"nav\" *ngFor=\"let num of getArray(numberOfAuthorizedPersons-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\" (click)=\"activateTab(i+2)\">Person {{i+2}}</a></li>\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"activateTab(numberOfAuthorizedPersons)\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"selectedTab=i\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <div class=\"pull-right\">\n                <button class=\"btn btn-sm btn-primary btn-space\" (click)=\"addAuthorisedPerson()\" [disabled]=\"isMaxLimitReached(5)\">Add Person</button>\n                <button class=\"btn btn-sm btn-primary\" (click)=\"removeAuthorisedPerson(selectedTab)\" confirm=\"Are you sure you want to delete?\" confirm-ok=\"Yes\" confirm-cancel=\"No\" [disabled]=\"isMinLimitReached()\">Remove Person</button>\n              </div>\n              <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->\n            </ul>\n\n            <div class=\"tab-content\">\n              <div formArrayName=\"authorizedPersons\">\n                <!--ToDo: NgFor not working: Check-->\n                <div class=\"tab-pane\" *ngFor=\"let person of myForm.get('authorizedPersons').controls;let i=index\" formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n                  <!-- <table class=\"form-table\"> -->\n                  <div *ngIf=\"selectedTab==i\">\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Name</label>\n                          <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Contact Details</label>\n                          <input type=\"text\" formControlName = \"contact1\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Alternate Contact Details</label>\n                          <input type=\"text\" formControlName = \"contact2\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Email ID</label>\n                            <input type=\"text\" formControlName = \"email1\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Alternate Email ID</label>\n                            <input type=\"text\" formControlName = \"email2\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  <!-- </table>               -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </form>\n      <!--<span>{{myForm.value | json}}</span>-->\n      <button class=\"btn btn-primary pull-right\" (click)=\"onSubmit()\">Register</button>\n    </div>\n\n  </body>\n</html>\n"
 
 /***/ }),
 
@@ -979,26 +1089,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 
 
 
 
+
+// import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 var PartnerNGOComponent = /** @class */ (function () {
-    function PartnerNGOComponent(formBuilder, apiService) {
+    function PartnerNGOComponent(formBuilder, apiService, route) {
         this.formBuilder = formBuilder;
         this.apiService = apiService;
-        this.numberOfAuthorisedPersons = 0;
+        this.route = route;
+        this.numberOfAuthorizedPersons = 0;
         this.selectedTab = -1;
     }
     PartnerNGOComponent.prototype.ngOnInit = function () {
+        var _this = this;
         console.log('Loading PartnerNgo Screen');
         this.myForm = this.formBuilder.group({
             basicInfo: this.partnerNgoGroup(),
             address: this.address(),
-            authorisedPersons: this.formBuilder.array([this.authorisedPerson()])
+            authorizedPersons: this.formBuilder.array([this.authorisedPerson()])
         });
-        this.numberOfAuthorisedPersons = this.getAuthorisedPersons().length;
-        this.activateTab(this.numberOfAuthorisedPersons);
+        this.route.paramMap.subscribe(function (params) {
+            console.log(params);
+            _this.mode = params.get('mode');
+            _this.id = +params.get('id');
+            if (!isNaN(_this.id)) {
+                _this.apiService.getData('partnerngo', _this.id).subscribe(function (data) {
+                    console.log("GetResponse: " + data);
+                    _this.myForm.setValue(data);
+                    _this.myForm.get('basicInfo').setValue(data);
+                    _this.myForm.get('address').setValue(data);
+                    _this.myForm.get('authorizedPersons').setValue(data);
+                    _this.myForm.updateValueAndValidity(data);
+                });
+            }
+            else {
+            }
+        });
+        // if(this.route.snapshot.paramMap.get('mode')){
+        //   this.mode = this.route.snapshot.paramMap.get('mode');
+        //   this.id = +this.route.snapshot.paramMap.get('id');
+        // }
+        this.numberOfAuthorizedPersons = this.getAuthorizedPersons().length;
+        this.activateTab(1);
+    };
+    PartnerNGOComponent.prototype.ngAfterViewInit = function () {
+        if (this.mode === 'view') {
+            Array.from(document.getElementsByClassName('form-control')).forEach(function (element) {
+                element.disabled = true;
+            });
+        }
     };
     PartnerNGOComponent.prototype.partnerNgoGroup = function () {
         return this.formBuilder.group({
@@ -1055,28 +1198,39 @@ var PartnerNGOComponent = /** @class */ (function () {
                 ]]
         });
     };
-    PartnerNGOComponent.prototype.getAuthorisedPersons = function () {
-        return this.myForm.get('authorisedPersons');
+    PartnerNGOComponent.prototype.getAuthorizedPersons = function () {
+        return this.myForm.get('authorizedPersons');
     };
     PartnerNGOComponent.prototype.addAuthorisedPerson = function () {
-        if (this.numberOfAuthorisedPersons < 5) {
-            (this.getAuthorisedPersons()).push(this.authorisedPerson());
-            this.numberOfAuthorisedPersons = this.getAuthorisedPersons().length;
-            //this.activateTab(this.numberOfAuthorisedPersons);
+        if (this.numberOfAuthorizedPersons < 5) {
+            (this.getAuthorizedPersons()).push(this.authorisedPerson());
+            this.numberOfAuthorizedPersons = this.getAuthorizedPersons().length;
+            //this.activateTab(this.numberOfAuthorizedPersons);
         }
     };
     PartnerNGOComponent.prototype.removeAuthorisedPerson = function (index) {
-        if (this.numberOfAuthorisedPersons > 1) {
-            (this.getAuthorisedPersons()).removeAt(index);
-            this.numberOfAuthorisedPersons = this.getAuthorisedPersons().length;
-            this.selectedTab = this.numberOfAuthorisedPersons - 1;
+        if (this.numberOfAuthorizedPersons > 1) {
+            // var authorizedPerson = this.getAuthorizedPersons();
+            // var name = authorizedPerson[index].get('name');
+            // confirm("Do you want to delete "
+            if (confirm("Do you want to delete ")) {
+                (this.getAuthorizedPersons()).removeAt(index);
+                this.numberOfAuthorizedPersons = this.getAuthorizedPersons().length;
+                if (this.selectedTab == this.numberOfAuthorizedPersons)
+                    this.selectedTab = this.numberOfAuthorizedPersons - 1;
+            }
+        }
+        else {
         }
     };
-    PartnerNGOComponent.prototype.getNumberOfAuthorisedPersons = function () {
-        return this.numberOfAuthorisedPersons;
+    PartnerNGOComponent.prototype.getNumberOfAuthorizedPersons = function () {
+        return this.numberOfAuthorizedPersons;
     };
     PartnerNGOComponent.prototype.isMaxLimitReached = function (val) {
-        return this.numberOfAuthorisedPersons >= val;
+        return this.numberOfAuthorizedPersons >= val;
+    };
+    PartnerNGOComponent.prototype.isMinLimitReached = function () {
+        return this.numberOfAuthorizedPersons === 1;
     };
     PartnerNGOComponent.prototype.getArray = function (val) {
         return Array(val);
@@ -1085,7 +1239,7 @@ var PartnerNGOComponent = /** @class */ (function () {
         this.selectedTab = val - 1;
     };
     PartnerNGOComponent.prototype.onSubmit = function () {
-        var json = Object.assign({ authorizedPerson: this.getAuthorisedPersons().value }, this.myForm.get('basicInfo').value, this.myForm.get('address').value);
+        var json = Object.assign({ authorizedPerson: this.getAuthorizedPersons().value }, this.myForm.get('basicInfo').value, this.myForm.get('address').value);
         console.log('submitting: ', json);
         this.apiService.postData(json, 'partnerngo');
         //To test only
@@ -1098,7 +1252,8 @@ var PartnerNGOComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./partner-ngo.component.css */ "./src/app/partner-ngo/partner-ngo.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
-            _api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"]])
+            _api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
     ], PartnerNGOComponent);
     return PartnerNGOComponent;
 }());
