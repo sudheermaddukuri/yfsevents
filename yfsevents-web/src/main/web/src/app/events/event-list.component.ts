@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
+import { Eventdata } from './add-event.component';
 
 @Component({
   selector:'event-list',
@@ -9,7 +10,7 @@ import { ApiService } from '../api.service';
 
 export class EventListComponent implements OnInit{
 
-  rowData = new TableData();
+  rowData :any;
 
 	columnDefs = [
         {headerName: 'EventId', field: 'id',filter:true },
@@ -27,9 +28,20 @@ export class EventListComponent implements OnInit{
 
 	ngOnInit():void{
       this.eventData = this.apiService.getData('events');
-      this.rowData = this.eventData;
-      this.rowData.eventStartDate= this.eventData.eventDuration.get(0);
-    this.rowData.eventEndDate = this.eventData.eventDuration.get(1);
+      console.log(this.eventData);
+      //this.rowData = this.eventData;
+    //   this.rowData.id=this.eventData.get
+    //   this.rowData.eventStartDate= this.eventData.eventDuration.get(0);
+    // this.rowData.eventEndDate = this.eventData.eventDuration.get(1);
+    this.rowData = this.eventData.map(event=>({
+      id:event.id,
+      eventAction:event.eventAction,
+      eventName:event.eventName,
+      eventCategory:event.eventCategory,
+      ngoName:event.ngoName,
+      event_start_date:event.eventDuration.get(0),
+      event_end_date:event.eventDuration.get(1)
+    }));
   console.log(this.rowData);	}
 }
 

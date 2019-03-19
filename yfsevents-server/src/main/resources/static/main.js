@@ -130,6 +130,7 @@ var ApiService = /** @class */ (function () {
     ApiService.prototype.getData = function (type) {
         this.http.get(this.basicURL + this.urlList.get(type)).subscribe(function (response) {
             console.log('getResponse: ', response);
+            return response;
         });
     };
     ApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -620,6 +621,7 @@ var AddEventComponent = /** @class */ (function () {
         // this.eventData.eventDuration=[];
         // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[0],'fullDate','en-US'));
         // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[1],'fullDate','en-US'));
+        this.eventData.eventCategory = this.eventForm.value.eventCategory;
         this.eventData.eventDuration = this.eventForm.value.eventDuration.map(function (date) { return Object(_angular_common__WEBPACK_IMPORTED_MODULE_3__["formatDate"])(date, 'fullDate', 'en-US'); });
         this.eventData.eventItems = this.eventForm.value.items.map(function (item) { return item.itemName; });
         console.log(this.eventData);
@@ -677,7 +679,6 @@ __webpack_require__.r(__webpack_exports__);
 var EventListComponent = /** @class */ (function () {
     function EventListComponent(apiService) {
         this.apiService = apiService;
-        this.rowData = new TableData();
         this.columnDefs = [
             { headerName: 'EventId', field: 'id', filter: true },
             { headerName: 'Action', field: 'eventAction', filter: true },
@@ -690,9 +691,20 @@ var EventListComponent = /** @class */ (function () {
     }
     EventListComponent.prototype.ngOnInit = function () {
         this.eventData = this.apiService.getData('events');
-        this.rowData = this.eventData;
-        this.rowData.eventStartDate = this.eventData.eventDuration.get(0);
-        this.rowData.eventEndDate = this.eventData.eventDuration.get(1);
+        console.log(this.eventData);
+        //this.rowData = this.eventData;
+        //   this.rowData.id=this.eventData.get
+        //   this.rowData.eventStartDate= this.eventData.eventDuration.get(0);
+        // this.rowData.eventEndDate = this.eventData.eventDuration.get(1);
+        this.rowData = this.eventData.map(function (event) { return ({
+            id: event.id,
+            eventAction: event.eventAction,
+            eventName: event.eventName,
+            eventCategory: event.eventCategory,
+            ngoName: event.ngoName,
+            event_start_date: event.eventDuration.get(0),
+            event_end_date: event.eventDuration.get(1)
+        }); });
         console.log(this.rowData);
     };
     EventListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

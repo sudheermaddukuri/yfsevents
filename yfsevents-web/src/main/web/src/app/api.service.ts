@@ -31,6 +31,7 @@ export class ApiService {
   getData(type){
     this.http.get(this.basicURL+this.urlList.get(type)).subscribe(response=>{
       console.log('getResponse: ',response);
+      return response;
     });
   }
 }

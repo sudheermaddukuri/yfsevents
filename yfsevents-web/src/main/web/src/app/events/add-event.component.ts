@@ -73,6 +73,7 @@ import { ApiService } from '../api.service';
     // this.eventData.eventDuration=[];
     // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[0],'fullDate','en-US'));
     // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[1],'fullDate','en-US'));
+    this.eventData.eventCategory=this.eventForm.value.eventCategory;
     this.eventData.eventDuration=this.eventForm.value.eventDuration.map(date=>formatDate(date,'fullDate','en-US'));
     this.eventData.eventItems=this.eventForm.value.items.map(item => item.itemName);
     console.log(this.eventData);
