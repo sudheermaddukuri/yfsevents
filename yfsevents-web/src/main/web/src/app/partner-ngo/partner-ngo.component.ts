@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormsModule, FormGroup, FormControl, Validators, FormBuilder, FormArray }  from '@angular/forms';
 import { ApiService } from '../api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 // import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
@@ -21,7 +21,8 @@ export class PartnerNGOComponent implements OnInit, AfterViewInit {
 
   constructor(private formBuilder: FormBuilder,
              private apiService: ApiService,
-             private route: ActivatedRoute){ }
+             private route: ActivatedRoute,
+             private router: Router){ }
 
   ngOnInit() {
     console.log('Loading PartnerNgo Screen');
@@ -182,7 +183,16 @@ export class PartnerNGOComponent implements OnInit, AfterViewInit {
   }
 
   onUpdate(){
+    //TODO
+  }
 
+  onEdit(){
+    //TODO: instead change mode and make fields Editable.
+    this.router.navigateByUrl("/partnerngo/edit/"+this.id);
+  }
+
+  onClose(){
+    this.router.navigateByUrl("/");
   }
 
   onSubmit(){
