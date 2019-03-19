@@ -173,7 +173,10 @@
 
       </form>
       <!--<span>{{myForm.value | json}}</span>-->
-      <button class="btn btn-primary pull-right" (click)="onSubmit()">Register</button>
+      <button class="btn btn-primary pull-right" (click)="onSubmit()" *ngIf="mode!='view' || mode!='edit'">Register</button>
+      <button class="btn btn-primary pull-right" (click)="editForm()" *ngIf="mode=='edit'">Edit</button>
+      <button class="btn btn-primary pull-right" (click)="onSubmit()" *ngIf="mode=='edit'"></button>Update</button>
+      <button class="btn btn-primary pull-right" (click)="onClose()" *ngIf="mode=='view'">Close</button>
     </div>
 
   </body>

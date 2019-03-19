@@ -27,10 +27,13 @@ export class ApiService {
     });
   }
 
-  getData(type:string, id?:any){
+  getData(type:string, id?:any, formatted?:boolean){
     let uri : string =this.basicURL+this.urlList.get(type);
     if(id){
       uri = uri + '/' + id;
+      if(formatted){
+        uri = uri + '/' + 'formatted';
+      }
     }
     return this.http.get(uri);
   }

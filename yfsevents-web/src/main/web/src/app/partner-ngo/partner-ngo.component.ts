@@ -36,32 +36,41 @@ export class PartnerNGOComponent implements OnInit, AfterViewInit {
       this.mode=params.get('mode');
       this.id=+params.get('id');
       if(!isNaN(this.id)){
-        this.apiService.getData('partnerngo',this.id).subscribe(data =>{
+        // let data={basicInfo: {name:"name", description:"desc", branch:"branch", registrationNumber:"regNum"},
+        //           address: {addressLine1: "add1", addressLine2: "add2", city: "city", state: "state", pincode:"pin"},
+        //           authorizedPersons: [{name: "a1", contact1: "c1", contact2: "c2", email1: "e1", email2: "e2"},
+        //           {name: "a1", contact1: "c1", contact2: "c2", email1: "e1", email2: "e2"}
+        // ]};
+        this.apiService.getData('partnerngo',this.id, true).subscribe(result =>{
+          let data=JSON.parse(JSON.stringify(result));
           console.log("GetResponse: "+data);
+          if(data.authorizedPersons){
+            data.authorizedPersons.forEach((authorizedPerson, index) =>{
+              if(index!=0){
+                this.addAuthorisedPerson();
+              }
+            });
+          }
           this.myForm.setValue(data);
-          this.myForm.get('basicInfo').setValue(data);
-          this.myForm.get('address').setValue(data);
-          this.myForm.get('authorizedPersons').setValue(data);
-          this.myForm.updateValueAndValidity(data);
         });
       }else{
-
+        alert('Error in ID');
       }
     });
-    // if(this.route.snapshot.paramMap.get('mode')){
-    //   this.mode = this.route.snapshot.paramMap.get('mode');
-    //   this.id = +this.route.snapshot.paramMap.get('id');
-      
-    // }
 
     this.numberOfAuthorizedPersons=this.getAuthorizedPersons().length;
     this.activateTab(1);
+
   }
 
   ngAfterViewInit(){
-    if(this.mode==='view'){
+    if(this.mode=='view'){
       Array.from(document.getElementsByClassName('form-control')).forEach(element => {
         (<HTMLInputElement>element).disabled = true;
+      });
+    }else{
+      Array.from(document.getElementsByClassName('form-control')).forEach(element => {
+        (<HTMLInputElement>element).disabled = false;
       });
     }
   }
@@ -172,8 +181,15 @@ export class PartnerNGOComponent implements OnInit, AfterViewInit {
       this.selectedTab=val-1;
   }
 
+  onUpdate(){
+
+  }
+
   onSubmit(){
     let json= Object.assign({authorizedPerson:this.getAuthorizedPersons().value}, this.myForm.get('basicInfo').value, this.myForm.get('address').value);
+    if(this.mode=='edit'){
+      json=Object.assign(json, {id:this.id});
+    }
     console.log('submitting: ',json);
     this.apiService.postData(json,'partnerngo');
     //To test only
