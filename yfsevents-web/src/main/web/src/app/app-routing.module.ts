@@ -10,6 +10,7 @@ import { CollegeRegistrationComponent } from './college-registration/college-reg
 import {SendMailComponent} from "./send-mail/send-mail.component";
 import { WelcomeComponent } from './welcome/welcome.component';
 import { InventoryListComponent } from './inventory-data/inventory-list.component';
+import { CollegeListComponent } from './college-registration/college-list.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,9 @@ const routes: Routes = [
   },
   {
     path:'inventorylist',component:InventoryListComponent
+  },
+  {
+    path:'collegelist',component:CollegeListComponent
   },
   {
     path: 'partnerngo', component: PartnerNGOComponent

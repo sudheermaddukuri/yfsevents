@@ -54,7 +54,12 @@ export class InventoryDataComponent implements OnInit {
   onSubmit() {
     const inventoryData = this.inventoryData.getRawValue();
     if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id'))
-    {}
+    {
+      this.inventoryService.updateInventoryDataById(inventoryData,this.route.snapshot.paramMap.get('id')).subscribe((data:any)=>{
+        console.log('response',data);
+      });
+
+    }
     else{
     this.inventoryService.saveInventoryData(inventoryData).subscribe((data:any)=>{
       console.log('response',data);

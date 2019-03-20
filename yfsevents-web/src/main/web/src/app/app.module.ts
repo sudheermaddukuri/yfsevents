@@ -21,6 +21,7 @@ import { SendMailComponent } from './send-mail/send-mail.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { InventoryListComponent } from './inventory-data/inventory-list.component';
+import { CollegeListComponent } from './college-registration/college-list.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { InventoryListComponent } from './inventory-data/inventory-list.componen
     CollegeRegistrationComponent,
     SendMailComponent,
     WelcomeComponent,
-    InventoryListComponent
+    InventoryListComponent,
+    CollegeListComponent
   ],
   imports: [
     BrowserModule,
