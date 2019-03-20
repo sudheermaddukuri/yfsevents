@@ -2,7 +2,6 @@ package com.yfs.application.yfseventsserver.entity;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class PartnerNgo {
@@ -41,7 +40,7 @@ public class PartnerNgo {
     @OneToMany(mappedBy = "partnerNgo", cascade = CascadeType.ALL)
     private List<AuthorizedPerson> authorizedPerson;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
