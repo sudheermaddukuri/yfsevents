@@ -22,6 +22,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { InventoryListComponent } from './inventory-data/inventory-list.component';
 import { CollegeListComponent } from './college-registration/college-list.component';
+import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CollegeListComponent } from './college-registration/college-list.compon
     SendMailComponent,
     WelcomeComponent,
     InventoryListComponent,
-    CollegeListComponent
+    CollegeListComponent,
+    PartnerNgoGridComponent
   ],
   imports: [
     BrowserModule,
