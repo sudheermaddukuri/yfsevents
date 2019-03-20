@@ -19,9 +19,9 @@
           <div class="panel-body">
             <div formGroupName="basicInfo">
               <!-- <table class="form-table"> -->
-                <div class="row">
+                <div class="form-row">
                   <div class="col-md-6 offset-md-3">
-                    <div class="form-group">
+                    <div class="form-group required">
                       <label class="control-label">Name</label>
                       <input type="text" formControlName = "name" class="form-control well well-sm">
                     </div>
@@ -33,7 +33,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <div class="form-row">
                   <div class="col-md-6 offset-md-3">
                     <div class="form-group">
                       <label class="control-label">Branch</label>
@@ -61,7 +61,7 @@
               <!-- <table class="form-table"> -->
                 <div class="row">
                   <div class="col-md-6 offset-md-3">
-                    <div class="form-group">
+                    <div class="form-group required">
                       <label class="control-label">Address Line 1</label>
                       <input type="text" formControlName = "addressLine1" class="form-control well well-sm">
                     </div>
@@ -75,13 +75,13 @@
                 </div>
                 <div class="row">
                   <div class="col-md-6 offset-md-3">
-                    <div class="form-group">
+                    <div class="form-group required">
                       <label class="control-label">City</label>
                       <input type="text" formControlName = "city" class="form-control well well-sm">
                     </div>
                   </div>
                   <div class="col-md-6 offset-md-3">
-                    <div class="form-group">
+                    <div class="form-group required">
                       <label class="control-label">State</label>
                       <input type="text" formControlName = "state" class="form-control well well-sm">
                     </div>
@@ -108,26 +108,26 @@
           </div>
           <div class="panel-body">
             <ul class="nav nav-tabs" active="selectedTab">
-              <li class="nav active" *ngIf="numberOfAuthorisedPersons>0"><a href="#tab0" data-toggle="tab" (click)="activateTab(1)">Person 1</a></li>
-              <li class="nav" *ngFor="let num of getArray(numberOfAuthorisedPersons-1); let i=index;"><a href="#tab{{i+1}}" data-toggle="tab" (click)="activateTab(i+2)">Person {{i+2}}</a></li>
-              <!--li class="nav active" *ngIf="numberOfAuthorisedPersons>0"><a href="#tab{{numberOfAuthorisedPersons-1}}" data-toggle="tab" (click)="activateTab(numberOfAuthorisedPersons)">Person {{numberOfAuthorisedPersons}}</a></li-->
-              <!--li class="nav active" *ngIf="numberOfAuthorisedPersons>0"><a href="#tab{{numberOfAuthorisedPersons-1}}" data-toggle="tab" (click)="selectedTab=i">Person {{numberOfAuthorisedPersons}}</a></li-->
+              <li class="nav active" *ngIf="numberOfAuthorizedPersons>0"><a href="#tab0" data-toggle="tab" (click)="activateTab(1)">Person 1</a></li>
+              <li class="nav" *ngFor="let num of getArray(numberOfAuthorizedPersons-1); let i=index;"><a href="#tab{{i+1}}" data-toggle="tab" (click)="activateTab(i+2)">Person {{i+2}}</a></li>
+              <!--li class="nav active" *ngIf="numberOfAuthorizedPersons>0"><a href="#tab{{numberOfAuthorizedPersons-1}}" data-toggle="tab" (click)="activateTab(numberOfAuthorizedPersons)">Person {{numberOfAuthorizedPersons}}</a></li-->
+              <!--li class="nav active" *ngIf="numberOfAuthorizedPersons>0"><a href="#tab{{numberOfAuthorizedPersons-1}}" data-toggle="tab" (click)="selectedTab=i">Person {{numberOfAuthorizedPersons}}</a></li-->
               <div class="pull-right">
-                <button class="btn btn-primary" (click)="addAuthorisedPerson()" [disabled]="isMaxLimitReached(5)">Add Person</button>
-                <!-- <button class="btn btn-primary" (click)=removeAuthorisedPerson() [disabled]="numberOfAuthorisedPersons">Remove Person</button> -->
+                <button class="btn btn-sm btn-primary btn-space" (click)="addAuthorisedPerson()" [disabled]="isMaxLimitReached(5)">Add Person</button>
+                <button class="btn btn-sm btn-primary" (click)="removeAuthorisedPerson(selectedTab)" confirm="Are you sure you want to delete?" confirm-ok="Yes" confirm-cancel="No" [disabled]="isMinLimitReached()">Remove Person</button>
               </div>
               <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->
             </ul>
 
             <div class="tab-content">
-              <div formArrayName="authorisedPersons">
+              <div formArrayName="authorizedPersons">
                 <!--ToDo: NgFor not working: Check-->
-                <div class="tab-pane" *ngFor="let person of myForm.get('authorisedPersons').controls;let i=index" formGroupName="{{i}}" id="tab{{i}}">
+                <div class="tab-pane" *ngFor="let person of myForm.get('authorizedPersons').controls;let i=index" formGroupName="{{i}}" id="tab{{i}}">
                   <!-- <table class="form-table"> -->
                   <div *ngIf="selectedTab==i">
                     <div class="row">
                       <div class="col-md-6 offset-md-3">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Name</label>
                           <input type="text" formControlName = "name" class="form-control well well-sm">
                         </div>
@@ -137,7 +137,7 @@
                     </div>
                     <div class="row">
                       <div class="col-md-6 offset-md-3">
-                        <div class="form-group">
+                        <div class="form-group required">
                           <label class="control-label">Contact Details</label>
                           <input type="text" formControlName = "contact1" class="form-control well well-sm">
                         </div>
@@ -173,7 +173,10 @@
 
       </form>
       <!--<span>{{myForm.value | json}}</span>-->
-      <button class="btn btn-primary pull-right" (click)="onSubmit()">Register</button>
+      <button class="btn btn-primary pull-right" (click)="onSubmit()" *ngIf="mode!='view' || mode!='edit'">Register</button>
+      <button class="btn btn-primary pull-right" (click)="onEdit()" *ngIf="mode=='edit'">Edit</button>
+      <button class="btn btn-primary pull-right" (click)="onSubmit()" *ngIf="mode=='edit'"></button>Update</button>
+      <button class="btn btn-primary pull-right" (click)="onClose()" *ngIf="mode=='view'">Close</button>
     </div>
 
   </body>

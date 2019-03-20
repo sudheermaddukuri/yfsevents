@@ -27,7 +27,7 @@ public class PartnerNgoController {
 
     @ResponseBody
     @GetMapping("/partnerngo")
-    public Iterable<PartnerNgo> getPartnerNgos() {
+    public Iterable<PartnerNgo> getAllPartnerNgos() {
         return partnerNgoRepository.findAll();
     }
 
@@ -89,6 +89,17 @@ public class PartnerNgoController {
     @PostMapping("/partnerngo")
     public PartnerNgo savePartnerNgo(@RequestBody PartnerNgo partnerNgo){
         logger.info(partnerNgo.toString());
+        //TODO: Add update Logic
+//        if(partnerNgo.getId()!=null) {
+//            Optional<PartnerNgo> oldPartnerNgo = partnerNgoRepository.findById(partnerNgo.getId());
+//            if(oldPartnerNgo.isPresent()){
+//                PartnerNgo ngo = oldPartnerNgo.get();
+//                ngo.getAuthorizedPerson().stream().forEach(authorizedPerson -> {
+//                    authorizedPersonRepository.delete(authorizedPerson);
+//                });
+//                partnerNgoRepository.delete(partnerNgo);
+//            }
+//        }
         PartnerNgo partnerNgo1 = partnerNgoRepository.save(partnerNgo);
 
         partnerNgo1.getAuthorizedPerson().stream().forEach((auth)-> { auth.setPartnerNgo(partnerNgo1);

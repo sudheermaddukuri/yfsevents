@@ -20,16 +20,22 @@ export class ApiService {
     this.urlList.set('volunteer-create','/volunteer-create');
     this.urlList.set('collegeregistration','/collegeregistration');
   }
-  postData(data, type:string){
+  postData(data:any, type:string){
     console.log('posting', data);
     this.http.post(this.basicURL+this.urlList.get(type),data).subscribe(response=>{
       console.log('postResponse: ',response);
     });
   }
 
-  getData(type){
-    this.http.get(this.basicURL+this.urlList.get(type)).subscribe(response=>{
-      console.log('getResponse: ',response);
-    });
+  getData(type:string, id?:any, formatted?:boolean){
+    let uri : string =this.basicURL+this.urlList.get(type);
+    if(id){
+      uri = uri + '/' + id;
+      if(formatted){
+        uri = uri + '/' + 'formatted';
+      }
+    }
+    return this.http.get(uri);
   }
+
 }
