@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +30,6 @@ export class ApiService {
   }
 
   getData(type){
-    this.http.get(this.basicURL+this.urlList.get(type)).subscribe(response=>{
-      console.log('getResponse: ',response);
-      return response;
-    });
+    return this.http.get(this.basicURL+this.urlList.get(type))
   }
 }

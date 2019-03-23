@@ -12,6 +12,7 @@ import { EventListComponent } from './events/event-list.component';
 import { AddEventComponent } from './events/add-event.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import { FormsModule } from '@angular/forms';
 import { VolunteerComponent } from './volunteer/volunteer.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -45,6 +46,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     FormsModule,
     ReactiveFormsModule,
     TimepickerModule.forRoot(),
+    TypeaheadModule.forRoot(),
     AngularMultiSelectModule
   ],
   providers: [],

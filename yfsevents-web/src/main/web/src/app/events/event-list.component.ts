@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Eventdata } from './add-event.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector:'event-list',
@@ -23,26 +24,29 @@ export class EventListComponent implements OnInit{
         
     ];
 
-    eventData :any;
+    eventData :any[];
     constructor(private apiService: ApiService){}
 
 	ngOnInit():void{
-      this.eventData = this.apiService.getData('events');
-      console.log(this.eventData);
-      //this.rowData = this.eventData;
-    //   this.rowData.id=this.eventData.get
-    //   this.rowData.eventStartDate= this.eventData.eventDuration.get(0);
-    // this.rowData.eventEndDate = this.eventData.eventDuration.get(1);
-    this.rowData = this.eventData.map(event=>({
-      id:event.id,
-      eventAction:event.eventAction,
-      eventName:event.eventName,
-      eventCategory:event.eventCategory,
-      ngoName:event.ngoName,
-      event_start_date:event.eventDuration.get(0),
-      event_end_date:event.eventDuration.get(1)
-    }));
-  console.log(this.rowData);	}
+   this.apiService.getData('events').subscribe((data:any)=>{
+        this.eventData=data;
+        console.log(data);
+        this.rowData = this.eventData.map(event=>({
+          id:event.id,
+          eventAction:event.eventAction,
+          eventName:event.eventName,
+          eventCategory:event.eventCategory,
+          ngoName:event.ngoName,
+          event_start_date:event.eventDuration[0],
+          event_end_date:event.eventDuration[1]
+        }));
+      },( err:HttpErrorResponse)=>{
+        console.log(err.message);
+     });
+      
+   
+    
+  	}
 }
 
 export class TableData{

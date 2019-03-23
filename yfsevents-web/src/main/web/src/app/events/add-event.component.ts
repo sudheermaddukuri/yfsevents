@@ -10,6 +10,7 @@ import { ApiService } from '../api.service';
   })
 
   export class AddEventComponent implements OnInit{
+    ngos: string[];
     eventForm :FormGroup;
     bsValue = new Date();
     bsRangeValue: Date[];
@@ -38,6 +39,9 @@ import { ApiService } from '../api.service';
    
   
     ngOnInit(){ 
+      this.apiService.getData('partnerngo').subscribe((data:any)=>{
+            this.ngos=data;
+      });
       this.itemList = [
         { "id": 1, "itemName": "Item1" },
         { "id": 2, "itemName": "Item2" },
