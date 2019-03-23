@@ -49,12 +49,5 @@ export class EventListComponent implements OnInit{
   	}
 }
 
-export class TableData{
-  id:string;
-  eventAction:string;
-  eventName:string;
-  eventCategory:string;
-  ngoName:string;
-  eventStartDate:string;
-  eventEndDate:string;
-}
+
+

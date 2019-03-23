@@ -59,7 +59,7 @@ public class InventoryData {
 
 }
 enum EventCategory {
-        PARTNER_NGO(1, "Partner_Ngo"),
+        PARTNER_NGO(1, "Partner Ngo"),
         EDUCATION(2, "Education"),
         ENVIRONMENT(3, "Environment"),
         HEALTH(4, "Health"),

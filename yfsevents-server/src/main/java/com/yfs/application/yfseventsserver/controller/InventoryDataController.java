@@ -5,8 +5,11 @@ import com.yfs.application.yfseventsserver.KeyValuePair;
 import com.yfs.application.yfseventsserver.entity.InventoryData;
 import com.yfs.application.yfseventsserver.repository.InventoryDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/inventorydata")
@@ -34,6 +37,27 @@ public class InventoryDataController {
     public Iterable<KeyValuePair> getEventCategoryList(){
          InventoryData inventoryData = new InventoryData();
          return inventoryData.getEventCategoryList();
+
+    }
+
+    @ResponseBody
+    @GetMapping("/list/{id}")
+    public Optional<InventoryData> getInventoryDataById(@PathVariable Long id) {
+        return inventoryDataRepository.findById(id);
+    }
+
+    @ResponseBody
+    @PutMapping("/list/{id}")
+    public ResponseEntity<Object> updateInventoryData(@RequestBody InventoryData inventoryData, @PathVariable Long id){
+        Optional<InventoryData> updateInventoryData = inventoryDataRepository.findById(id);
+        if (!updateInventoryData.isPresent())
+            return ResponseEntity.notFound().build();
+
+        inventoryData.setId(id);
+
+       inventoryDataRepository.save(inventoryData);
+
+        return ResponseEntity.noContent().build();
 
     }
 

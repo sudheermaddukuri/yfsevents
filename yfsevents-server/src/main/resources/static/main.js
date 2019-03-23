@@ -127,8 +127,15 @@ var ApiService = /** @class */ (function () {
             console.log('postResponse: ', response);
         });
     };
-    ApiService.prototype.getData = function (type) {
-        return this.http.get(this.basicURL + this.urlList.get(type));
+    ApiService.prototype.getData = function (type, id, formatted) {
+        var uri = this.basicURL + this.urlList.get(type);
+        if (id) {
+            uri = uri + '/' + id;
+            if (formatted) {
+                uri = uri + '/' + 'formatted';
+            }
+        }
+        return this.http.get(uri);
     };
     ApiService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -164,6 +171,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./college-registration/college-registration.component */ "./src/app/college-registration/college-registration.component.ts");
 /* harmony import */ var _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./send-mail/send-mail.component */ "./src/app/send-mail/send-mail.component.ts");
 /* harmony import */ var _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./welcome/welcome.component */ "./src/app/welcome/welcome.component.ts");
+/* harmony import */ var _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./inventory-data/inventory-list.component */ "./src/app/inventory-data/inventory-list.component.ts");
+/* harmony import */ var _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./college-registration/college-list.component */ "./src/app/college-registration/college-list.component.ts");
+
+
 
 
 
@@ -183,7 +194,19 @@ var routes = [
         path: 'inventorydata', component: _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_7__["InventoryDataComponent"]
     },
     {
+        path: 'inventorylist', component: _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_11__["InventoryListComponent"]
+    },
+    {
+        path: 'collegelist', component: _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_12__["CollegeListComponent"]
+    },
+    {
         path: 'partnerngo', component: _partner_ngo_partner_ngo_component__WEBPACK_IMPORTED_MODULE_3__["PartnerNGOComponent"]
+    },
+    {
+        path: 'partnerngo', children: [
+            { path: '', component: _partner_ngo_partner_ngo_component__WEBPACK_IMPORTED_MODULE_3__["PartnerNGOComponent"] },
+            { path: ':mode/:id', component: _partner_ngo_partner_ngo_component__WEBPACK_IMPORTED_MODULE_3__["PartnerNGOComponent"] }
+        ]
     },
     { path: 'events', component: _events_event_list_component__WEBPACK_IMPORTED_MODULE_4__["EventListComponent"] },
     { path: 'addevent', component: _events_add_event_component__WEBPACK_IMPORTED_MODULE_5__["AddEventComponent"] },
@@ -292,13 +315,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _events_add_event_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./events/add-event.component */ "./src/app/events/add-event.component.ts");
 /* harmony import */ var ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ngx-bootstrap/datepicker */ "./node_modules/ngx-bootstrap/datepicker/fesm5/ngx-bootstrap-datepicker.js");
 /* harmony import */ var ngx_bootstrap_timepicker__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ngx-bootstrap/timepicker */ "./node_modules/ngx-bootstrap/timepicker/fesm5/ngx-bootstrap-timepicker.js");
-/* harmony import */ var _volunteer_volunteer_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./volunteer/volunteer.component */ "./src/app/volunteer/volunteer.component.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./inventory-data/inventory-data.component */ "./src/app/inventory-data/inventory-data.component.ts");
-/* harmony import */ var _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./college-registration/college-registration.component */ "./src/app/college-registration/college-registration.component.ts");
-/* harmony import */ var _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./send-mail/send-mail.component */ "./src/app/send-mail/send-mail.component.ts");
-/* harmony import */ var _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./welcome/welcome.component */ "./src/app/welcome/welcome.component.ts");
-/* harmony import */ var angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! angular2-multiselect-dropdown */ "./node_modules/angular2-multiselect-dropdown/fesm5/angular2-multiselect-dropdown.js");
+/* harmony import */ var ngx_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-bootstrap/typeahead */ "./node_modules/ngx-bootstrap/typeahead/fesm5/ngx-bootstrap-typeahead.js");
+/* harmony import */ var _volunteer_volunteer_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./volunteer/volunteer.component */ "./src/app/volunteer/volunteer.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./inventory-data/inventory-data.component */ "./src/app/inventory-data/inventory-data.component.ts");
+/* harmony import */ var _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./college-registration/college-registration.component */ "./src/app/college-registration/college-registration.component.ts");
+/* harmony import */ var _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./send-mail/send-mail.component */ "./src/app/send-mail/send-mail.component.ts");
+/* harmony import */ var _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./welcome/welcome.component */ "./src/app/welcome/welcome.component.ts");
+/* harmony import */ var angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! angular2-multiselect-dropdown */ "./node_modules/angular2-multiselect-dropdown/fesm5/angular2-multiselect-dropdown.js");
+/* harmony import */ var _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./inventory-data/inventory-list.component */ "./src/app/inventory-data/inventory-list.component.ts");
+/* harmony import */ var _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./college-registration/college-list.component */ "./src/app/college-registration/college-list.component.ts");
+/* harmony import */ var _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./partner-ngo-grid/partner-ngo-grid.component */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts");
+
+
+
+
 
 
 
@@ -334,15 +365,18 @@ var AppModule = /** @class */ (function () {
                 _footer_footer_component__WEBPACK_IMPORTED_MODULE_10__["FooterComponent"],
                 _events_event_list_component__WEBPACK_IMPORTED_MODULE_11__["EventListComponent"],
                 _events_add_event_component__WEBPACK_IMPORTED_MODULE_12__["AddEventComponent"],
-                _volunteer_volunteer_component__WEBPACK_IMPORTED_MODULE_15__["VolunteerComponent"],
-                _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_17__["InventoryDataComponent"],
-                _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_18__["CollegeRegistrationComponent"],
-                _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_19__["SendMailComponent"],
-                _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_20__["WelcomeComponent"]
+                _volunteer_volunteer_component__WEBPACK_IMPORTED_MODULE_16__["VolunteerComponent"],
+                _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_18__["InventoryDataComponent"],
+                _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_19__["CollegeRegistrationComponent"],
+                _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_20__["SendMailComponent"],
+                _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_21__["WelcomeComponent"],
+                _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_23__["InventoryListComponent"],
+                _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_24__["CollegeListComponent"],
+                _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_25__["PartnerNgoGridComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_17__["HttpClientModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_8__["AlertModule"].forRoot(),
                 ag_grid_angular__WEBPACK_IMPORTED_MODULE_3__["AgGridModule"].withComponents([]),
@@ -350,13 +384,82 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ReactiveFormsModule"],
                 ngx_bootstrap_timepicker__WEBPACK_IMPORTED_MODULE_14__["TimepickerModule"].forRoot(),
-                angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_21__["AngularMultiSelectModule"]
+                ngx_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_15__["TypeaheadModule"].forRoot(),
+                angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_22__["AngularMultiSelectModule"]
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/college-registration/college-list.component.css":
+/*!*****************************************************************!*\
+  !*** ./src/app/college-registration/college-list.component.css ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbGxlZ2UtcmVnaXN0cmF0aW9uL2NvbGxlZ2UtbGlzdC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/college-registration/college-list.component.html":
+/*!******************************************************************!*\
+  !*** ./src/app/college-registration/college-list.component.html ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n<div class=\"row\" style=\"margin-top: 20px\">\n  <div class=\"col-md-1\">\n  \n  </div>\n  \n  <div class=\"col-md-10\">\n          <div id=\"myGrid\"  style=\"width: 100%; height: 100%;\">\n  <ag-grid-angular \n      class=\"ag-theme-balham\"\n      [rowData]=\"rowData\" \n      [columnDefs]=\"columnDefs\"\n      >\n  </ag-grid-angular>\n  </div>\n  </div>\n  <div class=\"col-md-1\">\n      \n  </div>\n  \n  </div>"
+
+/***/ }),
+
+/***/ "./src/app/college-registration/college-list.component.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/college-registration/college-list.component.ts ***!
+  \****************************************************************/
+/*! exports provided: CollegeListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CollegeListComponent", function() { return CollegeListComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var CollegeListComponent = /** @class */ (function () {
+    function CollegeListComponent() {
+        this.columnDefs = [
+            { headerName: 'College Name', field: 'collegename', filter: true },
+            { headerName: 'MOU Name', field: 'mouname', filter: true },
+            { headerName: 'MOU ID', field: 'mouID', filter: true },
+            { headerName: 'No Of Events', field: 'noOfEvents', filter: true },
+            { headerName: 'Start Date', field: 'startDate', filter: true },
+            { headerName: 'End Date', field: 'endDate', filter: true },
+            { headerName: 'Comments', field: 'comments', filter: true },
+        ];
+        this.rowData = [
+            { collegename: 'JNTU', mouname: 'a', mouID: '1', noOfEvents: '10', startDate: '2019-03-10', endDate: '2019-04-09', comments: '' },
+        ];
+    }
+    CollegeListComponent.prototype.ngOnInit = function () {
+    };
+    CollegeListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-college-list',
+            template: __webpack_require__(/*! ./college-list.component.html */ "./src/app/college-registration/college-list.component.html"),
+            styles: [__webpack_require__(/*! ./college-list.component.css */ "./src/app/college-registration/college-list.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], CollegeListComponent);
+    return CollegeListComponent;
 }());
 
 
@@ -664,13 +767,12 @@ module.exports = "\n<div class=\"row\" style=\"margin-top: 20px\">\n<div class=\
 /*!************************************************!*\
   !*** ./src/app/events/event-list.component.ts ***!
   \************************************************/
-/*! exports provided: EventListComponent, TableData */
+/*! exports provided: EventListComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventListComponent", function() { return EventListComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TableData", function() { return TableData; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
@@ -716,12 +818,6 @@ var EventListComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"]])
     ], EventListComponent);
     return EventListComponent;
-}());
-
-var TableData = /** @class */ (function () {
-    function TableData() {
-    }
-    return TableData;
 }());
 
 
@@ -858,7 +954,7 @@ module.exports = "\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJz
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well well-sm\">\n    <h3><strong> Inventory Data</strong></h3>\n  </div>\n  <form [formGroup]=\"inventoryData\">\n    <div class=\"panel panel-info\">\n      <div class=\"panel-body\">\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">ItemName</label>\n              <input type=\"text\" formControlName=\"itemName\" class=\"form-control well well-sm\" required>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">EventCategory</label>\n              <div>\n                <select [(ngModel)]=\"selected\" [ngModelOptions]=\"{standalone:true}\" class=\"form-control well well-sm\" required>\n                  <option *ngFor=\"let evCat of eventCategory\" [(ngValue)]=\"evCat.value\">{{evCat.value}}</option>\n                </select>          \n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Comments</label>\n              <textarea type=\"text\" formControlName=\"comments\" class=\"form-control well well-sm\"></textarea>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </form>\n  <div class=\"text-center\">\n    <button class=\"btn btn-primary btn-sx\" (click)=\"onSubmit()\">Save</button>\n  </div>\n</div>"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well well-sm\">\n    <h3><strong> Inventory Data</strong></h3>\n  </div>\n  <form [formGroup]=\"inventoryData\">\n    <div class=\"panel panel-info\">\n      <div class=\"panel-body\">\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Item Name</label>\n              <input type=\"text\" formControlName=\"itemName\" class=\"form-control well well-sm\" required>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Event Category</label>\n              <div>\n                <select formControlName=\"eventCategory\" class=\"form-control well well-sm\" required>\n                  <option *ngFor=\"let evCat of eventCategoryList\" [(ngValue)]=\"evCat.value\">{{evCat.value}}</option>\n                </select>          \n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Comments</label>\n              <textarea type=\"text\" formControlName=\"comments\" class=\"form-control well well-sm\"></textarea>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </form>\n  <div class=\"text-center\">\n    <button class=\"btn btn-primary btn-sx\" (click)=\"onSubmit()\">Save</button>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -876,14 +972,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _inventorydata_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./inventorydata.service */ "./src/app/inventory-data/inventorydata.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
 
 
 
 
 var InventoryDataComponent = /** @class */ (function () {
-    function InventoryDataComponent(formBuilder, inventoryService) {
+    function InventoryDataComponent(formBuilder, inventoryService, route) {
         this.formBuilder = formBuilder;
         this.inventoryService = inventoryService;
+        this.route = route;
     }
     InventoryDataComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -897,17 +996,34 @@ var InventoryDataComponent = /** @class */ (function () {
                 ]],
         });
         this.inventoryService.getEventCategoryList().subscribe(function (data) {
-            _this.eventCategory = data;
+            _this.eventCategoryList = data;
         }, function (err) {
             console.log(err.message);
         });
+        if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
+            this.inventoryService.getInventoryDataById(this.route.snapshot.paramMap.get('id')).subscribe(function (data) {
+                _this.inventoryData.setValue({
+                    itemName: data.itemName,
+                    eventCategory: data.eventCategory,
+                    comments: data.comments
+                });
+            }, function (err) {
+                console.log(err.message);
+            });
+        }
     };
     InventoryDataComponent.prototype.onSubmit = function () {
-        console.log(this.selected);
-        var data = Object.assign({}, this.inventoryData.getRawValue(), { eventCategory: this.selected });
-        console.log(this.inventoryData.getRawValue());
-        console.log(data);
-        this.inventoryService.saveInventoryData(data);
+        var inventoryData = this.inventoryData.getRawValue();
+        if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
+            this.inventoryService.updateInventoryDataById(inventoryData, this.route.snapshot.paramMap.get('id')).subscribe(function (data) {
+                console.log('response', data);
+            });
+        }
+        else {
+            this.inventoryService.saveInventoryData(inventoryData).subscribe(function (data) {
+                console.log('response', data);
+            });
+        }
     };
     InventoryDataComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -915,9 +1031,86 @@ var InventoryDataComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./inventory-data.component.html */ "./src/app/inventory-data/inventory-data.component.html"),
             styles: [__webpack_require__(/*! ./inventory-data.component.css */ "./src/app/inventory-data/inventory-data.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _inventorydata_service__WEBPACK_IMPORTED_MODULE_3__["InventorydataService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _inventorydata_service__WEBPACK_IMPORTED_MODULE_3__["InventorydataService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
     ], InventoryDataComponent);
     return InventoryDataComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/inventory-data/inventory-list.component.css":
+/*!*************************************************************!*\
+  !*** ./src/app/inventory-data/inventory-list.component.css ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2ludmVudG9yeS1kYXRhL2ludmVudG9yeS1saXN0LmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/inventory-data/inventory-list.component.html":
+/*!**************************************************************!*\
+  !*** ./src/app/inventory-data/inventory-list.component.html ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n<div class=\"row\" style=\"margin-top: 20px\">\n  <div class=\"col-md-1\">\n  \n  </div>\n  \n  <div class=\"col-md-10\">\n          <div id=\"myGrid\"  style=\"width: 100%; height: 115px;\">\n  <ag-grid-angular \n      class=\"ag-theme-balham\"\n      [rowData]=\"rowData\" \n      [columnDefs]=\"columnDefs\"\n      (rowClicked)=\"onSearch($event)\"\n      >\n  </ag-grid-angular>\n  </div>\n  </div>\n  <div class=\"col-md-1\">\n      \n  </div>\n  \n  </div>"
+
+/***/ }),
+
+/***/ "./src/app/inventory-data/inventory-list.component.ts":
+/*!************************************************************!*\
+  !*** ./src/app/inventory-data/inventory-list.component.ts ***!
+  \************************************************************/
+/*! exports provided: InventoryListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InventoryListComponent", function() { return InventoryListComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _inventorydata_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./inventorydata.service */ "./src/app/inventory-data/inventorydata.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+var InventoryListComponent = /** @class */ (function () {
+    function InventoryListComponent(inventoryService, router) {
+        this.inventoryService = inventoryService;
+        this.router = router;
+        this.columnDefs = [
+            { headerName: 'No', field: 'id', filter: true },
+            { headerName: 'Item Name', field: 'itemName', filter: true },
+            { headerName: 'Event Category', field: 'eventCategory', filter: true },
+            { headerName: 'Comments', field: 'comments', filter: true }
+        ];
+    }
+    InventoryListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.inventoryService.getInventoryData().subscribe(function (data) {
+            _this.rowData = data;
+        }, function (err) {
+            console.log(err.message);
+        });
+    };
+    InventoryListComponent.prototype.onSearch = function (event) {
+        this.router.navigate(['inventorydata', { id: event.data.id }]);
+    };
+    InventoryListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-inventory-list',
+            template: __webpack_require__(/*! ./inventory-list.component.html */ "./src/app/inventory-data/inventory-list.component.html"),
+            styles: [__webpack_require__(/*! ./inventory-list.component.css */ "./src/app/inventory-data/inventory-list.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_inventorydata_service__WEBPACK_IMPORTED_MODULE_2__["InventorydataService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    ], InventoryListComponent);
+    return InventoryListComponent;
 }());
 
 
@@ -947,15 +1140,19 @@ var InventorydataService = /** @class */ (function () {
         this.http = http;
     }
     InventorydataService.prototype.saveInventoryData = function (data) {
-        this.http.post(src_environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].serverHost + "/inventorydata/list", data).subscribe(function (response) {
-            console.log('response: ', response);
-        });
+        return this.http.post(src_environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].serverHost + "/inventorydata/list", data);
     };
     InventorydataService.prototype.getInventoryData = function () {
-        this.http.get(src_environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].serverHost + "/inventorydata/list");
+        return this.http.get(src_environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].serverHost + "/inventorydata/list");
     };
     InventorydataService.prototype.getEventCategoryList = function () {
         return this.http.get(src_environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].serverHost + "/inventorydata/eventcategory");
+    };
+    InventorydataService.prototype.getInventoryDataById = function (id) {
+        return this.http.get(src_environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].serverHost + "/inventorydata/list/" + id);
+    };
+    InventorydataService.prototype.updateInventoryDataById = function (data, id) {
+        return this.http.put(src_environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].serverHost + "/inventorydata/list/" + id, data);
     };
     InventorydataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -964,6 +1161,104 @@ var InventorydataService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], InventorydataService);
     return InventorydataService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/partner-ngo-grid/partner-ngo-grid.component.css":
+/*!*****************************************************************!*\
+  !*** ./src/app/partner-ngo-grid/partner-ngo-grid.component.css ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhcnRuZXItbmdvLWdyaWQvcGFydG5lci1uZ28tZ3JpZC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/partner-ngo-grid/partner-ngo-grid.component.html":
+/*!******************************************************************!*\
+  !*** ./src/app/partner-ngo-grid/partner-ngo-grid.component.html ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> Partner NGO </strong></h3>\n  </div>\n  <div class=\"col-md-10\" #myGrid  style=\"width: 100%; height: 100%;\">\n    <ag-grid-angular \n      class=\"ag-theme-balham\" \n      [rowData]=\"data\" \n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\"\n      (rowDoubleClicked)=\"onRowDoubleCilcked(event)\"\n    >\n      <!-- [rowSelection]=\"single\" \n      (gridReady)=\"onGridReady($event)\"\n      (cellDoubleClicked)=\"onCellDoubleClicked($event)\"-->\n    </ag-grid-angular>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/partner-ngo-grid/partner-ngo-grid.component.ts ***!
+  \****************************************************************/
+/*! exports provided: PartnerNgoGridComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PartnerNgoGridComponent", function() { return PartnerNgoGridComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+var PartnerNgoGridComponent = /** @class */ (function () {
+    function PartnerNgoGridComponent(apiService, router) {
+        this.apiService = apiService;
+        this.router = router;
+        this.data = [];
+        this.headers = [
+            { headerName: 'Name', field: 'name', filter: true, sortable: true },
+            { headerName: 'Description', field: 'description', filter: true },
+            { headerName: 'City', field: 'city', filter: true },
+            { headerName: 'State', field: 'state', filter: true }
+            //{headerName: 'authorized Person', field: 'authorizedPersonName'}
+        ];
+    }
+    PartnerNgoGridComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        /*this.data=[
+          {name:'n1', description: 'd1', city: 'c1', state: 's1', authorizedPerson: [
+            {name: 'a1'},{name:'a2'}
+          ]},
+          {name:'n2', description: 'd2', city: 'c2', state: 's2', authorizedPerson: [
+            {name: 'b1'},{name:'b2'},{name:'b3'},{name:'b4'},{name:'b5'}
+          ]}
+        ];*/
+        this.apiService.getData('partnerngo').subscribe(function (response) {
+            _this.data = response;
+            console.log(_this.data);
+        });
+    };
+    /*onGridReady(params){
+      this.gridApi=params.api;
+      console.log(this.gridApi);
+    }*/
+    PartnerNgoGridComponent.prototype.onRowCilcked = function (event) {
+        console.log(event.rowIndex);
+        this.router.navigateByUrl("/partnerngo/view/" + ((event.rowIndex) + 1));
+        //console.log(this.(event.data));
+    };
+    PartnerNgoGridComponent.prototype.onRowDoubleCilcked = function (event) {
+        console.log(event.rowIndex);
+        this.router.navigateByUrl("/partnerngo/edit/" + event.rowIndex);
+        //console.log(this.(event.data));
+    };
+    PartnerNgoGridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-partner-ngo-grid',
+            template: __webpack_require__(/*! ./partner-ngo-grid.component.html */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.html"),
+            styles: [__webpack_require__(/*! ./partner-ngo-grid.component.css */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    ], PartnerNgoGridComponent);
+    return PartnerNgoGridComponent;
 }());
 
 
@@ -988,7 +1283,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1 user-scalable=no\">\n  </head>\n\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"page-header well well-sm\">\n        <h3><strong> Partner NGO Registration</strong></h3>\n      </div>\n      \n      <form [formGroup]=\"myForm\">\n        <!-- ToDo: Decrease space between the table rows-->\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Basic Information</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"basicInfo\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Name</label>\n                      <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Description</label>\n                      <input type=\"text\" formControlName = \"description\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Branch</label>\n                      <input type=\"text\" formControlName = \"branch\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Registration Number</label>\n                      <input type=\"text\" formControlName = \"registrationNumber\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Address</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"address\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Address Line 1</label>\n                      <input type=\"text\" formControlName = \"addressLine1\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Address Line 2</label>\n                      <input type=\"text\" formControlName = \"addressLine2\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">City</label>\n                      <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">State</label>\n                      <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Pincode</label>\n                      <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Authorised Persons</label>\n          </div>\n          <div class=\"panel-body\">\n            <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n              <li class=\"nav active\" *ngIf=\"numberOfAuthorisedPersons>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">Person 1</a></li>\n              <li class=\"nav\" *ngFor=\"let num of getArray(numberOfAuthorisedPersons-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\" (click)=\"activateTab(i+2)\">Person {{i+2}}</a></li>\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorisedPersons>0\"><a href=\"#tab{{numberOfAuthorisedPersons-1}}\" data-toggle=\"tab\" (click)=\"activateTab(numberOfAuthorisedPersons)\">Person {{numberOfAuthorisedPersons}}</a></li-->\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorisedPersons>0\"><a href=\"#tab{{numberOfAuthorisedPersons-1}}\" data-toggle=\"tab\" (click)=\"selectedTab=i\">Person {{numberOfAuthorisedPersons}}</a></li-->\n              <div class=\"pull-right\">\n                <button class=\"btn btn-primary\" (click)=\"addAuthorisedPerson()\" [disabled]=\"isMaxLimitReached(5)\">Add Person</button>\n                <!-- <button class=\"btn btn-primary\" (click)=removeAuthorisedPerson() [disabled]=\"numberOfAuthorisedPersons\">Remove Person</button> -->\n              </div>\n              <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->\n            </ul>\n\n            <div class=\"tab-content\">\n              <div formArrayName=\"authorisedPersons\">\n                <!--ToDo: NgFor not working: Check-->\n                <div class=\"tab-pane\" *ngFor=\"let person of myForm.get('authorisedPersons').controls;let i=index\" formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n                  <!-- <table class=\"form-table\"> -->\n                  <div *ngIf=\"selectedTab==i\">\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Name</label>\n                          <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Contact Details</label>\n                          <input type=\"text\" formControlName = \"contact1\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Alternate Contact Details</label>\n                          <input type=\"text\" formControlName = \"contact2\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Email ID</label>\n                            <input type=\"text\" formControlName = \"email1\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Alternate Email ID</label>\n                            <input type=\"text\" formControlName = \"email2\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  <!-- </table>               -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </form>\n      <!--<span>{{myForm.value | json}}</span>-->\n      <button class=\"btn btn-primary pull-right\" (click)=\"onSubmit()\">Register</button>\n    </div>\n\n  </body>\n</html>\n"
+module.exports = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1 user-scalable=no\">\n  </head>\n\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"page-header well well-sm\">\n        <h3><strong> Partner NGO Registration</strong></h3>\n      </div>\n      \n      <form [formGroup]=\"myForm\">\n        <!-- ToDo: Decrease space between the table rows-->\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Basic Information</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"basicInfo\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"form-row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Name</label>\n                      <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Description</label>\n                      <input type=\"text\" formControlName = \"description\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"form-row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Branch</label>\n                      <input type=\"text\" formControlName = \"branch\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Registration Number</label>\n                      <input type=\"text\" formControlName = \"registrationNumber\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Address</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"address\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Address Line 1</label>\n                      <input type=\"text\" formControlName = \"addressLine1\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Address Line 2</label>\n                      <input type=\"text\" formControlName = \"addressLine2\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">City</label>\n                      <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">State</label>\n                      <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Pincode</label>\n                      <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Authorised Persons</label>\n          </div>\n          <div class=\"panel-body\">\n            <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n              <li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">Person 1</a></li>\n              <li class=\"nav\" *ngFor=\"let num of getArray(numberOfAuthorizedPersons-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\" (click)=\"activateTab(i+2)\">Person {{i+2}}</a></li>\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"activateTab(numberOfAuthorizedPersons)\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"selectedTab=i\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <div class=\"pull-right\">\n                <button class=\"btn btn-sm btn-primary btn-space\" (click)=\"addAuthorisedPerson()\" [disabled]=\"isMaxLimitReached(5)\">Add Person</button>\n                <button class=\"btn btn-sm btn-primary\" (click)=\"removeAuthorisedPerson(selectedTab)\" confirm=\"Are you sure you want to delete?\" confirm-ok=\"Yes\" confirm-cancel=\"No\" [disabled]=\"isMinLimitReached()\">Remove Person</button>\n              </div>\n              <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->\n            </ul>\n\n            <div class=\"tab-content\">\n              <div formArrayName=\"authorizedPersons\">\n                <!--ToDo: NgFor not working: Check-->\n                <div class=\"tab-pane\" *ngFor=\"let person of myForm.get('authorizedPersons').controls;let i=index\" formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n                  <!-- <table class=\"form-table\"> -->\n                  <div *ngIf=\"selectedTab==i\">\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Name</label>\n                          <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Contact Details</label>\n                          <input type=\"text\" formControlName = \"contact1\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Alternate Contact Details</label>\n                          <input type=\"text\" formControlName = \"contact2\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Email ID</label>\n                            <input type=\"text\" formControlName = \"email1\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Alternate Email ID</label>\n                            <input type=\"text\" formControlName = \"email2\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  <!-- </table>               -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </form>\n      <!--<span>{{myForm.value | json}}</span>-->\n      <button class=\"btn btn-primary pull-right\" (click)=\"onSubmit()\" *ngIf=\"mode!='view' || mode!='edit'\">Register</button>\n      <button class=\"btn btn-primary pull-right\" (click)=\"onEdit()\" *ngIf=\"mode=='edit'\">Edit</button>\n      <button class=\"btn btn-primary pull-right\" (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\">Update</button>\n      <button class=\"btn btn-primary pull-right\" (click)=\"onClose()\" *ngIf=\"mode=='view'\">Close</button>\n    </div>\n\n  </body>\n</html>\n"
 
 /***/ }),
 
@@ -1006,26 +1301,71 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 
 
 
 
+
+// import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 var PartnerNGOComponent = /** @class */ (function () {
-    function PartnerNGOComponent(formBuilder, apiService) {
+    function PartnerNGOComponent(formBuilder, apiService, route, router) {
         this.formBuilder = formBuilder;
         this.apiService = apiService;
-        this.numberOfAuthorisedPersons = 0;
+        this.route = route;
+        this.router = router;
+        this.numberOfAuthorizedPersons = 0;
         this.selectedTab = -1;
     }
     PartnerNGOComponent.prototype.ngOnInit = function () {
+        var _this = this;
         console.log('Loading PartnerNgo Screen');
         this.myForm = this.formBuilder.group({
             basicInfo: this.partnerNgoGroup(),
             address: this.address(),
-            authorisedPersons: this.formBuilder.array([this.authorisedPerson()])
+            authorizedPersons: this.formBuilder.array([this.authorisedPerson()])
         });
-        this.numberOfAuthorisedPersons = this.getAuthorisedPersons().length;
-        this.activateTab(this.numberOfAuthorisedPersons);
+        this.route.paramMap.subscribe(function (params) {
+            console.log(params);
+            _this.mode = params.get('mode');
+            _this.id = +params.get('id');
+            if (!isNaN(_this.id)) {
+                // let data={basicInfo: {name:"name", description:"desc", branch:"branch", registrationNumber:"regNum"},
+                //           address: {addressLine1: "add1", addressLine2: "add2", city: "city", state: "state", pincode:"pin"},
+                //           authorizedPersons: [{name: "a1", contact1: "c1", contact2: "c2", email1: "e1", email2: "e2"},
+                //           {name: "a1", contact1: "c1", contact2: "c2", email1: "e1", email2: "e2"}
+                // ]};
+                _this.apiService.getData('partnerngo', _this.id, true).subscribe(function (result) {
+                    var data = JSON.parse(JSON.stringify(result));
+                    console.log("GetResponse: " + data);
+                    if (data.authorizedPersons) {
+                        data.authorizedPersons.forEach(function (authorizedPerson, index) {
+                            if (index != 0) {
+                                _this.addAuthorisedPerson();
+                            }
+                        });
+                    }
+                    _this.myForm.setValue(data);
+                });
+            }
+            else {
+                alert('Error in ID');
+            }
+        });
+        this.numberOfAuthorizedPersons = this.getAuthorizedPersons().length;
+        this.activateTab(1);
+    };
+    PartnerNGOComponent.prototype.ngAfterViewInit = function () {
+        if (this.mode == 'view') {
+            Array.from(document.getElementsByClassName('form-control')).forEach(function (element) {
+                element.disabled = true;
+            });
+        }
+        else {
+            Array.from(document.getElementsByClassName('form-control')).forEach(function (element) {
+                element.disabled = false;
+            });
+        }
     };
     PartnerNGOComponent.prototype.partnerNgoGroup = function () {
         return this.formBuilder.group({
@@ -1082,28 +1422,39 @@ var PartnerNGOComponent = /** @class */ (function () {
                 ]]
         });
     };
-    PartnerNGOComponent.prototype.getAuthorisedPersons = function () {
-        return this.myForm.get('authorisedPersons');
+    PartnerNGOComponent.prototype.getAuthorizedPersons = function () {
+        return this.myForm.get('authorizedPersons');
     };
     PartnerNGOComponent.prototype.addAuthorisedPerson = function () {
-        if (this.numberOfAuthorisedPersons < 5) {
-            (this.getAuthorisedPersons()).push(this.authorisedPerson());
-            this.numberOfAuthorisedPersons = this.getAuthorisedPersons().length;
-            //this.activateTab(this.numberOfAuthorisedPersons);
+        if (this.numberOfAuthorizedPersons < 5) {
+            (this.getAuthorizedPersons()).push(this.authorisedPerson());
+            this.numberOfAuthorizedPersons = this.getAuthorizedPersons().length;
+            //this.activateTab(this.numberOfAuthorizedPersons);
         }
     };
     PartnerNGOComponent.prototype.removeAuthorisedPerson = function (index) {
-        if (this.numberOfAuthorisedPersons > 1) {
-            (this.getAuthorisedPersons()).removeAt(index);
-            this.numberOfAuthorisedPersons = this.getAuthorisedPersons().length;
-            this.selectedTab = this.numberOfAuthorisedPersons - 1;
+        if (this.numberOfAuthorizedPersons > 1) {
+            // var authorizedPerson = this.getAuthorizedPersons();
+            // var name = authorizedPerson[index].get('name');
+            // confirm("Do you want to delete "
+            if (confirm("Do you want to delete ")) {
+                (this.getAuthorizedPersons()).removeAt(index);
+                this.numberOfAuthorizedPersons = this.getAuthorizedPersons().length;
+                if (this.selectedTab == this.numberOfAuthorizedPersons)
+                    this.selectedTab = this.numberOfAuthorizedPersons - 1;
+            }
+        }
+        else {
         }
     };
-    PartnerNGOComponent.prototype.getNumberOfAuthorisedPersons = function () {
-        return this.numberOfAuthorisedPersons;
+    PartnerNGOComponent.prototype.getNumberOfAuthorizedPersons = function () {
+        return this.numberOfAuthorizedPersons;
     };
     PartnerNGOComponent.prototype.isMaxLimitReached = function (val) {
-        return this.numberOfAuthorisedPersons >= val;
+        return this.numberOfAuthorizedPersons >= val;
+    };
+    PartnerNGOComponent.prototype.isMinLimitReached = function () {
+        return this.numberOfAuthorizedPersons === 1;
     };
     PartnerNGOComponent.prototype.getArray = function (val) {
         return Array(val);
@@ -1111,8 +1462,21 @@ var PartnerNGOComponent = /** @class */ (function () {
     PartnerNGOComponent.prototype.activateTab = function (val) {
         this.selectedTab = val - 1;
     };
+    PartnerNGOComponent.prototype.onUpdate = function () {
+        //TODO
+    };
+    PartnerNGOComponent.prototype.onEdit = function () {
+        //TODO: instead change mode and make fields Editable.
+        this.router.navigateByUrl("/partnerngo/edit/" + this.id);
+    };
+    PartnerNGOComponent.prototype.onClose = function () {
+        this.router.navigateByUrl("/");
+    };
     PartnerNGOComponent.prototype.onSubmit = function () {
-        var json = Object.assign({ authorizedPerson: this.getAuthorisedPersons().value }, this.myForm.get('basicInfo').value, this.myForm.get('address').value);
+        var json = Object.assign({ authorizedPerson: this.getAuthorizedPersons().value }, this.myForm.get('basicInfo').value, this.myForm.get('address').value);
+        if (this.mode == 'edit') {
+            json = Object.assign(json, { id: this.id });
+        }
         console.log('submitting: ', json);
         this.apiService.postData(json, 'partnerngo');
         //To test only
@@ -1125,7 +1489,9 @@ var PartnerNGOComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./partner-ngo.component.css */ "./src/app/partner-ngo/partner-ngo.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
-            _api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"]])
+            _api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], PartnerNGOComponent);
     return PartnerNGOComponent;
 }());
