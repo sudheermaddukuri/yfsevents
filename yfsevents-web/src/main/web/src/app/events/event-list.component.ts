@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Eventdata } from './add-event.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector:'event-list',
@@ -25,7 +26,7 @@ export class EventListComponent implements OnInit{
     ];
 
     eventData :any[];
-    constructor(private apiService: ApiService){}
+    constructor(private apiService: ApiService,private router:Router){}
 
 	ngOnInit():void{
    this.apiService.getData('events').subscribe((data:any)=>{
@@ -43,10 +44,11 @@ export class EventListComponent implements OnInit{
       },( err:HttpErrorResponse)=>{
         console.log(err.message);
      });
-      
-   
+    }
     
-  	}
+  onSearch(event:any){
+    this.router.navigate(['addevent',{id:event.data.id}]);
+  }
 }
 
 

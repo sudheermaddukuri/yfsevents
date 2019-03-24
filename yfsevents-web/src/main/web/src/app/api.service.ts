@@ -40,4 +40,10 @@ export class ApiService {
     return this.http.get(uri);
   }
 
+  putData(data:any,id:any,type:string){
+    return this.http.put(this.basicURL+this.urlList.get(type)+"/"+id,data).subscribe(response=>{
+      console.log('updating:',response);
+    });
+  }
+
 }
