@@ -89,24 +89,25 @@ public class PartnerNgoController {
     @PostMapping("/partnerngo")
     public PartnerNgo savePartnerNgo(@RequestBody PartnerNgo partnerNgo){
         logger.info(partnerNgo.toString());
-        //TODO: Add update Logic
-//        if(partnerNgo.getId()!=null) {
-//            Optional<PartnerNgo> oldPartnerNgo = partnerNgoRepository.findById(partnerNgo.getId());
-//            if(oldPartnerNgo.isPresent()){
-//                PartnerNgo ngo = oldPartnerNgo.get();
-//                ngo.getAuthorizedPerson().stream().forEach(authorizedPerson -> {
-//                    authorizedPersonRepository.delete(authorizedPerson);
-//                });
-//                partnerNgoRepository.delete(partnerNgo);
-//            }
-//        }
-        PartnerNgo partnerNgo1 = partnerNgoRepository.save(partnerNgo);
+        if(partnerNgo.getId()!=0) {
+            Optional<PartnerNgo> oldPartnerNgo = partnerNgoRepository.findById(partnerNgo.getId());
+            if(oldPartnerNgo.isPresent()){
+                PartnerNgo ngo = oldPartnerNgo.get();
+                ngo.getAuthorizedPerson().stream().forEach(authorizedPerson -> {
+                    authorizedPersonRepository.delete(authorizedPerson);
+                    //TODO: update instead of Delete
+                });
+            }
+        }
 
-        partnerNgo1.getAuthorizedPerson().stream().forEach((auth)-> { auth.setPartnerNgo(partnerNgo1);
-        authorizedPersonRepository.save(auth);
-        
-        });
-        return partnerNgo1;
+//        PartnerNgo partnerNgo1 = partnerNgoRepository.save(partnerNgo);
+//
+//        partnerNgo1.getAuthorizedPerson().stream().forEach((auth)-> { auth.setPartnerNgo(partnerNgo1);
+//        authorizedPersonRepository.save(auth);
+//
+//        });
+//        return partnerNgo1;
+        return partnerNgo;
     }
 
     @ResponseBody
