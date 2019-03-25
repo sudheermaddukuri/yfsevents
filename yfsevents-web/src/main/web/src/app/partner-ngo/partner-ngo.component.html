@@ -19,7 +19,7 @@
           <div class="panel-body">
             <div formGroupName="basicInfo">
               <!-- <table class="form-table"> -->
-                <div class="form-row">
+                <div class="row">
                   <div class="col-md-6 offset-md-3">
                     <div class="form-group required">
                       <label class="control-label">Name</label>
@@ -33,7 +33,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-row">
+                <div class="row">
                   <div class="col-md-6 offset-md-3">
                     <div class="form-group">
                       <label class="control-label">Branch</label>
@@ -173,10 +173,12 @@
 
       </form>
       <!--<span>{{myForm.value | json}}</span>-->
-      <button class="btn btn-primary pull-right" (click)="onSubmit()" *ngIf="mode!='view' || mode!='edit'">Register</button>
-      <button class="btn btn-primary pull-right" (click)="onEdit()" *ngIf="mode=='edit'">Edit</button>
-      <button class="btn btn-primary pull-right" (click)="onSubmit()" *ngIf="mode=='edit'">Update</button>
-      <button class="btn btn-primary pull-right" (click)="onClose()" *ngIf="mode=='view'">Close</button>
+      <div class="pull-right">
+        <button class="btn btn-primary btn-space" (click)="onSubmit()" *ngIf="!mode">Register</button>
+        <button class="btn btn-primary btn-space" (click)="onEdit()" *ngIf="mode=='view'">Edit</button>
+        <button class="btn btn-primary btn-space" (click)="onSubmit()" *ngIf="mode=='edit'">Update</button>
+        <button class="btn btn-primary btn-space" (click)="onClose()" *ngIf="mode=='view' || mode=='edit'">Close</button>
+      </div>
     </div>
 
   </body>

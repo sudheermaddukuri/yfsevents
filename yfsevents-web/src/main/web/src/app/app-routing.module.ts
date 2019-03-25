@@ -33,14 +33,14 @@ path: 'login_new', component: LoginComponent
     path:'collegelist',component:CollegeListComponent
   },
   {
-    path: 'partnerngo', component: PartnerNGOComponent
+    path: 'grid/partnerngo', component: PartnerNgoGridComponent
   },
-{
-path: 'partnerngo', children:[
-  {path: '', component:WelcomeComponent},
-{ path: ':mode/:id', component: PartnerNGOComponent}
-]
-},
+  {
+    path: 'partnerngo', children:[
+      {path: '', component:WelcomeComponent},
+      { path: ':mode/:id', component: PartnerNGOComponent}
+    ]
+  },
   {path:'events',component:EventListComponent},
   {path:'addevent',component:AddEventComponent},
   {path:'volunteer-create',component:VolunteerComponent},
