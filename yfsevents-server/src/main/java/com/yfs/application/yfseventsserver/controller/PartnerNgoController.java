@@ -39,6 +39,26 @@ public class PartnerNgoController {
     }
 
     @ResponseBody
+    @GetMapping("/partnerngo-list")
+    public List<Map> getPartnerNgoList() {
+
+        List<PartnerNgo> partnerNgos = (List<PartnerNgo>) partnerNgoRepository.findAll();
+
+        List output = new ArrayList();
+
+        partnerNgos.stream().forEach(partnerNgo -> {
+            Map ngo = new HashMap();
+            ngo.put("id", partnerNgo.getId());
+            ngo.put("name", partnerNgo.getName());
+
+            output.add(ngo);
+        });
+
+
+        return output;
+    }
+
+    @ResponseBody
     @GetMapping("/partnerngo/{id}/formatted")
     public Map getPartnerNgoFormatted(@PathVariable Long id) {
 

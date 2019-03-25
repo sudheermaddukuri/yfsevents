@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InventorydataService } from './inventorydata.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-inventory-data',
@@ -10,41 +11,60 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class InventoryDataComponent implements OnInit {
   inventoryData: FormGroup;
-  eventCategory:any[];
-  selected:any;
-  constructor(private formBuilder: FormBuilder,private inventoryService:InventorydataService) { }
+  eventCategoryList: any[];
+  selected: any;
+  constructor(private formBuilder: FormBuilder, private inventoryService: InventorydataService,private route:ActivatedRoute) {
+   
+    
+   }
 
   ngOnInit() {
 
     this.inventoryData = this.formBuilder.group({
-      itemName: ['',[
+      itemName: ['', [
         Validators.required, Validators.maxLength(50)
       ]],
       eventCategory: [''],
-      comments:['',[
+      comments: ['', [
         Validators.required, Validators.maxLength(200)
       ]],
-      
+
     });
 
-    this.inventoryService.getEventCategoryList().subscribe((data:any) =>
-    {
-      this.eventCategory= data;
-    },( err:HttpErrorResponse)=>{
-       console.log(err.message);
-    })
-
+    this.inventoryService.getEventCategoryList().subscribe((data: any) => {
+      this.eventCategoryList = data;
+    }, (err: HttpErrorResponse) => {
+      console.log(err.message);
+    });
    
-
+    if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id'))
+    {
+     this.inventoryService.getInventoryDataById(this.route.snapshot.paramMap.get('id')).subscribe((data:any) =>{
+       this.inventoryData.setValue({
+        itemName:data.itemName,
+        eventCategory:data.eventCategory,
+        comments:data.comments
+       })
+     },(err:HttpErrorResponse) =>{
+        console.log(err.message)
+     })
+    }
   }
 
-  onSubmit(){
-    console.log(this.selected);
-    const data=Object.assign({},this.inventoryData.getRawValue(),{eventCategory:this.selected});
-    console.log(this.inventoryData.getRawValue());
-    console.log(data);
-    this.inventoryService.saveInventoryData(data);
+  onSubmit() {
+    const inventoryData = this.inventoryData.getRawValue();
+    if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id'))
+    {
+      this.inventoryService.updateInventoryDataById(inventoryData,this.route.snapshot.paramMap.get('id')).subscribe((data:any)=>{
+        console.log('response',data);
+      });
 
+    }
+    else{
+    this.inventoryService.saveInventoryData(inventoryData).subscribe((data:any)=>{
+      console.log('response',data);
+    });
+  }
   }
 
 }
