@@ -1,7 +1,8 @@
-import { Component, OnInit,Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { FormsModule, FormGroup, FormControl, Validators, FormBuilder, FormArray }  from '@angular/forms';
 import { ApiService } from '../api.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-college-registration',
@@ -14,9 +15,13 @@ export class CollegeRegistrationComponent  {
 
   private numberOfMOUs: number=0;
   private selectedTab: number=-1;
+  private mode: String;
+  private id: number;
 
   constructor(private formBuilder: FormBuilder,
-              private apiService: ApiService) { }
+              private apiService: ApiService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.collegeForm= this.formBuilder.group({
@@ -26,6 +31,29 @@ export class CollegeRegistrationComponent  {
     });
     this.numberOfMOUs=this.getMOUDetails().length;
     this.activateTab(this.numberOfMOUs);
+
+    this.route.paramMap.subscribe(params=>{
+      console.log(params);
+      this.mode=params.get('mode');
+      this.id=+params.get('id');
+      if(!isNaN(this.id)){
+       
+        this.apiService.getData('collegeregistration',this.id, true).subscribe(result =>{
+          let data=JSON.parse(JSON.stringify(result));
+          console.log("GetResponse: "+data);
+          if(data.mouDetails){
+            data.mouDetails.forEach((mou, index) =>{
+              if(index!=0){
+                this.addMOU();
+              }
+            });
+          }
+          this.collegeForm.setValue(data);
+        });
+      }else{
+        alert('Error in ID');
+      }
+    });
   }
 
   collegeDetails(): FormGroup{
@@ -64,6 +92,9 @@ export class CollegeRegistrationComponent  {
       mouID: ['',[
         Validators.required, Validators.maxLength(200)
       ]],
+       mouStatus: ['',[
+              Validators.required, Validators.maxLength(200)
+            ]],
       mouName: ['', [
         Validators.required, Validators.maxLength(10)
       ]],
@@ -116,6 +147,9 @@ export class CollegeRegistrationComponent  {
   onSubmit(){
     console.log('inside method onsubmit');
     let json= Object.assign({mouDetails:this.getMOUDetails().value}, this.collegeForm.get('collegeDetails').value, this.collegeForm.get('address').value);
+    if(this.mode=='edit'){
+      json=Object.assign(json, {id:this.id});
+    }
     console.log('submitting: ',json);
     this.apiService.postData(json,'collegeregistration');
     

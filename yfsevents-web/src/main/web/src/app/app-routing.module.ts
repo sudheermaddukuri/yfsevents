@@ -12,12 +12,19 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { InventoryListComponent } from './inventory-data/inventory-list.component';
 import { CollegeListComponent } from './college-registration/college-list.component';
 import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
+import { CollegeRegistrationGridComponent } from './college-registration-grid/college-registration-grid.component';
 
 
 const routes: Routes = [
   {
-    path: 'collegeregistration', component: CollegeRegistrationComponent
-  },
+    path: 'collegeregistration', children:[
+    { path: '', component:CollegeRegistrationComponent },
+    { path: ':mode/:id', component: CollegeRegistrationComponent}
+    ]
+    },
+    {
+      path: 'grid/collegeregistration', component: CollegeRegistrationGridComponent
+    },
   {
     path: 'inventorydata', component: InventoryDataComponent
   },
@@ -26,9 +33,6 @@ const routes: Routes = [
   },
   {
     path:'collegelist',component:CollegeListComponent
-  },
-  {
-    path: 'partnerngo', component: PartnerNGOComponent
   },
 {
 path: 'partnerngo', children:[
