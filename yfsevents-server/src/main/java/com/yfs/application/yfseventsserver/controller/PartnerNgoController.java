@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -107,6 +108,7 @@ public class PartnerNgoController {
 
     @ResponseBody
     @PostMapping("/partnerngo")
+    @Transactional
     public PartnerNgo savePartnerNgo(@RequestBody PartnerNgo partnerNgo){
         logger.info(partnerNgo.toString());
         if(partnerNgo.getId()!=0) {
@@ -115,7 +117,7 @@ public class PartnerNgoController {
                 PartnerNgo ngo = oldPartnerNgo.get();
 //                authorizedPersonRepository.deleteAll(ngo.getAuthorizedPerson());
                 ngo.getAuthorizedPerson().stream().forEach(authorizedPerson -> {
-                    authorizedPersonRepository.delete(authorizedPerson);
+                    authorizedPersonRepository.delete(authorizedPerson.getId());
                     //TODO: update instead of Delete
                 });
             }
