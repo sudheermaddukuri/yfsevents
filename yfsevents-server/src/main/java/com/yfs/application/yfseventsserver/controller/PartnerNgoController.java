@@ -93,21 +93,22 @@ public class PartnerNgoController {
             Optional<PartnerNgo> oldPartnerNgo = partnerNgoRepository.findById(partnerNgo.getId());
             if(oldPartnerNgo.isPresent()){
                 PartnerNgo ngo = oldPartnerNgo.get();
+//                authorizedPersonRepository.deleteAll(ngo.getAuthorizedPerson());
                 ngo.getAuthorizedPerson().stream().forEach(authorizedPerson -> {
                     authorizedPersonRepository.delete(authorizedPerson);
                     //TODO: update instead of Delete
                 });
             }
         }
+        authorizedPersonRepository.flush();
 
-//        PartnerNgo partnerNgo1 = partnerNgoRepository.save(partnerNgo);
-//
-//        partnerNgo1.getAuthorizedPerson().stream().forEach((auth)-> { auth.setPartnerNgo(partnerNgo1);
-//        authorizedPersonRepository.save(auth);
-//
-//        });
-//        return partnerNgo1;
-        return partnerNgo;
+        PartnerNgo partnerNgo1 = partnerNgoRepository.save(partnerNgo);
+
+        partnerNgo1.getAuthorizedPerson().stream().forEach((auth)-> { auth.setPartnerNgo(partnerNgo1);
+        authorizedPersonRepository.save(auth);
+
+        });
+        return partnerNgo1;
     }
 
     @ResponseBody
