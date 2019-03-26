@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -40,12 +41,17 @@ public class InventoryDataController {
 
     }
 
-    @ResponseBody
+  /*  @ResponseBody
     @GetMapping("/list/{id}")
     public Optional<InventoryData> getInventoryDataById(@PathVariable Long id) {
         return inventoryDataRepository.findById(id);
     }
-
+*/
+    @ResponseBody
+    @GetMapping("/items/{eventCategory}")
+    public List<String> getItemsByEventCategory(@PathVariable String eventCategory) {
+        return inventoryDataRepository.findItemsByEventCategory(eventCategory);
+    }
     @ResponseBody
     @PutMapping("/list/{id}")
     public ResponseEntity<Object> updateInventoryData(@RequestBody InventoryData inventoryData, @PathVariable Long id){
