@@ -1,6 +1,5 @@
 package com.yfs.application.yfseventsserver.controller;
 
-import com.yfs.application.yfseventsserver.entity.AuthorizedPerson;
 import com.yfs.application.yfseventsserver.entity.PartnerNgo;
 import com.yfs.application.yfseventsserver.repository.AuthorizedPersonRepository;
 import com.yfs.application.yfseventsserver.repository.PartnerNgoRepository;
@@ -8,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -107,24 +107,27 @@ public class PartnerNgoController {
 
     @ResponseBody
     @PostMapping("/partnerngo")
+    @Transactional
     public PartnerNgo savePartnerNgo(@RequestBody PartnerNgo partnerNgo){
         logger.info(partnerNgo.toString());
-        //TODO: Add update Logic
-//        if(partnerNgo.getId()!=null) {
-//            Optional<PartnerNgo> oldPartnerNgo = partnerNgoRepository.findById(partnerNgo.getId());
-//            if(oldPartnerNgo.isPresent()){
-//                PartnerNgo ngo = oldPartnerNgo.get();
-//                ngo.getAuthorizedPerson().stream().forEach(authorizedPerson -> {
-//                    authorizedPersonRepository.delete(authorizedPerson);
-//                });
-//                partnerNgoRepository.delete(partnerNgo);
-//            }
-//        }
+        if (partnerNgo.getId() != 0) {
+            Optional<PartnerNgo> oldPartnerNgo = partnerNgoRepository.findById(partnerNgo.getId());
+            if (oldPartnerNgo.isPresent()) {
+                PartnerNgo ngo = oldPartnerNgo.get();
+//                authorizedPersonRepository.deleteAll(ngo.getAuthorizedPerson());
+                ngo.getAuthorizedPerson().stream().forEach(authorizedPerson -> {
+                    authorizedPersonRepository.delete(authorizedPerson.getId());
+                    //TODO: update instead of Delete
+                });
+            }
+        }
+        authorizedPersonRepository.flush();
+
         PartnerNgo partnerNgo1 = partnerNgoRepository.save(partnerNgo);
 
         partnerNgo1.getAuthorizedPerson().stream().forEach((auth)-> { auth.setPartnerNgo(partnerNgo1);
         authorizedPersonRepository.save(auth);
-        
+
         });
         return partnerNgo1;
     }

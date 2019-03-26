@@ -32,7 +32,7 @@ path: 'collegeregistration', component: CollegeRegistrationComponent
     path:'collegelist',component:CollegeListComponent
   },
   {
-    path: 'partnerngo', component: PartnerNGOComponent
+  path: 'grid/partnerngo', component: PartnerNgoGridComponent
   },
 {
 path: 'partnerngo', children:[
