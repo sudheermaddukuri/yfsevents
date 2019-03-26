@@ -1,39 +1,32 @@
-import{Component, OnInit}from '@angular/core';
-import {Router, ActivatedRoute}from '@angular/router';
-import {HttpClient} from '@angular/common/http';
-import {Observable}from 'rxjs';
+import{Component, OnInit, ViewEncapsulation}from '@angular/core';
+import {User}from "../model/model.user";
+import {AuthService}from "../services/auth.service";
+import {Router}from "@angular/router";
+
 
 @Component({
 selector: 'login',
-templateUrl: './login.component.html'
+templateUrl: './login.component.html',
+styleUrls: ['./login.component.css'],
+encapsulation: ViewEncapsulation.None
 })
-
 export class LoginComponent implements OnInit {
+user: User = new User();
+errorMessage:string;
+constructor(private authService :AuthService, private router: Router) { }
 
-model: any = {};
 
-constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        private http: HttpClient
-    ) { }
 
-    ngOnInit() {
-        sessionStorage.setItem('token', '');
-    }
+  ngOnInit() {
+  }
 
-    login() {
-        let url = 'http://localhost:8080/login';
-        this.http.post<Observable<boolean>>(url, {
-            userName: this.model.username,
-            password: this.model.password
-        }).subscribe(isValid => {
-            if (isValid) {
-                sessionStorage.setItem('token', btoa(this.model.username + ':' + this.model.password));
-                this.router.navigate(['']);
-            } else {
-                alert("Authentication failed.")
-            }
-        });
-    }
+  login(){
+    this.authService.logIn(this.user)
+      .subscribe(data=>{
+        this.router.navigate(['/profile']);
+        },err=>{
+        this.errorMessage="error :  Username or password is incorrect";
+        }
+)
+}
 }

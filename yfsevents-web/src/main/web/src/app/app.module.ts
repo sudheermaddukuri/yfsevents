@@ -24,6 +24,10 @@ import { InventoryListComponent } from './inventory-data/inventory-list.componen
 import { CollegeListComponent } from './college-registration/college-list.component';
 import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
 import {LoginComponent}from './login/login.component';
+import {UrlPermission }from "./urlPermission/url.permission";
+import {UserService}from "./services/user.service";
+import {AuthService}from "./services/auth.service";
+
 
 @NgModule({
   declarations: [
@@ -40,8 +44,8 @@ import {LoginComponent}from './login/login.component';
     WelcomeComponent,
     InventoryListComponent,
     CollegeListComponent,
-PartnerNgoGridComponent,
-LoginComponent
+    PartnerNgoGridComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -13,15 +13,14 @@ import { InventoryListComponent } from './inventory-data/inventory-list.componen
 import { CollegeListComponent } from './college-registration/college-list.component';
 import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
 import {LoginComponent}from './login/login.component';
+import {RegisterComponent}from "./register/register.component";
 
 const routes: Routes = [
-
 {
-
-path: 'login_new', component: LoginComponent
+path: 'login', component: LoginComponent
 },
 {
-    path: 'collegeregistration', component: CollegeRegistrationComponent
+path: 'collegeregistration', component: CollegeRegistrationComponent
   },
   {
     path: 'inventorydata', component: InventoryDataComponent
@@ -37,19 +36,28 @@ path: 'login_new', component: LoginComponent
   },
 {
 path: 'partnerngo', children:[
-  {path: '', component:WelcomeComponent},
-{ path: ':mode/:id', component: PartnerNGOComponent}
+
+{path: ':mode/:id', component: PartnerNGOComponent}
 ]
 },
-  {path:'events',component:EventListComponent},
-  {path:'addevent',component:AddEventComponent},
-  {path:'volunteer-create',component:VolunteerComponent},
-  {
+{
+path:'events',component:EventListComponent
+},
+
+{path:'addevent',component:AddEventComponent},
+
+{path:'volunteer-create',component:VolunteerComponent},
+
+{
     path:'email',component:SendMailComponent
   },
-  {
 
-  path: '**', redirectTo: ''
+{
+
+path: '**', redirectTo: 'login'
+},
+{
+path: 'register', component: RegisterComponent
   }
 ];
 
