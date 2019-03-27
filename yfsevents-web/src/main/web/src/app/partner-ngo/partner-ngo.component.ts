@@ -3,6 +3,7 @@ import { FormsModule, FormGroup, FormControl, Validators, FormBuilder, FormArray
 import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import {NgOnChangesFeature}from '@angular/core/src/render3';
 // import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -34,28 +35,32 @@ export class PartnerNGOComponent implements OnInit, AfterViewInit {
 
     this.route.paramMap.subscribe(params=>{
       console.log(params);
-      this.mode=params.get('mode');
-      this.id=+params.get('id');
-      if(!isNaN(this.id)){
-        // let data={basicInfo: {name:"name", description:"desc", branch:"branch", registrationNumber:"regNum"},
-        //           address: {addressLine1: "add1", addressLine2: "add2", city: "city", state: "state", pincode:"pin"},
-        //           authorizedPersons: [{name: "a1", contact1: "c1", contact2: "c2", email1: "e1", email2: "e2"},
-        //           {name: "a1", contact1: "c1", contact2: "c2", email1: "e1", email2: "e2"}
-        // ]};
-        this.apiService.getData('partnerngo',this.id, true).subscribe(result =>{
-          let data=JSON.parse(JSON.stringify(result));
-          console.log("GetResponse: "+data);
-          if(data.authorizedPersons){
-            data.authorizedPersons.forEach((authorizedPerson, index) =>{
-              if(index!=0){
-                this.addAuthorisedPerson();
-              }
-            });
-          }
-          this.myForm.setValue(data);
-        });
-      }else{
-        alert('Error in ID');
+      if(params.get('mode')){
+        this.mode=params.get('mode');
+        this.id=+params.get('id');
+      }
+      if(this.id){
+        if(!isNaN(this.id)){
+          // let data={basicInfo: {name:"name", description:"desc", branch:"branch", registrationNumber:"regNum"},
+          //           address: {addressLine1: "add1", addressLine2: "add2", city: "city", state: "state", pincode:"pin"},
+          //           authorizedPersons: [{name: "a1", contact1: "c1", contact2: "c2", email1: "e1", email2: "e2"},
+          //           {name: "a1", contact1: "c1", contact2: "c2", email1: "e1", email2: "e2"}
+          // ]};
+          this.apiService.getData('partnerngo',this.id, true).subscribe(result =>{
+            let data=JSON.parse(JSON.stringify(result));
+            console.log("GetResponse: "+data);
+            if(data.authorizedPersons){
+              data.authorizedPersons.forEach((authorizedPerson, index) =>{
+                if(index!=0){
+                  this.addAuthorisedPerson();
+                }
+              });
+            }
+            this.myForm.setValue(data);
+          });
+        }else{
+          alert('Error in ID');
+        }
       }
     });
 
@@ -68,10 +73,12 @@ export class PartnerNGOComponent implements OnInit, AfterViewInit {
     if(this.mode=='view'){
       Array.from(document.getElementsByClassName('form-control')).forEach(element => {
         (<HTMLInputElement>element).disabled = true;
+        //TODO: Disable add/remove buttons
       });
     }else{
       Array.from(document.getElementsByClassName('form-control')).forEach(element => {
         (<HTMLInputElement>element).disabled = false;
+        //TODO: Enable add/remove buttons
       });
     }
   }
@@ -192,7 +199,7 @@ export class PartnerNGOComponent implements OnInit, AfterViewInit {
   }
 
   onClose(){
-    this.router.navigateByUrl("/");
+    this.router.navigateByUrl("/grid/partnerngo");
   }
 
   onSubmit(){
@@ -201,8 +208,14 @@ export class PartnerNGOComponent implements OnInit, AfterViewInit {
       json=Object.assign(json, {id:this.id});
     }
     console.log('submitting: ',json);
-    this.apiService.postData(json,'partnerngo');
-    //To test only
-    // this.apiService.getData('partnerngo');
+    let response:boolean = this.apiService.postData(json,'partnerngo');
+    if(response){
+      if(this.mode=='edit'){
+        alert('Succesfully updated Partner NGO');
+      }else{
+        alert('Succesfully registered Partner NGO');
+      }
+      this.router.navigateByUrl("/grid/partnerngo");
+    }
   }
 }

@@ -24,6 +24,12 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { InventoryListComponent } from './inventory-data/inventory-list.component';
 import { CollegeListComponent } from './college-registration/college-list.component';
 import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
+import { CollegeRegistrationGridComponent } from './college-registration-grid/college-registration-grid.component';
+import {LoginComponent}from './login/login.component';
+import {UrlPermission }from "./urlPermission/url.permission";
+import {UserService}from "./services/user.service";
+import {AuthService}from "./services/auth.service";
+
 
 @NgModule({
   declarations: [
@@ -40,7 +46,9 @@ import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.com
     WelcomeComponent,
     InventoryListComponent,
     CollegeListComponent,
-    PartnerNgoGridComponent
+    PartnerNgoGridComponent,
+    CollegeRegistrationGridComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
