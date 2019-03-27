@@ -13,7 +13,7 @@ export class CollegeRegistrationGridComponent implements OnInit {
   private data:any=[];
   private headers=[
     {headerName: 'College Name', field: 'name',filter:true, sortable: true },
-    {headerName: 'Registration Id', field: 'description',filter:true},
+    {headerName: 'Registration Id', field: 'registrationId',filter:true},
     {headerName: 'Mou Name', field: 'mouName'},
     {headerName: 'Mou ID', field: 'mouID',filter:true},
     {headerName: 'Mou Status', field: 'mouStatus'}

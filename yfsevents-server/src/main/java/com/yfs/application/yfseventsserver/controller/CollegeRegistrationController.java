@@ -2,13 +2,17 @@ package com.yfs.application.yfseventsserver.controller;
 
 
 import com.yfs.application.yfseventsserver.entity.CollegeRegistration;
+import com.yfs.application.yfseventsserver.entity.Mou;
 import com.yfs.application.yfseventsserver.entity.PartnerNgo;
 import com.yfs.application.yfseventsserver.repository.CollegeRegistrationRepository;
 import com.yfs.application.yfseventsserver.repository.MouRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.*;
 
 @Controller
@@ -22,14 +26,40 @@ public class CollegeRegistrationController {
     @Autowired
     private MouRepository mouRepository;
 
+    @PersistenceContext
+    EntityManager entityManager;
+    @Transactional
     @ResponseBody
     @PostMapping("/collegeregistration")
     public CollegeRegistration saveCollegeRegistration(@RequestBody CollegeRegistration collegeRegistration)
     {
+       if(collegeRegistration.getId()!=0) {
+            Optional<CollegeRegistration> oldCollegeRegistration = collegeRegistrationRepository.findById(collegeRegistration.getId());
+            if(oldCollegeRegistration.isPresent()){
+                CollegeRegistration collegereg = oldCollegeRegistration.get();
+                collegereg.getMouDetails().stream().forEach(mou -> {
+                    mouRepository.delete(mou.getId());
+                    //TODO: update instead of Delete
+                });
+            }
+        }
+        mouRepository.flush();
+
+     /*  String muid=collegeRegistration.getMouDetails().get(0).getMouID();
+       if(muid.equalsIgnoreCase("mid2"))
+       {
+           Mou mou = collegeRegistration.getMouDetails().get(0);
+           //mou.setId(1);
+          // entityManager.merge(mou);
+           //collegeRegistration.getMouDetails().get(0).setId(1);
+       }*/
+
         CollegeRegistration collegeRegistration1 = collegeRegistrationRepository.save(collegeRegistration);
 
         collegeRegistration1.getMouDetails().stream().forEach((mou)-> { mou.setCollegeRegistration(collegeRegistration1);
+      //      entityManager.merge(mou);
         mouRepository.save(mou);
+        //    entityManager.flush();
         });
         return collegeRegistration1;
     }
