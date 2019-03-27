@@ -34,21 +34,16 @@ path: 'collegeregistration', component: CollegeRegistrationComponent
   {
   path: 'grid/partnerngo', component: PartnerNgoGridComponent
   },
-{
-path: 'partnerngo', children:[
-
-{path: ':mode/:id', component: PartnerNGOComponent}
-]
-},
-{
-path:'events',component:EventListComponent
-},
-
-{path:'addevent',component:AddEventComponent},
-
-{path:'volunteer-create',component:VolunteerComponent},
-
-{
+  {
+    path: 'partnerngo', children:[
+      {path: '', component:PartnerNGOComponent},
+      { path: ':mode/:id', component: PartnerNGOComponent}
+    ]
+  },
+  {path:'events',component:EventListComponent},
+  {path:'addevent',component:AddEventComponent},
+  {path:'volunteer-create',component:VolunteerComponent},
+  {
     path:'email',component:SendMailComponent
   },
 
