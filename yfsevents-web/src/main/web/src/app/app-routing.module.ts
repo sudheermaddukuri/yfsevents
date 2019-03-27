@@ -13,7 +13,8 @@ import { InventoryListComponent } from './inventory-data/inventory-list.componen
 import { CollegeListComponent } from './college-registration/college-list.component';
 import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
 import { CollegeRegistrationGridComponent } from './college-registration-grid/college-registration-grid.component';
-
+import {LoginComponent}from './login/login.component';
+import {RegisterComponent}from "./register/register.component";
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
     {
       path: 'grid/collegeregistration', component: CollegeRegistrationGridComponent
     },
+
+
+{
+path: 'login', component: LoginComponent
+},
   {
     path: 'inventorydata', component: InventoryDataComponent
   },
@@ -34,22 +40,28 @@ const routes: Routes = [
   {
     path:'collegelist',component:CollegeListComponent
   },
-{
-path: 'partnerngo', children:[
-{ path: '', component:PartnerNGOComponent },
-{ path: ':mode/:id', component: PartnerNGOComponent}
-]
-},
+  {
+  path: 'grid/partnerngo', component: PartnerNgoGridComponent
+  },
+  {
+    path: 'partnerngo', children:[
+      {path: '', component:PartnerNGOComponent},
+      { path: ':mode/:id', component: PartnerNGOComponent}
+    ]
+  },
   {path:'events',component:EventListComponent},
   {path:'addevent',component:AddEventComponent},
   {path:'volunteer-create',component:VolunteerComponent},
   {
     path:'email',component:SendMailComponent
   },
-  {
-  
-    path: '**', component: WelcomeComponent
-    //to-do: update route
+
+{
+
+path: '**', redirectTo: 'login'
+},
+{
+path: 'register', component: RegisterComponent
   }
 ];
 
