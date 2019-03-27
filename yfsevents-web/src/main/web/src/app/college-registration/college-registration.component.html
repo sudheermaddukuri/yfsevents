@@ -90,8 +90,8 @@
               (click)="activateTab(i+2)">MOU {{i+2}}</a></li>
 
           <div class="pull-right">
-            <button class="btn btn-primary" (click)=addMOU() [disabled]="isMaxLimitReached(10)">Add MOU</button>
-            <button class="btn btn-primary" (click)=removeMOU() >Remove MOU</button>
+            <button class="btn btn-primary btn-sm btn-space" (click)=addMOU() [disabled]="isMaxLimitReached(10)">Add MOU</button>
+            <button class="btn btn-primary btn-sm " (click)=removeMOU() >Remove MOU</button>
 
           </div>
 
@@ -108,6 +108,12 @@
                     <div class="form-group">
                       <label class="control-label">MOU ID</label>
                       <input type="text" formControlName="mouID" class="form-control well well-sm">
+                    </div>
+                  </div>
+                  <div class="col-md-6 offset-md-3">
+                    <div class="form-group">
+                      <label class="control-label">MOU STATUS</label>
+                      <input type="text" formControlName="mouStatus" class="form-control well well-sm">
                     </div>
                   </div>
                 </div>
