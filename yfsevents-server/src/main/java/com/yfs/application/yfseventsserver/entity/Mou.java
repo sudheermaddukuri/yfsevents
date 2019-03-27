@@ -17,6 +17,7 @@ public class Mou {
     private  CollegeRegistration collegeRegistration;
 
     private String mouID;
+    private String mouStatus;
     private String mouName;
     private String noOfEvents;
     private String fromDate;
@@ -45,6 +46,14 @@ public class Mou {
 
     public void setMouID(String mouID) {
         this.mouID = mouID;
+    }
+
+    public String getMouStatus() {
+        return mouStatus;
+    }
+
+    public void setMouStatus(String mouStatus) {
+        this.mouStatus = mouStatus;
     }
 
     public String getMouName() {
