@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,7 +27,7 @@ import {LoginComponent}from './login/login.component';
 import {UrlPermission }from "./urlPermission/url.permission";
 import {UserService}from "./services/user.service";
 import {AuthService}from "./services/auth.service";
-
+import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,8 @@ import {AuthService}from "./services/auth.service";
     InventoryListComponent,
     CollegeListComponent,
     PartnerNgoGridComponent,
-    LoginComponent
+    LoginComponent,
+    VolunteerGridComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +60,7 @@ import {AuthService}from "./services/auth.service";
     TimepickerModule.forRoot(),
     AngularMultiSelectModule
   ],
+  schemas:[NO_ERRORS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent]
 })

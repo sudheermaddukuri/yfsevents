@@ -19,3 +19,7 @@
   padding-top: 30px !important;
 }
 */
+.field-invalid
+{
+color:pink;
+}

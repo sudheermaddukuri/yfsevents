@@ -14,6 +14,7 @@ import { CollegeListComponent } from './college-registration/college-list.compon
 import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
 import {LoginComponent}from './login/login.component';
 import {RegisterComponent}from "./register/register.component";
+import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
 
 const routes: Routes = [
 {
@@ -46,10 +47,19 @@ path:'events',component:EventListComponent
 
 {path:'addevent',component:AddEventComponent},
 
-{path:'volunteer-create',component:VolunteerComponent},
+
 
 {
     path:'email',component:SendMailComponent
+  },
+   {
+    path: 'grid/volunteer', component: VolunteerGridComponent
+    },
+  {
+  path: 'volunteer', children:[
+   {path: '', component: VolunteerComponent},
+  {path: ':mode/:id', component: VolunteerComponent}
+  ]
   },
 
 {
