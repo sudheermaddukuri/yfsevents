@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="card card-container">
+    <img class="profile-img-card" id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+    <p class="profile-name-card" id="profile-name"></p>
+
+    <form #f="ngForm" (ngSubmit)="f.form.valid && register()" name="form" novalidate>
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+      <span class="reauth-email" id="reauth-email"></span>
+      <div [ngClass]="{ 'has-error': f.submitted && !fullName.valid }" class="form-group">
+        <label for="fullName">Full Name</label>
+        <input #fullName="ngModel" [(ngModel)]="user.fullName" class="form-control" id="fullName" name="fullName"
+               required type="text"/>
+        <div *ngIf="f.submitted && !fullName.valid" class="help-block">The full Name is required</div>
+      </div>
+      <div [ngClass]="{ 'has-error': f.submitted && !username.valid }" class="form-group">
+        <label for="username">Email Address</label>
+        <input #username="ngModel" [(ngModel)]="user.username" class="form-control" id="username" name="username"
+               pattern="[^ @]*@[^ @]*" required type="text"/>
+        <div *ngIf="f.submitted && !username.valid" class="help-block">
+
+          <div *ngIf="username.errors.required">
+            Email is required.
+          </div>
+          <div *ngIf="username.errors.pattern">
+            A valid email address is required
+          </div>
+
+        </div>
+      </div>
+      <div [ngClass]="{ 'has-error': f.submitted && !password.valid }" class="form-group">
+        <label for="password">Password</label>
+        <input #password="ngModel" [(ngModel)]="user.password" class="form-control" id="password" minlength="4"
+               name="password" required type="password"/>
+        <div *ngIf="f.submitted && !password.valid" class="help-block">
+
+          <div *ngIf="password.errors.required">
+            password is required.
+          </div>
+          <div *ngIf="password.errors.minlength">
+            password must be at least 4 characters long.
+          </div>
+
+        </div>
+      </div>
+      <div class="checkbox" id="remember">
+
+      </div>
+      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Create Account</button>
+      <button [routerLink]="['/login']" class="btn btn-lg btn-danger btn-block btn-cancel" type="button">Cancel</button>
+
+    </form><!-- /form -->
+
+  </div><!-- /card-container -->
+</div><!-- /container -->
+

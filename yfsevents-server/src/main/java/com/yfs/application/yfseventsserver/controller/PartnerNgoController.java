@@ -1,6 +1,5 @@
 package com.yfs.application.yfseventsserver.controller;
 
-import com.yfs.application.yfseventsserver.entity.AuthorizedPerson;
 import com.yfs.application.yfseventsserver.entity.PartnerNgo;
 import com.yfs.application.yfseventsserver.repository.AuthorizedPersonRepository;
 import com.yfs.application.yfseventsserver.repository.PartnerNgoRepository;
@@ -111,9 +110,9 @@ public class PartnerNgoController {
     @Transactional
     public PartnerNgo savePartnerNgo(@RequestBody PartnerNgo partnerNgo){
         logger.info(partnerNgo.toString());
-        if(partnerNgo.getId()!=0) {
+        if (partnerNgo.getId() != 0) {
             Optional<PartnerNgo> oldPartnerNgo = partnerNgoRepository.findById(partnerNgo.getId());
-            if(oldPartnerNgo.isPresent()){
+            if (oldPartnerNgo.isPresent()) {
                 PartnerNgo ngo = oldPartnerNgo.get();
 //                authorizedPersonRepository.deleteAll(ngo.getAuthorizedPerson());
                 ngo.getAuthorizedPerson().stream().forEach(authorizedPerson -> {

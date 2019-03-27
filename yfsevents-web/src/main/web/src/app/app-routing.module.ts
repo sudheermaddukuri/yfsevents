@@ -13,15 +13,14 @@ import { InventoryListComponent } from './inventory-data/inventory-list.componen
 import { CollegeListComponent } from './college-registration/college-list.component';
 import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
 import {LoginComponent}from './login/login.component';
+import {RegisterComponent}from "./register/register.component";
 
 const routes: Routes = [
-
 {
-
-path: 'login_new', component: LoginComponent
+path: 'login', component: LoginComponent
 },
 {
-    path: 'collegeregistration', component: CollegeRegistrationComponent
+path: 'collegeregistration', component: CollegeRegistrationComponent
   },
   {
     path: 'inventorydata', component: InventoryDataComponent
@@ -33,7 +32,7 @@ path: 'login_new', component: LoginComponent
     path:'collegelist',component:CollegeListComponent
   },
   {
-    path: 'grid/partnerngo', component: PartnerNgoGridComponent
+  path: 'grid/partnerngo', component: PartnerNgoGridComponent
   },
   {
     path: 'partnerngo', children:[
@@ -47,9 +46,13 @@ path: 'login_new', component: LoginComponent
   {
     path:'email',component:SendMailComponent
   },
-  {
 
-  path: '**', redirectTo: ''
+{
+
+path: '**', redirectTo: 'login'
+},
+{
+path: 'register', component: RegisterComponent
   }
 ];
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
-import { ngDevModeResetPerfCounters } from '@angular/core/src/render3/ng_dev_mode';
-import { JsonPipe } from '@angular/common';
+import {ngDevModeResetPerfCounters}from '@angular/core/src/render3/ng_dev_mode';
+import { JsonPipe}from '@angular/common';
 
 @Component({
   selector: 'app-partner-ngo-grid',
@@ -13,13 +13,14 @@ export class PartnerNgoGridComponent implements OnInit {
 
   private data:any=[];
   private headers=[
-    {headerName: 'Partner NGO', field: 'name',filter:true, sortable: true },
+{headerName: 'Partner NGO', field: 'name',filter:true, sortable: true},
     {headerName: 'Description', field: 'description',filter:true},
     {headerName: 'City', field: 'city',filter:true},
-    {headerName: 'Authorized Person Name', field: 'authorizedPersonName'},
-    {headerName: 'Authorized Person Contact', field: 'authorizedPersonContact'}
+{headerName: 'Authorized Person Name', field: 'authorizedPersonName'},
+{headerName: 'Authorized Person Contact', field: 'authorizedPersonContact'
+}
   ];
-    // {headerName: 'State', field: 'state',filter:true},
+// {headerName: 'State', field: 'state',filter:true},
   private myGrid: any;
   private gridApi: any;
 
