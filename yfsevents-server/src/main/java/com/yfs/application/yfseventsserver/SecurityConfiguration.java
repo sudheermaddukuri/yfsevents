@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configurable
@@ -22,8 +22,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     // This method is for overriding the default AuthenticationManagerBuilder.
@@ -36,13 +36,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Override
+    public void configure(WebSecurity webSecurity) {
+        webSecurity.ignoring().antMatchers("/h2-console/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.cors().and()
             // starts authorizing configurations
             .authorizeRequests()
             // ignoring the guest's urls "
-            .antMatchers("/user/register", "/user/login", "/logout").permitAll()
+            .antMatchers("/user/register", "/user/login", "/logout", "/h2-console/**").permitAll()
             // authenticate all remaining URLS
             .anyRequest().fullyAuthenticated().and()
             /* "/logout" will log the user out by invalidating the HTTP Session,
