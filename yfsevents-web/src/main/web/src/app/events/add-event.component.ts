@@ -11,7 +11,8 @@ import { ActivatedRoute } from '@angular/router';
   })
 
   export class AddEventComponent implements OnInit{
-    ngos: string[];
+    ngos_data: any[];
+    ngos:any;
     eventForm :FormGroup;
     bsValue = new Date();
     bsRangeValue: Date[];
@@ -41,7 +42,10 @@ import { ActivatedRoute } from '@angular/router';
   
     ngOnInit(){ 
       this.apiService.getData('partnerngo').subscribe((data:any)=>{
-            this.ngos=data;
+            this.ngos_data=data;
+            this.ngos=this.ngos_data.map(ngo=>{
+                return ngo.name;
+            });
       });
       this.itemList = [
         { "id": 1, "itemName": "Item1" },
@@ -104,7 +108,10 @@ import { ActivatedRoute } from '@angular/router';
     this.eventData.eventDuration=this.eventForm.value.eventDuration;
     this.eventData.eventItems=this.eventForm.value.items.map(item => item.itemName);
     console.log(this.eventData);
-    this.apiService.postData(this.eventData,'event')
+    if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')){
+    this.apiService.putData(this.eventData,this.route.snapshot.paramMap.get('id'),'event')}else{
+      this.apiService.postData(this.eventData,'event');
+    }
   }
 
   

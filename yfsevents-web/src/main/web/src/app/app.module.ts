@@ -29,6 +29,7 @@ import {LoginComponent}from './login/login.component';
 import {UrlPermission }from "./urlPermission/url.permission";
 import {UserService}from "./services/user.service";
 import {AuthService}from "./services/auth.service";
+import {RegisterComponent} from "./register/register.component";
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {AuthService}from "./services/auth.service";
     CollegeListComponent,
     PartnerNgoGridComponent,
     CollegeRegistrationGridComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
