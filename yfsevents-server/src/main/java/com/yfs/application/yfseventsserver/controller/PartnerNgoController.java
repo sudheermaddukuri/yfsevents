@@ -117,11 +117,7 @@ public class PartnerNgoController {
                 PartnerNgo ngo = oldPartnerNgo.get();
 //                authorizedPersonRepository.deleteAll(ngo.getAuthorizedPerson());
                 ngo.getAuthorizedPerson().stream().forEach(authorizedPerson -> {
-<<<<<<< HEAD
-                    authorizedPersonRepository.delete(authorizedPerson);
-=======
                     authorizedPersonRepository.delete(authorizedPerson.getId());
->>>>>>> 03cf144204909912b627ce7eb3131158bca5fdc2
                     //TODO: update instead of Delete
                 });
             }

@@ -37,7 +37,7 @@ path: 'login_new', component: LoginComponent
   },
   {
     path: 'partnerngo', children:[
-      {path: '', component:WelcomeComponent},
+      {path: '', component:PartnerNGOComponent},
       { path: ':mode/:id', component: PartnerNGOComponent}
     ]
   },

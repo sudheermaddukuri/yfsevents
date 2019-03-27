@@ -40,8 +40,8 @@ import {LoginComponent}from './login/login.component';
     WelcomeComponent,
     InventoryListComponent,
     CollegeListComponent,
-PartnerNgoGridComponent,
-LoginComponent
+    PartnerNgoGridComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
