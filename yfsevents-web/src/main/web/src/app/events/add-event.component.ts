@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
+import { formatDate, DatePipe } from '@angular/common';
 import { ApiService } from '../api.service';
 import { ActivatedRoute } from '@angular/router';
+import { InventorydataService } from '../inventory-data/inventorydata.service';
 
 @Component({
     selector:'add-event',
@@ -13,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
   export class AddEventComponent implements OnInit{
     ngos_data: any[];
     ngos:any;
+    pipe:any;
     eventForm :FormGroup;
     bsValue = new Date();
     bsRangeValue: Date[];
@@ -24,7 +26,7 @@ import { ActivatedRoute } from '@angular/router';
     eventActions: string[] = ['Not Started','In progress','Completed','Abandoned'];
     eventCategories: string[] = ['PartnerNGO','Education','Environment','Health','Other'];
     recurringEventOptions: string[] = ['Yes','No'];
-    constructor(private formBuilder: FormBuilder,private apiService: ApiService,private route:ActivatedRoute) {
+    constructor(private formBuilder: FormBuilder,private apiService: ApiService,private route:ActivatedRoute,private inventoryService: InventorydataService) {
       this.eventForm=this.formBuilder.group({
         eventName: '',
         eventAction: 'Not Started',
@@ -47,6 +49,7 @@ import { ActivatedRoute } from '@angular/router';
                 return ngo.name;
             });
       });
+     
       this.itemList = [
         { "id": 1, "itemName": "Item1" },
         { "id": 2, "itemName": "Item2" },
@@ -67,10 +70,13 @@ import { ActivatedRoute } from '@angular/router';
     if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')){
       this.apiService.getData('event',this.route.snapshot.paramMap.get('id')).subscribe((data:any)=>{
         console.log(data.eventDuration);
+        this.pipe = new DatePipe('en-US');
         this.eventForm.setValue({
           eventName:data.eventName,
           eventAction:data.eventAction,
-          eventDuration:data.eventDuration,
+          eventDuration:data.eventDuration.map(date=>{
+            return this.pipe.transform(date,'shortDate');
+          }),
           fromTime: data.eventfromTime,
           toTime:data.eventtoTime,
           ngoName:data.ngoName,
@@ -112,6 +118,14 @@ import { ActivatedRoute } from '@angular/router';
     this.apiService.putData(this.eventData,this.route.snapshot.paramMap.get('id'),'event')}else{
       this.apiService.postData(this.eventData,'event');
     }
+  }
+
+  onCategorySelected(event){
+    this.inventoryService.getItemsByCategory(this.eventForm.value.eventCategory).subscribe((data:any)=>{
+      this.itemList = data.map(item=>{
+        return {'id':data.indexOf(item),"itemName":item};
+      })
+})
   }
 
   
