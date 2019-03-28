@@ -119,15 +119,14 @@ var ApiService = /** @class */ (function () {
         this.urlList.set('event', '/event');
         this.urlList.set('events', '/events');
         this.urlList.set('volunteer-create', '/volunteer-create');
+        this.urlList.set('volunteer', '/volunteer');
         this.urlList.set('collegeregistration', '/collegeregistration');
+        this.urlList.set('interestedAreasCategory', '/interestedAreasCategory');
     };
     ApiService.prototype.postData = function (data, type) {
-        console.log('posting', data);
-        this.http.post(this.basicURL + this.urlList.get(type), data).subscribe(function (response) {
+        return this.http.post(this.basicURL + this.urlList.get(type), data).subscribe(function (response) {
             console.log('postResponse: ', response);
-            return true;
-        }, function (error) { return false; });
-        return false;
+        });
     };
     ApiService.prototype.getData = function (type, id, formatted) {
         var uri = this.basicURL + this.urlList.get(type);
@@ -183,6 +182,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./college-registration-grid/college-registration-grid.component */ "./src/app/college-registration-grid/college-registration-grid.component.ts");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
+/* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
+
 
 
 
@@ -235,6 +236,15 @@ var routes = [
     { path: 'volunteer-create', component: _volunteer_volunteer_component__WEBPACK_IMPORTED_MODULE_6__["VolunteerComponent"] },
     {
         path: 'email', component: _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_9__["SendMailComponent"]
+    },
+    {
+        path: 'grid/volunteer', component: _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_16__["VolunteerGridComponent"]
+    },
+    {
+        path: 'volunteer', children: [
+            { path: '', component: _volunteer_volunteer_component__WEBPACK_IMPORTED_MODULE_6__["VolunteerComponent"] },
+            { path: ':mode/:id', component: _volunteer_volunteer_component__WEBPACK_IMPORTED_MODULE_6__["VolunteerComponent"] }
+        ]
     },
     {
         path: '**', redirectTo: 'login'
@@ -343,16 +353,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-bootstrap/typeahead */ "./node_modules/ngx-bootstrap/typeahead/fesm5/ngx-bootstrap-typeahead.js");
 /* harmony import */ var _volunteer_volunteer_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./volunteer/volunteer.component */ "./src/app/volunteer/volunteer.component.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./inventory-data/inventory-data.component */ "./src/app/inventory-data/inventory-data.component.ts");
-/* harmony import */ var _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./college-registration/college-registration.component */ "./src/app/college-registration/college-registration.component.ts");
-/* harmony import */ var _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./send-mail/send-mail.component */ "./src/app/send-mail/send-mail.component.ts");
-/* harmony import */ var _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./welcome/welcome.component */ "./src/app/welcome/welcome.component.ts");
-/* harmony import */ var angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! angular2-multiselect-dropdown */ "./node_modules/angular2-multiselect-dropdown/fesm5/angular2-multiselect-dropdown.js");
-/* harmony import */ var _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./inventory-data/inventory-list.component */ "./src/app/inventory-data/inventory-list.component.ts");
-/* harmony import */ var _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./college-registration/college-list.component */ "./src/app/college-registration/college-list.component.ts");
-/* harmony import */ var _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./partner-ngo-grid/partner-ngo-grid.component */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts");
-/* harmony import */ var _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./college-registration-grid/college-registration-grid.component */ "./src/app/college-registration-grid/college-registration-grid.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./inventory-data/inventory-data.component */ "./src/app/inventory-data/inventory-data.component.ts");
+/* harmony import */ var _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./college-registration/college-registration.component */ "./src/app/college-registration/college-registration.component.ts");
+/* harmony import */ var _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./send-mail/send-mail.component */ "./src/app/send-mail/send-mail.component.ts");
+/* harmony import */ var _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./welcome/welcome.component */ "./src/app/welcome/welcome.component.ts");
+/* harmony import */ var angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! angular2-multiselect-dropdown */ "./node_modules/angular2-multiselect-dropdown/fesm5/angular2-multiselect-dropdown.js");
+/* harmony import */ var _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./inventory-data/inventory-list.component */ "./src/app/inventory-data/inventory-list.component.ts");
+/* harmony import */ var _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./college-registration/college-list.component */ "./src/app/college-registration/college-list.component.ts");
+/* harmony import */ var _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./partner-ngo-grid/partner-ngo-grid.component */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts");
+/* harmony import */ var _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./college-registration-grid/college-registration-grid.component */ "./src/app/college-registration-grid/college-registration-grid.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
+/* harmony import */ var _urlPermission_url_permission__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./urlPermission/url.permission */ "./src/app/urlPermission/url.permission.ts");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
+
+
+
+
+
+
 
 
 
@@ -395,15 +417,17 @@ var AppModule = /** @class */ (function () {
                 _events_event_list_component__WEBPACK_IMPORTED_MODULE_11__["EventListComponent"],
                 _events_add_event_component__WEBPACK_IMPORTED_MODULE_12__["AddEventComponent"],
                 _volunteer_volunteer_component__WEBPACK_IMPORTED_MODULE_16__["VolunteerComponent"],
-                _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_18__["InventoryDataComponent"],
-                _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_19__["CollegeRegistrationComponent"],
-                _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_20__["SendMailComponent"],
-                _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_21__["WelcomeComponent"],
-                _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_23__["InventoryListComponent"],
-                _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_24__["CollegeListComponent"],
-                _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_25__["PartnerNgoGridComponent"],
-                _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_26__["CollegeRegistrationGridComponent"],
-                _login_login_component__WEBPACK_IMPORTED_MODULE_27__["LoginComponent"]
+                _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_19__["InventoryDataComponent"],
+                _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_20__["CollegeRegistrationComponent"],
+                _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_21__["SendMailComponent"],
+                _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_22__["WelcomeComponent"],
+                _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_24__["InventoryListComponent"],
+                _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_25__["CollegeListComponent"],
+                _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_26__["PartnerNgoGridComponent"],
+                _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_27__["CollegeRegistrationGridComponent"],
+                _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_33__["VolunteerGridComponent"],
+                _login_login_component__WEBPACK_IMPORTED_MODULE_28__["LoginComponent"],
+                _register_register_component__WEBPACK_IMPORTED_MODULE_29__["RegisterComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -416,9 +440,11 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ReactiveFormsModule"],
                 ngx_bootstrap_timepicker__WEBPACK_IMPORTED_MODULE_14__["TimepickerModule"].forRoot(),
                 ngx_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_15__["TypeaheadModule"].forRoot(),
-                angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_22__["AngularMultiSelectModule"]
+                angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_23__["AngularMultiSelectModule"],
+                _angular_http__WEBPACK_IMPORTED_MODULE_18__["HttpModule"]
             ],
-            providers: [],
+            schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_2__["NO_ERRORS_SCHEMA"]],
+            providers: [_services_auth_service__WEBPACK_IMPORTED_MODULE_32__["AuthService"], _services_user_service__WEBPACK_IMPORTED_MODULE_31__["UserService"], _urlPermission_url_permission__WEBPACK_IMPORTED_MODULE_30__["UrlPermission"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
@@ -854,7 +880,10 @@ var AddEventComponent = /** @class */ (function () {
     AddEventComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.apiService.getData('partnerngo').subscribe(function (data) {
-            _this.ngos = data;
+            _this.ngos_data = data;
+            _this.ngos = _this.ngos_data.map(function (ngo) {
+                return ngo.name;
+            });
         });
         this.itemList = [
             { "id": 1, "itemName": "Item1" },
@@ -913,7 +942,12 @@ var AddEventComponent = /** @class */ (function () {
         this.eventData.eventDuration = this.eventForm.value.eventDuration;
         this.eventData.eventItems = this.eventForm.value.items.map(function (item) { return item.itemName; });
         console.log(this.eventData);
-        this.apiService.postData(this.eventData, 'event');
+        if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
+            this.apiService.putData(this.eventData, this.route.snapshot.paramMap.get('id'), 'event');
+        }
+        else {
+            this.apiService.postData(this.eventData, 'event');
+        }
     };
     AddEventComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1375,7 +1409,7 @@ module.exports = "/*\n * Specific styles of signin component\n */\n/*\n * Genera
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"card card-container\">\n    <!-- <img class=\"profile-img-card\" src=\"//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120\" alt=\"\" /> -->\n    <img class=\"profile-img-card\" id=\"profile-img\" src=\"//ssl.gstatic.com/accounts/ui/avatar_2x.png\"/>\n    <p class=\"profile-name-card\" id=\"profile-name\"></p>\n\n    <form #f=\"ngForm\" (ngSubmit)=\"f.form.valid && login()\" name=\"form-signin\" novalidate>\n      <div *ngIf=\"errorMessage\" class=\"alert alert-danger\" role=\"alert\">{{errorMessage}}</div>\n      <span class=\"reauth-email\" id=\"reauth-email\"></span>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\" class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input #username=\"ngModel\" [(ngModel)]=\"user.username\" class=\"form-control\" id=\"username\" name=\"username\"\n               pattern=\"[^ @]*@[^ @]*\" required type=\"text\"/>\n        <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">an valid email is required</div>\n      </div>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\" class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input #password=\"ngModel\" [(ngModel)]=\"user.password\" class=\"form-control\" id=\"password\" name=\"password\"\n               required type=\"password\"/>\n        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Password is required</div>\n      </div>\n      <div class=\"checkbox\" id=\"remember\">\n\n      </div>\n      <button class=\"btn btn-lg btn-primary btn-block btn-signin\" type=\"submit\">Sign in</button>\n    </form><!-- /form -->\n    <a [routerLink]=\"['/register']\" class=\"btn btn-link\">Create new Account!</a>\n  </div><!-- /card-container -->\n</div><!-- /container -->\n"
+module.exports = "<div class=\"container\">\n  <div class=\"card card-container\">\n    <!-- <img class=\"profile-img-card\" src=\"//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120\" alt=\"\" /> -->\n    <img class=\"profile-img-card\" id=\"profile-img\" src=\"//ssl.gstatic.com/accounts/ui/avatar_2x.png\"/>\n    <p class=\"profile-name-card\" id=\"profile-name\"></p>\n\n    <form #f=\"ngForm\" (ngSubmit)=\"f.form.valid && login()\" name=\"form-signin\" novalidate>\n      <div *ngIf=\"errorMessage\" class=\"alert alert-danger\" role=\"alert\">{{errorMessage}}</div>\n      <span class=\"reauth-email\" id=\"reauth-email\"></span>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\" class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input #username=\"ngModel\" [(ngModel)]=\"user.username\" class=\"form-control\" id=\"username\" name=\"username\"\n               required type=\"text\"/>\n        <!-- <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">an valid email is required</div>-->\n      </div>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\" class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input #password=\"ngModel\" [(ngModel)]=\"user.password\" class=\"form-control\" id=\"password\" name=\"password\"\n               required type=\"password\"/>\n        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Password is required</div>\n      </div>\n      <div class=\"checkbox\" id=\"remember\">\n\n      </div>\n      <button class=\"btn btn-lg btn-primary btn-block btn-signin\" type=\"submit\">Sign in</button>\n    </form><!-- /form -->\n    <a [routerLink]=\"['/register']\" class=\"btn btn-link\">Create new Account!</a>\n  </div><!-- /card-container -->\n</div><!-- /container -->\n"
 
 /***/ }),
 
@@ -1411,7 +1445,7 @@ var LoginComponent = /** @class */ (function () {
         var _this = this;
         this.authService.logIn(this.user)
             .subscribe(function (data) {
-            _this.router.navigate(['/profile']);
+            _this.router.navigate(['/events']);
         }, function (err) {
             _this.errorMessage = "error :  Username or password is incorrect";
         });
@@ -2040,6 +2074,150 @@ var UserService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/urlPermission/url.permission.ts":
+/*!*************************************************!*\
+  !*** ./src/app/urlPermission/url.permission.ts ***!
+  \*************************************************/
+/*! exports provided: UrlPermission */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UrlPermission", function() { return UrlPermission; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+var UrlPermission = /** @class */ (function () {
+    function UrlPermission(router) {
+        this.router = router;
+    }
+    UrlPermission.prototype.canActivate = function (route, state) {
+        if (localStorage.getItem('currentUser')) {
+            // logged in so return true
+            return true;
+        }
+        // not logged in so redirect to login page with the return url
+        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+        return false;
+    };
+    UrlPermission = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], UrlPermission);
+    return UrlPermission;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/volunteer-grid/volunteer-grid.component.css":
+/*!*************************************************************!*\
+  !*** ./src/app/volunteer-grid/volunteer-grid.component.css ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZvbHVudGVlci1ncmlkL3ZvbHVudGVlci1ncmlkLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/volunteer-grid/volunteer-grid.component.html":
+/*!**************************************************************!*\
+  !*** ./src/app/volunteer-grid/volunteer-grid.component.html ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> Volunteer </strong></h3>\n  </div>\n  <div class=\"col-md-10\" #myGrid  style=\"width: 100%; height: 100%;\">\n    <ag-grid-angular\n      class=\"ag-theme-balham\"\n      [rowData]=\"data\"\n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\"\n\n    >\n\n    </ag-grid-angular>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/volunteer-grid/volunteer-grid.component.ts":
+/*!************************************************************!*\
+  !*** ./src/app/volunteer-grid/volunteer-grid.component.ts ***!
+  \************************************************************/
+/*! exports provided: VolunteerGridComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VolunteerGridComponent", function() { return VolunteerGridComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+var VolunteerGridComponent = /** @class */ (function () {
+    function VolunteerGridComponent(apiService, router) {
+        this.apiService = apiService;
+        this.router = router;
+        this.data = [];
+        this.headers = [
+            { headerName: 'First Name', field: 'firstName', filter: true, sortable: true },
+            { headerName: 'Last Name', field: 'lastName', filter: true },
+            { headerName: 'Phone Prefix', field: 'phonePrefix', filter: true },
+            { headerName: 'Phone Number', field: 'phoneNumber', filter: true },
+            { headerName: 'Phone Prefix', field: 'alternatePhonePrefix', filter: true },
+            { headerName: 'Alternate Phone Number', field: 'alternatePhoneNumber', filter: true },
+            { headerName: 'EmailId', field: 'email', filter: true },
+            { headerName: 'EmailId2', field: 'alternateEmail', filter: true },
+            { headerName: 'Locality', field: 'locality', filter: true },
+            { headerName: 'City', field: 'city', filter: true },
+            { headerName: 'State', field: 'state', filter: true },
+            { headerName: 'PinCode', field: 'pincode', filter: true },
+            { headerName: 'Interested Areas', field: 'interestedAreas' }
+        ];
+        this.interestedList = new Array();
+    }
+    VolunteerGridComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.apiService.getData('volunteer').subscribe(function (response) {
+            var result = JSON.parse(JSON.stringify(response));
+            Array.from(result).forEach(function (element) {
+                var interestedAreas1 = JSON.parse(JSON.stringify(element)).interestedAreas;
+                while (_this.interestedList.length) {
+                    _this.interestedList.pop();
+                }
+                for (var _i = 0, interestedAreas1_1 = interestedAreas1; _i < interestedAreas1_1.length; _i++) {
+                    var val = interestedAreas1_1[_i];
+                    console.log("hey:" + val["interestedArea"]);
+                    _this.interestedList.push(val["interestedArea"]);
+                }
+                Object.assign(element, { interestedAreas: _this.interestedList.toString()
+                });
+            });
+            console.log(response);
+            console.log(_this.data);
+            _this.data = result;
+        });
+    };
+    VolunteerGridComponent.prototype.onRowCilcked = function (event) {
+        console.log(event.rowIndex);
+        this.router.navigateByUrl("/volunteer/edit/" + ((event.rowIndex) + 1));
+    };
+    VolunteerGridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-volunteer-grid',
+            template: __webpack_require__(/*! ./volunteer-grid.component.html */ "./src/app/volunteer-grid/volunteer-grid.component.html"),
+            styles: [__webpack_require__(/*! ./volunteer-grid.component.css */ "./src/app/volunteer-grid/volunteer-grid.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    ], VolunteerGridComponent);
+    return VolunteerGridComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/volunteer/volunteer.component.css":
 /*!***************************************************!*\
   !*** ./src/app/volunteer/volunteer.component.css ***!
@@ -2047,7 +2225,7 @@ var UserService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/*\n.text-on-pannel {\n  background: #fff none repeat scroll 0 0;\n  height: auto;\n  margin-left: 20px;\n  padding: 3px 5px;\n  position: absolute;\n  margin-top: -20px;\n  border: 1px solid #337ab7;\n  border-radius: 8px;\n}\n\n.panel {\n\n  margin-top: 27px !important;\n}\n\n.panel-body {\n  padding-top: 30px !important;\n}\n*/\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdm9sdW50ZWVyL3ZvbHVudGVlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7OztDQW9CQyIsImZpbGUiOiJzcmMvYXBwL3ZvbHVudGVlci92b2x1bnRlZXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4udGV4dC1vbi1wYW5uZWwge1xuICBiYWNrZ3JvdW5kOiAjZmZmIG5vbmUgcmVwZWF0IHNjcm9sbCAwIDA7XG4gIGhlaWdodDogYXV0bztcbiAgbWFyZ2luLWxlZnQ6IDIwcHg7XG4gIHBhZGRpbmc6IDNweCA1cHg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbWFyZ2luLXRvcDogLTIwcHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkICMzMzdhYjc7XG4gIGJvcmRlci1yYWRpdXM6IDhweDtcbn1cblxuLnBhbmVsIHtcblxuICBtYXJnaW4tdG9wOiAyN3B4ICFpbXBvcnRhbnQ7XG59XG5cbi5wYW5lbC1ib2R5IHtcbiAgcGFkZGluZy10b3A6IDMwcHggIWltcG9ydGFudDtcbn1cbiovXG4iXX0= */"
+module.exports = "/*\n.text-on-pannel {\n  background: #fff none repeat scroll 0 0;\n  height: auto;\n  margin-left: 20px;\n  padding: 3px 5px;\n  position: absolute;\n  margin-top: -20px;\n  border: 1px solid #337ab7;\n  border-radius: 8px;\n}\n\n.panel {\n\n  margin-top: 27px !important;\n}\n\n.panel-body {\n  padding-top: 30px !important;\n}\n*/\n.field-invalid\n{\ncolor:pink;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdm9sdW50ZWVyL3ZvbHVudGVlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7OztDQW9CQztBQUNEOztBQUVBLFVBQVU7QUFDViIsImZpbGUiOiJzcmMvYXBwL3ZvbHVudGVlci92b2x1bnRlZXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4udGV4dC1vbi1wYW5uZWwge1xuICBiYWNrZ3JvdW5kOiAjZmZmIG5vbmUgcmVwZWF0IHNjcm9sbCAwIDA7XG4gIGhlaWdodDogYXV0bztcbiAgbWFyZ2luLWxlZnQ6IDIwcHg7XG4gIHBhZGRpbmc6IDNweCA1cHg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbWFyZ2luLXRvcDogLTIwcHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkICMzMzdhYjc7XG4gIGJvcmRlci1yYWRpdXM6IDhweDtcbn1cblxuLnBhbmVsIHtcblxuICBtYXJnaW4tdG9wOiAyN3B4ICFpbXBvcnRhbnQ7XG59XG5cbi5wYW5lbC1ib2R5IHtcbiAgcGFkZGluZy10b3A6IDMwcHggIWltcG9ydGFudDtcbn1cbiovXG4uZmllbGQtaW52YWxpZFxue1xuY29sb3I6cGluaztcbn1cbiJdfQ== */"
 
 /***/ }),
 
@@ -2058,7 +2236,7 @@ module.exports = "/*\n.text-on-pannel {\n  background: #fff none repeat scroll 0
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container\" >\n  <div class=\"page-header well well-sm text-center\">\n    <h3><strong> Volunteer Registration</strong></h3>\n  </div>\n  <div class=\"panel panel-info\" >\n   <!-- <fieldset>\n\n    <legend>Personal Details</legend>-->\n    <!--<h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Personal Information</strong></h3>-->\n  <div class=\"panel-heading\">\n    <label>Personal Information</label>\n  </div>\n  <div class=\"panel-body\" >\n    <form #form=\"ngForm\" [formGroup]=\"myForm\" (ngSubmit)=\"personalInfo()\">\n    <div  formGroupName=\"personalInfo\">\n\n\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">First Name</label>\n              <input type=\"text\" formControlName = \"firstName\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Last Name</label>\n              <input type=\"text\" formControlName = \"lastName\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-1 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Prefix</label>\n              <input type=\"text\" formControlName = \"phonePrefix\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Phone Number</label>\n              <input type=\"text\" formControlName = \"phoneNumber\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-1 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Prefix</label>\n              <input type=\"text\" formControlName = \"alternatePhonePrefix\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Alternate Phone</label>\n              <input type=\"text\" formControlName = \"alternatePhoneNumber\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Email</label>\n              <input type=\"text\" formControlName = \"email\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Alternate Email</label>\n              <input type=\"text\" formControlName = \"alternateEmail\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n        </div>\n\n\n    </div>\n    </form>\n  </div>\n    <!--</fieldset>-->\n  </div>\n\n  <div class=\"panel panel-primary\">\n    <!--<fieldset>\n\n      <legend>Address</legend>-->\n\n    <!--<h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Address</strong></h3>-->\n    <div class=\"panel-heading\">\n      <label>Address</label>\n    </div>\n      <div class=\"panel-body\">\n        <form [formGroup]=\"myForm\" >\n        <div formGroupName=\"address\">\n\n\n            <div class=\"row\">\n              <div class=\"col-md-6 offset-md-3\">\n                <div class=\"form-group\">\n                  <label class=\"control-label\">Locality</label>\n                  <input type=\"text\" formControlName = \"locality\" class=\"form-control well well-sm\">\n                </div>\n              </div>\n              <div class=\"col-md-6 offset-md-3\">\n                <div class=\"form-group\">\n                  <label class=\"control-label\">City</label>\n                  <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\n                </div>\n              </div>\n            </div>\n\n            <div class=\"row\">\n              <div class=\"col-md-6 offset-md-3\">\n                <div class=\"form-group\">\n                  <label class=\"control-label\">State</label>\n                  <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\n                </div>\n              </div>\n\n              <div class=\"col-md-6 offset-md-3\">\n                <div class=\"form-group\">\n                  <label class=\"control-label\">Pin Code</label>\n                  <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\n                </div>\n              </div>\n            </div>\n\n\n        </div>\n        </form>\n      </div>\n   <!-- </fieldset>-->\n  </div>\n  <div class=\"panel panel-info\">\n    <!--<fieldset>\n\n      <legend>Additional Information</legend>-->\n   <!-- <h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Additional Information </strong></h3>-->\n      <div class=\"panel-heading\">\n        <label>Additional Information</label>\n      </div>\n      <div class=\"panel-body\">\n        <form #form=\"ngForm\" [formGroup]=\"myForm\" (ngSubmit)=\"additionalInfo()\">\n        <div formGroupName=\"additionalInfo\">\n\n\n            <div class=\"row\">\n              <div class=\"col-md\">\n                <div class=\"form-group\">\n                  <label class=\"control-label\">Interest Areas</label>\n                  <textarea formControlName = \"interestedAreas\" rows=\"2\" cols=\"50\" class=\"form-control well well-sm\"></textarea>\n                </div>\n              </div>\n\n            </div>\n\n\n\n\n        </div>\n\n        </form>\n\n      </div>\n    <!--</fieldset>-->\n  </div>\n  <div class=\"text-center\">\n  <button  class=\"btn btn-default\" (click)=\"onSubmit()\">Register</button>\n  </div>\n</div>\n\n"
+module.exports = "<div class=\"container\">\n  <div class=\"page-header well well-sm text-center\">\n    <h3><strong> Volunteer Registration</strong></h3>\n  </div>\n  <div class=\"panel panel-info\" >\n   <!-- <fieldset>\n\n    <legend>Personal Details</legend>-->\n    <!--<h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Personal Information</strong></h3>-->\n  <div class=\"panel-heading\">\n    <label>Personal Information</label>\n  </div>\n  <div class=\"panel-body\" >\n    <form #form=\"ngForm\" [formGroup]=\"myForm\" (ngSubmit)=\"personalInfo()\">\n    <div  formGroupName=\"personalInfo\">\n\n\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">First Name</label>\n              <input type=\"text\" formControlName = \"firstName\" class=\"form-control well well-sm\"[ngClass]=\"{'is-invalid':myForm.controls['personalInfo'].controls.firstName.errors&&(myForm.controls['personalInfo'].controls.firstName.dirty||myForm.controls['personalInfo'].controls.firstName.touched)}\">\n              <div *ngIf=\"myForm.controls['personalInfo'].controls.firstName.errors&&(myForm.controls['personalInfo'].controls.firstName.dirty||myForm.controls['personalInfo'].controls.firstName.touched)\" class=\"invalid-feedback\">\n                <div *ngIf=\"myForm.controls['personalInfo'].controls.firstName.errors.required\" class=\"field-invalid\">First Name is required</div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Last Name</label>\n              <input type=\"text\" formControlName = \"lastName\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-1 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Prefix</label>\n              <input type=\"text\" formControlName = \"phonePrefix\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Phone Number</label>\n              <input type=\"text\" formControlName = \"phoneNumber\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-1 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Prefix</label>\n              <input type=\"text\" formControlName = \"alternatePhonePrefix\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Alternate Phone</label>\n              <input type=\"text\" formControlName = \"alternatePhoneNumber\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Email</label>\n              <input type=\"text\" formControlName = \"email\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Alternate Email</label>\n              <input type=\"text\" formControlName = \"alternateEmail\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n        </div>\n\n\n    </div>\n    </form>\n  </div>\n    <!--</fieldset>-->\n  </div>\n\n  <div class=\"panel panel-info\">\n    <!--<fieldset>\n\n      <legend>Address</legend>-->\n\n    <!--<h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Address</strong></h3>-->\n    <div class=\"panel-heading\">\n      <label>Address</label>\n    </div>\n      <div class=\"panel-body\">\n        <form [formGroup]=\"myForm\" >\n        <div formGroupName=\"address\">\n\n\n            <div class=\"row\">\n              <div class=\"col-md-6 offset-md-3\">\n                <div class=\"form-group required\">\n                  <label class=\"control-label\">Locality</label>\n                  <input type=\"text\" formControlName = \"locality\" class=\"form-control well well-sm\">\n                </div>\n              </div>\n              <div class=\"col-md-6 offset-md-3\">\n                <div class=\"form-group required\">\n                  <label class=\"control-label\">City</label>\n                  <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\n                </div>\n              </div>\n            </div>\n\n            <div class=\"row\">\n              <div class=\"col-md-6 offset-md-3\">\n                <div class=\"form-group required\">\n                  <label class=\"control-label\">State</label>\n                  <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\n                </div>\n              </div>\n\n              <div class=\"col-md-6 offset-md-3\">\n                <div class=\"form-group required\">\n                  <label class=\"control-label\">Pin Code</label>\n                  <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\n                </div>\n              </div>\n            </div>\n\n\n        </div>\n        </form>\n      </div>\n   <!-- </fieldset>-->\n  </div>\n  <div class=\"panel panel-info\">\n    <!--<fieldset>\n\n      <legend>Additional Information</legend>-->\n   <!-- <h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Additional Information </strong></h3>-->\n      <div class=\"panel-heading\">\n        <label>Additional Information</label>\n      </div>\n      <div class=\"panel-body\">\n        <form #form=\"ngForm\" [formGroup]=\"myForm\" (ngSubmit)=\"additionalInfo()\">\n        <div formGroupName=\"additionalInfo\">\n\n\n            <div class=\"row\">\n              <div class=\"col-md\">\n                <div class=\"form-group\">\n                  <label class=\"control-label\">Interest Areas</label>\n\n\n\n                  <angular2-multiselect [data]=\"interestedAreasCategory\" [(ngModel)]=\"selectedList\" formControlName=\"interestedAreas\" settings=\"dropdownSettings\"></angular2-multiselect>\n\n                </div>\n              </div>\n\n            </div>\n\n\n\n\n        </div>\n\n        </form>\n\n      </div>\n    <!--</fieldset>-->\n  </div>\n  <div class=\"text-center\">\n <!-- <button  class=\"btn btn-default\" (click)=\"onSubmit()\">Register</button>-->\n    <button class=\"btn btn-default\" (click)=\"onSubmit()\"  *ngIf=\"mode!='view' && mode!='edit'\">Register</button>\n    <button class=\"btn btn-default\" (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" >Update</button>\n\n    <button class=\"btn btn-default\"(click)=\"onEdit()\" *ngIf=\"mode=='view'\">Edit</button>\n    <button class=\"btn btn-default\"(click)=\"onClose()\" *ngIf=\"mode=='view' || mode=='edit'\" >Close</button>\n  </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -2076,21 +2254,85 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
 
 
 
 
 var VolunteerComponent = /** @class */ (function () {
-    function VolunteerComponent(formBuilder, apiService) {
+    function VolunteerComponent(formBuilder, apiService, route, router) {
         this.formBuilder = formBuilder;
         this.apiService = apiService;
+        this.route = route;
+        this.router = router;
+        this.selected = new Array();
+        this.interestedList = new Array();
+        this.dropdownSettings = {};
     }
     VolunteerComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.myForm = this.formBuilder.group({
             personalInfo: this.personalInfo(),
             address: this.address(),
             additionalInfo: this.additionalInfo()
         });
+        this.interestedAreasCategory = [
+            { "id": 1, "itemName": "Education" },
+            { "id": 2, "itemName": "Health" },
+            { "id": 1, "itemName": "Environment" }
+        ];
+        this.dropdownSettings = {
+            singleSelection: false,
+            text: "Select interested Areas",
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            enableSearchFilter: true,
+            classes: "myclass custom-class"
+        };
+        this.route.paramMap.subscribe(function (params) {
+            console.log(params);
+            if (params.get('mode')) {
+                _this.mode = params.get('mode');
+                _this.id = +params.get('id');
+            }
+            if (_this.id) {
+                if (!isNaN(_this.id)) {
+                    _this.apiService.getData('volunteer', _this.id, true).subscribe(function (result) {
+                        var data = JSON.parse(JSON.stringify(result));
+                        console.log("GetResponse: " + data);
+                        if (data.additionalInfo.interestedAreas) {
+                            data.additionalInfo.interestedAreas.forEach(function (interestedArea, index) {
+                                if (index != 0) {
+                                    _this.selected.push({ "id": interestedArea["id"], "itemName": interestedArea["interestedArea"] });
+                                }
+                            });
+                            _this.setSelectedList(_this.selected);
+                        }
+                        _this.myForm.setValue(data);
+                    });
+                }
+                else {
+                    alert('Error in ID');
+                }
+            }
+        });
+    };
+    VolunteerComponent.prototype.setSelectedList = function (selected) {
+        console.log("came to selected");
+        this.selectedList = selected;
+    };
+    VolunteerComponent.prototype.ngAfterViewInit = function () {
+        if (this.mode == 'view') {
+            Array.from(document.getElementsByClassName('form-control')).forEach(function (element) {
+                element.disabled = true;
+            });
+        }
+        else {
+            Array.from(document.getElementsByClassName('form-control')).forEach(function (element) {
+                element.disabled = false;
+            });
+        }
     };
     VolunteerComponent.prototype.personalInfo = function () {
         var aboutVolunteer = this.formBuilder.group({
@@ -2137,21 +2379,53 @@ var VolunteerComponent = /** @class */ (function () {
     VolunteerComponent.prototype.additionalInfo = function () {
         var me = this;
         var additionalInfo = this.formBuilder.group({
-            interestedAreas: ['', [
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(2000)
-                ]],
+            interestedAreas: [this.formBuilder.array([this.interestedArea]), []],
         });
         return additionalInfo;
     };
+    VolunteerComponent.prototype.interestedArea = function () {
+        return this.formBuilder.group({
+            interestedArea: ['', []]
+        });
+    };
+    VolunteerComponent.prototype.onEdit = function () {
+        this.router.navigateByUrl("/volunteer/edit/" + this.id);
+    };
+    VolunteerComponent.prototype.onClose = function () {
+        console.log("came to close");
+        this.router.navigateByUrl("/grid/volunteer");
+    };
     VolunteerComponent.prototype.onSubmit = function () {
         console.log("Insubmit");
+        if (this.selectedList) {
+            for (var _i = 0, _a = this.selectedList; _i < _a.length; _i++) {
+                var val = _a[_i];
+                console.log("interestedArea:" + val["itemName"]);
+                this.interestedList.push({ "interestedArea": val["itemName"] });
+            }
+        }
         console.log(this.address);
         if (this.myForm.valid) {
             console.log("valid");
-            var json = Object.assign(this.myForm.get('personalInfo').value, this.myForm.get('address').value);
+            var json = Object.assign(this.myForm.get('personalInfo').value, this.myForm.get('address').value, { interestedAreas: this.interestedList });
+            if (this.mode == 'edit') {
+                json = Object.assign(json, { id: this.id });
+            }
             console.log('submitting: ', json);
-            this.apiService.postData(json, 'volunteer-create');
-            // this.apiService.getData('partnerngo');
+            var response = this.apiService.postData(json, 'volunteer-create');
+            console.log("boolean is" + response);
+            while (this.interestedList.length) {
+                this.interestedList.pop();
+            }
+            if (response) {
+                if (this.mode == 'edit') {
+                    alert('Succesfully updated Volunteer');
+                }
+                else {
+                    alert('Succesfully registered Volunteer');
+                }
+                this.router.navigateByUrl("/grid/volunteer");
+            }
         }
         else {
             console.log("invalid");
@@ -2168,7 +2442,7 @@ var VolunteerComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./volunteer.component.css */ "./src/app/volunteer/volunteer.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
-            _api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"]])
+            _api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], VolunteerComponent);
     return VolunteerComponent;
 }());

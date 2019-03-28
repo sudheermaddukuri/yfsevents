@@ -23,7 +23,7 @@ constructor(private authService :AuthService, private router: Router) { }
   login(){
     this.authService.logIn(this.user)
       .subscribe(data=>{
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/events']);
         },err=>{
         this.errorMessage="error :  Username or password is incorrect";
         }

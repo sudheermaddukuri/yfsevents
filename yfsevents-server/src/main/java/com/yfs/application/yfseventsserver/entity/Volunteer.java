@@ -1,10 +1,13 @@
 package com.yfs.application.yfseventsserver.entity;
 
+import com.yfs.application.yfseventsserver.KeyValuePair;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 public class Volunteer {
@@ -30,9 +33,9 @@ public class Volunteer {
     private List<VolunteerPreferredTime> preferredTimes;
 
     @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
-    private List<VolunteerInterestedArea> interstedAreas;
+    private List<VolunteerInterestedArea> interestedAreas;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -144,11 +147,43 @@ public class Volunteer {
         this.preferredTimes = preferredTimes;
     }
 
-    public List<VolunteerInterestedArea> getInterstedAreas() {
-        return interstedAreas;
+    public List<VolunteerInterestedArea> getInterestedAreas() {
+        return interestedAreas;
     }
 
-    public void setInterstedAreas(List<VolunteerInterestedArea> interstedAreas) {
-        this.interstedAreas = interstedAreas;
+    public void setInterstedAreas(List<VolunteerInterestedArea> interestedAreas) {
+        this.interestedAreas = interestedAreas;
+    }
+    public List<KeyValuePair> getInterestedAreasCategoryList(){
+        return InterestedAreasCategory.getEnumList();
+    }
+
+}
+enum InterestedAreasCategory {
+
+    EDUCATION(1, "Education"),
+    ENVIRONMENT(2, "Environment"),
+    HEALTH(3, "Health");
+
+
+    private final int key;
+    private final String value;
+
+   InterestedAreasCategory(int key, String value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    private String getValue() {
+        return this.value;
+    }
+
+    private int getKey() {
+        return this.key;
+    }
+
+    public static List<KeyValuePair> getEnumList() {
+        return Stream.of(InterestedAreasCategory.values()).map(o -> new KeyValuePair(o.getKey(), o.getValue())).collect(Collectors.toList());
     }
 }
+

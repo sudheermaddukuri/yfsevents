@@ -208,7 +208,7 @@ export class PartnerNGOComponent implements OnInit, AfterViewInit {
       json=Object.assign(json, {id:this.id});
     }
     console.log('submitting: ',json);
-    let response:boolean = this.apiService.postData(json,'partnerngo');
+    let response = this.apiService.postData(json,'partnerngo');
     if(response){
       if(this.mode=='edit'){
         alert('Succesfully updated Partner NGO');
