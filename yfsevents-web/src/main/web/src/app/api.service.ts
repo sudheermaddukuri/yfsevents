@@ -20,14 +20,10 @@ export class ApiService {
     this.urlList.set('volunteer-create','/volunteer-create');
     this.urlList.set('collegeregistration','/collegeregistration');
   }
-  postData(data:any, type:string): boolean{
-    console.log('posting', data);
-    this.http.post(this.basicURL+this.urlList.get(type),data).subscribe(response=>{
+  postData(data:any, type:string) {
+    return this.http.post(this.basicURL+this.urlList.get(type),data).subscribe(response=>{
       console.log('postResponse: ',response);
-      return true;
-    },
-    error=>{return false});
-    return false;
+    });
   }
 
   getData(type:string, id?:any, formatted?:boolean){
