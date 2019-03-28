@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,7 +30,7 @@ import {RegisterComponent} from './register/register.component';
 import {UrlPermission }from "./urlPermission/url.permission";
 import {UserService}from "./services/user.service";
 import {AuthService}from "./services/auth.service";
-
+import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
 
 @NgModule({
 declarations: [
@@ -49,6 +49,7 @@ WelcomeComponent,
     CollegeListComponent,
     PartnerNgoGridComponent,
     CollegeRegistrationGridComponent,
+  VolunteerGridComponent
 LoginComponent,
 RegisterComponent
   ],
@@ -65,7 +66,10 @@ RegisterComponent
     AngularMultiSelectModule,
     HttpModule
   ],
+
+  schemas:[NO_ERRORS_SCHEMA],
   providers: [AuthService, UserService, UrlPermission],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

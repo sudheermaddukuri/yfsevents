@@ -1,20 +1,31 @@
-import { Component, OnInit,Injectable } from '@angular/core';
+import { Component, OnInit,Injectable, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup,FormControl, Validators,FormArray } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../api.service'
+import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute,Router } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import {NgOnChangesFeature}from '@angular/core/src/render3';
 @Component({
   selector: 'app-volunteer',
   templateUrl: './volunteer.component.html',
   styleUrls: ['./volunteer.component.css']
 })
-export class VolunteerComponent implements OnInit {
+export class VolunteerComponent implements OnInit,AfterViewInit{
 
   myForm: FormGroup;
-
+  interestedAreasCategory:any[];
+  selected:any[]=new Array();
+  selectedList:any[];
+  interestedList:any[]=new Array();
+  private mode :String;
+  private id: number;
+  dropdownSettings={};
 
 
     constructor(private formBuilder: FormBuilder,
-                private apiService:ApiService) { }
+                private apiService:ApiService,private route:ActivatedRoute, private router: Router) { }
+
 
     ngOnInit() {
 
@@ -22,8 +33,82 @@ export class VolunteerComponent implements OnInit {
           personalInfo: this.personalInfo(),
           address: this.address(),
           additionalInfo:this.additionalInfo()
+
         });
+        this.interestedAreasCategory=[
+                                      {"id":1,"itemName":"Education"},
+                                      {"id":2,"itemName":"Health"},
+                                      {"id":1,"itemName":"Environment"}
+
+                  ];
+
+
+
+
+
+
+
+                  this.dropdownSettings = {
+                                                    singleSelection: false,
+                                                    text:"Select interested Areas",
+                                                    selectAllText:'Select All',
+                                                    unSelectAllText:'UnSelect All',
+                                                    enableSearchFilter: true,
+                                                    classes:"myclass custom-class"
+                                                  };
+                   this.route.paramMap.subscribe(params=>{
+                         console.log(params);
+                         if(params.get('mode')){
+                           this.mode=params.get('mode');
+                           this.id=+params.get('id');
+                         }
+                         if(this.id){
+                           if(!isNaN(this.id)){
+
+                             this.apiService.getData('volunteer',this.id, true).subscribe(result =>{
+                               let data=JSON.parse(JSON.stringify(result));
+                               console.log("GetResponse: "+data);
+
+
+                               if(data.additionalInfo.interestedAreas){
+                                 data.additionalInfo.interestedAreas.forEach((interestedArea, index) =>{
+                                   if(index!=0){
+
+
+                                     this.selected.push({"id":interestedArea["id"],"itemName":interestedArea["interestedArea"]});
+
+                                   }
+
+                                 });
+                                 this.setSelectedList(this.selected);
+                                  }
+                               this.myForm.setValue(data);
+                             });
+                           }else{
+                             alert('Error in ID');
+                           }
+                         }
+                       });
+
     }
+    setSelectedList(selected){
+    console.log("came to selected");
+    this.selectedList=selected;
+       }
+
+       ngAfterViewInit(){
+           if(this.mode=='view'){
+             Array.from(document.getElementsByClassName('form-control')).forEach(element => {
+               (<HTMLInputElement>element).disabled = true;
+                          });
+           }else{
+             Array.from(document.getElementsByClassName('form-control')).forEach(element => {
+               (<HTMLInputElement>element).disabled = false;
+                 });
+           }
+
+
+         }
 
     personalInfo(): FormGroup{
 
@@ -74,21 +159,72 @@ export class VolunteerComponent implements OnInit {
     additionalInfo(): FormGroup{
            let me=this;
            const additionalInfo = this.formBuilder.group({
-             interestedAreas: ['', [
-               Validators.maxLength(2000)
+             interestedAreas: [this.formBuilder.array([this.interestedArea]), [
+
              ]],
 
            });
            return additionalInfo;
          }
+         interestedArea():FormGroup{
+         return this.formBuilder.group({
+         interestedArea:['',[
 
-    onSubmit(){console.log("Insubmit");console.log(this.address);if (this.myForm.valid) {
+         ]]
+
+         });
+         }
+
+
+
+onEdit(){
+       this.router.navigateByUrl("/volunteer/edit/"+this.id);
+
+  }
+
+  onClose(){
+  console.log("came to close");
+    this.router.navigateByUrl("/grid/volunteer");
+  }
+
+
+
+    onSubmit(){console.log("Insubmit");
+    if(this.selectedList)
+    {
+    for(var val of this.selectedList)
+    {
+    console.log("interestedArea:"+val["itemName"]);
+    this.interestedList.push({"interestedArea":val["itemName"]});
+
+    }
+    }
+    console.log(this.address);if (this.myForm.valid) {
                                                    console.log("valid");
-                                                   let json= Object.assign(this.myForm.get('personalInfo').value, this.myForm.get('address').value);
-                                                       console.log('submitting: ',json);
-                                                       this.apiService.postData(json,'volunteer-create');
+                                                   let json= Object.assign(this.myForm.get('personalInfo').value, this.myForm.get('address').value,{interestedAreas:this.interestedList});
+                                                   if(this.mode=='edit'){
+                                                         json=Object.assign(json, {id:this.id});
+                                                       }
 
-                                                       // this.apiService.getData('partnerngo');
+                                                       console.log('submitting: ',json);
+
+                                                      let response:boolean= this.apiService.postData(json,'volunteer-create');
+                                                        console.log("boolean is"+response);
+                                                        while(this.interestedList.length)
+                                                        {
+                                                        this.interestedlist.pop();
+                                                        }
+                                                        if(response){
+                                                              if(this.mode=='edit'){
+                                                                alert('Succesfully updated Volunteer');
+                                                              }else{
+                                                                alert('Succesfully registered Volunteer');
+                                                              }
+                                                              this.router.navigateByUrl("/grid/volunteer");
+                                                            }
+
+
+
                                                }
                                                else{console.log("invalid");}console.log("address is"+this.myForm.valid);
 }
