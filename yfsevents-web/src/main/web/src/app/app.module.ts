@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +16,7 @@ import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import { FormsModule } from '@angular/forms';
 import { VolunteerComponent } from './volunteer/volunteer.component';
 import { HttpClientModule } from '@angular/common/http';
+import {HttpModule}from '@angular/http';
 import { InventoryDataComponent } from './inventory-data/inventory-data.component';
 import { CollegeRegistrationComponent } from './college-registration/college-registration.component';
 import { SendMailComponent } from './send-mail/send-mail.component';
@@ -26,31 +27,33 @@ import { CollegeListComponent } from './college-registration/college-list.compon
 import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
 import { CollegeRegistrationGridComponent } from './college-registration-grid/college-registration-grid.component';
 import {LoginComponent}from './login/login.component';
+import {RegisterComponent} from './register/register.component';
 import {UrlPermission }from "./urlPermission/url.permission";
 import {UserService}from "./services/user.service";
 import {AuthService}from "./services/auth.service";
-import {RegisterComponent} from "./register/register.component";
+import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PartnerNGOComponent,
-    HeaderComponent,
-    FooterComponent,
-    EventListComponent,
-    AddEventComponent,
-    VolunteerComponent,
-    InventoryDataComponent,
-    CollegeRegistrationComponent,
-    SendMailComponent,
-    WelcomeComponent,
+declarations: [
+AppComponent,
+PartnerNGOComponent,
+HeaderComponent,
+FooterComponent,
+EventListComponent,
+AddEventComponent,
+VolunteerComponent,
+InventoryDataComponent,
+CollegeRegistrationComponent,
+SendMailComponent,
+WelcomeComponent,
     InventoryListComponent,
     CollegeListComponent,
     PartnerNgoGridComponent,
     CollegeRegistrationGridComponent,
-    LoginComponent,
-    RegisterComponent
+  VolunteerGridComponent,
+  LoginComponent,
+RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -63,9 +66,13 @@ import {RegisterComponent} from "./register/register.component";
     ReactiveFormsModule,
     TimepickerModule.forRoot(),
     TypeaheadModule.forRoot(),
-    AngularMultiSelectModule
+    AngularMultiSelectModule,
+    HttpModule
   ],
-  providers: [],
+
+  schemas:[NO_ERRORS_SCHEMA],
+  providers: [AuthService, UserService, UrlPermission],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

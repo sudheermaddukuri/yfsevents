@@ -26,9 +26,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/login")
+    /*@RequestMapping("/login")
     public boolean login(@RequestBody User user) {
         return user.getUsername().equals("user") && user.getPassword().equals("password");
+    }*/
+
+    @CrossOrigin
+    @RequestMapping("/login")
+    public Principal user(Principal principal) {
+        logger.info("user logged " + principal);
+        return principal;
     }
 
     @RequestMapping("/user")
