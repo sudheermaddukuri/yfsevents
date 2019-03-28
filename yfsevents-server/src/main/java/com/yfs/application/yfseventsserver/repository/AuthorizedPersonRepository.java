@@ -9,7 +9,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(collectionResourceRel = "authrizedperson", path = "authrizedperson")
 public interface AuthorizedPersonRepository extends JpaRepository<AuthorizedPerson, Long> {
 
-
     @Modifying
     @Query("delete from AuthorizedPerson a where a.id = ?1")
     void delete(Long id);

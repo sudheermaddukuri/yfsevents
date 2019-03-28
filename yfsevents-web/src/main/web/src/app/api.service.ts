@@ -22,14 +22,11 @@ export class ApiService {
     this.urlList.set('interestedAreasCategory','/interestedAreasCategory');
 
   }
-  postData(data:any, type:string): boolean{
-    console.log('posting', data);
-    this.http.post(this.basicURL+this.urlList.get(type),data).subscribe(response=>{
+  postData(data:any, type:string) {
+    return this.http.post(this.basicURL+this.urlList.get(type),data).subscribe(response=>{
       console.log('postResponse: ',response);
-      return true;
-    },
-    error=>{return false});
-    return true;
+
+    });
   }
 
   getData(type:string, id?:any, formatted?:boolean){

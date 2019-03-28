@@ -15,6 +15,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { FormsModule } from '@angular/forms';
 import { VolunteerComponent } from './volunteer/volunteer.component';
 import { HttpClientModule } from '@angular/common/http';
+import {HttpModule}from '@angular/http';
 import { InventoryDataComponent } from './inventory-data/inventory-data.component';
 import { CollegeRegistrationComponent } from './college-registration/college-registration.component';
 import { SendMailComponent } from './send-mail/send-mail.component';
@@ -23,30 +24,34 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { InventoryListComponent } from './inventory-data/inventory-list.component';
 import { CollegeListComponent } from './college-registration/college-list.component';
 import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
+import { CollegeRegistrationGridComponent } from './college-registration-grid/college-registration-grid.component';
 import {LoginComponent}from './login/login.component';
+import {RegisterComponent} from './register/register.component';
 import {UrlPermission }from "./urlPermission/url.permission";
 import {UserService}from "./services/user.service";
 import {AuthService}from "./services/auth.service";
 import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PartnerNGOComponent,
-    HeaderComponent,
-    FooterComponent,
-    EventListComponent,
-    AddEventComponent,
-    VolunteerComponent,
-    InventoryDataComponent,
-    CollegeRegistrationComponent,
-    SendMailComponent,
-    WelcomeComponent,
+declarations: [
+AppComponent,
+PartnerNGOComponent,
+HeaderComponent,
+FooterComponent,
+EventListComponent,
+AddEventComponent,
+VolunteerComponent,
+InventoryDataComponent,
+CollegeRegistrationComponent,
+SendMailComponent,
+WelcomeComponent,
     InventoryListComponent,
     CollegeListComponent,
     PartnerNgoGridComponent,
-    LoginComponent,
-    VolunteerGridComponent
+    CollegeRegistrationGridComponent,
+  VolunteerGridComponent
+LoginComponent,
+RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -58,10 +63,13 @@ import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component'
     FormsModule,
     ReactiveFormsModule,
     TimepickerModule.forRoot(),
-    AngularMultiSelectModule
+    AngularMultiSelectModule,
+    HttpModule
   ],
+
   schemas:[NO_ERRORS_SCHEMA],
-  providers: [],
+  providers: [AuthService, UserService, UrlPermission],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
