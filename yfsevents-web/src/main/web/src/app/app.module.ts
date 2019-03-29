@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,7 @@ import { EventListComponent } from './events/event-list.component';
 import { AddEventComponent } from './events/add-event.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import { FormsModule } from '@angular/forms';
 import { VolunteerComponent } from './volunteer/volunteer.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -30,6 +31,7 @@ import {RegisterComponent} from './register/register.component';
 import {UrlPermission }from "./urlPermission/url.permission";
 import {UserService}from "./services/user.service";
 import {AuthService}from "./services/auth.service";
+import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
 
 
 @NgModule({
@@ -49,7 +51,8 @@ WelcomeComponent,
     CollegeListComponent,
     PartnerNgoGridComponent,
     CollegeRegistrationGridComponent,
-LoginComponent,
+  VolunteerGridComponent,
+  LoginComponent,
 RegisterComponent
   ],
   imports: [
@@ -62,10 +65,14 @@ RegisterComponent
     FormsModule,
     ReactiveFormsModule,
     TimepickerModule.forRoot(),
+    TypeaheadModule.forRoot(),
     AngularMultiSelectModule,
     HttpModule
   ],
+
+  schemas:[NO_ERRORS_SCHEMA],
   providers: [AuthService, UserService, UrlPermission],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -28,6 +28,10 @@ export class InventorydataService {
   updateInventoryDataById(data:any,id:any){
     return this.http.put(`${environment.serverHost}/inventorydata/list/${id}`,data)
   }
+
+  getItemsByCategory(data:any){
+    return this.http.get("/inventorydata/items/"+data);
+  }
   
  
    
