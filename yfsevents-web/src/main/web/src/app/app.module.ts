@@ -32,8 +32,7 @@ import {UrlPermission }from "./urlPermission/url.permission";
 import {UserService}from "./services/user.service";
 import {AuthService}from "./services/auth.service";
 import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
-
-
+import{EventEmiterService} from './services/event.emmiter.service'
 @NgModule({
 declarations: [
 AppComponent,
@@ -53,7 +52,7 @@ WelcomeComponent,
     CollegeRegistrationGridComponent,
   VolunteerGridComponent,
   LoginComponent,
-RegisterComponent
+RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +70,7 @@ RegisterComponent
   ],
 
   schemas:[NO_ERRORS_SCHEMA],
-  providers: [AuthService, UserService, UrlPermission],
+  providers: [AuthService, UserService, UrlPermission,EventEmiterService],
 
   bootstrap: [AppComponent]
 })
