@@ -53,9 +53,7 @@ path: 'login', component: LoginComponent
   },
   {path:'events',component:EventListComponent},
   {path:'addevent',component:AddEventComponent},
-  {path:'volunteer-create',component:VolunteerComponent},
   {
-
     path:'email',component:SendMailComponent
   },
    {
