@@ -10,7 +10,8 @@
     class="ag-theme-balham"
     [rowData]="rowData" 
     [columnDefs]="columnDefs"
-    >
+    (rowClicked)="onSearch($event)"
+>
 </ag-grid-angular>
 </div>
 </div>

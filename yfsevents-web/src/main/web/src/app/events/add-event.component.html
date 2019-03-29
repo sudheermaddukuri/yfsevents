@@ -23,11 +23,11 @@
           <div class="row form-row">
             <div class="col-md-6 offset-md-3 form-group">
                 <label class="control-label">PartnerNGO Name</label>
-                <input type="text" formControlName="ngoName" placeholder="PartnerNGO Name" class="form-control">
+                <input formControlName="ngoName" [typeahead]="ngos" placeholder="PartnerNGO Name" class="form-control">
             </div>
             <div class="col-md-4 form-group">
                 <label class="control-label">Category</label>
-                <select formControlName="eventCategory" class="form-control">
+                <select formControlName="eventCategory" class="form-control" (change)="onCategorySelected()">
                   <option *ngFor="let category of eventCategories" [value]="category">{{category}}</option>
                 </select>
             </div>

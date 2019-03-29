@@ -12,6 +12,7 @@ import { EventListComponent } from './events/event-list.component';
 import { AddEventComponent } from './events/add-event.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import { FormsModule } from '@angular/forms';
 import { VolunteerComponent } from './volunteer/volunteer.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -32,6 +33,7 @@ import {UserService}from "./services/user.service";
 import {AuthService}from "./services/auth.service";
 import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
 
+
 @NgModule({
 declarations: [
 AppComponent,
@@ -49,8 +51,8 @@ WelcomeComponent,
     CollegeListComponent,
     PartnerNgoGridComponent,
     CollegeRegistrationGridComponent,
-  VolunteerGridComponent
-LoginComponent,
+  VolunteerGridComponent,
+  LoginComponent,
 RegisterComponent
   ],
   imports: [
@@ -63,6 +65,7 @@ RegisterComponent
     FormsModule,
     ReactiveFormsModule,
     TimepickerModule.forRoot(),
+    TypeaheadModule.forRoot(),
     AngularMultiSelectModule,
     HttpModule
   ],

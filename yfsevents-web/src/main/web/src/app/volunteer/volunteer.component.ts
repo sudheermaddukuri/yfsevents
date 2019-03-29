@@ -208,11 +208,11 @@ onEdit(){
 
                                                        console.log('submitting: ',json);
 
-                                                      let response:boolean= this.apiService.postData(json,'volunteer-create');
+                                                      let response= this.apiService.postData(json,'volunteer-create');
                                                         console.log("boolean is"+response);
                                                         while(this.interestedList.length)
                                                         {
-                                                        this.interestedlist.pop();
+                                                        this.interestedList.pop();
                                                         }
                                                         if(response){
                                                               if(this.mode=='edit'){

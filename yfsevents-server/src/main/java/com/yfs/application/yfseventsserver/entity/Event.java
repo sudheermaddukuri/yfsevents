@@ -13,15 +13,46 @@ public class Event {
 
     private String eventName;
     private String eventAction;
-    private String eventfromTime;
-    private String eventToTime;
+
+    public Date getEventfromTime() {
+        return eventfromTime;
+    }
+
+    public void setEventfromTime(Date eventfromTime) {
+        this.eventfromTime = eventfromTime;
+    }
+
+    private Date eventfromTime;
+
+    public Date getEventtoTime() {
+        return eventtoTime;
+    }
+
+    public void setEventtoTime(Date eventtoTime) {
+        this.eventtoTime = eventtoTime;
+    }
+
+    private Date eventtoTime;
     private String ngoName;
     private String eventCategory;
     private String recurringEvent;
     private String volunteers;
 
+    public List<Date> getEventDuration() {
+        return eventDuration;
+    }
+
+    public void setEventDuration(List<Date> eventDuration) {
+        this.eventDuration = eventDuration;
+    }
+
     @ElementCollection
-    private List<String> eventDuration;
+    private List<Date> eventDuration;
+
+
+
+    @ElementCollection
+    private List<String> eventItems;
 
     public List<String> getEventItems() {
         return eventItems;
@@ -30,9 +61,6 @@ public class Event {
     public void setEventItems(List<String> eventItems) {
         this.eventItems = eventItems;
     }
-
-    @ElementCollection
-    private List<String> eventItems;
 
 
     public long getId() {
@@ -51,13 +79,6 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public List<String> getEventDuration() {
-        return eventDuration;
-    }
-
-    public void setEventDuration(List<String> eventDuration) {
-        this.eventDuration = eventDuration;
-    }
 
     public String getEventAction() {
         return eventAction;
@@ -67,21 +88,9 @@ public class Event {
         this.eventAction = eventAction;
     }
 
-    public String getEventfromTime() {
-        return eventfromTime;
-    }
 
-    public void setEventfromTime(String eventfromTime) {
-        this.eventfromTime = eventfromTime;
-    }
 
-    public String getEventToTime() {
-        return eventToTime;
-    }
 
-    public void setEventToTime(String eventToTime) {
-        this.eventToTime = eventToTime;
-    }
 
     public String getNgoName() {
         return ngoName;

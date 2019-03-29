@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
+import { formatDate, DatePipe } from '@angular/common';
 import { ApiService } from '../api.service';
+import { ActivatedRoute } from '@angular/router';
+import { InventorydataService } from '../inventory-data/inventorydata.service';
 
 @Component({
     selector:'add-event',
@@ -10,6 +12,9 @@ import { ApiService } from '../api.service';
   })
 
   export class AddEventComponent implements OnInit{
+    ngos_data: any[];
+    ngos:any;
+    pipe:any;
     eventForm :FormGroup;
     bsValue = new Date();
     bsRangeValue: Date[];
@@ -21,11 +26,11 @@ import { ApiService } from '../api.service';
     eventActions: string[] = ['Not Started','In progress','Completed','Abandoned'];
     eventCategories: string[] = ['PartnerNGO','Education','Environment','Health','Other'];
     recurringEventOptions: string[] = ['Yes','No'];
-    constructor(private formBuilder: FormBuilder,private apiService: ApiService) {
+    constructor(private formBuilder: FormBuilder,private apiService: ApiService,private route:ActivatedRoute,private inventoryService: InventorydataService) {
       this.eventForm=this.formBuilder.group({
         eventName: '',
         eventAction: 'Not Started',
-        eventDuration:null,
+        eventDuration: null,
         fromTime: new Date(),
         toTime: new Date(),
         ngoName:'',
@@ -38,6 +43,13 @@ import { ApiService } from '../api.service';
    
   
     ngOnInit(){ 
+      this.apiService.getData('partnerngo').subscribe((data:any)=>{
+            this.ngos_data=data;
+            this.ngos=this.ngos_data.map(ngo=>{
+                return ngo.name;
+            });
+      });
+     
       this.itemList = [
         { "id": 1, "itemName": "Item1" },
         { "id": 2, "itemName": "Item2" },
@@ -55,6 +67,31 @@ import { ApiService } from '../api.service';
         enableSearchFilter: true
     };
 
+    if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')){
+      this.apiService.getData('event',this.route.snapshot.paramMap.get('id')).subscribe((data:any)=>{
+        console.log(data.eventDuration);
+        this.pipe = new DatePipe('en-US');
+        this.eventForm.setValue({
+          eventName:data.eventName,
+          eventAction:data.eventAction,
+          eventDuration:data.eventDuration.map(date=>{
+            return this.pipe.transform(date,'shortDate');
+          }),
+          fromTime: data.eventfromTime,
+          toTime:data.eventtoTime,
+          ngoName:data.ngoName,
+          eventCategory:data.eventCategory,
+          recurringEvent:data.recurringEvent,
+          items:data.eventItems.map(item=>({
+            id:data.eventItems.indexOf(item),
+            itemName:item
+          })),
+          volunteers:data.volunteers
+        });
+        console.log(this.eventForm.value.eventDuration);
+      })
+    }
+
   }
   
   log($event){
@@ -65,18 +102,30 @@ import { ApiService } from '../api.service';
     console.log(this.eventForm.value);
     this.eventData.eventName= this.eventForm.value.eventName;
     this.eventData.eventAction=this.eventForm.value.eventAction;
-    this.eventData.eventfromTime= formatDate(this.eventForm.value.fromTime,'shortTime','en-US');
-    this.eventData.eventtoTime = formatDate(this.eventForm.value.toTime,'shortTime','en-US');
+    this.eventData.eventfromTime= this.eventForm.value.fromTime;
+    this.eventData.eventtoTime = this.eventForm.value.toTime;
     this.eventData.ngoName = this.eventForm.value.ngoName;
     this.eventData.volunteers = this.eventForm.value.volunteers;
     this.eventData.recurringEvent=this.eventForm.value.recurringEvent;
     // this.eventData.eventDuration=[];
     // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[0],'fullDate','en-US'));
     // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[1],'fullDate','en-US'));
-    this.eventData.eventDuration=this.eventForm.value.eventDuration.map(date=>formatDate(date,'fullDate','en-US'));
+    this.eventData.eventCategory=this.eventForm.value.eventCategory;
+    this.eventData.eventDuration=this.eventForm.value.eventDuration;
     this.eventData.eventItems=this.eventForm.value.items.map(item => item.itemName);
     console.log(this.eventData);
-    this.apiService.postData(this.eventData,'event')
+    if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')){
+    this.apiService.putData(this.eventData,this.route.snapshot.paramMap.get('id'),'event')}else{
+      this.apiService.postData(this.eventData,'event');
+    }
+  }
+
+  onCategorySelected(event){
+    this.inventoryService.getItemsByCategory(this.eventForm.value.eventCategory).subscribe((data:any)=>{
+      this.itemList = data.map(item=>{
+        return {'id':data.indexOf(item),"itemName":item};
+      })
+})
   }
 
   

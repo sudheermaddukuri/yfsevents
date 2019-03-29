@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
+import { Eventdata } from './add-event.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector:'event-list',
@@ -8,24 +12,44 @@ import { Component, OnInit } from '@angular/core';
 
 export class EventListComponent implements OnInit{
 
+  rowData :any;
+
 	columnDefs = [
-        {headerName: 'EventId', field: 'event_id',filter:true },
-        {headerName: 'Action', field: 'action',filter:true},
-        {headerName: 'Event Name', field: 'event_name',filter:true},
-        {headerName: 'Event Category', field: 'event_category',filter:true},
-        {headerName: 'Partner NGO', field: 'ngo_name',filter:true},
+        {headerName: 'EventId', field: 'id',filter:true },
+        {headerName: 'Action', field: 'eventAction',filter:true},
+        {headerName: 'Event Name', field: 'eventName',filter:true},
+        {headerName: 'Event Category', field: 'eventCategory',filter:true},
+        {headerName: 'Partner NGO', field: 'ngoName',filter:true},
         {headerName: 'Event Start Date', field: 'event_start_date',filter:true},
         {headerName: 'Event End Date', field: 'event_end_date',filter:true},
         
     ];
 
-    rowData = [
-        { event_id: '1001', action: 'Not Started', event_name: 'ABC', event_category :'Partner NGO',ngo_name:'XYZ',event_start_date:'15/2/2019',event_end_date:'17/2/2019' },
-    
-    ];
-	
+    eventData :any[];
+    constructor(private apiService: ApiService,private router:Router){}
 
 	ngOnInit():void{
-
-	}
+   this.apiService.getData('events').subscribe((data:any)=>{
+        this.eventData=data;
+        console.log(data);
+        this.rowData = this.eventData.map(event=>({
+          id:event.id,
+          eventAction:event.eventAction,
+          eventName:event.eventName,
+          eventCategory:event.eventCategory,
+          ngoName:event.ngoName,
+          event_start_date:event.eventDuration[0],
+          event_end_date:event.eventDuration[1]
+        }));
+      },( err:HttpErrorResponse)=>{
+        console.log(err.message);
+     });
+    }
+    
+  onSearch(event:any){
+    this.router.navigate(['addevent',{id:event.data.id}]);
+  }
 }
+
+
+
