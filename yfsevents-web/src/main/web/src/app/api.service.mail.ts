@@ -7,7 +7,7 @@ import {HttpClient} from "@angular/common/http";
 export class ApiServiceMail {
 
   private basicURL:string="/sendEmail"
-
+  private basicURLVolunteer:string="/api"
   private urlList=new Map<string, string>();
 
   constructor(private http:HttpClient) {
@@ -16,12 +16,17 @@ export class ApiServiceMail {
 
   initialiseUrlList():void{
     this.urlList.set('send', '/send');
+    this.urlList.set('getEmail','/volunteer/email');
   }
-  postData(data, type:string){
+  postData(data){
     console.log('postingggg', data);
     this.http.post(this.basicURL+this.urlList.get("send"),data).subscribe(response=>{
       console.log('postResponse: ',response);
       alert("Sucessfully Sent Email");
     });
+  }
+  getData(){
+    let uri : string =this.basicURLVolunteer+this.urlList.get("getEmail");
+    return this.http.get(uri);
   }
 }

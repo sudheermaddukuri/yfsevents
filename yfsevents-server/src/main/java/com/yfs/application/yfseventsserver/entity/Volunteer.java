@@ -185,5 +185,6 @@ enum InterestedAreasCategory {
     public static List<KeyValuePair> getEnumList() {
         return Stream.of(InterestedAreasCategory.values()).map(o -> new KeyValuePair(o.getKey(), o.getValue())).collect(Collectors.toList());
     }
+
 }
 

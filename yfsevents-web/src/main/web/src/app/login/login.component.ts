@@ -2,7 +2,6 @@ import{Component, OnInit, ViewEncapsulation}from '@angular/core';
 import {User}from "../model/model.user";
 import {AuthService}from "../services/auth.service";
 import {Router}from "@angular/router";
-import{EventEmiterService} from "../services/event.emmiter.service";
 
 
 @Component({
@@ -14,24 +13,20 @@ encapsulation: ViewEncapsulation.None
 export class LoginComponent implements OnInit {
 user: User = new User();
 errorMessage:string;
-//constructor(private authService :AuthService, private router: Router) { }
-constructor(private _eventEmiter: EventEmiterService, private router: Router){}
+constructor(private authService :AuthService, private router: Router) { }
+
 
 
   ngOnInit() {
   }
 
-//   login(){
-//     this.authService.logIn(this.user)
-//       .subscribe(data=>{
-//         this.router.navigate(['/events']);
-//         },err=>{
-//         this.errorMessage="error :  Username or password is incorrect";
-//         }
-// )
-// }
-login()
-{
-  this.router.navigate(['/email',"tushar"]);
+  login(){
+    this.authService.logIn(this.user)
+      .subscribe(data=>{
+        this.router.navigate(['/events']);
+        },err=>{
+        this.errorMessage="error :  Username or password is incorrect";
+        }
+)
 }
 }
