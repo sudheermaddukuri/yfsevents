@@ -19,7 +19,6 @@ export class ApiService {
     this.urlList.set('partnerngo', '/partnerngo');
     this.urlList.set('event','/event');
     this.urlList.set('events','/events');
-    this.urlList.set('volunteer-create','/volunteer-create');
     this.urlList.set('volunteer','/volunteer');
     this.urlList.set('collegeregistration','/collegeregistration');
     this.urlList.set('interestedAreasCategory','/interestedAreasCategory');
