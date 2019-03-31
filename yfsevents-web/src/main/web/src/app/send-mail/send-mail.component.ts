@@ -14,21 +14,24 @@ import{Eventdata} from "../events/add-event.component"
 export class SendMailComponent implements OnInit {
   public email:Email;
   public eventData:Eventdata;
+  public resp:string;
   constructor(
               private apiServiceMail: ApiServiceMail,private route: ActivatedRoute) { }
   ngOnInit() {
-    //Will read data here, send data in form of object eventData  with eventId
+    
     this.eventData=new Eventdata();
     this.eventData.eventCategory='abc';
-    this.eventData.eventfromTime="2 a.m";
-    this.eventData.eventtoTime="4 p.m";
+    this.eventData.eventfromTime="2017-07-23 13:10:11";
+    this.eventData.eventtoTime="2017-07-23 18:10:11";
     this.eventData.eventName="Blood Donation Camp";
     this.eventData.ngoName="YouthForSeva";
-    this.email=new Email({to:this.getEmailId(),cc:"",bcc:"",
-    text:"",subject:this.createDefaultSubject(this.eventData.eventName,
+    
+    this.email=new Email({to:"",cc:"",bcc:"",
+    text:"",eventId:312,subject:this.createDefaultSubject(this.eventData.eventName,
       this.eventData.ngoName,this.eventData.eventfromTime,this.eventData.eventtoTime)});
-      this.email.event=this.eventData;
-
+      this.getEmailId();
+      console.log(this.resp);
+      console.log(this.email.to);
   }
 
   public onFormSubmit({value}:{value:Email}) {
@@ -44,9 +47,14 @@ export class SendMailComponent implements OnInit {
   }
   public  getEmailId()
   {
+    //String resp;
     this.apiServiceMail.getData().subscribe(response=>{
       console.log('postResponse: ',response);
-     return response.toString();
+     //return response.toString();
+     this.resp=response.toString();
+     
+     console.log(this.resp+" ...."+response.toString);
+     this.email.to=this.resp;
     });
   }
 }

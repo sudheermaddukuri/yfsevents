@@ -18,7 +18,7 @@ public class VolunteerResponseController {
   EmailController emailController;
 
     @RequestMapping(value="/{email}/{com}/{eventId}", method= RequestMethod.GET)
-   public void getResponse(@PathVariable("email") String email,@PathVariable("com") String com,@PathVariable("eventId") Long eventid)
+   public @ResponseBody String getResponse(@PathVariable("email") String email,@PathVariable("com") String com,@PathVariable("eventId") Long eventid)
    {
        System.out.println(email+com+" "+eventid);
        String emailID=email+"@"+com;
@@ -28,7 +28,9 @@ public class VolunteerResponseController {
        if(exist==1)
        {
            volunteersAcceptedRepository.updateAccepted(emailID,eventid);
+           return "You are registered successfully";
        }
+       return "Sorry. You are not eligible for this event";
    }
    @RequestMapping(value="/set",method = RequestMethod.GET)
     public String set()
@@ -80,8 +82,5 @@ public class VolunteerResponseController {
     {
         Long accepted=volunteersAcceptedRepository.getCountOfVolunteers(eventId);
         return accepted;
-
     }
-
-
 }

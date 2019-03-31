@@ -23,6 +23,7 @@ export class ApiServiceMail {
     this.http.post(this.basicURL+this.urlList.get("send"),data).subscribe(response=>{
       console.log('postResponse: ',response);
       alert("Sucessfully Sent Email");
+      alert("Response is"+ response.text());
     });
   }
   getData(){

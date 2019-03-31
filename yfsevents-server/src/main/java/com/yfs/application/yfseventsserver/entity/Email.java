@@ -14,7 +14,15 @@ public class Email
     private String text;
     private String bcc;
     private String cc;
-    private Event event;
+    private Long eventId;
+
+    public Long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
+    }
 
     public List<String> getToMultiple() {
         return toMultiple;
@@ -24,13 +32,6 @@ public class Email
         this.toMultiple = toMultiple;
     }
 
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
 
     public String getBcc() {
         return bcc;

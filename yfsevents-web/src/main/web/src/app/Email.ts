@@ -6,7 +6,7 @@ export class Email
   bcc:string;
   subject:string;
   text:string;
-  event:Eventdata;
+  eventId: number;
 
   constructor(values:Object={})
   {
