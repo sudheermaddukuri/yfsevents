@@ -17,6 +17,7 @@ export class SendMailComponent implements OnInit {
   constructor(
               private apiServiceMail: ApiServiceMail,private route: ActivatedRoute) { }
   ngOnInit() {
+    //Will read data here, send data in form of object eventData  with eventId
     this.eventData=new Eventdata();
     this.eventData.eventCategory='abc';
     this.eventData.eventfromTime="2 a.m";
@@ -24,7 +25,7 @@ export class SendMailComponent implements OnInit {
     this.eventData.eventName="Blood Donation Camp";
     this.eventData.ngoName="YouthForSeva";
     this.email=new Email({to:this.getEmailId(),cc:"",bcc:"",
-    subject:"",text:this.createDefaultSubject(this.eventData.eventName,
+    text:"",subject:this.createDefaultSubject(this.eventData.eventName,
       this.eventData.ngoName,this.eventData.eventfromTime,this.eventData.eventtoTime)});
       this.email.event=this.eventData;
 

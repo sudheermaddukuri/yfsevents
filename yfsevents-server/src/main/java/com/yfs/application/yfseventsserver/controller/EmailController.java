@@ -198,7 +198,6 @@ public class EmailController {
         Event event = new Event();
         event.setId(312);
         email.setEvent(event);
-        EmailController emailController=new EmailController();
-        System.out.println(emailController.sendmail(email));
+        System.out.println(sendmail(email));
     }
 }
