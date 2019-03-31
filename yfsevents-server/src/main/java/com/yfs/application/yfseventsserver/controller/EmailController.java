@@ -1,8 +1,11 @@
 package com.yfs.application.yfseventsserver.controller;
 
-
+import com.yfs.application.yfseventsserver.repository.VolunteerRepository;
+import com.yfs.application.yfseventsserver.repository.VolunteersAcceptedRepository;
 import com.yfs.application.yfseventsserver.entity.Email;
 import com.yfs.application.yfseventsserver.entity.Event;
+import com.yfs.application.yfseventsserver.entity.Volunteer;
+import com.yfs.application.yfseventsserver.entity.VolunteersAccepted;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
@@ -17,13 +20,18 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/sendEmail")
 public class EmailController {
 
+//    @Autowired
+//    Email email;
+
     @Autowired
-    Email email;
+    VolunteersAcceptedRepository  volunteersAcceptedRepository;
+
 
     public static Properties setProperties()
     {
@@ -44,8 +52,8 @@ public class EmailController {
                 }
             });
         return session;
-
     }
+
     public static boolean sendMail(Session session,String from, String to,String Subject,final String messageText)
     {
         try {
@@ -79,6 +87,7 @@ public class EmailController {
 
     public static Boolean sendMailController(String to,String Subject,String Content)
     {
+        System.out.println(to);
         boolean result=false;
         String from = "rainatushar221995221995@gmail.com";
         String username = "rainatushar221995221995@gmail.com";
@@ -96,16 +105,22 @@ public class EmailController {
     public String createUrl(String emailId,String eventId)
     {
         String uniqueUrl="";
-        uniqueUrl=uniqueUrl+emailId.split("@")[0]+"/"+emailId.split("@")[1]+"/"+eventId;
-        System.out.println("Unique Link is");
+        uniqueUrl=uniqueUrl+"http://localhost:8080/"+emailId.split("@")[0]+"/"+emailId.split("@")[1]+"/"+eventId;
+        System.out.println("Unique Link is "+uniqueUrl);
         return uniqueUrl;
     }
     public HashMap<String,Boolean> sendMailToall(Email email)
     {
+        System.out.println(email.toString());
+        System.out.println(email.getEvent().toString());
         HashMap<String,Boolean> result= new HashMap<>();
-        email.getToMultiple().stream().forEach(toUnique -> result.put(toUnique,sendMailController(
+        System.out.println("Test : "+email.getToMultiple().toString());
+        List<String> toMultiple =email.getToMultiple();
+        System.out.println(" chk :"+toMultiple.toString());
+        toMultiple.parallelStream().flatMap(toUnique-> Stream.of(toUnique)).forEach(toUnique -> result.put(toUnique,sendMailController(
             toUnique,email.getSubject(),email.getText()+" -- "+
                 createUrl(toUnique,Long.toString(email.getEvent().getId())))));
+        result.forEach((toEmail,response)->insertVolunteerValuesToDB(toEmail,email.getEvent().getId(),response));
         return result;
     }
 
@@ -116,13 +131,30 @@ public class EmailController {
         toMultiple= Arrays.asList(toMultipleString);
         return toMultiple;
     }
+    public void insertVolunteerValuesToDB(String email,Long eventId ,Boolean response)
+    {
+        if(response==false)
+            return;
+        System.out.println(email+" "+eventId+" "+response);
+        VolunteersAccepted volunteersAccepted= new VolunteersAccepted();
+        volunteersAccepted.setAccepted(false);
+        volunteersAccepted.setMailId(email);
+        volunteersAccepted.setEventId(eventId);
+        System.out.println("mail is :"+volunteersAccepted.getMailId());
+        System.out.println("Try");
+
+        //System.out.println(volunteersAcceptedRepository.getAccepteVolunteersCount(123L));
+        VolunteersAccepted v=volunteersAcceptedRepository.save(volunteersAccepted);
+    }
+
     @ResponseBody
     @PostMapping("/send")
-            public String sendmail(@RequestBody Email em) {
+            public HashMap<String ,Boolean> sendmail(@RequestBody Email em) {
         System.out.println(em.toString());
         System.out.println(em.getTo());
         System.out.println(em.getSubject());
-        em.setToMultiple(parseString(em.toString()));
+        em.setToMultiple(parseString(em.getTo()));
+        HashMap<String,Boolean>result=sendMailToall(em);
         //Got all the information already
         //System.out.println(event.getEventCategory());
        // return "You have successFully Submitted Data : "+text;
@@ -136,8 +168,7 @@ public class EmailController {
         System.out.println(to);
         System.out.println(subject);
         System.out.println(text);
-        email.setTo(to);
-        email.setSubject(subject);
+        email.setTo(to);ppp;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         email.setText(text);
         System.out.println(email.getTo());
         System.out.println(email.getText());
@@ -145,6 +176,29 @@ public class EmailController {
         if(sendMailController(to, subject,text))
         return "{\"status\":\"sentmail\"}";
         else*/
-            return "{\"status\":\"not able to send mail\"}";
+            return result;
+    }
+    public static void main(String[] args) {
+        Email email= new Email();
+        email.setTo("rainatushar221995@gmail.com,wwwwww@gmail.com,random1@yahoo.com");
+        email.setSubject("Subject Test3 again");
+        email.setText("Text is working");
+        Event event = new Event();
+        event.setId(312);
+        email.setEvent(event);
+        EmailController emailController=new EmailController();
+        System.out.println(emailController.sendmail(email));
+    }
+    public void fun()
+    {
+        Email email= new Email();
+        email.setTo("rainatushar221995@gmail.com,wwwwww@gmail.com,random1@yahoo.com");
+        email.setSubject("Subject Test3 again");
+        email.setText("Text is working");
+        Event event = new Event();
+        event.setId(312);
+        email.setEvent(event);
+        EmailController emailController=new EmailController();
+        System.out.println(emailController.sendmail(email));
     }
 }

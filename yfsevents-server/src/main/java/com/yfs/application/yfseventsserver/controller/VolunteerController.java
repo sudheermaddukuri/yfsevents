@@ -61,7 +61,6 @@ public class VolunteerController {
     @ResponseBody
     @GetMapping("/volunteer/{id}/formatted")
     public Map getVolunteerFormatted(@PathVariable Long id) {
-
         Optional<Volunteer> volunteer =  volunteerRepository.findById(id);
         Map output = new HashMap();
 
