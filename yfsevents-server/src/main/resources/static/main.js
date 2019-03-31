@@ -121,11 +121,10 @@ var ApiService = /** @class */ (function () {
         this.urlList.set('volunteer', '/volunteer');
         this.urlList.set('collegeregistration', '/collegeregistration');
         this.urlList.set('interestedAreasCategory', '/interestedAreasCategory');
+        this.urlList.set('collegeregistration-list', '/collegeregistration/list');
     };
     ApiService.prototype.postData = function (data, type) {
-        return this.http.post(this.basicURL + this.urlList.get(type), data).subscribe(function (response) {
-            console.log('postResponse: ', response);
-        });
+        return this.http.post(this.basicURL + this.urlList.get(type), data);
     };
     ApiService.prototype.getData = function (type, id, formatted) {
         var uri = this.basicURL + this.urlList.get(type);
@@ -812,7 +811,7 @@ var CollegeRegistrationComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".row {\n    margin-bottom:25px;\n}\n\n.itemsrow{\n    margin-bottom:0px !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZXZlbnRzL2FkZC1ldmVudC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksa0JBQWtCO0FBQ3RCOztBQUVBO0lBQ0ksNEJBQTRCO0FBQ2hDIiwiZmlsZSI6InNyYy9hcHAvZXZlbnRzL2FkZC1ldmVudC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJvdyB7XG4gICAgbWFyZ2luLWJvdHRvbToyNXB4O1xufVxuXG4uaXRlbXNyb3d7XG4gICAgbWFyZ2luLWJvdHRvbTowcHggIWltcG9ydGFudDtcbn0iXX0= */"
+module.exports = ".row {\n    margin-bottom:25px;\n}\n:host >>> .alert-md-local {\n    background-color: #009688;\n    border-color: #00695C;\n    color: #fff;\n    margin-bottom:0px;\n    margin-top: 20px;\n}\n.itemsrow{\n    margin-bottom:0px !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZXZlbnRzL2FkZC1ldmVudC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksa0JBQWtCO0FBQ3RCO0FBQ0E7SUFDSSx5QkFBeUI7SUFDekIscUJBQXFCO0lBQ3JCLFdBQVc7SUFDWCxpQkFBaUI7SUFDakIsZ0JBQWdCO0FBQ3BCO0FBRUE7SUFDSSw0QkFBNEI7QUFDaEMiLCJmaWxlIjoic3JjL2FwcC9ldmVudHMvYWRkLWV2ZW50LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucm93IHtcbiAgICBtYXJnaW4tYm90dG9tOjI1cHg7XG59XG46aG9zdCA+Pj4gLmFsZXJ0LW1kLWxvY2FsIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5Njg4O1xuICAgIGJvcmRlci1jb2xvcjogIzAwNjk1QztcbiAgICBjb2xvcjogI2ZmZjtcbiAgICBtYXJnaW4tYm90dG9tOjBweDtcbiAgICBtYXJnaW4tdG9wOiAyMHB4O1xufVxuXG4uaXRlbXNyb3d7XG4gICAgbWFyZ2luLWJvdHRvbTowcHggIWltcG9ydGFudDtcbn0iXX0= */"
 
 /***/ }),
 
@@ -823,7 +822,7 @@ module.exports = ".row {\n    margin-bottom:25px;\n}\n\n.itemsrow{\n    margin-b
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n    <div class=\"page-header well text-center well-sm\">\n      <h3><strong> Event Registration</strong></h3>\n    </div>\n\n    <form [formGroup]=\"eventForm\" (ngSubmit)=\"onSubmit()\">\n      <div class=\"panel panel-default\">\n        <div class=\"panel-body\">\n          \n          <div class=\"row form-row\">\n            <div class=\"col-md-6 offset-md-3 form-group\">\n                <label class=\"control-label\">Event Name</label>\n                <input type=\"text\" formControlName=\"eventName\" placeholder=\"Event Name\" class=\"form-control\">\n            </div>\n            <div class=\"col-md-6 form-group\">\n                <label class=\"control-label\">Action</label>\n                <select formControlName=\"eventAction\" class=\"form-control\">\n                  <option *ngFor=\"let action of eventActions\" [value]=\"action\">{{action}}</option>\n                </select>\n            </div>\n          </div>\n\n          <div class=\"row form-row\">\n            <div class=\"col-md-6 offset-md-3 form-group\">\n                <label class=\"control-label\">PartnerNGO Name</label>\n                <input formControlName=\"ngoName\" [typeahead]=\"ngos\" placeholder=\"PartnerNGO Name\" class=\"form-control\">\n            </div>\n            <div class=\"col-md-4 form-group\">\n                <label class=\"control-label\">Category</label>\n                <select formControlName=\"eventCategory\" class=\"form-control\" (change)=\"onCategorySelected()\">\n                  <option *ngFor=\"let category of eventCategories\" [value]=\"category\">{{category}}</option>\n                </select>\n            </div>\n            <div class=\"col-md-2 form-group\">\n              <label class=\"control-label\">Recurring Event:</label>\n              <select formControlName=\"recurringEvent\" class=\"form-control\">\n                <option *ngFor=\"let value of recurringEventOptions\" [value]=\"value\">{{value}}</option>\n              </select>\n            </div>\n          </div>\n\n            <div class=\"row form-row itemsrow\">\n              <div class=\"col-md-6 offset-md-3 form-group\">\n                <label for=\"datepicker\">Select Date & Time Range</label>\n                <input type=\"text\" class=\"form-control\" id=\"datepicker\" formControlName=\"eventDuration\" bsDaterangepicker/>\n              </div>\n              <div class=\"col-md-3 form-group\">\n                <timepicker [formControlName]=\"'fromTime'\">\n                  </timepicker>\n              </div>\n              <div class=\"col-md-3 form-group\">\n                <timepicker [formControlName]=\"'toTime'\"></timepicker>\n              </div>\n            </div>\n\n            <div class=\"row form-row\">\n              <div class=\"col-md-9 offset-md-3 form-group\">\n                <label class=\"control-label\">Items Required:</label>\n                <angular2-multiselect [data]=\"itemList\" [settings]=\"settings\" \n                  (onSelect)=\"log($event)\"\n                  (onDeSelect)=\"log($event)\" \n                  (onSelectAll)=\"log($event)\" \n                  (onDeSelectAll)=\"log($event)\" formControlName=\"items\">\n                </angular2-multiselect>\n              </div>\n              <div class=\"col-md-3  form-group\">\n                  <label class=\"control-label\">No. of Volunteers</label>\n                  <input type=\"text\" formControlName=\"volunteers\" placeholder=\"Number of Volunteers\" class=\"form-control\">\n              </div>\n            </div>\n        </div>\n      </div>\n      <button type=\"submit\" [disabled]=\"eventForm.pristine\">Save</button>\n    </form>\n</div>  \n\n\n\n\n\n<!-- <form >\n        <div class=\"form-row\">\n            <div class=\"col-md-1\"></div>\n          <div class=\"form-group col-md-5\">\n            <label for=\"eventname\">Event Name</label>\n            <input type=\"text\" class=\"form-control\" id=\"eventname\" placeholder=\"Name\">\n          </div>\n          <div class=\"form-group col-md-5\">\n                <label for=\"eventaction\">Action</label>\n                <select id=\"eventaction\" class=\"form-control\">\n                  <option selected>Choose...</option>\n                  <option>Not Started</option>\n                  <option>In progress</option>\n                  <option>completed</option>\n                  <option>Abandoned</option>\n                </select>\n          </div>\n          <div class=\"col-md-1\"></div>\n        </div>\n\n        <div class=\"form-row\">\n                <div class=\"col-md-1\"></div>\n              <div class=\"form-group col-md-5\">\n                <label for=\"ngoname\">Partner Name</label>\n                <input type=\"text\" class=\"form-control\" id=\"ngoname\" placeholder=\"NGO Name\" >\n              </div>\n              <div class=\"form-group col-md-5\">\n                    <label for=\"eventcategory\">Event category</label>\n                    <select id=\"eventcategory\" class=\"form-control\">\n                      <option selected>Choose...</option>\n                      <option>Not Started</option>\n                      <option>In progress</option>\n                      <option>completed</option>\n                      <option>Abandoned</option>\n                    </select>\n              </div>\n              <div class=\"col-md-1\"></div>\n            </div>\n\n            <div class=\"form-row\">\n              <div class=\"col-md-1\"></div>\n            <div class=\"form-group col-md-5\">\n                <label for=\"datepicker\">Select Date Range</label>\n                <input id=\"datepicker\" class=\"form-control\"\n                bsDaterangepicker [(ngModel)]=\"bsRangeValue\" >\n            </div>\n            <div class=\"form-group col-md-5\">\n                <label for=\"eventaction\">Recurring Event</label>\n                <select id=\"eventaction\" class=\"form-control\">\n                  <option selected>No</option>\n                  <option>Yes</option>\n                </select>\n            </div>\n            <div class=\"col-md-1\"></div>\n          </div>\n\n\n        \n\n            \n</form> -->"
+module.exports = "<alert type=\"md-local\" *ngIf=\"submitSuc\">{{message}}</alert>\n\n<div class=\"container-fluid\">\n    <div class=\"page-header well text-center well-sm\">\n      <h3><strong> Event Registration</strong></h3>\n    </div>\n\n    <form [formGroup]=\"eventForm\" (ngSubmit)=\"onSubmit()\">\n      <div class=\"panel panel-default\">\n        <div class=\"panel-body\">\n          \n          <div class=\"row form-row\">\n            <div class=\"col-md-6 offset-md-3 form-group\">\n                <label class=\"control-label\">Event Name</label>\n                <input type=\"text\" formControlName=\"eventName\" placeholder=\"Event Name\" class=\"form-control\">\n            </div>\n            <div class=\"col-md-4 form-group\">\n                <label class=\"control-label\">Action</label>\n                <select formControlName=\"eventAction\" class=\"form-control\">\n                  <option *ngFor=\"let action of eventActions\" [value]=\"action\">{{action}}</option>\n                </select>\n            </div>\n            <div class=\"col-md-2 form-group\">\n                <label class=\"control-label\">Recurring Event:</label>\n                <select formControlName=\"recurringEvent\" class=\"form-control\">\n                  <option *ngFor=\"let value of recurringEventOptions\" [value]=\"value\">{{value}}</option>\n                </select>\n              </div>\n          </div>\n\n          <div class=\"row form-row\">\n            <div class=\"col-md-4 offset-md-3 form-group\">\n                <label class=\"control-label\">PartnerNGO Name</label>\n                <!-- <input formControlName=\"ngoName\" [typeahead]=\"ngos\" placeholder=\"PartnerNGO Name\" class=\"form-control\"> -->\n                <select formControlName=\"ngoName\" class=\"form-control\">\n                    <option *ngFor=\"let value of ngos\" [value]=\"value\">{{value}}</option>\n                  </select>\n            </div>\n            <div class=\"col-md-4 form-group\">\n                <label class=\"control-label\">Category</label>\n                <select formControlName=\"eventCategory\" class=\"form-control\" (change)=\"onCategorySelected()\">\n                  <option *ngFor=\"let category of eventCategories\" [value]=\"category\">{{category}}</option>\n                </select>\n            </div> \n            <div class=\"col-md-4 form-group\">\n                <label class=\"control-label\">College-MOU</label>\n                <select formControlName=\"college\" class=\"form-control\">\n                  <option *ngFor=\"let mou of mouItems\" [value]=\"mou\">{{mou}}</option>\n                </select>\n            </div>          \n          </div>\n\n            <div class=\"row form-row itemsrow\">\n              <div class=\"col-md-6 offset-md-3 form-group\">\n                <label for=\"datepicker\">Select Date & Time Range</label>\n                <input type=\"text\" class=\"form-control\" id=\"datepicker\" formControlName=\"eventDuration\" bsDaterangepicker/>\n              </div>\n              <div class=\"col-md-3 form-group\">\n                <timepicker [formControlName]=\"'fromTime'\">\n                  </timepicker>\n              </div>\n              <div class=\"col-md-3 form-group\">\n                <timepicker [formControlName]=\"'toTime'\"></timepicker>\n              </div>\n            </div>\n\n            <div class=\"row form-row\">\n              <div class=\"col-md-8 offset-md-3 form-group\">\n                <label class=\"control-label\">Items Required:</label>\n                <angular2-multiselect [data]=\"itemList\" [settings]=\"settings\" \n                  (onSelect)=\"log($event)\"\n                  (onDeSelect)=\"log($event)\" \n                  (onSelectAll)=\"log($event)\" \n                  (onDeSelectAll)=\"log($event)\" formControlName=\"items\">\n                </angular2-multiselect>\n              </div>\n              <div class=\"col-md-2  form-group\">\n                  <label class=\"control-label\">Volunteers Required</label>\n                  <input type=\"text\" formControlName=\"volunteersReq\" placeholder=\"0\" class=\"form-control\">\n              </div>\n              <div class=\"col-md-2 form-group\">\n                  <label class=\"control-label\">Volunteers Registered</label>\n                  <input type=\"text\" formControlName=\"volunteersReg\" placeholder=\"0\" class=\"form-control\">\n              </div>\n            </div>\n\n            <div class=\"row form-row\">\n              <div class =\" col-md-12 offset-md-3 form-group\">\n                <label class=\"control-label\">Comments</label>\n                <textarea type=\"text\" formControlName=\"comments\" class=\"form-control\"></textarea>\n              </div>\n            </div>\n\n        </div>\n      </div>\n      <button type=\"submit\" [disabled]=\"eventForm.pristine\">Save</button>\n    </form>\n</div>  \n\n\n\n\n\n<!-- <form >\n        <div class=\"form-row\">\n            <div class=\"col-md-1\"></div>\n          <div class=\"form-group col-md-5\">\n            <label for=\"eventname\">Event Name</label>\n            <input type=\"text\" class=\"form-control\" id=\"eventname\" placeholder=\"Name\">\n          </div>\n          <div class=\"form-group col-md-5\">\n                <label for=\"eventaction\">Action</label>\n                <select id=\"eventaction\" class=\"form-control\">\n                  <option selected>Choose...</option>\n                  <option>Not Started</option>\n                  <option>In progress</option>\n                  <option>completed</option>\n                  <option>Abandoned</option>\n                </select>\n          </div>\n          <div class=\"col-md-1\"></div>\n        </div>\n\n        <div class=\"form-row\">\n                <div class=\"col-md-1\"></div>\n              <div class=\"form-group col-md-5\">\n                <label for=\"ngoname\">Partner Name</label>\n                <input type=\"text\" class=\"form-control\" id=\"ngoname\" placeholder=\"NGO Name\" >\n              </div>\n              <div class=\"form-group col-md-5\">\n                    <label for=\"eventcategory\">Event category</label>\n                    <select id=\"eventcategory\" class=\"form-control\">\n                      <option selected>Choose...</option>\n                      <option>Not Started</option>\n                      <option>In progress</option>\n                      <option>completed</option>\n                      <option>Abandoned</option>\n                    </select>\n              </div>\n              <div class=\"col-md-1\"></div>\n            </div>\n\n            <div class=\"form-row\">\n              <div class=\"col-md-1\"></div>\n            <div class=\"form-group col-md-5\">\n                <label for=\"datepicker\">Select Date Range</label>\n                <input id=\"datepicker\" class=\"form-control\"\n                bsDaterangepicker [(ngModel)]=\"bsRangeValue\" >\n            </div>\n            <div class=\"form-group col-md-5\">\n                <label for=\"eventaction\">Recurring Event</label>\n                <select id=\"eventaction\" class=\"form-control\">\n                  <option selected>No</option>\n                  <option>Yes</option>\n                </select>\n            </div>\n            <div class=\"col-md-1\"></div>\n          </div>\n\n\n        \n\n            \n</form> -->"
 
 /***/ }),
 
@@ -862,11 +861,19 @@ var AddEventComponent = /** @class */ (function () {
         this.maxDate = new Date();
         this.eventData = new Eventdata();
         this.itemList = [];
+        this.config = {
+            search: true,
+            height: 'auto',
+            placeholder: 'Select',
+            noResultsFound: 'No results found!',
+            searchPlaceholder: 'Search',
+        };
         this.selectedItems = [];
         this.settings = {};
         this.eventActions = ['Not Started', 'In progress', 'Completed', 'Abandoned'];
         this.eventCategories = ['PartnerNGO', 'Education', 'Environment', 'Health', 'Other'];
         this.recurringEventOptions = ['Yes', 'No'];
+        this.mouItems = [];
         this.eventForm = this.formBuilder.group({
             eventName: '',
             eventAction: 'Not Started',
@@ -875,10 +882,14 @@ var AddEventComponent = /** @class */ (function () {
             toTime: new Date(),
             ngoName: '',
             eventCategory: '',
+            college: '',
             recurringEvent: 'No',
             items: [],
-            volunteers: ''
+            volunteersReq: '',
+            volunteersReg: '',
+            comments: '',
         });
+        this.submitSuc = false;
     }
     AddEventComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -888,14 +899,19 @@ var AddEventComponent = /** @class */ (function () {
                 return ngo.name;
             });
         });
-        this.itemList = [
-            { "id": 1, "itemName": "Item1" },
-            { "id": 2, "itemName": "Item2" },
-            { "id": 3, "itemName": "Item3" },
-            { "id": 4, "itemName": "Item4" },
-            { "id": 5, "itemName": "Item5" },
-            { "id": 6, "itemName": "Item6" }
-        ];
+        this.apiService.getData('collegeregistration-list').subscribe(function (data) {
+            _this.mouItems = data.map(function (item) {
+                return item[0] + '--' + item[1];
+            });
+        });
+        //   this.itemList = [
+        //     { "id": 1, "itemName": "Item1" },
+        //     { "id": 2, "itemName": "Item2" },
+        //     { "id": 3, "itemName": "Item3" },
+        //     { "id": 4, "itemName": "Item4" },
+        //     { "id": 5, "itemName": "Item5" },
+        //     { "id": 6, "itemName": "Item6" }
+        // ];
         this.selectedItems = [];
         this.settings = {
             singleSelection: false,
@@ -933,6 +949,7 @@ var AddEventComponent = /** @class */ (function () {
         console.log("hi");
     };
     AddEventComponent.prototype.onSubmit = function () {
+        var _this = this;
         console.log(this.eventForm.value);
         this.eventData.eventName = this.eventForm.value.eventName;
         this.eventData.eventAction = this.eventForm.value.eventAction;
@@ -952,7 +969,10 @@ var AddEventComponent = /** @class */ (function () {
             this.apiService.putData(this.eventData, this.route.snapshot.paramMap.get('id'), 'event');
         }
         else {
-            this.apiService.postData(this.eventData, 'event');
+            var response = this.apiService.postData(this.eventData, 'event').subscribe(function (response) {
+                _this.message = "Event Submitted: http://yfsevents.com?id=" + response.id;
+                _this.submitSuc = true;
+            });
         }
     };
     AddEventComponent.prototype.onCategorySelected = function (event) {
@@ -962,6 +982,9 @@ var AddEventComponent = /** @class */ (function () {
                 return { 'id': data.indexOf(item), "itemName": item };
             });
         });
+    };
+    AddEventComponent.prototype.ngoChanged = function (event) {
+        console.log(this.eventForm.value.ngoName);
     };
     AddEventComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2242,7 +2265,7 @@ var VolunteerGridComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/*\n.text-on-pannel {\n  background: #fff none repeat scroll 0 0;\n  height: auto;\n  margin-left: 20px;\n  padding: 3px 5px;\n  position: absolute;\n  margin-top: -20px;\n  border: 1px solid #337ab7;\n  border-radius: 8px;\n}\n\n.panel {\n\n  margin-top: 27px !important;\n}\n\n.panel-body {\n  padding-top: 30px !important;\n}\n*/\n.field-invalid\n{\ncolor:pink;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdm9sdW50ZWVyL3ZvbHVudGVlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7OztDQW9CQztBQUNEOztBQUVBLFVBQVU7QUFDViIsImZpbGUiOiJzcmMvYXBwL3ZvbHVudGVlci92b2x1bnRlZXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4udGV4dC1vbi1wYW5uZWwge1xuICBiYWNrZ3JvdW5kOiAjZmZmIG5vbmUgcmVwZWF0IHNjcm9sbCAwIDA7XG4gIGhlaWdodDogYXV0bztcbiAgbWFyZ2luLWxlZnQ6IDIwcHg7XG4gIHBhZGRpbmc6IDNweCA1cHg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbWFyZ2luLXRvcDogLTIwcHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkICMzMzdhYjc7XG4gIGJvcmRlci1yYWRpdXM6IDhweDtcbn1cblxuLnBhbmVsIHtcblxuICBtYXJnaW4tdG9wOiAyN3B4ICFpbXBvcnRhbnQ7XG59XG5cbi5wYW5lbC1ib2R5IHtcbiAgcGFkZGluZy10b3A6IDMwcHggIWltcG9ydGFudDtcbn1cbiovXG4uZmllbGQtaW52YWxpZFxue1xuY29sb3I6cGluaztcbn1cbiJdfQ== */"
+module.exports = "\n.text-on-pannel {\n  background: #fff none repeat scroll 0 0;\n  height: auto;\n  margin-left: 20px;\n  padding: 3px 5px;\n  position: absolute;\n  margin-top: -20px;\n  border: 1px solid #337ab7;\n  border-radius: 8px;\n}\n\n.panel {\n\n  margin-top: 27px !important;\n}\n\n.panel-body {\n  padding-top: 30px !important;\n}\n\n.field-invalid\n{\ncolor:pink;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdm9sdW50ZWVyL3ZvbHVudGVlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFDQTtFQUNFLHVDQUF1QztFQUN2QyxZQUFZO0VBQ1osaUJBQWlCO0VBQ2pCLGdCQUFnQjtFQUNoQixrQkFBa0I7RUFDbEIsaUJBQWlCO0VBQ2pCLHlCQUF5QjtFQUN6QixrQkFBa0I7QUFDcEI7O0FBRUE7O0VBRUUsMkJBQTJCO0FBQzdCOztBQUVBO0VBQ0UsNEJBQTRCO0FBQzlCOztBQUVBOztBQUVBLFVBQVU7QUFDViIsImZpbGUiOiJzcmMvYXBwL3ZvbHVudGVlci92b2x1bnRlZXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuLnRleHQtb24tcGFubmVsIHtcbiAgYmFja2dyb3VuZDogI2ZmZiBub25lIHJlcGVhdCBzY3JvbGwgMCAwO1xuICBoZWlnaHQ6IGF1dG87XG4gIG1hcmdpbi1sZWZ0OiAyMHB4O1xuICBwYWRkaW5nOiAzcHggNXB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIG1hcmdpbi10b3A6IC0yMHB4O1xuICBib3JkZXI6IDFweCBzb2xpZCAjMzM3YWI3O1xuICBib3JkZXItcmFkaXVzOiA4cHg7XG59XG5cbi5wYW5lbCB7XG5cbiAgbWFyZ2luLXRvcDogMjdweCAhaW1wb3J0YW50O1xufVxuXG4ucGFuZWwtYm9keSB7XG4gIHBhZGRpbmctdG9wOiAzMHB4ICFpbXBvcnRhbnQ7XG59XG5cbi5maWVsZC1pbnZhbGlkXG57XG5jb2xvcjpwaW5rO1xufVxuIl19 */"
 
 /***/ }),
 

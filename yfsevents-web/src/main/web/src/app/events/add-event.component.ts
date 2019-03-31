@@ -21,11 +21,21 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
     maxDate = new Date();
     eventData = new Eventdata();
     itemList = [];
+    config = {
+      search:true,
+      height: 'auto', 
+      placeholder:'Select',
+      noResultsFound: 'No results found!',
+      searchPlaceholder:'Search',
+    }
     selectedItems = [];
     settings={};
     eventActions: string[] = ['Not Started','In progress','Completed','Abandoned'];
     eventCategories: string[] = ['PartnerNGO','Education','Environment','Health','Other'];
     recurringEventOptions: string[] = ['Yes','No'];
+    mouItems:string[]=[];
+    submitSuc:boolean;
+    message:string;
     constructor(private formBuilder: FormBuilder,private apiService: ApiService,private route:ActivatedRoute,private inventoryService: InventorydataService) {
       this.eventForm=this.formBuilder.group({
         eventName: '',
@@ -35,10 +45,14 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
         toTime: new Date(),
         ngoName:'',
         eventCategory:'',
+        college:'',
         recurringEvent:'No',
         items:[],
-        volunteers: ''
+        volunteersReq: '',
+        volunteersReg:'',
+        comments:'',
       });
+      this.submitSuc=false;
     }
    
   
@@ -49,15 +63,21 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
                 return ngo.name;
             });
       });
+      this.apiService.getData('collegeregistration-list').subscribe((data:any)=>{
+        this.mouItems=data.map(item=>{
+          return item[0]+'--'+item[1];
+        })
+      });
+      
      
-      this.itemList = [
-        { "id": 1, "itemName": "Item1" },
-        { "id": 2, "itemName": "Item2" },
-        { "id": 3, "itemName": "Item3" },
-        { "id": 4, "itemName": "Item4" },
-        { "id": 5, "itemName": "Item5" },
-        { "id": 6, "itemName": "Item6" }
-    ];
+    //   this.itemList = [
+    //     { "id": 1, "itemName": "Item1" },
+    //     { "id": 2, "itemName": "Item2" },
+    //     { "id": 3, "itemName": "Item3" },
+    //     { "id": 4, "itemName": "Item4" },
+    //     { "id": 5, "itemName": "Item5" },
+    //     { "id": 6, "itemName": "Item6" }
+    // ];
     this.selectedItems = [];
     this.settings = {
       singleSelection: false,
@@ -116,7 +136,11 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
     console.log(this.eventData);
     if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')){
     this.apiService.putData(this.eventData,this.route.snapshot.paramMap.get('id'),'event')}else{
-      this.apiService.postData(this.eventData,'event');
+      let response = this.apiService.postData(this.eventData,'event').subscribe(response=>{
+        this.message="Event Submitted: http://yfsevents.com?id=" + (response as any).id;
+        this.submitSuc=true;
+      });
+      
     }
   }
 
@@ -125,7 +149,11 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
       this.itemList = data.map(item=>{
         return {'id':data.indexOf(item),"itemName":item};
       })
-})
+    })
+  }
+
+  ngoChanged(event){
+    console.log(this.eventForm.value.ngoName);
   }
 
   

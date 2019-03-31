@@ -122,4 +122,11 @@ public class CollegeRegistrationController {
 
         return  output;
     }
+
+    @ResponseBody
+    @GetMapping("/collegeregistration/list")
+    public List<Object> getCollegeMouList(){
+        return collegeRegistrationRepository.getCollegeMou();
+
+    }
 }

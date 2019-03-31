@@ -49,7 +49,7 @@ public class InventoryDataController {
 */
     @ResponseBody
     @GetMapping("/items/{eventCategory}")
-    public List<String> getItemsByEventCategory(@PathVariable String eventCategory) {
+    public List<Object> getItemsByEventCategory(@PathVariable String eventCategory) {
         return inventoryDataRepository.findItemsByEventCategory(eventCategory);
     }
     @ResponseBody
