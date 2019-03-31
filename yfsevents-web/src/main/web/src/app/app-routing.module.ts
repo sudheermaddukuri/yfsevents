@@ -53,10 +53,13 @@ path: 'login', component: LoginComponent
   },
   {path:'events',component:EventListComponent},
   {path:'addevent',component:AddEventComponent},
-  {path:'volunteer-create',component:VolunteerComponent},
   {
+<<<<<<< HEAD
 
     path:'email/:name',component:SendMailComponent
+=======
+    path:'email',component:SendMailComponent
+>>>>>>> 6638ca85250ada88762f7a91fa41f334a3491eeb
   },
    {
     path: 'grid/volunteer', component: VolunteerGridComponent

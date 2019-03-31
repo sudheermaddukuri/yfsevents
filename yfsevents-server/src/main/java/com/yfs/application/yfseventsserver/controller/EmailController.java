@@ -26,8 +26,8 @@ import java.util.stream.Stream;
 @RequestMapping("/sendEmail")
 public class EmailController {
 
-//    @Autowired
-//    Email email;
+    @Autowired
+    Email email;
 
     @Autowired
     VolunteersAcceptedRepository  volunteersAcceptedRepository;
@@ -178,17 +178,17 @@ public class EmailController {
         else*/
             return result;
     }
-    public static void main(String[] args) {
-        Email email= new Email();
-        email.setTo("rainatushar221995@gmail.com,wwwwww@gmail.com,random1@yahoo.com");
-        email.setSubject("Subject Test3 again");
-        email.setText("Text is working");
-        Event event = new Event();
-        event.setId(312);
-        email.setEvent(event);
-        EmailController emailController=new EmailController();
-        System.out.println(emailController.sendmail(email));
-    }
+//    public static void main(String[] args) {
+//        Email email= new Email();
+//        email.setTo("rainatushar221995@gmail.com,wwwwww@gmail.com,random1@yahoo.com");
+//        email.setSubject("Subject Test3 again");
+//        email.setText("Text is working");
+//        Event event = new Event();
+//        event.setId(312);
+//        email.setEvent(event);
+//        EmailController emailController=new EmailController();
+//        System.out.println(emailController.sendmail(email));
+//    }
     public void fun()
     {
         Email email= new Email();
