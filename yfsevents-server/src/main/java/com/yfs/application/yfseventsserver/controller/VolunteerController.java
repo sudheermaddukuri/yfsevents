@@ -6,10 +6,12 @@ import com.yfs.application.yfseventsserver.entity.PartnerNgo;
 import com.yfs.application.yfseventsserver.entity.Volunteer;
 import com.yfs.application.yfseventsserver.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/api")
@@ -20,7 +22,6 @@ public class VolunteerController {
 
     @Autowired
     VolunteerInterestedAreaRepository volunteerInterestedAreaRepository;
-
     @Autowired
     VolunteerPreferredTimeRepository volunteerPreferredTimeRepository;
 
@@ -45,10 +46,21 @@ public class VolunteerController {
 
         return  volunteerRepository.findById(id);
     }
+
+    @ResponseBody
+    @GetMapping("/volunteer/email")
+    public ArrayList<String> getVolunteerEmails() {
+
+        Iterable<Volunteer> volunteerData=volunteerRepository.findAll(Sort.by("email"));
+        ArrayList<String> emailsVolunteers =new ArrayList<>();
+        StreamSupport.stream(volunteerData.spliterator(), false).forEach(volunteer -> emailsVolunteers.add(volunteer.getEmail()));
+        System.out.println(emailsVolunteers.toString());
+        return emailsVolunteers;
+    }
+
     @ResponseBody
     @GetMapping("/volunteer/{id}/formatted")
     public Map getVolunteerFormatted(@PathVariable Long id) {
-
         Optional<Volunteer> volunteer =  volunteerRepository.findById(id);
         Map output = new HashMap();
 
@@ -119,6 +131,7 @@ public class VolunteerController {
      return volunteer1;
     }
 
+
     @ResponseBody
     @PutMapping("/volunteer")
     public Volunteer updateVolunteer(@RequestBody Volunteer volunteer){
@@ -129,7 +142,5 @@ public class VolunteerController {
     public boolean deleteVolunteer(@PathVariable Long id) {
         volunteerRepository.deleteById(id);
         return true;
-
     }
-
 }

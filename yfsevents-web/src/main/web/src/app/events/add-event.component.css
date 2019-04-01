@@ -1,6 +1,13 @@
 .row {
     margin-bottom:25px;
 }
+:host >>> .alert-md-local {
+    background-color: #009688;
+    border-color: #00695C;
+    color: #fff;
+    margin-bottom:0px;
+    margin-top: 20px;
+}
 
 .itemsrow{
     margin-bottom:0px !important;
