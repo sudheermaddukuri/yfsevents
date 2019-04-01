@@ -178,13 +178,14 @@
           <div class="form-group">
 
             <label class="control-label" for="subjectEmail">Subject</label>
-            <input type="text"
+            <textarea type="text"
                    id="subjectEmail"
                    [(ngModel)]="email.subject"
                    name="subject"
                    placeholder="subject"
                    class="form-control well well-sm"
                    required>
+                   </textarea>
           </div>
         </td>
       </tr>
@@ -193,7 +194,7 @@
           <div class="form-group">
 
             <label class="control-label" for="subjectEmail">Text</label>
-            <input type="text"
+            <textarea type="text"
                    id="textEmail"
                    [(ngModel)]="email.text"
                    name="text"
@@ -202,6 +203,7 @@
                    minlength="8"
                    class="form-control well well-sm"
                    required>
+                   </textarea>
           </div>
         </td>
       </tr>
