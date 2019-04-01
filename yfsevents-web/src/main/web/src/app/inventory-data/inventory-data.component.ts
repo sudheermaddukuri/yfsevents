@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Injector, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InventorydataService } from './inventorydata.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Item } from 'angular2-multiselect-dropdown';
+import { PopupsComponent } from '../popups/popups.component';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-inventory-data',
@@ -13,10 +17,13 @@ export class InventoryDataComponent implements OnInit {
   inventoryData: FormGroup;
   eventCategoryList: any[];
   selected: any;
-  constructor(private formBuilder: FormBuilder, private inventoryService: InventorydataService,private route:ActivatedRoute) {
-   
-    
-   }
+  loading: boolean = false;
+
+  constructor(private formBuilder: FormBuilder, private inventoryService: InventorydataService,
+    private route: ActivatedRoute, private router: Router) {
+
+
+  }
 
   ngOnInit() {
 
@@ -36,35 +43,63 @@ export class InventoryDataComponent implements OnInit {
     }, (err: HttpErrorResponse) => {
       console.log(err.message);
     });
-   
-    if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id'))
-    {
-     this.inventoryService.getInventoryDataById(this.route.snapshot.paramMap.get('id')).subscribe((data:any) =>{
-       this.inventoryData.setValue({
-        itemName:data.itemName,
-        eventCategory:data.eventCategory,
-        comments:data.comments
-       })
-     },(err:HttpErrorResponse) =>{
+
+    if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
+      this.inventoryService.getInventoryDataById(this.route.snapshot.paramMap.get('id')).subscribe((data: any) => {
+        this.inventoryData.setValue({
+          itemName: data.itemName,
+          eventCategory: data.eventCategory,
+          comments: data.comments
+        })
+      }, (err: HttpErrorResponse) => {
         console.log(err.message)
-     })
+      })
     }
+  }
+
+  checkForMandatoryValidations(inventoryData) {
+    if (inventoryData.itemName && inventoryData.eventCategory && inventoryData.comments)
+      return true;
+    else
+      return false;
+
   }
 
   onSubmit() {
     const inventoryData = this.inventoryData.getRawValue();
-    if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id'))
-    {
-      this.inventoryService.updateInventoryDataById(inventoryData,this.route.snapshot.paramMap.get('id')).subscribe((data:any)=>{
-        console.log('response',data);
-      });
+    if (this.checkForMandatoryValidations(inventoryData)) {
+      this.loading = true;
 
+      if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
+        this.inventoryService.updateInventoryDataById(inventoryData, this.route.snapshot.paramMap.get('id')).subscribe((data: any) => {
+          this.loading = false;
+          console.log('response', data);
+          alert('Succesfully updated Inventory Data');
+          this.router.navigateByUrl("/inventorylist");
+        }, e => {
+          this.loading = false;
+          console.log(e);
+        });
+
+      }
+      else {
+        this.inventoryService.saveInventoryData(inventoryData).subscribe((data: any) => {
+          this.loading = false;
+          console.log('response', data);
+          alert('Succesfully saved Inventory Data');
+          this.router.navigateByUrl("/inventorylist");
+        }, e => {
+          this.loading = false;
+          console.log(e);
+        });
+      }
     }
-    else{
-    this.inventoryService.saveInventoryData(inventoryData).subscribe((data:any)=>{
-      console.log('response',data);
-    });
+    else {
+      alert('Please fill out the mandatory fields');
+    }
+
   }
-  }
+
+
 
 }

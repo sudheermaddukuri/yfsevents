@@ -136,7 +136,7 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
     console.log(this.eventData);
     if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')){
     this.apiService.putData(this.eventData,this.route.snapshot.paramMap.get('id'),'event')}else{
-      let response = this.apiService.postData(this.eventData,'event').subscribe(response=>{
+      let response = this.apiService.post(this.eventData,'event').subscribe(response=>{
         this.message="Event Submitted: http://yfsevents.com?id=" + (response as any).id;
         this.submitSuc=true;
       });
