@@ -16,7 +16,7 @@ export class SendMailComponent implements OnInit {
   public eventData:Eventdata;
   public resp:string;
   constructor(
-              private apiServiceMail: ApiServiceMail,private route: ActivatedRoute) { }
+              private apiServiceMail: ApiServiceMail,private route: ActivatedRoute,public router:Router) { }
   ngOnInit() {
     
     this.eventData=new Eventdata();
@@ -39,6 +39,7 @@ export class SendMailComponent implements OnInit {
     console.log(this.route.snapshot.paramMap.get("name"));
     //this.eventData.eventCategory='abc';
     this.apiServiceMail.postData(this.email);
+    this.router.navigate(['/events']); 
 
   }
   public createDefaultSubject(eventName,ngoName,eventTo,eventFor)

@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 
+import { Router, ActivatedRoute, Params, Data } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +11,7 @@ export class ApiServiceMail {
   private basicURLVolunteer:string="/api"
   private urlList=new Map<string, string>();
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient,public router:Router) {
     this.initialiseUrlList();
   }
 
@@ -23,7 +24,8 @@ export class ApiServiceMail {
     this.http.post(this.basicURL+this.urlList.get("send"),data).subscribe(response=>{
       console.log('postResponse: ',response);
       alert("Sucessfully Sent Email");
-      alert("Response is"+ response.text());
+      alert("Response is"+ response);
+      this.router.navigate(['/events']);
     });
   }
   getData(){
