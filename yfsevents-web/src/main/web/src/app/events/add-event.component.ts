@@ -133,6 +133,8 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
     this.eventData.eventCategory=this.eventForm.value.eventCategory;
     this.eventData.eventDuration=this.eventForm.value.eventDuration;
     this.eventData.eventItems=this.eventForm.value.items.map(item => item.itemName);
+    this.eventData.comments=this.eventForm.value.comments;
+    this.eventData.college=this.eventForm.value.college;
     console.log(this.eventData);
     if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')){
     this.apiService.putData(this.eventData,this.route.snapshot.paramMap.get('id'),'event')}else{
@@ -172,5 +174,6 @@ export class Eventdata {
   volunteers:string;
   eventDuration:string[];
   eventItems:string[];
-
+  comments:string;
+  college:string;
 }

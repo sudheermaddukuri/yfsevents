@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { Eventdata } from './add-event.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { formatDate, DatePipe } from '@angular/common';
 
 @Component({
   selector:'event-list',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 
 
 export class EventListComponent implements OnInit{
-
+  pipe:any;
   rowData :any;
 
 	columnDefs = [
@@ -29,6 +30,7 @@ export class EventListComponent implements OnInit{
     constructor(private apiService: ApiService,private router:Router){}
 
 	ngOnInit():void{
+   this.pipe = new DatePipe('en-US');
    this.apiService.getData('events').subscribe((data:any)=>{
         this.eventData=data;
         console.log(data);
@@ -38,8 +40,8 @@ export class EventListComponent implements OnInit{
           eventName:event.eventName,
           eventCategory:event.eventCategory,
           ngoName:event.ngoName,
-          event_start_date:event.eventDuration[0],
-          event_end_date:event.eventDuration[1]
+          event_start_date:this.pipe.transform(event.eventDuration[0],'shortDate'),
+          event_end_date:this.pipe.transform(event.eventDuration[1],'shortDate')
         }));
       },( err:HttpErrorResponse)=>{
         console.log(err.message);
