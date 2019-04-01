@@ -153,15 +153,15 @@ export class CollegeRegistrationComponent  {
     console.log('submitting: ',json);
     
     let response = this.apiService.postData(json,'collegeregistration');
+    
     if(response){
       if(this.mode=='edit'){
-        alert('Succesfully updated Partner NGO');
+        alert('Succesfully updated College');
       }else{
-        alert('Succesfully registered Partner NGO');
+        alert('Succesfully registered College');
       }
-      this.router.navigateByUrl("/grid/partnerngo");
+      this.router.navigateByUrl("/grid/collegeregistration");
     }
-    
   }
   
 

@@ -15,6 +15,9 @@
               <div class="form-group required">
                 <label class="control-label">College Name</label>
                 <input type="text" formControlName="name" class="form-control well well-sm">
+               <!-- <div *ngIf="collegeForm.controls['collegeDetails'].controls.name.errors&&(collegeForm.controls['collegeDetails'].controls.name.dirty||collegeForm.controls['collegeDetails'].controls.name.touched)" class="invalid-feedback">
+                  <div *ngIf="collegeForm.controls['collegeDetails'].controls.name.errors.required" class="field-invalid">Name is required</div>
+                </div>-->
               </div>
             </div>
           </div>
@@ -23,6 +26,9 @@
               <div class="form-group required">
                 <label class="control-label">Registration Id</label>
                 <input type="text" formControlName="registrationId" class="form-control well well-sm">
+                <!--<div *ngIf="collegeform.controls['collegeDetails'].controls.registrationId.errors&&(collegeform.controls['collegeDetails'].controls.registrationId.dirty||collegeform.controls['collegeDetails'].controls.registrationId.touched)" class="invalid-feedback">
+                  <div *ngIf="collegeform.controls['collegeDetails'].controls.registrationId.errors.required" class="field-invalid"> RegistrationId is required</div>
+                </div>-->
               </div>
             </div>
           </div>
@@ -165,6 +171,8 @@
 
   </form>
   <div class="text-center">
-    <button class="btn btn-primary btn-sx"  (click)="onSubmit()">Register</button>
+    <!--<button class="btn btn-primary btn-sx"  (click)="onSubmit()">Register</button>-->
+    <button (click)="onSubmit()" *ngIf="!mode" class="btn btn-primary btn-space">Register</button>
+    <button (click)="onSubmit()" *ngIf="mode=='edit'" class="btn btn-primary btn-space">Update</button>
   </div>
 </div>

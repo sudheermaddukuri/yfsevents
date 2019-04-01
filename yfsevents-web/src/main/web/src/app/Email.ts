@@ -1,3 +1,4 @@
+import{Eventdata} from "./events/add-event.component"
 export class Email
 {
   to:string;
@@ -5,6 +6,7 @@ export class Email
   bcc:string;
   subject:string;
   text:string;
+  eventId: number;
 
   constructor(values:Object={})
   {
