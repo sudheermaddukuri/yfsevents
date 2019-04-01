@@ -25,10 +25,18 @@ export class ApiService {
     this.urlList.set('interestedAreasCategory','/interestedAreasCategory');
     this.urlList.set('collegeregistration-list','/collegeregistration/list')
   }
-  postData(data:any, type:string) {
-     return this.http.post(this.basicURL+this.urlList.get(type),data)
-  }
 
+   postData(data:any, type:string) {
+       return this.post(data, type).subscribe(response=>{
+         console.log('postResponse: ',response);
+
+       });
+     }
+
+     post(data:any, type:string) {
+      return this.http.post(this.basicURL+this.urlList.get(type),data);
+     }
+     
   getData(type:string, id?:any, formatted?:boolean){
     let uri : string =this.basicURL+this.urlList.get(type);
     if(id){
