@@ -12,5 +12,5 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "inventorydata",path = "inventorydata")
 public interface InventoryDataRepository extends PagingAndSortingRepository<InventoryData,Long> {
     @Query("SELECT i.itemName FROM InventoryData i where i.eventCategory = :eventCategory")
-    List<String> findItemsByEventCategory(@Param("eventCategory") String eventCategory);
+    List<Object> findItemsByEventCategory(@Param("eventCategory") String eventCategory);
 }

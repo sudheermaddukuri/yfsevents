@@ -151,8 +151,16 @@ export class CollegeRegistrationComponent  {
       json=Object.assign(json, {id:this.id});
     }
     console.log('submitting: ',json);
-    this.apiService.postData(json,'collegeregistration');
+    let response =this.apiService.postData(json,'collegeregistration');
     
+    if(response){
+      if(this.mode=='edit'){
+        alert('Succesfully updated College');
+      }else{
+        alert('Succesfully registered College');
+      }
+      this.router.navigateByUrl("/grid/collegeregistration");
+    }
   }
   
 

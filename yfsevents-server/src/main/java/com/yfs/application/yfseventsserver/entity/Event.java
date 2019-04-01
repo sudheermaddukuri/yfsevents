@@ -38,6 +38,16 @@ public class Event {
     private String recurringEvent;
     private String volunteers;
 
+    public String getComments() {
+        return Comments;
+    }
+
+    public void setComments(String comments) {
+        Comments = comments;
+    }
+
+    private String Comments;
+
     public List<Date> getEventDuration() {
         return eventDuration;
     }
