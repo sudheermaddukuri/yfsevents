@@ -7,10 +7,17 @@
       class="ag-theme-balham" 
       [rowData]="data" 
       [columnDefs]="headers"
-      (rowClicked)="onRowCilcked($event)"
-     
-    >
-     
+      (rowClicked)="onRowCilcked($event)">
     </ag-grid-angular>
+  </div>
+  <div class="row" style="margin-top:10px">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+          <div style="text-align:right">
+          <button type="button" class="btn btn-primary" (click)="router.navigate(['/collegeregistration'])">
+              Add College
+          </button>
+          </div>
+      </div>
   </div>
 </div>

@@ -10,13 +10,23 @@
     class="ag-theme-balham"
     [rowData]="rowData" 
     [columnDefs]="columnDefs"
-    (rowClicked)="onSearch($event)"
->
+    (rowClicked)="onSearch($event)">
 </ag-grid-angular>
-</div>
+        </div>
 </div>
 <div class="col-md-1">
     
 </div>
 
+</div>
+
+<div class="row" style="margin-top:10px">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div style="text-align:right">
+        <button type="button" class="btn btn-primary" (click)="router.navigate(['/addevent'])">
+            Add Event
+        </button>
+        </div>
+    </div>
 </div>
