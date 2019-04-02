@@ -4,7 +4,7 @@ import {Email} from "../Email";
 import {FormBuilder} from "@angular/forms";
 import {ApiService} from "../api.service";
 import {ApiServiceMail} from "../api.service.mail";
-import{EventEmiterService} from"../services/event.emmiter.service";
+// import{EventEmiterService} from"../services/event.emmiter.service";
 import{Eventdata} from "../events/add-event.component"
 @Component({
   selector: 'app-send-mail',
