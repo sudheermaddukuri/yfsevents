@@ -106,7 +106,10 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
             id:data.eventItems.indexOf(item),
             itemName:item
           })),
-          volunteers:data.volunteers
+          volunteersReq:data.volunteers,
+          comments:data.comments,
+          college:data.college,
+          volunteersReg:''
         });
         console.log(this.eventForm.value.eventDuration);
       })
@@ -125,7 +128,7 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
     this.eventData.eventfromTime= this.eventForm.value.fromTime;
     this.eventData.eventtoTime = this.eventForm.value.toTime;
     this.eventData.ngoName = this.eventForm.value.ngoName;
-    this.eventData.volunteers = this.eventForm.value.volunteers;
+    this.eventData.volunteers = this.eventForm.value.volunteersReq;
     this.eventData.recurringEvent=this.eventForm.value.recurringEvent;
     // this.eventData.eventDuration=[];
     // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[0],'fullDate','en-US'));

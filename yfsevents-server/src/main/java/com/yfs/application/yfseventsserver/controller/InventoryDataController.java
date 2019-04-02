@@ -41,12 +41,12 @@ public class InventoryDataController {
 
     }
 
-  /*  @ResponseBody
+    @ResponseBody
     @GetMapping("/list/{id}")
     public Optional<InventoryData> getInventoryDataById(@PathVariable Long id) {
         return inventoryDataRepository.findById(id);
     }
-*/
+
     @ResponseBody
     @GetMapping("/items/{eventCategory}")
     public List<Object> getItemsByEventCategory(@PathVariable String eventCategory) {
