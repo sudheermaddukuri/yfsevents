@@ -32,7 +32,7 @@ import {UrlPermission }from "./urlPermission/url.permission";
 import {UserService}from "./services/user.service";
 import {AuthService}from "./services/auth.service";
 import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
-import{EventEmiterService} from './services/event.emmiter.service'
+// import{EventEmiterService} from './services/event.emmiter.service'
 @NgModule({
 declarations: [
 AppComponent,
@@ -70,7 +70,7 @@ RegisterComponent,
   ],
 
   schemas:[NO_ERRORS_SCHEMA],
-  providers: [AuthService, UserService, UrlPermission,EventEmiterService],
+  providers: [AuthService, UserService, UrlPermission],
 
   bootstrap: [AppComponent]
 })

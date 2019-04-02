@@ -122,6 +122,8 @@ export class CollegeRegistrationGridComponent implements OnInit {
       let result:any=JSON.parse(JSON.stringify(response));
       Array.from(result).forEach(element => {
         let mouDetails=JSON.parse(JSON.stringify(element)).mouDetails;
+        console.log(mouDetails);
+        if(mouDetails[0]!=null){
         Object.assign(element, {mouID: mouDetails[0].mouID});
         Object.assign(element, {mouStatus: mouDetails[0].mouStatus});
         Object.assign(element, {mouName: mouDetails[0].mouName});
@@ -129,7 +131,8 @@ export class CollegeRegistrationGridComponent implements OnInit {
         Object.assign(element, {fromDate: mouDetails[0].fromDate});
         Object.assign(element, {toDate: mouDetails[0].toDate});
         Object.assign(element, {comments: mouDetails[0].comments});
-
+        }
+        if(mouDetails[1]!=null){
         Object.assign(element, {mouID1: mouDetails[1].mouID});
         Object.assign(element, {mouStatus1: mouDetails[1].mouStatus});
         Object.assign(element, {mouName1: mouDetails[1].mouName});
@@ -137,7 +140,8 @@ export class CollegeRegistrationGridComponent implements OnInit {
         Object.assign(element, {fromDate1: mouDetails[1].fromDate});
         Object.assign(element, {toDate1: mouDetails[1].toDate});
         Object.assign(element, {comments1: mouDetails[1].comments});
- 
+        }
+        if(mouDetails[2]!=null){
         Object.assign(element, {mouID2: mouDetails[2].mouID});
         Object.assign(element, {mouStatus2: mouDetails[2].mouStatus});
         Object.assign(element, {mouName2: mouDetails[2].mouName});
@@ -145,7 +149,8 @@ export class CollegeRegistrationGridComponent implements OnInit {
         Object.assign(element, {fromDate2: mouDetails[2].fromDate});
         Object.assign(element, {toDate2: mouDetails[2].toDate});
         Object.assign(element, {comments2: mouDetails[2].comments});
-
+        }
+        if(mouDetails[3]!=null){
         Object.assign(element, {mouID3: mouDetails[3].mouID});
         Object.assign(element, {mouStatus3: mouDetails[3].mouStatus});
         Object.assign(element, {mouName3: mouDetails[3].mouName});
@@ -153,7 +158,8 @@ export class CollegeRegistrationGridComponent implements OnInit {
         Object.assign(element, {fromDate3: mouDetails[3].fromDate});
         Object.assign(element, {toDate3: mouDetails[3].toDate});
         Object.assign(element, {comments3: mouDetails[3].comments});
-
+        }
+        if(mouDetails[4]!=null){
         Object.assign(element, {mouID4: mouDetails[4].mouID});
         Object.assign(element, {mouStatus4: mouDetails[4].mouStatus});
         Object.assign(element, {mouName4: mouDetails[4].mouName});
@@ -161,7 +167,8 @@ export class CollegeRegistrationGridComponent implements OnInit {
         Object.assign(element, {fromDate4: mouDetails[4].fromDate});
         Object.assign(element, {toDate4: mouDetails[4].toDate});
         Object.assign(element, {comments4: mouDetails[4].comments});
-
+        }
+        if(mouDetails[5]!=null){
         Object.assign(element, {mouID5: mouDetails[5].mouID});
         Object.assign(element, {mouStatus5: mouDetails[5].mouStatus});
         Object.assign(element, {mouName5: mouDetails[5].mouName});
@@ -169,7 +176,8 @@ export class CollegeRegistrationGridComponent implements OnInit {
         Object.assign(element, {fromDate5: mouDetails[5].fromDate});
         Object.assign(element, {toDate5: mouDetails[5].toDate});
         Object.assign(element, {comments5: mouDetails[5].comments}); 
-     
+        }
+        if(mouDetails[6]!=null){
         Object.assign(element, {mouID6: mouDetails[6].mouID});
         Object.assign(element, {mouStatus6: mouDetails[6].mouStatus});
         Object.assign(element, {mouName6: mouDetails[6].mouName});
@@ -177,7 +185,8 @@ export class CollegeRegistrationGridComponent implements OnInit {
         Object.assign(element, {fromDate6: mouDetails[6].fromDate});
         Object.assign(element, {toDate6: mouDetails[6].toDate});
         Object.assign(element, {comments6: mouDetails[6].comments});
-
+        }
+        if(mouDetails[7]!=null){
         Object.assign(element, {mouID7: mouDetails[7].mouID});
         Object.assign(element, {mouStatus7: mouDetails[7].mouStatus});
         Object.assign(element, {mouName7: mouDetails[7].mouName});
@@ -185,7 +194,8 @@ export class CollegeRegistrationGridComponent implements OnInit {
         Object.assign(element, {fromDate7: mouDetails[7].fromDate});
         Object.assign(element, {toDate7: mouDetails[7].toDate});
         Object.assign(element, {comments7: mouDetails[7].comments});
-
+        }
+        if(mouDetails[8]!=null){
         Object.assign(element, {mouID8: mouDetails[8].mouID});
         Object.assign(element, {mouStatus8: mouDetails[8].mouStatus});
         Object.assign(element, {mouName8: mouDetails[8].mouName});
@@ -193,7 +203,8 @@ export class CollegeRegistrationGridComponent implements OnInit {
         Object.assign(element, {fromDate8: mouDetails[8].fromDate});
         Object.assign(element, {toDate8: mouDetails[8].toDate});
         Object.assign(element, {comments8: mouDetails[8].comments});
-
+        }
+        if(mouDetails[9]!=null){
         Object.assign(element, {mouID9: mouDetails[9].mouID});
         Object.assign(element, {mouStatus9: mouDetails[9].mouStatus});
         Object.assign(element, {mouName9: mouDetails[9].mouName});
@@ -201,13 +212,15 @@ export class CollegeRegistrationGridComponent implements OnInit {
         Object.assign(element, {fromDate9: mouDetails[9].fromDate});
         Object.assign(element, {toDate9: mouDetails[9].toDate});
         Object.assign(element, {comments9: mouDetails[9].comments});
-
+        }
       
         
       });
       console.log(response);
       console.log(this.data);
       this.data=result;
+      console.log(this.data);
+
     });
   }
 
