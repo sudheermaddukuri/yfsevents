@@ -58,7 +58,7 @@ path: 'login', component: LoginComponent
   {path:'addevent',component:AddEventComponent},
   {
 
-    path:'email/:name',component:SendMailComponent
+    path:'email/:id',component:SendMailComponent
   },
    {
     path: 'grid/volunteer', component: VolunteerGridComponent

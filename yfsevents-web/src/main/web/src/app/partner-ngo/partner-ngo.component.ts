@@ -202,12 +202,42 @@ export class PartnerNGOComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl("/grid/partnerngo");
   }
 
+  checkForMandatoryValidations(partnerNgoDetails) {
+   let checkflag:boolean=false;
+    if (partnerNgoDetails.name && partnerNgoDetails.addressLine1 && partnerNgoDetails.city && partnerNgoDetails.state)
+     
+       {
+         if(partnerNgoDetails.authorizedPerson.length)
+         {
+            partnerNgoDetails.authorizedPerson.forEach(o =>{
+              if(!o.name || !o.contact1)
+              {
+                checkflag = true;
+                return false;
+              }
+              
+            })
+            if(!checkflag)
+            {
+              return true;
+            }
+         }
+         else{
+        return true;
+         }
+       }
+   
+    else
+      return false;
+
+  }
   onSubmit(){
     let json= Object.assign({authorizedPerson:this.getAuthorizedPersons().value}, this.myForm.get('basicInfo').value, this.myForm.get('address').value);
     if(this.mode=='edit'){
       json=Object.assign(json, {id:this.id});
     }
     console.log('submitting: ',json);
+    if(this.checkForMandatoryValidations(json)){
     let response = this.apiService.postData(json,'partnerngo');
     if(response){
       if(this.mode=='edit'){
@@ -217,5 +247,9 @@ export class PartnerNGOComponent implements OnInit, AfterViewInit {
       }
       this.router.navigateByUrl("/grid/partnerngo");
     }
+  }
+  else{
+    alert('Please fill out the mandatory fields');
+  }
   }
 }
