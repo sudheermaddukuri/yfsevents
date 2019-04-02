@@ -112,7 +112,7 @@ public class EmailController {
     public String createUrl(String emailId,String eventId)
     {
         String uniqueUrl="";
-        uniqueUrl=uniqueUrl+"http://localhost:8080/"+emailId.split("@")[0]+"/"+emailId.split("@")[1]+"/"+eventId;
+        uniqueUrl=uniqueUrl+"http://localhost:8080/register/"+emailId.split("@")[0]+"/"+emailId.split("@")[1]+"/"+eventId;
         System.out.println("Unique Link is "+uniqueUrl);
         return uniqueUrl;
     }
