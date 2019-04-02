@@ -4,7 +4,7 @@ import { Eventdata } from './add-event.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { formatDate, DatePipe } from '@angular/common';
-
+import { ButtonRendererComponent } from './renderer/button-renderer.component';
 @Component({
   selector:'event-list',
   templateUrl: './event-list.component.html'
@@ -23,11 +23,23 @@ export class EventListComponent implements OnInit{
         {headerName: 'Partner NGO', field: 'ngoName',filter:true},
         {headerName: 'Event Start Date', field: 'event_start_date',filter:true},
         {headerName: 'Event End Date', field: 'event_end_date',filter:true},
-        
+        {
+          headerName: 'Email',
+          cellRenderer: 'buttonRenderer',
+          cellRendererParams: {
+            onClick: this.onBtnClick1.bind(this),
+            label: 'Send Email'
+          }
+        }
     ];
 
     eventData :any[];
-    constructor(private apiService: ApiService,private router:Router){}
+    frameworkComponents:any;
+    constructor(private apiService: ApiService,private router:Router){
+      this.frameworkComponents = {
+        buttonRenderer: ButtonRendererComponent,
+      }
+    }
 
 	ngOnInit():void{
    this.pipe = new DatePipe('en-US');
@@ -50,6 +62,9 @@ export class EventListComponent implements OnInit{
     
   onSearch(event:any){
     this.router.navigate(['addevent',{id:event.data.id}]);
+  }
+  onBtnClick1(event:any){
+    this.router.navigate(['email',{id:event.rowData.id}]);
   }
 }
 

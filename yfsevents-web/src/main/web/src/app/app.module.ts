@@ -33,6 +33,7 @@ import {UserService}from "./services/user.service";
 import {AuthService}from "./services/auth.service";
 import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
 //import{EventEmiterService} from './event-emmiter-service1.service';
+import { ButtonRendererComponent } from './events/renderer/button-renderer.component';
 @NgModule({
 declarations: [
 AppComponent,
@@ -53,8 +54,10 @@ WelcomeComponent,
   VolunteerGridComponent,
   LoginComponent,
 RegisterComponent,
+ButtonRendererComponent
   ],
   imports: [
+    AgGridModule.withComponents([ButtonRendererComponent]),
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -70,7 +73,7 @@ RegisterComponent,
   ],
 
   schemas:[NO_ERRORS_SCHEMA],
-  providers: [AuthService, UserService, UrlPermission,EventEmiterService],
+  providers: [AuthService, UserService, UrlPermission],
 
   bootstrap: [AppComponent]
 })
