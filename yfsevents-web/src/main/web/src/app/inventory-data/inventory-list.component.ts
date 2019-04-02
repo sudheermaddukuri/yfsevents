@@ -30,7 +30,8 @@ rowData:any[];
   }
 
   onSearch(event:any){
-    this.router.navigate(['inventorydata',{id:event.data.id}]);
+    this.router.navigate(['inventorydata','edit',{id:event.data.id}]);
+   
     
 
   }

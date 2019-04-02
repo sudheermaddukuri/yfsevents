@@ -39,4 +39,7 @@
   <div class="text-center">
     <button class="btn btn-primary btn-sx" (click)="onSubmit()">Save</button>
   </div>
+  <div class="spinner-border" role="status" *ngIf="loading">
+    <span class="sr-only">Loading...</span>
+  </div>
 </div>

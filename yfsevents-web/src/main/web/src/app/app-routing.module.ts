@@ -33,7 +33,10 @@ const routes: Routes = [
 path: 'login', component: LoginComponent
 },
   {
-    path: 'inventorydata', component: InventoryDataComponent
+    path: 'inventorydata', children:[
+      {path: '', component:InventoryDataComponent},
+      { path: ':mode', component: InventoryDataComponent}
+    ]
   },
   {
     path:'inventorylist',component:InventoryListComponent
