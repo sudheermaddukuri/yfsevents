@@ -54,7 +54,7 @@ export class SendMailComponent implements OnInit {
      //return response.toString();
      this.resp=response.toString();
      
-     console.log(this.resp+" ...."+response.toString);
+     console.log(this.resp+" ...."+JSON.stringify(response));
      this.email.to=this.resp;
     });
   }
