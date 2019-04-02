@@ -7,7 +7,7 @@ import com.yfs.application.yfseventsserver.entity.Email;
 import com.yfs.application.yfseventsserver.entity.Event;
 import com.yfs.application.yfseventsserver.entity.Volunteer;
 import com.yfs.application.yfseventsserver.entity.VolunteersAccepted;
-import netscape.javascript.JSObject;
+//import netscape.javascript.JSObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,7 +112,7 @@ public class EmailController {
     public String createUrl(String emailId,String eventId)
     {
         String uniqueUrl="";
-        uniqueUrl=uniqueUrl+"http://localhost:8080/"+emailId.split("@")[0]+"/"+emailId.split("@")[1]+"/"+eventId;
+        uniqueUrl=uniqueUrl+"http://localhost:8080/register/"+emailId.split("@")[0]+"/"+emailId.split("@")[1]+"/"+eventId;
         System.out.println("Unique Link is "+uniqueUrl);
         return uniqueUrl;
     }

@@ -17,7 +17,7 @@ public class VolunteerResponseController {
   @Autowired
   EmailController emailController;
 
-    @RequestMapping(value="/{email}/{com}/{eventId}", method= RequestMethod.GET)
+    @RequestMapping(value="/register/{email}/{com}/{eventId}", method= RequestMethod.GET)
    public @ResponseBody String getResponse(@PathVariable("email") String email,@PathVariable("com") String com,@PathVariable("eventId") Long eventid)
    {
        System.out.println(email+com+" "+eventid);

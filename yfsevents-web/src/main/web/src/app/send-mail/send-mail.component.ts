@@ -4,7 +4,7 @@ import {Email} from "../Email";
 import {FormBuilder} from "@angular/forms";
 import {ApiService} from "../api.service";
 import {ApiServiceMail} from "../api.service.mail";
-//import{EventEmiterService} from"../services/event.emmiter.service";
+import { HttpErrorResponse } from '@angular/common/http';
 import{Eventdata} from "../events/add-event.component"
 @Component({
   selector: 'app-send-mail',
@@ -15,23 +15,34 @@ export class SendMailComponent implements OnInit {
   public email:Email;
   public eventData:Eventdata;
   public resp:string;
-  constructor(
+  constructor(private apiService:ApiService,
               private apiServiceMail: ApiServiceMail,private route: ActivatedRoute,public router:Router) { }
   ngOnInit() {
     
     this.eventData=new Eventdata();
-    this.eventData.eventCategory='abc';
-    this.eventData.eventfromTime="2017-07-23 13:10:11";
-    this.eventData.eventtoTime="2017-07-23 18:10:11";
-    this.eventData.eventName="Blood Donation Camp";
-    this.eventData.ngoName="YouthForSeva";
-    
-    this.email=new Email({to:"",cc:"",bcc:"",
-    text:"",eventId:312,subject:this.createDefaultSubject(this.eventData.eventName,
+    this.apiService.getData('event',this.route.snapshot.paramMap.get('id'), false).subscribe((data:any)=>{
+      this.eventData.eventfromTime=data.eventfromTime;
+      this.eventData.eventtoTime=data.eventtoTime;
+      this.eventData.eventtoTime=data.eventtoTime;
+      this.eventData.ngoName=data.ngoName;
+      this.eventData.eventName=data.eventName;
+      console.log(this.eventData.eventfromTime);
+      console.log(this.eventData.eventtoTime);
+      console.log(this.eventData.ngoName);
+      console.log(this.eventData.eventName);
+      this.email=new Email({to:"",cc:"",bcc:"",
+    text:"",eventId:this.route.snapshot.paramMap.get('id'),subject:this.createDefaultSubject(this.eventData.eventName,
       this.eventData.ngoName,this.eventData.eventfromTime,this.eventData.eventtoTime)});
       this.getEmailId();
       console.log(this.resp);
       console.log(this.email.to);
+    },( err:HttpErrorResponse)=>{
+      console.log(err.message);
+   });
+    
+
+
+
   }
 
   public onFormSubmit({value}:{value:Email}) {
@@ -39,7 +50,7 @@ export class SendMailComponent implements OnInit {
     console.log(this.route.snapshot.paramMap.get("name"));
     //this.eventData.eventCategory='abc';
     this.apiServiceMail.postData(this.email);
-    this.router.navigate(['/events']); 
+     
 
   }
   public createDefaultSubject(eventName,ngoName,eventTo,eventFor)
@@ -54,7 +65,7 @@ export class SendMailComponent implements OnInit {
      //return response.toString();
      this.resp=response.toString();
      
-     console.log(this.resp+" ...."+response.toString);
+     console.log("reponse is:"+" ...."+(response as any).result);
      this.email.to=this.resp;
     });
   }

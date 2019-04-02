@@ -30,7 +30,16 @@ export class EventListComponent implements OnInit{
             onClick: this.onBtnClick1.bind(this),
             label: 'Send Email'
           }
+        },
+        {
+          headerName: 'Edit',
+          cellRenderer: 'buttonRenderer',
+          cellRendererParams: {
+            onClick: this.onSearch.bind(this),
+            label: 'Edit'
+          }
         }
+
     ];
 
     eventData :any[];
@@ -61,7 +70,7 @@ export class EventListComponent implements OnInit{
     }
     
   onSearch(event:any){
-    this.router.navigate(['addevent',{id:event.data.id}]);
+    this.router.navigate(['addevent',{id:event.rowData.id}]);
   }
   onBtnClick1(event:any){
     this.router.navigate(['email',{id:event.rowData.id}]);
