@@ -17,7 +17,7 @@ export class CollegeRegistrationComponent  {
   private selectedTab: number=-1;
   private mode: String;
   private id: number;
-
+  moustatusinfo:string[]=['Active','InActive','Suspended'];
   constructor(private formBuilder: FormBuilder,
               private apiService: ApiService,
               private route: ActivatedRoute,

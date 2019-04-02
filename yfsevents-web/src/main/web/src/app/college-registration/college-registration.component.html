@@ -119,7 +119,10 @@
                   <div class="col-md-6 offset-md-3">
                     <div class="form-group required">
                       <label class="control-label">MOU STATUS</label>
-                      <input type="text" formControlName="mouStatus" class="form-control well well-sm">
+                      <!-- <input type="text" formControlName="mouStatus" class="form-control well well-sm"> -->
+                      <select formControlName="mouStatus" class="form-control">
+                        <option *ngFor="let action of moustatusinfo" [value]="action">{{action}}</option>
+                      </select>
                     </div>
                   </div>
                 </div>

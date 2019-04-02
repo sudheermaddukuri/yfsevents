@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InventorydataService } from './inventorydata.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Item } from 'angular2-multiselect-dropdown';
-import { PopupsComponent } from '../popups/popups.component';
+//import { PopupsComponent } from '../popups/popups.component';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
