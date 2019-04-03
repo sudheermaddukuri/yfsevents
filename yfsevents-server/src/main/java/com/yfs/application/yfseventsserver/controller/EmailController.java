@@ -7,7 +7,7 @@ import com.yfs.application.yfseventsserver.entity.Email;
 import com.yfs.application.yfseventsserver.entity.Event;
 import com.yfs.application.yfseventsserver.entity.Volunteer;
 import com.yfs.application.yfseventsserver.entity.VolunteersAccepted;
-import netscape.javascript.JSObject;
+//import netscape.javascript.JSObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
