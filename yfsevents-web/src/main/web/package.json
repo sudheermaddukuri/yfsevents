@@ -30,6 +30,7 @@
     "zone.js": "~0.8.26",
     "ag-grid-community": "latest",
     "ag-grid-angular": "latest",
+    "ag-grid":"latest",
     "ng-pick-datetime": "^7.0.0",
     "angular2-multiselect-dropdown": "^4.2.1"
   },

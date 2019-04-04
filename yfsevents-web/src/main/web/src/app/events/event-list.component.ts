@@ -3,7 +3,8 @@ import { ApiService } from '../api.service';
 import { Eventdata } from './add-event.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import { formatDate, DatePipe } from '@angular/common';
+import { ButtonRendererComponent } from './renderer/button-renderer.component';
 @Component({
   selector:'event-list',
   templateUrl: './event-list.component.html'
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 
 
 export class EventListComponent implements OnInit{
-
+  pipe:any;
   rowData :any;
 
 	columnDefs = [
@@ -22,13 +23,35 @@ export class EventListComponent implements OnInit{
         {headerName: 'Partner NGO', field: 'ngoName',filter:true},
         {headerName: 'Event Start Date', field: 'event_start_date',filter:true},
         {headerName: 'Event End Date', field: 'event_end_date',filter:true},
-        
+        {
+          headerName: 'Email',
+          cellRenderer: 'buttonRenderer',
+          cellRendererParams: {
+            onClick: this.onBtnClick1.bind(this),
+            label: 'Send Email'
+          }
+        },
+        {
+          headerName: 'Edit',
+          cellRenderer: 'buttonRenderer',
+          cellRendererParams: {
+            onClick: this.onSearch.bind(this),
+            label: 'Edit'
+          }
+        }
+
     ];
 
     eventData :any[];
-    constructor(private apiService: ApiService,private router:Router){}
+    frameworkComponents:any;
+    constructor(private apiService: ApiService,private router:Router){
+      this.frameworkComponents = {
+        buttonRenderer: ButtonRendererComponent,
+      }
+    }
 
 	ngOnInit():void{
+   this.pipe = new DatePipe('en-US');
    this.apiService.getData('events').subscribe((data:any)=>{
         this.eventData=data;
         console.log(data);
@@ -38,8 +61,8 @@ export class EventListComponent implements OnInit{
           eventName:event.eventName,
           eventCategory:event.eventCategory,
           ngoName:event.ngoName,
-          event_start_date:event.eventDuration[0],
-          event_end_date:event.eventDuration[1]
+          event_start_date:this.pipe.transform(event.eventDuration[0],'shortDate'),
+          event_end_date:this.pipe.transform(event.eventDuration[1],'shortDate')
         }));
       },( err:HttpErrorResponse)=>{
         console.log(err.message);
@@ -47,7 +70,10 @@ export class EventListComponent implements OnInit{
     }
     
   onSearch(event:any){
-    this.router.navigate(['addevent',{id:event.data.id}]);
+    this.router.navigate(['addevent',{id:event.rowData.id}]);
+  }
+  onBtnClick1(event:any){
+    this.router.navigate(['email',{id:event.rowData.id}]);
   }
 }
 

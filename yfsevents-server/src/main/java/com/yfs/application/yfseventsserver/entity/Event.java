@@ -38,6 +38,16 @@ public class Event {
     private String recurringEvent;
     private String volunteers;
 
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
+    private String college;
+
     public String getComments() {
         return Comments;
     }
