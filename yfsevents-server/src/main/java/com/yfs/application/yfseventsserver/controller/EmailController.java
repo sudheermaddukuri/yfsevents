@@ -10,6 +10,8 @@ import com.yfs.application.yfseventsserver.entity.VolunteersAccepted;
 //import netscape.javascript.JSObject;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
@@ -36,6 +38,7 @@ public class EmailController {
     @Autowired
     VolunteersAcceptedRepository  volunteersAcceptedRepository;
 
+    private static Logger logger = LoggerFactory.getLogger(EmailController.class);
 
     public static Properties setProperties()
     {
@@ -83,11 +86,12 @@ public class EmailController {
             // Send message
             Transport.send(message);
 
-            System.out.println("Sent message successfully....");
+            logger.info("Sent message successfully....");
             return true;
 
         } catch (MessagingException e) {
 
+            logger.error("Failed to send mail[{}] with exception[{}]",to, e);
             return false;
         }
     }
