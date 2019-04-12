@@ -14,7 +14,7 @@ INSERT INTO EVENT(ID,COMMENTS,EVENT_NAME,EVENTFROM_TIME,EVENTTO_TIME,NGO_NAME,VO
 2019-04-02 09:15:25.200','ngo',23);
 
 
-INSERT INTO STAGING_EMAIL(ID_EVENT, TX_PAYLOAD, TX_STATUS, NM_RETRY_COUNT, DT_CREATED, DT_UPDATED, ID_CREATED_BY, ID_UPDATED_BY, REASON)
-VALUES (1, '{"to":"akulavij@gmail.com","toMultiple":null,"subject":"Subject1","text":"Some Body text1","bcc":null,"cc":null,"eventId":1}', 'NOT_STARTED',0,sysdate,sysdate,'ADMIN','ADMIN',null);
+--INSERT INTO STAGING_EMAIL(ID_EVENT, TX_PAYLOAD, TX_STATUS, NM_RETRY_COUNT, DT_CREATED, DT_UPDATED, ID_CREATED_BY, ID_UPDATED_BY, REASON)
+--VALUES (1, '{"to":"akulavij@gmail.com","toMultiple":null,"subject":"Subject1","text":"Some Body text1","bcc":null,"cc":null,"eventId":1}', 'NOT_STARTED',0,sysdate,sysdate,'ADMIN','ADMIN',null);
 
 
