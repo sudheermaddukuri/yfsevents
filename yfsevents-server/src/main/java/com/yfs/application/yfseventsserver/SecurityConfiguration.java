@@ -44,25 +44,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.cors().and()
-            // starts authorizing configurations
-            .authorizeRequests()
-            // ignoring the guest's urls "
-            .antMatchers("/user/register", "/user/login", "/logout", "/h2-console/**").permitAll()
-            // authenticate all remaining URLS
-            .anyRequest().fullyAuthenticated().and()
-            /* "/logout" will log the user out by invalidating the HTTP Session,
-             * cleaning up any {link rememberMe()} authentication that was configured, */
-            .logout()
-            .permitAll()
-            .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
+        http
+            .httpBasic()
             .and()
-            // enabling the basic authentication
-            .httpBasic().and()
-            // configuring the session on the server
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()
-            // disabling the CSRF - Cross Site Request Forgery
-            .csrf().disable();
+            .authorizeRequests()
+            .antMatchers("/**/*.png","/*.png","/*.js","/*.css","/*.woff2","/*.woff","/*.ttf","/*.ico","/user", "/index.html", "/", "/home", "/login","/logout", "/h2-console/**").permitAll()
+            .anyRequest().authenticated().and().logout().logoutUrl("/logout") ;
 
 
         /*http.authorizeRequests()

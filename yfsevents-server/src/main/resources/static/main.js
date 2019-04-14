@@ -1,5 +1,3 @@
-
-
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"],{
 
 /***/ "./src/$$_lazy_route_resource lazy recursive":
@@ -8,6 +6,7 @@
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
+
 function webpackEmptyAsyncContext(req) {
 	// Here Promise.resolve().then() is used instead of new Promise() to prevent
 	// uncaught exception popping up in devtools
@@ -59,31 +58,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
 
 
 
 var ApiServiceMail = /** @class */ (function () {
-    function ApiServiceMail(http) {
+    function ApiServiceMail(http, router) {
         this.http = http;
+        this.router = router;
         this.basicURL = "/sendEmail";
+        this.basicURLVolunteer = "/api";
         this.urlList = new Map();
         this.initialiseUrlList();
     }
     ApiServiceMail.prototype.initialiseUrlList = function () {
         this.urlList.set('send', '/send');
+        this.urlList.set('getEmail', '/volunteer/email');
     };
-    ApiServiceMail.prototype.postData = function (data, type) {
+    ApiServiceMail.prototype.postData = function (data) {
+        var _this = this;
         console.log('postingggg', data);
         this.http.post(this.basicURL + this.urlList.get("send"), data).subscribe(function (response) {
             console.log('postResponse: ', response);
             alert("Sucessfully Sent Email");
+            alert("Response is" + response);
+            _this.router.navigate(['/events']);
         });
+    };
+    ApiServiceMail.prototype.getData = function () {
+        var uri = this.basicURLVolunteer + this.urlList.get("getEmail");
+        return this.http.get(uri);
     };
     ApiServiceMail = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], ApiServiceMail);
     return ApiServiceMail;
 }());
@@ -119,12 +130,18 @@ var ApiService = /** @class */ (function () {
         this.urlList.set('partnerngo', '/partnerngo');
         this.urlList.set('event', '/event');
         this.urlList.set('events', '/events');
+        this.urlList.set('volunteer-create', '/volunteer-create');
         this.urlList.set('volunteer', '/volunteer');
         this.urlList.set('collegeregistration', '/collegeregistration');
         this.urlList.set('interestedAreasCategory', '/interestedAreasCategory');
         this.urlList.set('collegeregistration-list', '/collegeregistration/list');
     };
     ApiService.prototype.postData = function (data, type) {
+        return this.post(data, type).subscribe(function (response) {
+            console.log('postResponse: ', response);
+        });
+    };
+    ApiService.prototype.post = function (data, type) {
         return this.http.post(this.basicURL + this.urlList.get(type), data);
     };
     ApiService.prototype.getData = function (type, id, formatted) {
@@ -213,7 +230,10 @@ var routes = [
         path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_14__["LoginComponent"]
     },
     {
-        path: 'inventorydata', component: _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_7__["InventoryDataComponent"]
+        path: 'inventorydata', children: [
+            { path: '', component: _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_7__["InventoryDataComponent"] },
+            { path: ':mode', component: _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_7__["InventoryDataComponent"] }
+        ]
     },
     {
         path: 'inventorylist', component: _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_10__["InventoryListComponent"]
@@ -274,7 +294,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */"
+module.exports = "#app-root-container{\nwidth:100%;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQSxVQUFVO0FBQ1YiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNhcHAtcm9vdC1jb250YWluZXJ7XG53aWR0aDoxMDAlO1xufVxuIl19 */"
 
 /***/ }),
 
@@ -285,7 +305,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<header></header>\n<div class=\"container\">\n<router-outlet></router-outlet>\n</div>\n\n\n<!--<footer></footer>-->\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" style=\"background-color: #ba2a29;margin-bottom:20px;\">\n  <div class=\"container-fluid\">\n\n    <a class=\"navbar-brand\" href=\"#\" style=\"height:70px\">\n      <img src=\"/assets/youth-for-seva.png\" style=\"height:50px\">\n    </a>\n\n    <div class=\"collapse navbar-collapse\">\n      <ul class=\"nav navbar-nav navbar-right text-white\" style=\"margin-top:12px;\">\n        <li><a href=\"\">HOME</a></li>\n        <li class=\"dropdown\" *ngIf=!isUser()>\n          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">REGISTER\n            <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li *ngIf=isAdmin()><a [routerLink]=\"['/grid/partnerngo']\">Partner NGO</a></li>\n            <li><a [routerLink]=\"['/grid/volunteer']\">Volunteer</a></li>\n            <li *ngIf=isAdmin()><a [routerLink]=\"['/grid/collegeregistration']\">College</a></li>\n            <li *ngIf=isAdmin()><a [routerLink]=\"['/inventorylist']\">Inventory Data</a></li>\n          </ul>\n        </li>\n        <li><a [routerLink]=\"['/events']\">EVENTS</a></li>\n\n        <li *ngIf=!app.authenticated><a [routerLink]=\"['/login']\">LOGIN</a></li>\n        <li *ngIf=app.authenticated><a href=\"#\" (click)=\"logout()\">LOGOUT</a></li>\n        <li><a [routerLink]=\"\">CONTACT</a></li>\n        <li><a [routerLink]=\"\"><span class=\"glyphicon glyphicon-search\"></span></a></li>\n      </ul>\n    </div>\n  </div>\n</nav>\n\n<div id=\"app-root-container\" class=\"container\">\n<router-outlet></router-outlet>\n</div>\n\n\n<!--<footer></footer>-->\n"
 
 /***/ }),
 
@@ -301,19 +321,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _app_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.service */ "./src/app/app.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(app, http, router) {
+        this.app = app;
+        this.http = http;
+        this.router = router;
         this.title = 'Y4S';
+        this.app.authenticate(undefined, undefined);
     }
-    AppComponent.API_URL = "http://localhost:8080";
+    AppComponent.prototype.isAdmin = function () {
+        return this.app.authenticated && this.app.role == 'ROLE_ADMIN';
+    };
+    AppComponent.prototype.isUser = function () {
+        return this.app.authenticated && this.app.role == 'ROLE_USER';
+    };
+    AppComponent.prototype.logout = function () {
+        var _this = this;
+        this.http.get('logout').subscribe(function (response) {
+            _this.app.authenticated = false;
+            _this.router.navigateByUrl('/login');
+        });
+    };
+    AppComponent.API_URL = 'http://localhost:8080';
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        })
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_service__WEBPACK_IMPORTED_MODULE_2__["AppService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -366,7 +410,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _urlPermission_url_permission__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./urlPermission/url.permission */ "./src/app/urlPermission/url.permission.ts");
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
 /* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
-/* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
+/* harmony import */ var _app_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./app.service */ "./src/app/app.service.ts");
+/* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
+/* harmony import */ var _events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./events/renderer/button-renderer.component */ "./src/app/events/renderer/button-renderer.component.ts");
+/* harmony import */ var _xhrInterceptor__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./xhrInterceptor */ "./src/app/xhrInterceptor.ts");
 
 
 
@@ -400,6 +447,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+//import{EventEmiterService} from './event-emmiter-service1.service';
 
 
 var AppModule = /** @class */ (function () {
@@ -423,11 +474,13 @@ var AppModule = /** @class */ (function () {
                 _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_25__["CollegeListComponent"],
                 _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_26__["PartnerNgoGridComponent"],
                 _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_27__["CollegeRegistrationGridComponent"],
-                _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_33__["VolunteerGridComponent"],
+                _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_34__["VolunteerGridComponent"],
                 _login_login_component__WEBPACK_IMPORTED_MODULE_28__["LoginComponent"],
-                _register_register_component__WEBPACK_IMPORTED_MODULE_29__["RegisterComponent"]
+                _register_register_component__WEBPACK_IMPORTED_MODULE_29__["RegisterComponent"],
+                _events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_35__["ButtonRendererComponent"]
             ],
             imports: [
+                ag_grid_angular__WEBPACK_IMPORTED_MODULE_3__["AgGridModule"].withComponents([_events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_35__["ButtonRendererComponent"]]),
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_17__["HttpClientModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
@@ -442,11 +495,62 @@ var AppModule = /** @class */ (function () {
                 _angular_http__WEBPACK_IMPORTED_MODULE_18__["HttpModule"]
             ],
             schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_2__["NO_ERRORS_SCHEMA"]],
-            providers: [_services_auth_service__WEBPACK_IMPORTED_MODULE_32__["AuthService"], _services_user_service__WEBPACK_IMPORTED_MODULE_31__["UserService"], _urlPermission_url_permission__WEBPACK_IMPORTED_MODULE_30__["UrlPermission"]],
+            providers: [_services_auth_service__WEBPACK_IMPORTED_MODULE_32__["AuthService"], _services_user_service__WEBPACK_IMPORTED_MODULE_31__["UserService"], _urlPermission_url_permission__WEBPACK_IMPORTED_MODULE_30__["UrlPermission"], _app_service__WEBPACK_IMPORTED_MODULE_33__["AppService"], { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_17__["HTTP_INTERCEPTORS"], useClass: _xhrInterceptor__WEBPACK_IMPORTED_MODULE_36__["XhrInterceptor"], multi: true }],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/app.service.ts":
+/*!********************************!*\
+  !*** ./src/app/app.service.ts ***!
+  \********************************/
+/*! exports provided: AppService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppService", function() { return AppService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+var AppService = /** @class */ (function () {
+    function AppService(http) {
+        this.http = http;
+        this.authenticated = false;
+        this.role = "";
+    }
+    AppService.prototype.authenticate = function (credentials, callback) {
+        var _this = this;
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"](credentials ? {
+            authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
+        } : {});
+        this.http.get('user', { headers: headers }).subscribe(function (response) {
+            if (response['name']) {
+                _this.authenticated = true;
+                if (response['principal']) {
+                    _this.role = response['principal']['role'];
+                }
+            }
+            else {
+                _this.authenticated = false;
+            }
+            return callback && callback();
+        });
+    };
+    AppService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], AppService);
+    return AppService;
 }());
 
 
@@ -501,9 +605,81 @@ var CollegeRegistrationGridComponent = /** @class */ (function () {
         this.headers = [
             { headerName: 'College Name', field: 'name', filter: true, sortable: true },
             { headerName: 'Registration Id', field: 'registrationId', filter: true },
-            { headerName: 'Mou Name', field: 'mouName' },
+            { headerName: 'Address Line 1', field: 'addressLine1', filter: true },
+            { headerName: 'Address Line 2', field: 'addressLine2', filter: true },
+            { headerName: 'City', field: 'city', filter: true },
+            { headerName: 'State', field: 'state', filter: true },
+            { headerName: 'Pincode', field: 'pincode', filter: true },
             { headerName: 'Mou ID', field: 'mouID', filter: true },
-            { headerName: 'Mou Status', field: 'mouStatus' }
+            { headerName: 'Mou Status', field: 'mouStatus' },
+            { headerName: 'Mou Name', field: 'mouName' },
+            { headerName: 'Number Of Events Agreed', field: 'noOfEvents' },
+            { headerName: 'Valid From', field: 'fromDate' },
+            { headerName: 'Valid To', field: 'toDate' },
+            { headerName: 'Comments', field: 'comments' },
+            { headerName: 'Mou ID (2)', field: 'mouID1', filter: true },
+            { headerName: 'Mou Status (2)', field: 'mouStatus1' },
+            { headerName: 'Mou Name (2)', field: 'mouName1' },
+            { headerName: 'Number Of Events Agreed (2)', field: 'noOfEvents1' },
+            { headerName: 'Valid From (2)', field: 'fromDate1' },
+            { headerName: 'Valid To (2)', field: 'toDate1' },
+            { headerName: 'Comments (2)', field: 'comments1' },
+            { headerName: 'Mou ID (3)', field: 'mouID2', filter: true },
+            { headerName: 'Mou Status (3)', field: 'mouStatus2' },
+            { headerName: 'Mou Name (3)', field: 'mouName2' },
+            { headerName: 'Number Of Events Agreed (3)', field: 'noOfEvents2' },
+            { headerName: 'Valid From (3)', field: 'fromDate2' },
+            { headerName: 'Valid To (3)', field: 'toDate2' },
+            { headerName: 'Comments (3)', field: 'comments2' },
+            { headerName: 'Mou ID (4)', field: 'mouID3', filter: true },
+            { headerName: 'Mou Status (4)', field: 'mouStatus3' },
+            { headerName: 'Mou Name (4)', field: 'mouName3' },
+            { headerName: 'Number Of Events Agreed (4)', field: 'noOfEvents3' },
+            { headerName: 'Valid From (4)', field: 'fromDate3' },
+            { headerName: 'Valid To (4)', field: 'toDate3' },
+            { headerName: 'Comments (4)', field: 'comments3' },
+            { headerName: 'Mou ID (5)', field: 'mouID4', filter: true },
+            { headerName: 'Mou Status (5)', field: 'mouStatus4' },
+            { headerName: 'Mou Name (5)', field: 'mouName4' },
+            { headerName: 'Number Of Events Agreed (5)', field: 'noOfEvents4' },
+            { headerName: 'Valid From (5)', field: 'fromDate4' },
+            { headerName: 'Valid To (5)', field: 'toDate4' },
+            { headerName: 'Comments (5)', field: 'comments4' },
+            { headerName: 'Mou ID (6)', field: 'mouID5', filter: true },
+            { headerName: 'Mou Status (6)', field: 'mouStatus5' },
+            { headerName: 'Mou Name (6)', field: 'mouName5' },
+            { headerName: 'Number Of Events Agreed (6)', field: 'noOfEvents5' },
+            { headerName: 'Valid From (6)', field: 'fromDate5' },
+            { headerName: 'Valid To (6)', field: 'toDate5' },
+            { headerName: 'Comments (6)', field: 'comments5' },
+            { headerName: 'Mou ID (7)', field: 'mouID6', filter: true },
+            { headerName: 'Mou Status (7)', field: 'mouStatus6' },
+            { headerName: 'Mou Name (7)', field: 'mouName6' },
+            { headerName: 'Number Of Events Agreed (7)', field: 'noOfEvents6' },
+            { headerName: 'Valid From (7)', field: 'fromDate6' },
+            { headerName: 'Valid To (7)', field: 'toDate6' },
+            { headerName: 'Comments (7)', field: 'comments6' },
+            { headerName: 'Mou ID (8)', field: 'mouID7', filter: true },
+            { headerName: 'Mou Status (8)', field: 'mouStatus7' },
+            { headerName: 'Mou Name (8)', field: 'mouName7' },
+            { headerName: 'Number Of Events Agreed (8)', field: 'noOfEvents7' },
+            { headerName: 'Valid From (8)', field: 'fromDate7' },
+            { headerName: 'Valid To (8)', field: 'toDate7' },
+            { headerName: 'Comments (8)', field: 'comments7' },
+            { headerName: 'Mou ID (9)', field: 'mouID8', filter: true },
+            { headerName: 'Mou Status (9)', field: 'mouStatus8' },
+            { headerName: 'Mou Name (9)', field: 'mouName8' },
+            { headerName: 'Number Of Events Agreed (9)', field: 'noOfEvents8' },
+            { headerName: 'Valid From (9)', field: 'fromDate8' },
+            { headerName: 'Valid To (9)', field: 'toDate8' },
+            { headerName: 'Comments (9)', field: 'comments8' },
+            { headerName: 'Mou ID (10)', field: 'mouID9', filter: true },
+            { headerName: 'Mou Status (10)', field: 'mouStatus9' },
+            { headerName: 'Mou Name (10)', field: 'mouName9' },
+            { headerName: 'Number Of Events Agreed (10)', field: 'noOfEvents9' },
+            { headerName: 'Valid From (10)', field: 'fromDate9' },
+            { headerName: 'Valid To (10)', field: 'toDate9' },
+            { headerName: 'Comments (10)', field: 'comments9' },
         ];
     }
     CollegeRegistrationGridComponent.prototype.ngOnInit = function () {
@@ -520,13 +696,102 @@ var CollegeRegistrationGridComponent = /** @class */ (function () {
             var result = JSON.parse(JSON.stringify(response));
             Array.from(result).forEach(function (element) {
                 var mouDetails = JSON.parse(JSON.stringify(element)).mouDetails;
-                Object.assign(element, { mouName: mouDetails[0].mouName });
-                Object.assign(element, { mouStatus: mouDetails[0].mouStatus });
-                Object.assign(element, { mouID: mouDetails[0].mouID });
+                console.log(mouDetails);
+                if (mouDetails[0] != null) {
+                    Object.assign(element, { mouID: mouDetails[0].mouID });
+                    Object.assign(element, { mouStatus: mouDetails[0].mouStatus });
+                    Object.assign(element, { mouName: mouDetails[0].mouName });
+                    Object.assign(element, { noOfEvents: mouDetails[0].noOfEvents });
+                    Object.assign(element, { fromDate: mouDetails[0].fromDate });
+                    Object.assign(element, { toDate: mouDetails[0].toDate });
+                    Object.assign(element, { comments: mouDetails[0].comments });
+                }
+                if (mouDetails[1] != null) {
+                    Object.assign(element, { mouID1: mouDetails[1].mouID });
+                    Object.assign(element, { mouStatus1: mouDetails[1].mouStatus });
+                    Object.assign(element, { mouName1: mouDetails[1].mouName });
+                    Object.assign(element, { noOfEvents1: mouDetails[1].noOfEvents });
+                    Object.assign(element, { fromDate1: mouDetails[1].fromDate });
+                    Object.assign(element, { toDate1: mouDetails[1].toDate });
+                    Object.assign(element, { comments1: mouDetails[1].comments });
+                }
+                if (mouDetails[2] != null) {
+                    Object.assign(element, { mouID2: mouDetails[2].mouID });
+                    Object.assign(element, { mouStatus2: mouDetails[2].mouStatus });
+                    Object.assign(element, { mouName2: mouDetails[2].mouName });
+                    Object.assign(element, { noOfEvents2: mouDetails[2].noOfEvents });
+                    Object.assign(element, { fromDate2: mouDetails[2].fromDate });
+                    Object.assign(element, { toDate2: mouDetails[2].toDate });
+                    Object.assign(element, { comments2: mouDetails[2].comments });
+                }
+                if (mouDetails[3] != null) {
+                    Object.assign(element, { mouID3: mouDetails[3].mouID });
+                    Object.assign(element, { mouStatus3: mouDetails[3].mouStatus });
+                    Object.assign(element, { mouName3: mouDetails[3].mouName });
+                    Object.assign(element, { noOfEvents3: mouDetails[3].noOfEvents });
+                    Object.assign(element, { fromDate3: mouDetails[3].fromDate });
+                    Object.assign(element, { toDate3: mouDetails[3].toDate });
+                    Object.assign(element, { comments3: mouDetails[3].comments });
+                }
+                if (mouDetails[4] != null) {
+                    Object.assign(element, { mouID4: mouDetails[4].mouID });
+                    Object.assign(element, { mouStatus4: mouDetails[4].mouStatus });
+                    Object.assign(element, { mouName4: mouDetails[4].mouName });
+                    Object.assign(element, { noOfEvents4: mouDetails[4].noOfEvents });
+                    Object.assign(element, { fromDate4: mouDetails[4].fromDate });
+                    Object.assign(element, { toDate4: mouDetails[4].toDate });
+                    Object.assign(element, { comments4: mouDetails[4].comments });
+                }
+                if (mouDetails[5] != null) {
+                    Object.assign(element, { mouID5: mouDetails[5].mouID });
+                    Object.assign(element, { mouStatus5: mouDetails[5].mouStatus });
+                    Object.assign(element, { mouName5: mouDetails[5].mouName });
+                    Object.assign(element, { noOfEvents5: mouDetails[5].noOfEvents });
+                    Object.assign(element, { fromDate5: mouDetails[5].fromDate });
+                    Object.assign(element, { toDate5: mouDetails[5].toDate });
+                    Object.assign(element, { comments5: mouDetails[5].comments });
+                }
+                if (mouDetails[6] != null) {
+                    Object.assign(element, { mouID6: mouDetails[6].mouID });
+                    Object.assign(element, { mouStatus6: mouDetails[6].mouStatus });
+                    Object.assign(element, { mouName6: mouDetails[6].mouName });
+                    Object.assign(element, { noOfEvents6: mouDetails[6].noOfEvents });
+                    Object.assign(element, { fromDate6: mouDetails[6].fromDate });
+                    Object.assign(element, { toDate6: mouDetails[6].toDate });
+                    Object.assign(element, { comments6: mouDetails[6].comments });
+                }
+                if (mouDetails[7] != null) {
+                    Object.assign(element, { mouID7: mouDetails[7].mouID });
+                    Object.assign(element, { mouStatus7: mouDetails[7].mouStatus });
+                    Object.assign(element, { mouName7: mouDetails[7].mouName });
+                    Object.assign(element, { noOfEvents7: mouDetails[7].noOfEvents });
+                    Object.assign(element, { fromDate7: mouDetails[7].fromDate });
+                    Object.assign(element, { toDate7: mouDetails[7].toDate });
+                    Object.assign(element, { comments7: mouDetails[7].comments });
+                }
+                if (mouDetails[8] != null) {
+                    Object.assign(element, { mouID8: mouDetails[8].mouID });
+                    Object.assign(element, { mouStatus8: mouDetails[8].mouStatus });
+                    Object.assign(element, { mouName8: mouDetails[8].mouName });
+                    Object.assign(element, { noOfEvents8: mouDetails[8].noOfEvents });
+                    Object.assign(element, { fromDate8: mouDetails[8].fromDate });
+                    Object.assign(element, { toDate8: mouDetails[8].toDate });
+                    Object.assign(element, { comments8: mouDetails[8].comments });
+                }
+                if (mouDetails[9] != null) {
+                    Object.assign(element, { mouID9: mouDetails[9].mouID });
+                    Object.assign(element, { mouStatus9: mouDetails[9].mouStatus });
+                    Object.assign(element, { mouName9: mouDetails[9].mouName });
+                    Object.assign(element, { noOfEvents9: mouDetails[9].noOfEvents });
+                    Object.assign(element, { fromDate9: mouDetails[9].fromDate });
+                    Object.assign(element, { toDate9: mouDetails[9].toDate });
+                    Object.assign(element, { comments9: mouDetails[9].comments });
+                }
             });
             console.log(response);
             console.log(_this.data);
             _this.data = result;
+            console.log(_this.data);
         });
     };
     CollegeRegistrationGridComponent.prototype.onRowCilcked = function (event) {
@@ -635,7 +900,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well well-sm\">\n    <h3><strong> College Registration</strong></h3>\n  </div>\n\n  <form [formGroup]=\"collegeForm\">\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>About College</label>\n      </div>\n      <div class=\"panel-body\">\n        <div formGroupName=\"collegeDetails\">\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">College Name</label>\n                <input type=\"text\" formControlName=\"name\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Registration Id</label>\n                <input type=\"text\" formControlName=\"registrationId\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>Address</label>\n      </div>\n      <div class=\"panel-body\">\n        <div formGroupName=\"address\">\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Address Line 1</label>\n                <input type=\"text\" formControlName=\"addressLine1\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group\">\n                <label class=\"control-label\">Address Line 2</label>\n                <input type=\"text\" formControlName=\"addressLine2\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">City</label>\n                <input type=\"text\" formControlName=\"city\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">State</label>\n                <input type=\"text\" formControlName=\"state\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Pincode</label>\n                <input type=\"text\" formControlName=\"pincode\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>MOU Details</label>\n      </div>\n      <div class=\"panel-body\">\n        <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n          <li class=\"nav active\" *ngIf=\"numberOfMOUs>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">MOU\n              1</a></li>\n          <li class=\"nav\" *ngFor=\"let num of getArray(numberOfMOUs-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\"\n              (click)=\"activateTab(i+2)\">MOU {{i+2}}</a></li>\n\n          <div class=\"pull-right\">\n            <button class=\"btn btn-primary btn-sm btn-space\" (click)=addMOU() [disabled]=\"isMaxLimitReached(10)\">Add MOU</button>\n            <button class=\"btn btn-primary btn-sm \" (click)=removeMOU() >Remove MOU</button>\n\n          </div>\n\n        </ul>\n\n        <div class=\"tab-content\">\n          <div formArrayName=\"mouDetails\">\n            <div class=\"tab-pane\" *ngFor=\"let person of collegeForm.get('mouDetails').controls;let i=index\"\n              formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n\n              <div *ngIf=\"selectedTab==i\">\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU ID</label>\n                      <input type=\"text\" formControlName=\"mouID\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU STATUS</label>\n                      <input type=\"text\" formControlName=\"mouStatus\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU Name</label>\n                      <input type=\"text\" formControlName=\"mouName\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Number Of Events Agreed</label>\n                      <input type=\"text\" formControlName=\"noOfEvents\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Valid From</label>\n                      <input type=\"text\" formControlName=\"fromDate\" class=\"form-control well well-sm\" bsDatepicker>\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Valid To</label>\n                      <input type=\"text\" formControlName=\"toDate\" class=\"form-control well well-sm\" bsDatepicker>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Comments</label>\n                      <textarea type=\"text\" formControlName=\"comments\" class=\"form-control well well-sm\"></textarea>\n                    </div>\n                  </div>\n                </div>\n\n              </div>\n\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n  </form>\n  <div class=\"text-center\">\n    <button class=\"btn btn-primary btn-sx\"  (click)=\"onSubmit()\">Register</button>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well well-sm\">\n    <h3><strong> College Registration</strong></h3>\n  </div>\n\n  <form [formGroup]=\"collegeForm\">\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>About College</label>\n      </div>\n      <div class=\"panel-body\">\n        <div formGroupName=\"collegeDetails\">\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">College Name</label>\n                <input type=\"text\" formControlName=\"name\" class=\"form-control well well-sm\">\n               <!-- <div *ngIf=\"collegeForm.controls['collegeDetails'].controls.name.errors&&(collegeForm.controls['collegeDetails'].controls.name.dirty||collegeForm.controls['collegeDetails'].controls.name.touched)\" class=\"invalid-feedback\">\n                  <div *ngIf=\"collegeForm.controls['collegeDetails'].controls.name.errors.required\" class=\"field-invalid\">Name is required</div>\n                </div>-->\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Registration Id</label>\n                <input type=\"text\" formControlName=\"registrationId\" class=\"form-control well well-sm\">\n                <!--<div *ngIf=\"collegeform.controls['collegeDetails'].controls.registrationId.errors&&(collegeform.controls['collegeDetails'].controls.registrationId.dirty||collegeform.controls['collegeDetails'].controls.registrationId.touched)\" class=\"invalid-feedback\">\n                  <div *ngIf=\"collegeform.controls['collegeDetails'].controls.registrationId.errors.required\" class=\"field-invalid\"> RegistrationId is required</div>\n                </div>-->\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>Address</label>\n      </div>\n      <div class=\"panel-body\">\n        <div formGroupName=\"address\">\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Address Line 1</label>\n                <input type=\"text\" formControlName=\"addressLine1\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group\">\n                <label class=\"control-label\">Address Line 2</label>\n                <input type=\"text\" formControlName=\"addressLine2\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">City</label>\n                <input type=\"text\" formControlName=\"city\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">State</label>\n                <input type=\"text\" formControlName=\"state\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Pincode</label>\n                <input type=\"text\" formControlName=\"pincode\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>MOU Details</label>\n      </div>\n      <div class=\"panel-body\">\n        <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n          <li class=\"nav active\" *ngIf=\"numberOfMOUs>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">MOU\n              1</a></li>\n          <li class=\"nav\" *ngFor=\"let num of getArray(numberOfMOUs-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\"\n              (click)=\"activateTab(i+2)\">MOU {{i+2}}</a></li>\n\n          <div class=\"pull-right\">\n            <button class=\"btn btn-primary btn-sm btn-space\" (click)=addMOU() [disabled]=\"isMaxLimitReached(10)\">Add MOU</button>\n            <button class=\"btn btn-primary btn-sm \" (click)=removeMOU() >Remove MOU</button>\n\n          </div>\n\n        </ul>\n\n        <div class=\"tab-content\">\n          <div formArrayName=\"mouDetails\">\n            <div class=\"tab-pane\" *ngFor=\"let person of collegeForm.get('mouDetails').controls;let i=index\"\n              formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n\n              <div *ngIf=\"selectedTab==i\">\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU ID</label>\n                      <input type=\"text\" formControlName=\"mouID\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU STATUS</label>\n                      <!-- <input type=\"text\" formControlName=\"mouStatus\" class=\"form-control well well-sm\"> -->\n                      <select formControlName=\"mouStatus\" class=\"form-control\">\n                        <option *ngFor=\"let action of moustatusinfo\" [value]=\"action\">{{action}}</option>\n                      </select>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU Name</label>\n                      <input type=\"text\" formControlName=\"mouName\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Number Of Events Agreed</label>\n                      <input type=\"text\" formControlName=\"noOfEvents\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Valid From</label>\n                      <input type=\"text\" formControlName=\"fromDate\" class=\"form-control well well-sm\" bsDatepicker>\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Valid To</label>\n                      <input type=\"text\" formControlName=\"toDate\" class=\"form-control well well-sm\" bsDatepicker>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Comments</label>\n                      <textarea type=\"text\" formControlName=\"comments\" class=\"form-control well well-sm\"></textarea>\n                    </div>\n                  </div>\n                </div>\n\n              </div>\n\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n  </form>\n  <div class=\"text-center\">\n    <!--<button class=\"btn btn-primary btn-sx\"  (click)=\"onSubmit()\">Register</button>-->\n    <button (click)=\"onSubmit()\" *ngIf=\"!mode\" class=\"btn btn-primary btn-space\">Register</button>\n    <button (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" class=\"btn btn-primary btn-space\">Update</button>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -667,6 +932,7 @@ var CollegeRegistrationComponent = /** @class */ (function () {
         this.router = router;
         this.numberOfMOUs = 0;
         this.selectedTab = -1;
+        this.moustatusinfo = ['Active', 'InActive', 'Suspended'];
     }
     CollegeRegistrationComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -778,6 +1044,28 @@ var CollegeRegistrationComponent = /** @class */ (function () {
     CollegeRegistrationComponent.prototype.activateTab = function (val) {
         this.selectedTab = val - 1;
     };
+    CollegeRegistrationComponent.prototype.checkForMandatoryValidations = function (collegeDetails) {
+        var checkflag = false;
+        if (collegeDetails.name && collegeDetails.registrationId && collegeDetails.addressLine1 && collegeDetails.city && collegeDetails.state
+            && collegeDetails.pincode) {
+            if (collegeDetails.mouDetails.length) {
+                collegeDetails.mouDetails.forEach(function (o) {
+                    if (!o.mouID || !o.mouStatus || !o.mouName) {
+                        checkflag = true;
+                        return false;
+                    }
+                });
+                if (!checkflag) {
+                    return true;
+                }
+            }
+            else {
+                return true;
+            }
+        }
+        else
+            return false;
+    };
     CollegeRegistrationComponent.prototype.onSubmit = function () {
         console.log('inside method onsubmit');
         var json = Object.assign({ mouDetails: this.getMOUDetails().value }, this.collegeForm.get('collegeDetails').value, this.collegeForm.get('address').value);
@@ -785,7 +1073,21 @@ var CollegeRegistrationComponent = /** @class */ (function () {
             json = Object.assign(json, { id: this.id });
         }
         console.log('submitting: ', json);
-        this.apiService.postData(json, 'collegeregistration');
+        if (this.checkForMandatoryValidations(json)) {
+            var response = this.apiService.postData(json, 'collegeregistration');
+            if (response) {
+                if (this.mode == 'edit') {
+                    alert('Succesfully updated College Details');
+                }
+                else {
+                    alert('Succesfully registered College Details');
+                }
+                this.router.navigateByUrl("grid/collegeregistration");
+            }
+        }
+        else {
+            alert('Please fill out the mandatory fields');
+        }
     };
     CollegeRegistrationComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -812,8 +1114,8 @@ var CollegeRegistrationComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-
 module.exports = ".row {\n    margin-bottom:25px;\n}\n:host >>> .alert-md-local {\n    background-color: #009688;\n    border-color: #00695C;\n    color: #fff;\n    margin-bottom:0px;\n    margin-top: 20px;\n}\n.itemsrow{\n    margin-bottom:0px !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZXZlbnRzL2FkZC1ldmVudC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksa0JBQWtCO0FBQ3RCO0FBQ0E7SUFDSSx5QkFBeUI7SUFDekIscUJBQXFCO0lBQ3JCLFdBQVc7SUFDWCxpQkFBaUI7SUFDakIsZ0JBQWdCO0FBQ3BCO0FBRUE7SUFDSSw0QkFBNEI7QUFDaEMiLCJmaWxlIjoic3JjL2FwcC9ldmVudHMvYWRkLWV2ZW50LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucm93IHtcbiAgICBtYXJnaW4tYm90dG9tOjI1cHg7XG59XG46aG9zdCA+Pj4gLmFsZXJ0LW1kLWxvY2FsIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5Njg4O1xuICAgIGJvcmRlci1jb2xvcjogIzAwNjk1QztcbiAgICBjb2xvcjogI2ZmZjtcbiAgICBtYXJnaW4tYm90dG9tOjBweDtcbiAgICBtYXJnaW4tdG9wOiAyMHB4O1xufVxuXG4uaXRlbXNyb3d7XG4gICAgbWFyZ2luLWJvdHRvbTowcHggIWltcG9ydGFudDtcbn0iXX0= */"
+
 /***/ }),
 
 /***/ "./src/app/events/add-event.component.html":
@@ -940,7 +1242,10 @@ var AddEventComponent = /** @class */ (function () {
                         id: data.eventItems.indexOf(item),
                         itemName: item
                     }); }),
-                    volunteers: data.volunteers
+                    volunteersReq: data.volunteers,
+                    comments: data.comments,
+                    college: data.college,
+                    volunteersReg: ''
                 });
                 console.log(_this.eventForm.value.eventDuration);
             });
@@ -957,7 +1262,7 @@ var AddEventComponent = /** @class */ (function () {
         this.eventData.eventfromTime = this.eventForm.value.fromTime;
         this.eventData.eventtoTime = this.eventForm.value.toTime;
         this.eventData.ngoName = this.eventForm.value.ngoName;
-        this.eventData.volunteers = this.eventForm.value.volunteers;
+        this.eventData.volunteers = this.eventForm.value.volunteersReq;
         this.eventData.recurringEvent = this.eventForm.value.recurringEvent;
         // this.eventData.eventDuration=[];
         // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[0],'fullDate','en-US'));
@@ -965,12 +1270,14 @@ var AddEventComponent = /** @class */ (function () {
         this.eventData.eventCategory = this.eventForm.value.eventCategory;
         this.eventData.eventDuration = this.eventForm.value.eventDuration;
         this.eventData.eventItems = this.eventForm.value.items.map(function (item) { return item.itemName; });
+        this.eventData.comments = this.eventForm.value.comments;
+        this.eventData.college = this.eventForm.value.college;
         console.log(this.eventData);
         if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
             this.apiService.putData(this.eventData, this.route.snapshot.paramMap.get('id'), 'event');
         }
         else {
-            var response = this.apiService.postData(this.eventData, 'event').subscribe(function (response) {
+            var response = this.apiService.post(this.eventData, 'event').subscribe(function (response) {
                 _this.message = "Event Submitted: http://yfsevents.com?id=" + response.id;
                 _this.submitSuc = true;
             });
@@ -1015,7 +1322,7 @@ var Eventdata = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"row\" style=\"margin-top: 20px\">\n<div class=\"col-md-1\">\n\n</div>\n\n<div class=\"col-md-10\">\n        <div id=\"myGrid\"  style=\"width: 100%; height: 100%;\">\n<ag-grid-angular \n    class=\"ag-theme-balham\"\n    [rowData]=\"rowData\" \n    [columnDefs]=\"columnDefs\"\n    (rowClicked)=\"onSearch($event)\">\n</ag-grid-angular>\n        </div>\n</div>\n<div class=\"col-md-1\">\n    \n</div>\n\n</div>\n\n<div class=\"row\" style=\"margin-top:10px\">\n    <div class=\"col-md-1\"></div>\n    <div class=\"col-md-10\">\n        <div style=\"text-align:right\">\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/addevent'])\">\n            Add Event\n        </button>\n        </div>\n    </div>\n</div>"
+module.exports = "\n<div class=\"row\" style=\"margin-top: 20px\">\n<div class=\"col-md-1\">\n\n</div>\n\n<div class=\"col-md-10\">\n        <div id=\"myGrid\"  style=\"width: 100%; height: 100%;\">\n<ag-grid-angular \n    class=\"ag-theme-balham\"\n    [rowData]=\"rowData\" \n    [columnDefs]=\"columnDefs\"\n    [frameworkComponents]=\"frameworkComponents\">\n</ag-grid-angular>\n        </div>\n</div>\n<div class=\"col-md-1\">\n    \n</div>\n\n</div>\n\n<div class=\"row\" style=\"margin-top:10px\">\n    <div class=\"col-md-1\"></div>\n    <div class=\"col-md-10\">\n        <div style=\"text-align:right\">\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/addevent'])\">\n            Add Event\n        </button>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1033,6 +1340,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./renderer/button-renderer.component */ "./src/app/events/renderer/button-renderer.component.ts");
+
+
 
 
 
@@ -1049,10 +1360,30 @@ var EventListComponent = /** @class */ (function () {
             { headerName: 'Partner NGO', field: 'ngoName', filter: true },
             { headerName: 'Event Start Date', field: 'event_start_date', filter: true },
             { headerName: 'Event End Date', field: 'event_end_date', filter: true },
+            {
+                headerName: 'Email',
+                cellRenderer: 'buttonRenderer',
+                cellRendererParams: {
+                    onClick: this.onBtnClick1.bind(this),
+                    label: 'Send Email'
+                }
+            },
+            {
+                headerName: 'Edit',
+                cellRenderer: 'buttonRenderer',
+                cellRendererParams: {
+                    onClick: this.onSearch.bind(this),
+                    label: 'Edit'
+                }
+            }
         ];
+        this.frameworkComponents = {
+            buttonRenderer: _renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_5__["ButtonRendererComponent"],
+        };
     }
     EventListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.pipe = new _angular_common__WEBPACK_IMPORTED_MODULE_4__["DatePipe"]('en-US');
         this.apiService.getData('events').subscribe(function (data) {
             _this.eventData = data;
             console.log(data);
@@ -1062,15 +1393,18 @@ var EventListComponent = /** @class */ (function () {
                 eventName: event.eventName,
                 eventCategory: event.eventCategory,
                 ngoName: event.ngoName,
-                event_start_date: event.eventDuration[0],
-                event_end_date: event.eventDuration[1]
+                event_start_date: _this.pipe.transform(event.eventDuration[0], 'shortDate'),
+                event_end_date: _this.pipe.transform(event.eventDuration[1], 'shortDate')
             }); });
         }, function (err) {
             console.log(err.message);
         });
     };
     EventListComponent.prototype.onSearch = function (event) {
-        this.router.navigate(['addevent', { id: event.data.id }]);
+        this.router.navigate(['addevent', { id: event.rowData.id }]);
+    };
+    EventListComponent.prototype.onBtnClick1 = function (event) {
+        this.router.navigate(['email', { id: event.rowData.id }]);
     };
     EventListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1080,6 +1414,54 @@ var EventListComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], EventListComponent);
     return EventListComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/events/renderer/button-renderer.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/events/renderer/button-renderer.component.ts ***!
+  \**************************************************************/
+/*! exports provided: ButtonRendererComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonRendererComponent", function() { return ButtonRendererComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var ButtonRendererComponent = /** @class */ (function () {
+    function ButtonRendererComponent() {
+    }
+    ButtonRendererComponent.prototype.agInit = function (params) {
+        this.params = params;
+        this.label = this.params.label || null;
+    };
+    ButtonRendererComponent.prototype.refresh = function (params) {
+        return true;
+    };
+    ButtonRendererComponent.prototype.onClick = function ($event) {
+        if (this.params.onClick instanceof Function) {
+            // put anything into params u want pass into parents component
+            var params = {
+                event: $event,
+                rowData: this.params.node.data
+                // ...something
+            };
+            this.params.onClick(params);
+        }
+    };
+    ButtonRendererComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-button-renderer',
+            template: "\n    <button type=\"button\" (click)=\"onClick($event)\">{{label}}</button>\n    "
+        })
+    ], ButtonRendererComponent);
+    return ButtonRendererComponent;
 }());
 
 
@@ -1160,7 +1542,7 @@ module.exports = ".nav-tabs li a {\n    color: #777;\n  }\n  \n  .navbar {\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" style=\"background-color: #ba2a29;margin-bottom:20px;\">\n    <div class=\"container-fluid\"> \n      \n        <a class=\"navbar-brand\" href=\"#\" style=\"height:70px\">\n          <img src=\"/assets/youth-for-seva.png\" style=\"height:50px\">\n        </a>\n      \n      <div class=\"collapse navbar-collapse\">\n        <ul class=\"nav navbar-nav navbar-right text-white\" style=\"margin-top:12px;\">\n          <li><a href=\"\">HOME</a></li>\n          <li class=\"dropdown\">\n            <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">REGISTER\n            <span class=\"caret\"></span></a>\n            <ul class=\"dropdown-menu\">\n              <li><a [routerLink]=\"['/partnerngo']\">Partner NGO</a></li>\n              <li><a [routerLink]=\"['/volunteer-create']\">Volunteer</a></li>\n              <li><a [routerLink]=\"['/collegeregistration']\">College</a></li>\n              <li><a [routerLink]=\"['/inventorydata']\">Inventory Data</a></li>\n            </ul>\n          </li>\n          <li><a [routerLink]=\"['/events']\">EVENTS</a></li>\n          <li><a [routerLink]=\"\">CONTACT</a></li>\n          <li><a [routerLink]=\"\"><span class=\"glyphicon glyphicon-search\"></span></a></li>\n        </ul>\n      </div> \n    </div>\n  </nav>\n"
+module.exports = ""
 
 /***/ }),
 
@@ -1216,7 +1598,7 @@ module.exports = "\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJz
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well well-sm\">\n    <h3><strong> Inventory Data</strong></h3>\n  </div>\n  <form [formGroup]=\"inventoryData\">\n    <div class=\"panel panel-info\">\n      <div class=\"panel-body\">\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Item Name</label>\n              <input type=\"text\" formControlName=\"itemName\" class=\"form-control well well-sm\" required>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Event Category</label>\n              <div>\n                <select formControlName=\"eventCategory\" class=\"form-control well well-sm\" required>\n                  <option *ngFor=\"let evCat of eventCategoryList\" [(ngValue)]=\"evCat.value\">{{evCat.value}}</option>\n                </select>          \n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Comments</label>\n              <textarea type=\"text\" formControlName=\"comments\" class=\"form-control well well-sm\"></textarea>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </form>\n  <div class=\"text-center\">\n    <button class=\"btn btn-primary btn-sx\" (click)=\"onSubmit()\">Save</button>\n  </div>\n</div>"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well well-sm\">\n    <h3><strong> Inventory Data</strong></h3>\n  </div>\n  <form [formGroup]=\"inventoryData\">\n    <div class=\"panel panel-info\">\n      <div class=\"panel-body\">\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Item Name</label>\n              <input type=\"text\" formControlName=\"itemName\" class=\"form-control well well-sm\" required>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Event Category</label>\n              <div>\n                <select formControlName=\"eventCategory\" class=\"form-control well well-sm\" required>\n                  <option *ngFor=\"let evCat of eventCategoryList\" [(ngValue)]=\"evCat.value\">{{evCat.value}}</option>\n                </select>          \n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Comments</label>\n              <textarea type=\"text\" formControlName=\"comments\" class=\"form-control well well-sm\"></textarea>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </form>\n  <div class=\"text-center\">\n    <button class=\"btn btn-primary btn-sx\" (click)=\"onSubmit()\">Save</button>\n  </div>\n  <div class=\"spinner-border\" role=\"status\" *ngIf=\"loading\">\n    <span class=\"sr-only\">Loading...</span>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1241,10 +1623,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var InventoryDataComponent = /** @class */ (function () {
-    function InventoryDataComponent(formBuilder, inventoryService, route) {
+    function InventoryDataComponent(formBuilder, inventoryService, route, router) {
         this.formBuilder = formBuilder;
         this.inventoryService = inventoryService;
         this.route = route;
+        this.router = router;
+        this.loading = false;
     }
     InventoryDataComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1274,17 +1658,42 @@ var InventoryDataComponent = /** @class */ (function () {
             });
         }
     };
+    InventoryDataComponent.prototype.checkForMandatoryValidations = function (inventoryData) {
+        if (inventoryData.itemName && inventoryData.eventCategory && inventoryData.comments)
+            return true;
+        else
+            return false;
+    };
     InventoryDataComponent.prototype.onSubmit = function () {
+        var _this = this;
         var inventoryData = this.inventoryData.getRawValue();
-        if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
-            this.inventoryService.updateInventoryDataById(inventoryData, this.route.snapshot.paramMap.get('id')).subscribe(function (data) {
-                console.log('response', data);
-            });
+        if (this.checkForMandatoryValidations(inventoryData)) {
+            this.loading = true;
+            if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
+                this.inventoryService.updateInventoryDataById(inventoryData, this.route.snapshot.paramMap.get('id')).subscribe(function (data) {
+                    _this.loading = false;
+                    console.log('response', data);
+                    alert('Succesfully updated Inventory Data');
+                    _this.router.navigateByUrl("/inventorylist");
+                }, function (e) {
+                    _this.loading = false;
+                    console.log(e);
+                });
+            }
+            else {
+                this.inventoryService.saveInventoryData(inventoryData).subscribe(function (data) {
+                    _this.loading = false;
+                    console.log('response', data);
+                    alert('Succesfully saved Inventory Data');
+                    _this.router.navigateByUrl("/inventorylist");
+                }, function (e) {
+                    _this.loading = false;
+                    console.log(e);
+                });
+            }
         }
         else {
-            this.inventoryService.saveInventoryData(inventoryData).subscribe(function (data) {
-                console.log('response', data);
-            });
+            alert('Please fill out the mandatory fields');
         }
     };
     InventoryDataComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1293,7 +1702,8 @@ var InventoryDataComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./inventory-data.component.html */ "./src/app/inventory-data/inventory-data.component.html"),
             styles: [__webpack_require__(/*! ./inventory-data.component.css */ "./src/app/inventory-data/inventory-data.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _inventorydata_service__WEBPACK_IMPORTED_MODULE_3__["InventorydataService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _inventorydata_service__WEBPACK_IMPORTED_MODULE_3__["InventorydataService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], InventoryDataComponent);
     return InventoryDataComponent;
 }());
@@ -1362,7 +1772,7 @@ var InventoryListComponent = /** @class */ (function () {
         });
     };
     InventoryListComponent.prototype.onSearch = function (event) {
-        this.router.navigate(['inventorydata', { id: event.data.id }]);
+        this.router.navigate(['inventorydata', 'edit', { id: event.data.id }]);
     };
     InventoryListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1432,17 +1842,6 @@ var InventorydataService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/login/login.component.css":
-/*!*******************************************!*\
-  !*** ./src/app/login/login.component.css ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/*\n * Specific styles of signin component\n */\n/*\n * General styles\n */\nbody, html {\n  height: 100%;\n  background-repeat: no-repeat;\n  background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));\n}\n.card-container.card {\n  max-width: 350px;\n  padding: 40px 40px;\n}\n.btn {\n  font-weight: 700;\n  height: 36px;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n  cursor: default;\n}\n/*\n * Card component\n */\n.card {\n  background-color: #F7F7F7;\n  /* just in case there no content*/\n  padding: 20px 25px 30px;\n  margin: 0 auto 25px;\n  margin-top: 50px;\n  /* shadows and rounded borders */\n  border-radius: 2px;\n  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);\n}\n.profile-img-card {\n  width: 96px;\n  height: 96px;\n  margin: 0 auto 10px;\n  display: block;\n  border-radius: 50%;\n}\n/*\n * Form styles\n */\n.profile-name-card {\n  font-size: 16px;\n  font-weight: bold;\n  text-align: center;\n  margin: 10px 0 0;\n  min-height: 1em;\n}\n.reauth-email {\n  display: block;\n  color: #404040;\n  line-height: 2;\n  margin-bottom: 10px;\n  font-size: 14px;\n  text-align: center;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  box-sizing: border-box;\n}\n.form-signin #inputEmail,\n.form-signin #inputPassword {\n  direction: ltr;\n  height: 44px;\n  font-size: 16px;\n}\n.form-signin input[type=email],\n.form-signin input[type=password],\n.form-signin input[type=text],\n.form-signin button {\n  width: 100%;\n  display: block;\n  margin-bottom: 10px;\n  z-index: 1;\n  position: relative;\n  box-sizing: border-box;\n}\n.form-signin .form-control:focus {\n  border-color: rgb(104, 145, 162);\n  outline: 0;\n  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);\n}\n.btn.btn-signin {\n  /*background-color: #4d90fe; */\n  background-color: rgb(104, 145, 162);\n  /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/\n  padding: 0px;\n  font-weight: 700;\n  font-size: 14px;\n  height: 36px;\n  border-radius: 3px;\n  border: none;\n  transition: all 0.218s;\n}\n.btn.btn-signin:hover,\n.btn.btn-signin:active,\n.btn.btn-signin:focus {\n  background-color: rgb(12, 97, 33);\n}\n.forgot-password {\n  color: rgb(104, 145, 162);\n}\n.forgot-password:hover,\n.forgot-password:active,\n.forgot-password:focus{\n  color: rgb(12, 97, 33);\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9naW4vbG9naW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7RUFFRTtBQUNGOztFQUVFO0FBQ0Y7RUFDRSxZQUFZO0VBQ1osNEJBQTRCO0VBQzVCLHNFQUFzRTtBQUN4RTtBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGtCQUFrQjtBQUNwQjtBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLFlBQVk7RUFDWixzQkFBc0I7RUFDdEIseUJBQXlCO0VBQ3pCLHFCQUFpQjtNQUFqQixpQkFBaUI7RUFDakIsZUFBZTtBQUNqQjtBQUVBOztFQUVFO0FBQ0Y7RUFDRSx5QkFBeUI7RUFDekIsaUNBQWlDO0VBQ2pDLHVCQUF1QjtFQUN2QixtQkFBbUI7RUFDbkIsZ0JBQWdCO0VBQ2hCLGdDQUFnQztFQUdoQyxrQkFBa0I7RUFHbEIsMENBQTBDO0FBQzVDO0FBRUE7RUFDRSxXQUFXO0VBQ1gsWUFBWTtFQUNaLG1CQUFtQjtFQUNuQixjQUFjO0VBR2Qsa0JBQWtCO0FBQ3BCO0FBRUE7O0VBRUU7QUFDRjtFQUNFLGVBQWU7RUFDZixpQkFBaUI7RUFDakIsa0JBQWtCO0VBQ2xCLGdCQUFnQjtFQUNoQixlQUFlO0FBQ2pCO0FBRUE7RUFDRSxjQUFjO0VBQ2QsY0FBYztFQUNkLGNBQWM7RUFDZCxtQkFBbUI7RUFDbkIsZUFBZTtFQUNmLGtCQUFrQjtFQUNsQixnQkFBZ0I7RUFDaEIsdUJBQXVCO0VBQ3ZCLG1CQUFtQjtFQUduQixzQkFBc0I7QUFDeEI7QUFFQTs7RUFFRSxjQUFjO0VBQ2QsWUFBWTtFQUNaLGVBQWU7QUFDakI7QUFFQTs7OztFQUlFLFdBQVc7RUFDWCxjQUFjO0VBQ2QsbUJBQW1CO0VBQ25CLFVBQVU7RUFDVixrQkFBa0I7RUFHbEIsc0JBQXNCO0FBQ3hCO0FBRUE7RUFDRSxnQ0FBZ0M7RUFDaEMsVUFBVTtFQUVWLHVFQUF1RTtBQUN6RTtBQUVBO0VBQ0UsOEJBQThCO0VBQzlCLG9DQUFvQztFQUNwQywyRUFBMkU7RUFDM0UsWUFBWTtFQUNaLGdCQUFnQjtFQUNoQixlQUFlO0VBQ2YsWUFBWTtFQUdaLGtCQUFrQjtFQUNsQixZQUFZO0VBSVosc0JBQXNCO0FBQ3hCO0FBRUE7OztFQUdFLGlDQUFpQztBQUNuQztBQUVBO0VBQ0UseUJBQXlCO0FBQzNCO0FBRUE7OztFQUdFLHNCQUFzQjtBQUN4QiIsImZpbGUiOiJzcmMvYXBwL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxuICogU3BlY2lmaWMgc3R5bGVzIG9mIHNpZ25pbiBjb21wb25lbnRcbiAqL1xuLypcbiAqIEdlbmVyYWwgc3R5bGVzXG4gKi9cbmJvZHksIGh0bWwge1xuICBoZWlnaHQ6IDEwMCU7XG4gIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG4gIGJhY2tncm91bmQtaW1hZ2U6IGxpbmVhci1ncmFkaWVudChyZ2IoMTA0LCAxNDUsIDE2MiksIHJnYigxMiwgOTcsIDMzKSk7XG59XG5cbi5jYXJkLWNvbnRhaW5lci5jYXJkIHtcbiAgbWF4LXdpZHRoOiAzNTBweDtcbiAgcGFkZGluZzogNDBweCA0MHB4O1xufVxuXG4uYnRuIHtcbiAgZm9udC13ZWlnaHQ6IDcwMDtcbiAgaGVpZ2h0OiAzNnB4O1xuICAtbW96LXVzZXItc2VsZWN0OiBub25lO1xuICAtd2Via2l0LXVzZXItc2VsZWN0OiBub25lO1xuICB1c2VyLXNlbGVjdDogbm9uZTtcbiAgY3Vyc29yOiBkZWZhdWx0O1xufVxuXG4vKlxuICogQ2FyZCBjb21wb25lbnRcbiAqL1xuLmNhcmQge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjRjdGN0Y3O1xuICAvKiBqdXN0IGluIGNhc2UgdGhlcmUgbm8gY29udGVudCovXG4gIHBhZGRpbmc6IDIwcHggMjVweCAzMHB4O1xuICBtYXJnaW46IDAgYXV0byAyNXB4O1xuICBtYXJnaW4tdG9wOiA1MHB4O1xuICAvKiBzaGFkb3dzIGFuZCByb3VuZGVkIGJvcmRlcnMgKi9cbiAgLW1vei1ib3JkZXItcmFkaXVzOiAycHg7XG4gIC13ZWJraXQtYm9yZGVyLXJhZGl1czogMnB4O1xuICBib3JkZXItcmFkaXVzOiAycHg7XG4gIC1tb3otYm94LXNoYWRvdzogMHB4IDJweCAycHggcmdiYSgwLCAwLCAwLCAwLjMpO1xuICAtd2Via2l0LWJveC1zaGFkb3c6IDBweCAycHggMnB4IHJnYmEoMCwgMCwgMCwgMC4zKTtcbiAgYm94LXNoYWRvdzogMHB4IDJweCAycHggcmdiYSgwLCAwLCAwLCAwLjMpO1xufVxuXG4ucHJvZmlsZS1pbWctY2FyZCB7XG4gIHdpZHRoOiA5NnB4O1xuICBoZWlnaHQ6IDk2cHg7XG4gIG1hcmdpbjogMCBhdXRvIDEwcHg7XG4gIGRpc3BsYXk6IGJsb2NrO1xuICAtbW96LWJvcmRlci1yYWRpdXM6IDUwJTtcbiAgLXdlYmtpdC1ib3JkZXItcmFkaXVzOiA1MCU7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbn1cblxuLypcbiAqIEZvcm0gc3R5bGVzXG4gKi9cbi5wcm9maWxlLW5hbWUtY2FyZCB7XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luOiAxMHB4IDAgMDtcbiAgbWluLWhlaWdodDogMWVtO1xufVxuXG4ucmVhdXRoLWVtYWlsIHtcbiAgZGlzcGxheTogYmxvY2s7XG4gIGNvbG9yOiAjNDA0MDQwO1xuICBsaW5lLWhlaWdodDogMjtcbiAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIHRleHQtb3ZlcmZsb3c6IGVsbGlwc2lzO1xuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICAtbW96LWJveC1zaXppbmc6IGJvcmRlci1ib3g7XG4gIC13ZWJraXQtYm94LXNpemluZzogYm9yZGVyLWJveDtcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDtcbn1cblxuLmZvcm0tc2lnbmluICNpbnB1dEVtYWlsLFxuLmZvcm0tc2lnbmluICNpbnB1dFBhc3N3b3JkIHtcbiAgZGlyZWN0aW9uOiBsdHI7XG4gIGhlaWdodDogNDRweDtcbiAgZm9udC1zaXplOiAxNnB4O1xufVxuXG4uZm9ybS1zaWduaW4gaW5wdXRbdHlwZT1lbWFpbF0sXG4uZm9ybS1zaWduaW4gaW5wdXRbdHlwZT1wYXNzd29yZF0sXG4uZm9ybS1zaWduaW4gaW5wdXRbdHlwZT10ZXh0XSxcbi5mb3JtLXNpZ25pbiBidXR0b24ge1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogYmxvY2s7XG4gIG1hcmdpbi1ib3R0b206IDEwcHg7XG4gIHotaW5kZXg6IDE7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgLW1vei1ib3gtc2l6aW5nOiBib3JkZXItYm94O1xuICAtd2Via2l0LWJveC1zaXppbmc6IGJvcmRlci1ib3g7XG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XG59XG5cbi5mb3JtLXNpZ25pbiAuZm9ybS1jb250cm9sOmZvY3VzIHtcbiAgYm9yZGVyLWNvbG9yOiByZ2IoMTA0LCAxNDUsIDE2Mik7XG4gIG91dGxpbmU6IDA7XG4gIC13ZWJraXQtYm94LXNoYWRvdzogaW5zZXQgMCAxcHggMXB4IHJnYmEoMCwwLDAsLjA3NSksMCAwIDhweCByZ2IoMTA0LCAxNDUsIDE2Mik7XG4gIGJveC1zaGFkb3c6IGluc2V0IDAgMXB4IDFweCByZ2JhKDAsMCwwLC4wNzUpLDAgMCA4cHggcmdiKDEwNCwgMTQ1LCAxNjIpO1xufVxuXG4uYnRuLmJ0bi1zaWduaW4ge1xuICAvKmJhY2tncm91bmQtY29sb3I6ICM0ZDkwZmU7ICovXG4gIGJhY2tncm91bmQtY29sb3I6IHJnYigxMDQsIDE0NSwgMTYyKTtcbiAgLyogYmFja2dyb3VuZC1jb2xvcjogbGluZWFyLWdyYWRpZW50KHJnYigxMDQsIDE0NSwgMTYyKSwgcmdiKDEyLCA5NywgMzMpKTsqL1xuICBwYWRkaW5nOiAwcHg7XG4gIGZvbnQtd2VpZ2h0OiA3MDA7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgaGVpZ2h0OiAzNnB4O1xuICAtbW96LWJvcmRlci1yYWRpdXM6IDNweDtcbiAgLXdlYmtpdC1ib3JkZXItcmFkaXVzOiAzcHg7XG4gIGJvcmRlci1yYWRpdXM6IDNweDtcbiAgYm9yZGVyOiBub25lO1xuICAtby10cmFuc2l0aW9uOiBhbGwgMC4yMThzO1xuICAtbW96LXRyYW5zaXRpb246IGFsbCAwLjIxOHM7XG4gIC13ZWJraXQtdHJhbnNpdGlvbjogYWxsIDAuMjE4cztcbiAgdHJhbnNpdGlvbjogYWxsIDAuMjE4cztcbn1cblxuLmJ0bi5idG4tc2lnbmluOmhvdmVyLFxuLmJ0bi5idG4tc2lnbmluOmFjdGl2ZSxcbi5idG4uYnRuLXNpZ25pbjpmb2N1cyB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYigxMiwgOTcsIDMzKTtcbn1cblxuLmZvcmdvdC1wYXNzd29yZCB7XG4gIGNvbG9yOiByZ2IoMTA0LCAxNDUsIDE2Mik7XG59XG5cbi5mb3Jnb3QtcGFzc3dvcmQ6aG92ZXIsXG4uZm9yZ290LXBhc3N3b3JkOmFjdGl2ZSxcbi5mb3Jnb3QtcGFzc3dvcmQ6Zm9jdXN7XG4gIGNvbG9yOiByZ2IoMTIsIDk3LCAzMyk7XG59XG4iXX0= */"
-
-/***/ }),
-
 /***/ "./src/app/login/login.component.html":
 /*!********************************************!*\
   !*** ./src/app/login/login.component.html ***!
@@ -1466,8 +1865,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _model_model_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../model/model.user */ "./src/app/model/model.user.ts");
-/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var _app_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../app.service */ "./src/app/app.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 
 
@@ -1475,30 +1874,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(authService, router) {
-        this.authService = authService;
+    function LoginComponent(app, http, router) {
+        this.app = app;
+        this.http = http;
         this.router = router;
-        this.user = new _model_model_user__WEBPACK_IMPORTED_MODULE_2__["User"]();
+        this.user = { username: '', password: '' };
     }
-    LoginComponent.prototype.ngOnInit = function () {
-    };
     LoginComponent.prototype.login = function () {
         var _this = this;
-        this.authService.logIn(this.user)
-            .subscribe(function (data) {
-            _this.router.navigate(['/events']);
-        }, function (err) {
-            _this.errorMessage = "error :  Username or password is incorrect";
+        this.app.authenticate(this.user, function () {
+            _this.router.navigateByUrl('/events');
         });
+        return false;
     };
     LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'login',
-            template: __webpack_require__(/*! ./login.component.html */ "./src/app/login/login.component.html"),
-            encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
-            styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/login/login.component.css")]
+            template: __webpack_require__(/*! ./login.component.html */ "./src/app/login/login.component.html")
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_service__WEBPACK_IMPORTED_MODULE_2__["AppService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -1578,10 +1971,38 @@ var PartnerNgoGridComponent = /** @class */ (function () {
         this.headers = [
             { headerName: 'Partner NGO', field: 'name', filter: true, sortable: true },
             { headerName: 'Description', field: 'description', filter: true },
+            { headerName: 'Branch', field: 'branch', filter: true },
+            { headerName: 'Registration Number', field: 'registrationNumber', filter: true },
+            { headerName: 'Address Line 1', field: 'addressLine1', filter: true },
+            { headerName: 'Address Line 2', field: 'addressLine2', filter: true },
             { headerName: 'City', field: 'city', filter: true },
+            { headerName: 'State', field: 'state', filter: true },
+            { headerName: 'Pincode', field: 'pincode', filter: true },
             { headerName: 'Authorized Person Name', field: 'authorizedPersonName' },
-            { headerName: 'Authorized Person Contact', field: 'authorizedPersonContact'
-            }
+            { headerName: 'Authorized Person Contact', field: 'authorizedPersonContact' },
+            { headerName: 'Alternate Contact Details', field: 'contact2' },
+            { headerName: 'Email ID', field: 'email1' },
+            { headerName: 'Alternate Email ID', field: 'email2' },
+            { headerName: 'Authorized Person Name (2)', field: 'authorizedPersonName1' },
+            { headerName: 'Authorized Person Contact (2)', field: 'authorizedPersonContact1' },
+            { headerName: 'Alternate Contact Details (2)', field: 'contact21' },
+            { headerName: 'Email ID (2)', field: 'email11' },
+            { headerName: 'Alternate Email ID (2)', field: 'email21' },
+            { headerName: 'Authorized Person Name (3)', field: 'authorizedPersonName2' },
+            { headerName: 'Authorized Person Contact (3)', field: 'authorizedPersonContact2' },
+            { headerName: 'Alternate Contact Details (3)', field: 'contact22' },
+            { headerName: 'Email ID (3)', field: 'email12' },
+            { headerName: 'Alternate Email ID (3)', field: 'email22' },
+            { headerName: 'Authorized Person Name (4)', field: 'authorizedPersonName3' },
+            { headerName: 'Authorized Person Contact (4)', field: 'authorizedPersonContact3' },
+            { headerName: 'Alternate Contact Details (4)', field: 'contact23' },
+            { headerName: 'Email ID (4)', field: 'email13' },
+            { headerName: 'Alternate Email ID (4)', field: 'email23' },
+            { headerName: 'Authorized Person Name (5)', field: 'authorizedPersonName4' },
+            { headerName: 'Authorized Person Contact (5)', field: 'authorizedPersonContact4' },
+            { headerName: 'Alternate Contact Details (5)', field: 'contact24' },
+            { headerName: 'Email ID (5)', field: 'email14' },
+            { headerName: 'Alternate Email ID (5)', field: 'email24' },
         ];
     }
     PartnerNgoGridComponent.prototype.ngOnInit = function () {
@@ -1598,8 +2019,41 @@ var PartnerNgoGridComponent = /** @class */ (function () {
             var result = JSON.parse(JSON.stringify(response));
             Array.from(result).forEach(function (element) {
                 var authorizedPersons = JSON.parse(JSON.stringify(element)).authorizedPerson;
-                Object.assign(element, { authorizedPersonName: authorizedPersons[0].name });
-                Object.assign(element, { authorizedPersonContact: authorizedPersons[0].contact1 });
+                if (authorizedPersons[0] != null) {
+                    Object.assign(element, { authorizedPersonName: authorizedPersons[0].name });
+                    Object.assign(element, { authorizedPersonContact: authorizedPersons[0].contact1 });
+                    Object.assign(element, { contact2: authorizedPersons[0].contact2 });
+                    Object.assign(element, { email1: authorizedPersons[0].email1 });
+                    Object.assign(element, { email2: authorizedPersons[0].email2 });
+                }
+                if (authorizedPersons[1] != null) {
+                    Object.assign(element, { authorizedPersonName1: authorizedPersons[1].name });
+                    Object.assign(element, { authorizedPersonContact1: authorizedPersons[1].contact1 });
+                    Object.assign(element, { contact21: authorizedPersons[1].contact2 });
+                    Object.assign(element, { email11: authorizedPersons[1].email1 });
+                    Object.assign(element, { email21: authorizedPersons[1].email2 });
+                }
+                if (authorizedPersons[2] != null) {
+                    Object.assign(element, { authorizedPersonName2: authorizedPersons[2].name });
+                    Object.assign(element, { authorizedPersonContact2: authorizedPersons[2].contact1 });
+                    Object.assign(element, { contact22: authorizedPersons[2].contact2 });
+                    Object.assign(element, { email12: authorizedPersons[2].email1 });
+                    Object.assign(element, { email22: authorizedPersons[2].email2 });
+                }
+                if (authorizedPersons[3] != null) {
+                    Object.assign(element, { authorizedPersonName3: authorizedPersons[3].name });
+                    Object.assign(element, { authorizedPersonContact3: authorizedPersons[3].contact1 });
+                    Object.assign(element, { contact23: authorizedPersons[3].contact2 });
+                    Object.assign(element, { email13: authorizedPersons[3].email1 });
+                    Object.assign(element, { email23: authorizedPersons[3].email2 });
+                }
+                if (authorizedPersons[4] != null) {
+                    Object.assign(element, { authorizedPersonName4: authorizedPersons[4].name });
+                    Object.assign(element, { authorizedPersonContact4: authorizedPersons[4].contact1 });
+                    Object.assign(element, { contact24: authorizedPersons[4].contact2 });
+                    Object.assign(element, { email14: authorizedPersons[4].email1 });
+                    Object.assign(element, { email24: authorizedPersons[4].email2 });
+                }
             });
             console.log(response);
             console.log(_this.data);
@@ -1839,21 +2293,47 @@ var PartnerNGOComponent = /** @class */ (function () {
     PartnerNGOComponent.prototype.onClose = function () {
         this.router.navigateByUrl("/grid/partnerngo");
     };
+    PartnerNGOComponent.prototype.checkForMandatoryValidations = function (partnerNgoDetails) {
+        var checkflag = false;
+        if (partnerNgoDetails.name && partnerNgoDetails.addressLine1 && partnerNgoDetails.city && partnerNgoDetails.state) {
+            if (partnerNgoDetails.authorizedPerson.length) {
+                partnerNgoDetails.authorizedPerson.forEach(function (o) {
+                    if (!o.name || !o.contact1) {
+                        checkflag = true;
+                        return false;
+                    }
+                });
+                if (!checkflag) {
+                    return true;
+                }
+            }
+            else {
+                return true;
+            }
+        }
+        else
+            return false;
+    };
     PartnerNGOComponent.prototype.onSubmit = function () {
         var json = Object.assign({ authorizedPerson: this.getAuthorizedPersons().value }, this.myForm.get('basicInfo').value, this.myForm.get('address').value);
         if (this.mode == 'edit') {
             json = Object.assign(json, { id: this.id });
         }
         console.log('submitting: ', json);
-        var response = this.apiService.postData(json, 'partnerngo');
-        if (response) {
-            if (this.mode == 'edit') {
-                alert('Succesfully updated Partner NGO');
+        if (this.checkForMandatoryValidations(json)) {
+            var response = this.apiService.postData(json, 'partnerngo');
+            if (response) {
+                if (this.mode == 'edit') {
+                    alert('Succesfully updated Partner NGO');
+                }
+                else {
+                    alert('Succesfully registered Partner NGO');
+                }
+                this.router.navigateByUrl("/grid/partnerngo");
             }
-            else {
-                alert('Succesfully registered Partner NGO');
-            }
-            this.router.navigateByUrl("/grid/partnerngo");
+        }
+        else {
+            alert('Please fill out the mandatory fields');
         }
     };
     PartnerNGOComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1956,7 +2436,7 @@ var RegisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#mainDiv\n{\n  height: 100%;\n  width:70%;\n  margin:auto;\n}\n\n#heading\n{\n  height: 50px;\n  width: 100%;\n  /*padding-left: 35%;*/\n  /*margin: auto;*/\n  font-size: 25px;\n  margin-top: 50px;\n  background-color: silver;\n}\n\n#buttonTab\n{\n  paing-left:10%;\n}\n\n#buttonCancel\n{\nmargin-left: 30%;\n}\n\n#buttonSubmit\n{\n  margin-left: 4%;\n}\n\n#backButton\n{\n  width:30%;\n  float:left;\n}\n\n#headingText\n{\n  width:70%;\n  float:left\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VuZC1tYWlsL3NlbmQtbWFpbC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztFQUVFLFlBQVk7RUFDWixTQUFTO0VBQ1QsV0FBVztBQUNiOztBQUVBOztFQUVFLFlBQVk7RUFDWixXQUFXO0VBQ1gscUJBQXFCO0VBQ3JCLGdCQUFnQjtFQUNoQixlQUFlO0VBQ2YsZ0JBQWdCO0VBQ2hCLHdCQUF3QjtBQUMxQjs7QUFDQTs7RUFFRSxjQUFjO0FBQ2hCOztBQUNBOztBQUVBLGdCQUFnQjtBQUNoQjs7QUFDQTs7RUFFRSxlQUFlO0FBQ2pCOztBQUNBOztFQUVFLFNBQVM7RUFDVCxVQUFVO0FBQ1o7O0FBQ0E7O0VBRUUsU0FBUztFQUNUO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9zZW5kLW1haWwvc2VuZC1tYWlsLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjbWFpbkRpdlxue1xuICBoZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOjcwJTtcbiAgbWFyZ2luOmF1dG87XG59XG5cbiNoZWFkaW5nXG57XG4gIGhlaWdodDogNTBweDtcbiAgd2lkdGg6IDEwMCU7XG4gIC8qcGFkZGluZy1sZWZ0OiAzNSU7Ki9cbiAgLyptYXJnaW46IGF1dG87Ki9cbiAgZm9udC1zaXplOiAyNXB4O1xuICBtYXJnaW4tdG9wOiA1MHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBzaWx2ZXI7XG59XG4jYnV0dG9uVGFiXG57XG4gIHBhaW5nLWxlZnQ6MTAlO1xufVxuI2J1dHRvbkNhbmNlbFxue1xubWFyZ2luLWxlZnQ6IDMwJTtcbn1cbiNidXR0b25TdWJtaXRcbntcbiAgbWFyZ2luLWxlZnQ6IDQlO1xufVxuI2JhY2tCdXR0b25cbntcbiAgd2lkdGg6MzAlO1xuICBmbG9hdDpsZWZ0O1xufVxuI2hlYWRpbmdUZXh0XG57XG4gIHdpZHRoOjcwJTtcbiAgZmxvYXQ6bGVmdFxufVxuIl19 */"
+module.exports = "#mainDiv\n{\n  height: 100%;\n  width:70%;\n  margin:auto;\n  background-color: azure;\n  margin-top: 2%;\n  border-radius: 10px;\n}\n\n#heading\n{\n  height: 50px;\n  width: 70%;\n  /*padding-left: 35%;*/\n  /*margin: auto;*/\n  font-size: 25px;\n  margin-top: 25px;   \n  margin-left: 15%;\n   background-color: burlywood;\n   border-radius: 10px;\n}\n\n#buttonTab\n{\n  padding-left:10%;\n  margin-top: 10px;\n}\n\n#buttonCancel\n{\nmargin-left: 30%;\n}\n\n#buttonSubmit\n{\n  margin-left: 4%;\n}\n\n#backButton\n{\n  width:30%;\n  float:left;\n}\n\n#headingText\n{\n  width:70%;\n  padding-left: 29%;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VuZC1tYWlsL3NlbmQtbWFpbC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztFQUVFLFlBQVk7RUFDWixTQUFTO0VBQ1QsV0FBVztFQUNYLHVCQUF1QjtFQUN2QixjQUFjO0VBQ2QsbUJBQW1CO0FBQ3JCOztBQUVBOztFQUVFLFlBQVk7RUFDWixVQUFVO0VBQ1YscUJBQXFCO0VBQ3JCLGdCQUFnQjtFQUNoQixlQUFlO0VBQ2YsZ0JBQWdCO0VBQ2hCLGdCQUFnQjtHQUNmLDJCQUEyQjtHQUMzQixtQkFBbUI7QUFDdEI7O0FBQ0E7O0VBRUUsZ0JBQWdCO0VBQ2hCLGdCQUFnQjtBQUNsQjs7QUFDQTs7QUFFQSxnQkFBZ0I7QUFDaEI7O0FBQ0E7O0VBRUUsZUFBZTtBQUNqQjs7QUFDQTs7RUFFRSxTQUFTO0VBQ1QsVUFBVTtBQUNaOztBQUNBOztFQUVFLFNBQVM7RUFDVCxpQkFBaUI7QUFDbkIiLCJmaWxlIjoic3JjL2FwcC9zZW5kLW1haWwvc2VuZC1tYWlsLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjbWFpbkRpdlxue1xuICBoZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOjcwJTtcbiAgbWFyZ2luOmF1dG87XG4gIGJhY2tncm91bmQtY29sb3I6IGF6dXJlO1xuICBtYXJnaW4tdG9wOiAyJTtcbiAgYm9yZGVyLXJhZGl1czogMTBweDtcbn1cblxuI2hlYWRpbmdcbntcbiAgaGVpZ2h0OiA1MHB4O1xuICB3aWR0aDogNzAlO1xuICAvKnBhZGRpbmctbGVmdDogMzUlOyovXG4gIC8qbWFyZ2luOiBhdXRvOyovXG4gIGZvbnQtc2l6ZTogMjVweDtcbiAgbWFyZ2luLXRvcDogMjVweDsgICBcbiAgbWFyZ2luLWxlZnQ6IDE1JTtcbiAgIGJhY2tncm91bmQtY29sb3I6IGJ1cmx5d29vZDtcbiAgIGJvcmRlci1yYWRpdXM6IDEwcHg7XG59XG4jYnV0dG9uVGFiXG57XG4gIHBhZGRpbmctbGVmdDoxMCU7XG4gIG1hcmdpbi10b3A6IDEwcHg7XG59XG4jYnV0dG9uQ2FuY2VsXG57XG5tYXJnaW4tbGVmdDogMzAlO1xufVxuI2J1dHRvblN1Ym1pdFxue1xuICBtYXJnaW4tbGVmdDogNCU7XG59XG4jYmFja0J1dHRvblxue1xuICB3aWR0aDozMCU7XG4gIGZsb2F0OmxlZnQ7XG59XG4jaGVhZGluZ1RleHRcbntcbiAgd2lkdGg6NzAlO1xuICBwYWRkaW5nLWxlZnQ6IDI5JTtcbn1cbiJdfQ== */"
 
 /***/ }),
 
@@ -1967,7 +2447,7 @@ module.exports = "#mainDiv\n{\n  height: 100%;\n  width:70%;\n  margin:auto;\n}\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--<div class=\"row custom-row\" id=\"mainDiv\">-->\n  <!--<div class= \"col-sm-5 custom-container jumbotron\">-->\n    <!--<form class=\"form-horizontal\"  #sendmailForm=\"ngForm\"-->\n          <!--(ngSubmit)=\"onFormSubmit(sendmailForm)\" >-->\n      <!--<fieldset>-->\n        <!--<legend>SignUp</legend>-->\n\n        <!--&lt;!&ndash;- To Block -&ndash;&gt;-->\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"toEmail\">to</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"toEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.to\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"to\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"to\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;#emailTo = \"ngModel\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\" required>&ndash;&gt;-->\n        <!--</div>-->\n        <!---->\n\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"ccEmail\">cc</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"ccEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.cc\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"cc\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;#emailCc = \"ngModel\"&ndash;&gt;-->\n\n                 <!--&lt;!&ndash;pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"cc\">&ndash;&gt;-->\n        <!--</div>-->\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"bccEmail\">bcc</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"bccEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.bcc\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"bcc\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;#emailBcc = \"ngModel\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"bcc\" >&ndash;&gt;-->\n        <!--</div>-->\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"subjectEmail\">Subject</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"subjectEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.subject\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"subject\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"subject\" required>&ndash;&gt;-->\n        <!--</div>-->\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"textEmail\">Text</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"textEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;#pwd = \"ngModel\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;minlength=\"8\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;required>&ndash;&gt;-->\n        <!--</div>-->\n\n\n        <!--&lt;!&ndash;- Buttons Block -&ndash;&gt;-->\n\n      <!--</fieldset>-->\n    <!--</form>-->\n    <!--{{email | json}}-->\n  <!--</div>-->\n  <div id=\"heading\">\n    <div id=\"backButton\">\n      <a [routerLink]=\"['/events']\">Back to Events</a>\n    </div>\n    <div id=\"headingText\">\n    Enter Email Details\n    </div>\n  </div>\n  <div id=\"mainDiv\">\n    <form class=\"form-horizontal\"  #sendmailForm=\"ngForm\"\n          (ngSubmit)=\"onFormSubmit(sendmailForm)\" >\n    <table class=\"table-condensed form-table\">\n      <tr class=\"row\">\n        <td class=\"col-md-6 offset-md-3\">\n          <div class=\"form-group\">\n            <label class=\"control-label\">To</label>\n            <input type=\"text\"\n                   id=\"toEmail\"\n                   [(ngModel)]=\"email.to\"\n                   name=\"to\"\n                   placeholder=\"to\"\n                   #emailTo = \"ngModel\"\n                   pattern=\"([a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3},?)*$\"\n                   class=\"form-control well well-sm\" required>\n          </div>\n        </td>\n        <td class=\"col-md-4 offset-md-3\">\n          <div class=\"form-group\">\n            <div *ngIf=\"emailTo.invalid && (emailTo.dirty || emailTo.touched)\"\n                 class=\"alert alert-danger\">\n              <div *ngIf = \"emailTo.errors?.required\">\n                Email field can't be blank\n              </div>\n              <div *ngIf = \"emailTo.errors?.dirty\">\n                Enter in correct Format\n              </div>\n              <div *ngIf = \"emailTo.errors?.pattern && emailTo.touched\">\n                The email id doesn't seem right\n              </div>\n            </div>\n          </div>\n        </td>\n      </tr>\n\n\n      <tr class=\"row\">\n        <td class=\"col-md-6 offset-md-3\">\n          <div class=\"form-group\">\n            <label class=\"control-label\">Cc</label>\n            <input type=\"text\"\n                   id=\"ccEmail\"\n                   [(ngModel)]=\"email.cc\"\n                   name=\"cc\"\n                   #emailCc = \"ngModel\"\n                   pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\"\n                   placeholder=\"cc\"\n                   class=\"form-control well well-sm\">\n          </div>\n        </td>\n        <td class=\"col-md-4 offset-md-3\">\n          <div class=\"form-group\">\n            <div *ngIf=\"emailCc.invalid && (emailCc.dirty || emailCc.touched)\"\n                 class=\"alert alert-danger\">\n              <div *ngIf = \"emailCc.errors?.required\">\n                Email field can't be blank\n              </div>\n              <div *ngIf = \"emailCc.errors?.dirty\">\n                Enter in correct Format\n              </div>\n              <div *ngIf = \"emailCc.errors?.pattern && emailCc.touched\">\n                The email id doesn't seem right\n              </div>\n            </div>\n          </div>\n        </td>\n      </tr>\n      <tr class=\"row\">\n        <td class=\"col-md-6 offset-md-3\">\n          <div class=\"form-group\">\n            <label class=\"control-label\">Bcc</label>\n            <input type=\"text\"\n                   id=\"bccEmail\"\n                   [(ngModel)]=\"email.bcc\"\n                   name=\"bcc\"\n                   #emailBcc = \"ngModel\"\n                   pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3},?$\"\n                   placeholder=\"bcc\"\n                   class=\"form-control well well-sm\">\n          </div>\n        </td>\n        <td class=\"col-md-4 offset-md-3\">\n          <div class=\"form-group\">\n            <div *ngIf=\"emailBcc.invalid && (emailBcc.dirty || emailBcc.touched)\"\n                 class=\"alert alert-danger\">\n              <div *ngIf = \"emailBcc.errors?.required\">\n                Email field can't be blank\n              </div>\n              <div *ngIf = \"emailBcc.errors?.dirty\">\n                Enter in correct Format\n              </div>\n              <div *ngIf = \"emailBcc.errors?.pattern && emailBcc.touched\">\n                The email id doesn't seem right\n              </div>\n            </div>\n          </div>\n        </td>\n      </tr>\n      <tr class=\"row\">\n        <td class=\"col-md-2 offset-md-3\">\n          <div class=\"form-group\">\n\n            <label class=\"control-label\" for=\"subjectEmail\">Subject</label>\n            <input type=\"text\"\n                   id=\"subjectEmail\"\n                   [(ngModel)]=\"email.subject\"\n                   name=\"subject\"\n                   placeholder=\"subject\"\n                   class=\"form-control well well-sm\"\n                   required>\n          </div>\n        </td>\n      </tr>\n      <tr class=\"row\">\n        <td class=\"col-md-2 offset-md-3\">\n          <div class=\"form-group\">\n\n            <label class=\"control-label\" for=\"subjectEmail\">Text</label>\n            <input type=\"text\"\n                   id=\"textEmail\"\n                   [(ngModel)]=\"email.text\"\n                   name=\"text\"\n                   placeholder=\"text\"\n                   #pwd = \"ngModel\"\n                   minlength=\"8\"\n                   class=\"form-control well well-sm\"\n                   required>\n          </div>\n        </td>\n      </tr>\n    </table>\n    <div class=\"form-group\" id=\"buttonTab\">\n      <button type=\"reset\" class=\"btn btn-default\" id=\"buttonCancel\" >Cancel</button>\n      <button type=\"submit\" class=\"btn btn-primary\"\n              [disabled]=\"!sendmailForm.form.valid\" id=\"buttonSubmit\">Submit</button>\n    </div>\n</form>\n</div>\n"
+module.exports = "<!--<div class=\"row custom-row\" id=\"mainDiv\">-->\n  <!--<div class= \"col-sm-5 custom-container jumbotron\">-->\n    <!--<form class=\"form-horizontal\"  #sendmailForm=\"ngForm\"-->\n          <!--(ngSubmit)=\"onFormSubmit(sendmailForm)\" >-->\n      <!--<fieldset>-->\n        <!--<legend>SignUp</legend>-->\n\n        <!--&lt;!&ndash;- To Block -&ndash;&gt;-->\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"toEmail\">to</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"toEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.to\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"to\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"to\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;#emailTo = \"ngModel\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\" required>&ndash;&gt;-->\n        <!--</div>-->\n        <!---->\n\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"ccEmail\">cc</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"ccEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.cc\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"cc\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;#emailCc = \"ngModel\"&ndash;&gt;-->\n\n                 <!--&lt;!&ndash;pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"cc\">&ndash;&gt;-->\n        <!--</div>-->\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"bccEmail\">bcc</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"bccEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.bcc\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"bcc\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;#emailBcc = \"ngModel\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"bcc\" >&ndash;&gt;-->\n        <!--</div>-->\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"subjectEmail\">Subject</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"subjectEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.subject\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"subject\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"subject\" required>&ndash;&gt;-->\n        <!--</div>-->\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"textEmail\">Text</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"textEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;#pwd = \"ngModel\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;minlength=\"8\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;required>&ndash;&gt;-->\n        <!--</div>-->\n\n\n        <!--&lt;!&ndash;- Buttons Block -&ndash;&gt;-->\n\n      <!--</fieldset>-->\n    <!--</form>-->\n    <!--{{email | json}}-->\n  <!--</div>-->\n  <div id=\"heading\">\n    <div id=\"headingText\">\n    Enter Email Details\n    </div>\n  </div>\n  <div id=\"mainDiv\">\n    <form class=\"form-horizontal\"  #sendmailForm=\"ngForm\"\n          (ngSubmit)=\"onFormSubmit(sendmailForm)\" >\n    <table class=\"table-condensed form-table\">\n      <tr class=\"row\">\n        <td class=\"col-md-6 offset-md-3\">\n          <div class=\"form-group\">\n            <label class=\"control-label\">To</label>\n            <input type=\"text\"\n                   id=\"toEmail\"\n                   [(ngModel)]=\"email.to\"\n                   name=\"to\"\n                   placeholder=\"to\"\n                   #emailTo = \"ngModel\"\n                   pattern=\"([a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3},?)*$\"\n                   class=\"form-control well well-sm\" required>\n          </div>\n        </td>\n        <td class=\"col-md-4 offset-md-3\">\n          <div class=\"form-group\">\n            <div *ngIf=\"emailTo.invalid && (emailTo.dirty || emailTo.touched)\"\n                 class=\"alert alert-danger\">\n              <div *ngIf = \"emailTo.errors?.required\">\n                Email field can't be blank\n              </div>\n              <div *ngIf = \"emailTo.errors?.dirty\">\n                Enter in correct Format\n              </div>\n              <div *ngIf = \"emailTo.errors?.pattern && emailTo.touched\">\n                The email id doesn't seem right\n              </div>\n            </div>\n          </div>\n        </td>\n      </tr>\n\n\n      <tr class=\"row\">\n        <td class=\"col-md-6 offset-md-3\">\n          <div class=\"form-group\">\n            <label class=\"control-label\">Cc</label>\n            <input type=\"text\"\n                   id=\"ccEmail\"\n                   [(ngModel)]=\"email.cc\"\n                   name=\"cc\"\n                   #emailCc = \"ngModel\"\n                   pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\"\n                   placeholder=\"cc\"\n                   class=\"form-control well well-sm\">\n          </div>\n        </td>\n        <td class=\"col-md-4 offset-md-3\">\n          <div class=\"form-group\">\n            <div *ngIf=\"emailCc.invalid && (emailCc.dirty || emailCc.touched)\"\n                 class=\"alert alert-danger\">\n              <div *ngIf = \"emailCc.errors?.required\">\n                Email field can't be blank\n              </div>\n              <div *ngIf = \"emailCc.errors?.dirty\">\n                Enter in correct Format\n              </div>\n              <div *ngIf = \"emailCc.errors?.pattern && emailCc.touched\">\n                The email id doesn't seem right\n              </div>\n            </div>\n          </div>\n        </td>\n      </tr>\n      <tr class=\"row\">\n        <td class=\"col-md-6 offset-md-3\">\n          <div class=\"form-group\">\n            <label class=\"control-label\">Bcc</label>\n            <input type=\"text\"\n                   id=\"bccEmail\"\n                   [(ngModel)]=\"email.bcc\"\n                   name=\"bcc\"\n                   #emailBcc = \"ngModel\"\n                   pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3},?$\"\n                   placeholder=\"bcc\"\n                   class=\"form-control well well-sm\">\n          </div>\n        </td>\n        <td class=\"col-md-4 offset-md-3\">\n          <div class=\"form-group\">\n            <div *ngIf=\"emailBcc.invalid && (emailBcc.dirty || emailBcc.touched)\"\n                 class=\"alert alert-danger\">\n              <div *ngIf = \"emailBcc.errors?.required\">\n                Email field can't be blank\n              </div>\n              <div *ngIf = \"emailBcc.errors?.dirty\">\n                Enter in correct Format\n              </div>\n              <div *ngIf = \"emailBcc.errors?.pattern && emailBcc.touched\">\n                The email id doesn't seem right\n              </div>\n            </div>\n          </div>\n        </td>\n      </tr>\n      <tr class=\"row\">\n        <td class=\"col-md-2 offset-md-3\">\n          <div class=\"form-group\">\n\n            <label class=\"control-label\" for=\"subjectEmail\">Subject</label>\n            <textarea type=\"text\"\n                   id=\"subjectEmail\"\n                   [(ngModel)]=\"email.subject\"\n                   name=\"subject\"\n                   placeholder=\"subject\"\n                   class=\"form-control well well-sm\"\n                   required>\n                   </textarea>\n          </div>\n        </td>\n      </tr>\n      <tr class=\"row\">\n        <td class=\"col-md-2 offset-md-3\">\n          <div class=\"form-group\">\n\n            <label class=\"control-label\" for=\"subjectEmail\">Text</label>\n            <textarea type=\"text\"\n                   id=\"textEmail\"\n                   [(ngModel)]=\"email.text\"\n                   name=\"text\"\n                   placeholder=\"text\"\n                   #pwd = \"ngModel\"\n                   minlength=\"8\"\n                   class=\"form-control well well-sm\"\n                   required>\n                   </textarea>\n          </div>\n        </td>\n      </tr>\n    </table>\n    <div class=\"form-group\" id=\"buttonTab\">\n      <button type=\"reset\" class=\"btn btn-default\" id=\"buttonCancel\" >Cancel</button>\n      <button type=\"submit\" class=\"btn btn-primary\"\n              [disabled]=\"!sendmailForm.form.valid\" id=\"buttonSubmit\">Submit</button>\n    </div>\n</form>\n</div>\n"
 
 /***/ }),
 
@@ -1983,23 +2463,70 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SendMailComponent", function() { return SendMailComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _Email__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Email */ "./src/app/Email.ts");
-/* harmony import */ var _api_service_mail__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api.service.mail */ "./src/app/api.service.mail.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _Email__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Email */ "./src/app/Email.ts");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _api_service_mail__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../api.service.mail */ "./src/app/api.service.mail.ts");
+/* harmony import */ var _events_add_event_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../events/add-event.component */ "./src/app/events/add-event.component.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+
+
+
+
 
 
 
 
 var SendMailComponent = /** @class */ (function () {
-    function SendMailComponent(apiServiceMail) {
+    function SendMailComponent(apiService, apiServiceMail, route, router) {
+        this.apiService = apiService;
         this.apiServiceMail = apiServiceMail;
+        this.route = route;
+        this.router = router;
     }
     SendMailComponent.prototype.ngOnInit = function () {
-        this.email = new _Email__WEBPACK_IMPORTED_MODULE_2__["Email"]({ to: "rainatushar221995@gmail.com,random1@gmail.com", cc: "", bcc: "", subject: "", text: "" });
+        var _this = this;
+        this.pipe = new _angular_common__WEBPACK_IMPORTED_MODULE_7__["DatePipe"]('en-US');
+        this.eventData = new _events_add_event_component__WEBPACK_IMPORTED_MODULE_6__["Eventdata"]();
+        this.email = new _Email__WEBPACK_IMPORTED_MODULE_3__["Email"]({ to: "", cc: "", bcc: "",
+            text: "", eventId: this.route.snapshot.paramMap.get('id'), subject: "" });
+        this.apiService.getData('event', this.route.snapshot.paramMap.get('id'), false).subscribe(function (data) {
+            _this.eventData.eventfromTime = data.eventfromTime;
+            _this.eventData.eventtoTime = data.eventtoTime;
+            _this.eventData.ngoName = data.ngoName;
+            _this.eventData.eventName = data.eventName;
+            _this.email.subject = _this.createDefaultSubject(_this.eventData.eventName, _this.eventData.ngoName, _this.eventData.eventfromTime, _this.eventData.eventtoTime);
+            console.log(_this.eventData.eventfromTime);
+            console.log(_this.eventData.eventtoTime);
+            console.log(_this.eventData.ngoName);
+            console.log(_this.eventData.eventName);
+            _this.getEmailId();
+            console.log(_this.resp);
+            console.log(_this.email.to);
+        }, function (err) {
+            console.log(err.message);
+        });
     };
     SendMailComponent.prototype.onFormSubmit = function (_a) {
         var value = _a.value;
         console.log(value);
-        this.apiServiceMail.postData(this.email, "String");
+        console.log(this.route.snapshot.paramMap.get("name"));
+        //this.eventData.eventCategory='abc';
+        this.apiServiceMail.postData(this.email);
+    };
+    SendMailComponent.prototype.createDefaultSubject = function (eventName, ngoName, eventTo, eventFor) {
+        return "We invite You for event : " + eventName + "by NGO : " + ngoName + " from :" + eventFor + "to : " + eventTo;
+    };
+    SendMailComponent.prototype.getEmailId = function () {
+        var _this = this;
+        //String resp;
+        this.apiServiceMail.getData().subscribe(function (response) {
+            console.log('postResponse: ', response);
+            //return response.toString();
+            _this.resp = response.toString();
+            console.log("reponse is:" + " ...." + response.result);
+            _this.email.to = _this.resp;
+        });
     };
     SendMailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2007,7 +2534,8 @@ var SendMailComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./send-mail.component.html */ "./src/app/send-mail/send-mail.component.html"),
             styles: [__webpack_require__(/*! ./send-mail.component.css */ "./src/app/send-mail/send-mail.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service_mail__WEBPACK_IMPORTED_MODULE_3__["ApiServiceMail"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_4__["ApiService"],
+            _api_service_mail__WEBPACK_IMPORTED_MODULE_5__["ApiServiceMail"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], SendMailComponent);
     return SendMailComponent;
 }());
@@ -2265,7 +2793,6 @@ var VolunteerGridComponent = /** @class */ (function () {
   \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
-
 
 module.exports = "\n.text-on-pannel {\n  background: #fff none repeat scroll 0 0;\n  height: auto;\n  margin-left: 20px;\n  padding: 3px 5px;\n  position: absolute;\n  margin-top: -20px;\n  border: 1px solid #337ab7;\n  border-radius: 8px;\n}\n\n.panel {\n\n  margin-top: 27px !important;\n}\n\n.panel-body {\n  padding-top: 30px !important;\n}\n\n.field-invalid\n{\ncolor:pink;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdm9sdW50ZWVyL3ZvbHVudGVlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFDQTtFQUNFLHVDQUF1QztFQUN2QyxZQUFZO0VBQ1osaUJBQWlCO0VBQ2pCLGdCQUFnQjtFQUNoQixrQkFBa0I7RUFDbEIsaUJBQWlCO0VBQ2pCLHlCQUF5QjtFQUN6QixrQkFBa0I7QUFDcEI7O0FBRUE7O0VBRUUsMkJBQTJCO0FBQzdCOztBQUVBO0VBQ0UsNEJBQTRCO0FBQzlCOztBQUVBOztBQUVBLFVBQVU7QUFDViIsImZpbGUiOiJzcmMvYXBwL3ZvbHVudGVlci92b2x1bnRlZXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuLnRleHQtb24tcGFubmVsIHtcbiAgYmFja2dyb3VuZDogI2ZmZiBub25lIHJlcGVhdCBzY3JvbGwgMCAwO1xuICBoZWlnaHQ6IGF1dG87XG4gIG1hcmdpbi1sZWZ0OiAyMHB4O1xuICBwYWRkaW5nOiAzcHggNXB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIG1hcmdpbi10b3A6IC0yMHB4O1xuICBib3JkZXI6IDFweCBzb2xpZCAjMzM3YWI3O1xuICBib3JkZXItcmFkaXVzOiA4cHg7XG59XG5cbi5wYW5lbCB7XG5cbiAgbWFyZ2luLXRvcDogMjdweCAhaW1wb3J0YW50O1xufVxuXG4ucGFuZWwtYm9keSB7XG4gIHBhZGRpbmctdG9wOiAzMHB4ICFpbXBvcnRhbnQ7XG59XG5cbi5maWVsZC1pbnZhbGlkXG57XG5jb2xvcjpwaW5rO1xufVxuIl19 */"
 
@@ -2549,6 +3076,39 @@ var WelcomeComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/xhrInterceptor.ts":
+/*!***********************************!*\
+  !*** ./src/app/xhrInterceptor.ts ***!
+  \***********************************/
+/*! exports provided: XhrInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "XhrInterceptor", function() { return XhrInterceptor; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var XhrInterceptor = /** @class */ (function () {
+    function XhrInterceptor() {
+    }
+    XhrInterceptor.prototype.intercept = function (req, next) {
+        var xhr = req.clone({
+            headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+        });
+        return next.handle(xhr);
+    };
+    XhrInterceptor = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
+    ], XhrInterceptor);
+    return XhrInterceptor;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/environments/environment.prod.ts":
 /*!**********************************************!*\
   !*** ./src/environments/environment.prod.ts ***!
@@ -2629,9 +3189,10 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/force/Desktop/FFG/schedule_events/yfsevents-web/src/main/web/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /home/force/yfsevents/yfsevents-web/src/main/web/src/main.ts */"./src/main.ts");
 
 
 /***/ })
 
 },[[0,"runtime","vendor"]]]);
+//# sourceMappingURL=main.js.map
