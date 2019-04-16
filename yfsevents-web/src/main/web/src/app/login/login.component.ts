@@ -1,32 +1,23 @@
-import{Component, OnInit, ViewEncapsulation}from '@angular/core';
-import {User}from "../model/model.user";
-import {AuthService}from "../services/auth.service";
-import {Router}from "@angular/router";
-
+import { Component, OnInit } from '@angular/core';
+import { AppService } from '../app.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
-selector: 'login',
-templateUrl: './login.component.html',
-styleUrls: ['./login.component.css'],
-encapsulation: ViewEncapsulation.None
+  templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit {
-user: User = new User();
-errorMessage:string;
-constructor(private authService :AuthService, private router: Router) { }
+export class LoginComponent {
 
+  user = {username: '', password: ''};
 
-
-  ngOnInit() {
+  constructor(private app: AppService, private http: HttpClient, private router: Router) {
   }
 
-  login(){
-    this.authService.logIn(this.user)
-      .subscribe(data=>{
-        this.router.navigate(['/events']);
-        },err=>{
-        this.errorMessage="error :  Username or password is incorrect";
-        }
-)
-}
+  login() {
+    this.app.authenticate(this.user, () => {
+        this.router.navigateByUrl('/events');
+    });
+    return false;
+  }
+
 }
