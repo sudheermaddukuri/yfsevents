@@ -1,9 +1,7 @@
 <div class="container">
   <div class="card card-container">
-    <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-    <img class="profile-img-card" id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-    <p class="profile-name-card" id="profile-name"></p>
 
+<div class="row"><div class="col-md-4"></div><div class="col-md-4">
     <form #f="ngForm" (ngSubmit)="f.form.valid && login()" name="form-signin" novalidate>
       <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
       <span class="reauth-email" id="reauth-email"></span>
@@ -22,8 +20,10 @@
       <div class="checkbox" id="remember">
 
       </div>
-      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-    </form><!-- /form -->
-    <a [routerLink]="['/register']" class="btn btn-link">Create new Account!</a>
+      <div class="row"><div class="col-md-4"></div>
+    <div class="col-md-4">  <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button></div>
+        <div class="col-md-4"></div> </div><!--<a [routerLink]="['/register']" class="btn btn-link">Create new Account!</a>-->
+    </form></div> <div class="col-md-4"></div></div><!-- /form -->
+
   </div><!-- /card-container -->
 </div><!-- /container -->
