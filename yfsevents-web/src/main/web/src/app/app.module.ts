@@ -1,5 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
+ import { BrowserModule } from '@angular/platform-browser';
+import { NgModule,NO_ERRORS_SCHEMA, Injectable } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,8 +15,8 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import { FormsModule } from '@angular/forms';
 import { VolunteerComponent } from './volunteer/volunteer.component';
-import { HttpClientModule } from '@angular/common/http';
-import {HttpModule}from '@angular/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
+import {HttpModule} from '@angular/http';
 import { InventoryDataComponent } from './inventory-data/inventory-data.component';
 import { CollegeRegistrationComponent } from './college-registration/college-registration.component';
 import { SendMailComponent } from './send-mail/send-mail.component';
@@ -26,13 +26,16 @@ import { InventoryListComponent } from './inventory-data/inventory-list.componen
 import { CollegeListComponent } from './college-registration/college-list.component';
 import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
 import { CollegeRegistrationGridComponent } from './college-registration-grid/college-registration-grid.component';
-import {LoginComponent}from './login/login.component';
+import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
-import {UrlPermission }from "./urlPermission/url.permission";
-import {UserService}from "./services/user.service";
-import {AuthService}from "./services/auth.service";
+import {UrlPermission } from './urlPermission/url.permission';
+import {UserService} from './services/user.service';
+import {AuthService} from './services/auth.service';
+import {AppService} from './app.service';
 import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
-// import{EventEmiterService} from './services/event.emmiter.service'
+//import{EventEmiterService} from './event-emmiter-service1.service';
+import { ButtonRendererComponent } from './events/renderer/button-renderer.component';
+import { XhrInterceptor } from './xhrInterceptor';
 @NgModule({
 declarations: [
 AppComponent,
@@ -53,8 +56,10 @@ WelcomeComponent,
   VolunteerGridComponent,
   LoginComponent,
 RegisterComponent,
+ButtonRendererComponent
   ],
   imports: [
+    AgGridModule.withComponents([ButtonRendererComponent]),
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -70,8 +75,9 @@ RegisterComponent,
   ],
 
   schemas:[NO_ERRORS_SCHEMA],
-  providers: [AuthService, UserService, UrlPermission],
+  providers: [AuthService, UserService, UrlPermission, AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
 
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

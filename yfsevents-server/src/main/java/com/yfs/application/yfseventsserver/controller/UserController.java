@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,6 @@ import java.util.Base64;
 
 @RestController
 @CrossOrigin
-@RequestMapping("user")
 public class UserController {
 
 
@@ -26,19 +26,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /*@RequestMapping("/login")
-    public boolean login(@RequestBody User user) {
-        return user.getUsername().equals("user") && user.getPassword().equals("password");
-    }*/
+    @RequestMapping("/logout")
+    public void logout(HttpServletRequest request) {
+        new SecurityContextLogoutHandler().logout(request, null, null);
+    }
 
     @CrossOrigin
-    @RequestMapping("/login")
+    @RequestMapping("/user")
     public Principal user(Principal principal) {
         logger.info("user logged " + principal);
         return principal;
     }
 
-    @RequestMapping("/user")
+    @RequestMapping("/login")
     public Principal user(HttpServletRequest request) {
         String authToken = request.getHeader("Authorization").substring("Basic".length()).trim();
         return () -> new String(Base64.getDecoder().decode(authToken)).split(":")[0];

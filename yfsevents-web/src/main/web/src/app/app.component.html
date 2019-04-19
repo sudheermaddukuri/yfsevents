@@ -1,4 +1,34 @@
-<header></header>
+<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #ba2a29;margin-bottom:20px;">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" href="#" style="height:70px">
+      <img src="/assets/youth-for-seva.png" style="height:50px">
+    </a>
+
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right text-white" style="margin-top:12px;">
+        <li><a href="">HOME</a></li>
+        <li class="dropdown" *ngIf=!isUser()>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">REGISTER
+            <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li *ngIf=isAdmin()><a [routerLink]="['/grid/partnerngo']">Partner NGO</a></li>
+            <li><a [routerLink]="['/grid/volunteer']">Volunteer</a></li>
+            <li *ngIf=isAdmin()><a [routerLink]="['/grid/collegeregistration']">College</a></li>
+            <li *ngIf=isAdmin()><a [routerLink]="['/inventorylist']">Inventory Data</a></li>
+          </ul>
+        </li>
+        <li><a [routerLink]="['/events']">EVENTS</a></li>
+
+        <li *ngIf=!app.authenticated><a [routerLink]="['/login']">LOGIN</a></li>
+        <li *ngIf=app.authenticated><a href="#" (click)="logout()">LOGOUT</a></li>
+        <li><a [routerLink]="">CONTACT</a></li>
+        <li><a [routerLink]=""><span class="glyphicon glyphicon-search"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <div id="app-root-container" class="container">
 <router-outlet></router-outlet>
 </div>
