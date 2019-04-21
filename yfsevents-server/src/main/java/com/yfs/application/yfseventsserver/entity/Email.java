@@ -16,6 +16,19 @@ public class Email
     private String cc;
     private Long eventId;
 
+    public Email() {
+    }
+
+    public Email(String to, List<String> toMultiple, String subject, String text, String bcc, String cc, Long eventId) {
+        this.to = to;
+        this.toMultiple = toMultiple;
+        this.subject = subject;
+        this.text = text;
+        this.bcc = bcc;
+        this.cc = cc;
+        this.eventId = eventId;
+    }
+
     public Long getEventId() {
         return eventId;
     }

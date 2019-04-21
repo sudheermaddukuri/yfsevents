@@ -1,10 +1,7 @@
 package com.yfs.application.yfseventsserver.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class VolunteersAccepted {
@@ -15,6 +12,25 @@ public class VolunteersAccepted {
     private long eventId;
     private String mailId;
     private boolean accepted;
+
+    @Enumerated(EnumType.STRING)
+    private EmailNotificationStatus status;
+
+    public static enum EmailNotificationStatus{
+        NOT_SENT,
+        SENT,
+        FAILED
+    }
+
+    public VolunteersAccepted() {
+    }
+
+    public VolunteersAccepted(long eventId, String mailId, boolean accepted, EmailNotificationStatus status) {
+        this.eventId = eventId;
+        this.mailId = mailId;
+        this.accepted = accepted;
+        this.status = status;
+    }
 
     public long getId() {
         return id;
@@ -48,6 +64,11 @@ public class VolunteersAccepted {
         this.accepted = accepted;
     }
 
+    public EmailNotificationStatus getStatus() {
+        return status;
+    }
 
-
+    public void setStatus(EmailNotificationStatus status) {
+        this.status = status;
+    }
 }

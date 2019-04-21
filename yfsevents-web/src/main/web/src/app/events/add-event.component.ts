@@ -106,7 +106,10 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
             id:data.eventItems.indexOf(item),
             itemName:item
           })),
-          volunteers:data.volunteers
+          volunteersReq:data.volunteers,
+          comments:data.comments,
+          college:data.college,
+          volunteersReg:''
         });
         console.log(this.eventForm.value.eventDuration);
       })
@@ -125,7 +128,7 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
     this.eventData.eventfromTime= this.eventForm.value.fromTime;
     this.eventData.eventtoTime = this.eventForm.value.toTime;
     this.eventData.ngoName = this.eventForm.value.ngoName;
-    this.eventData.volunteers = this.eventForm.value.volunteers;
+    this.eventData.volunteers = this.eventForm.value.volunteersReq;
     this.eventData.recurringEvent=this.eventForm.value.recurringEvent;
     // this.eventData.eventDuration=[];
     // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[0],'fullDate','en-US'));
@@ -133,6 +136,8 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
     this.eventData.eventCategory=this.eventForm.value.eventCategory;
     this.eventData.eventDuration=this.eventForm.value.eventDuration;
     this.eventData.eventItems=this.eventForm.value.items.map(item => item.itemName);
+    this.eventData.comments=this.eventForm.value.comments;
+    this.eventData.college=this.eventForm.value.college;
     console.log(this.eventData);
     if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')){
     this.apiService.putData(this.eventData,this.route.snapshot.paramMap.get('id'),'event')}else{
@@ -172,5 +177,6 @@ export class Eventdata {
   volunteers:string;
   eventDuration:string[];
   eventItems:string[];
-
+  comments:string;
+  college:string;
 }
