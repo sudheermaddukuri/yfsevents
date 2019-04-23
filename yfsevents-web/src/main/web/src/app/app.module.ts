@@ -23,7 +23,6 @@ import { SendMailComponent } from './send-mail/send-mail.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { InventoryListComponent } from './inventory-data/inventory-list.component';
-import { CollegeListComponent } from './college-registration/college-list.component';
 import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
 import { CollegeRegistrationGridComponent } from './college-registration-grid/college-registration-grid.component';
 import {LoginComponent} from './login/login.component';
@@ -50,7 +49,6 @@ CollegeRegistrationComponent,
 SendMailComponent,
 WelcomeComponent,
     InventoryListComponent,
-    CollegeListComponent,
     PartnerNgoGridComponent,
     CollegeRegistrationGridComponent,
   VolunteerGridComponent,
