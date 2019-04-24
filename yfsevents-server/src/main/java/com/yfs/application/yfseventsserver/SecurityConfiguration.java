@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
             .httpBasic()
-            .and()
+            .and().cors().and().csrf().disable()
             .authorizeRequests()
             .antMatchers("/**/*.png","/*.png","/*.js","/*.css","/*.woff2","/*.woff","/*.ttf","/*.ico","/user", "/index.html", "/", "/home", "/login","/logout", "/h2-console/**").permitAll()
             .anyRequest().authenticated().and().logout().logoutUrl("/logout") ;
