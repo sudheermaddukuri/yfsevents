@@ -15,6 +15,8 @@ public class VolunteerResponseController {
   @Autowired
     VolunteersAcceptedRepository volunteersAcceptedRepository;
   @Autowired
+  VolunteerController volunteerController;
+  @Autowired
   EmailController emailController;
 
     @RequestMapping(value="/register/{email}/{com}/{eventId}", method= RequestMethod.GET)
@@ -76,11 +78,13 @@ public class VolunteerResponseController {
         List<String> accepted=volunteersAcceptedRepository.getEmailsOfVolunteers(eventId);
         return accepted;
     }
-    @RequestMapping(value="/getCount/{eventId}",method = RequestMethod.GET)
+
+    @RequestMapping(value="/getAllInformation/{eventId}",method = RequestMethod.GET)
     public @ResponseBody
-    Long getAllCount(@PathVariable("eventId") Long eventId)
+     Iterable<Volunteer> getAllInformation(@PathVariable("eventId") Long eventId)
     {
-        Long accepted=volunteersAcceptedRepository.getCountOfVolunteers(eventId);
-        return accepted;
+        List<String> accepted=volunteersAcceptedRepository.getEmailsOfAcceptedVolunteers(eventId);
+        return volunteerController.getAcceptedVolunteers(accepted);
     }
+
 }
