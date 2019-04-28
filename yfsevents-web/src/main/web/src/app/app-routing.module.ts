@@ -15,6 +15,7 @@ import { CollegeRegistrationGridComponent } from './college-registration-grid/co
 import { LoginComponent}from './login/login.component';
 import {RegisterComponent}from "./register/register.component";
 import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
+import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
 
 const routes: Routes = [
   {
@@ -26,8 +27,9 @@ const routes: Routes = [
     {
       path: 'grid/collegeregistration', component: CollegeRegistrationGridComponent
     },
-
-
+    {
+      path: 'bulk/volunteer', component: BulkUploadComponent
+    },
 {
 path: 'login', component: LoginComponent
 },
