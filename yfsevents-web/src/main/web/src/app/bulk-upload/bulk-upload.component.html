@@ -1,0 +1,4 @@
+<div>
+  <input type="file" (change)="selectFile($event)" placeholder="Upload file" accept=".xls, .xlsx">
+  <button [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+</div>
