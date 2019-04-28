@@ -10,7 +10,6 @@ import { CollegeRegistrationComponent } from './college-registration/college-reg
 import {SendMailComponent} from "./send-mail/send-mail.component";
 import { WelcomeComponent } from './welcome/welcome.component';
 import { InventoryListComponent } from './inventory-data/inventory-list.component';
-import { CollegeListComponent } from './college-registration/college-list.component';
 import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.component';
 import { CollegeRegistrationGridComponent } from './college-registration-grid/college-registration-grid.component';
 import { LoginComponent}from './login/login.component';
@@ -42,9 +41,6 @@ path: 'login', component: LoginComponent
     path:'inventorylist',component:InventoryListComponent
   },
   {
-    path:'collegelist',component:CollegeListComponent
-  },
-  {
   path: 'grid/partnerngo', component: PartnerNgoGridComponent
   },
 
@@ -57,7 +53,6 @@ path: 'login', component: LoginComponent
   {path:'events',component:EventListComponent},
   {path:'addevent',component:AddEventComponent},
   {
-
     path:'email',component:SendMailComponent
   },
    {
