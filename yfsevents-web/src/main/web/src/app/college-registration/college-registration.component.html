@@ -139,13 +139,13 @@
                   <div class="col-md-6 offset-md-3">
                     <div class="form-group required">
                       <label class="control-label">Valid From</label>
-                      <input type="text" formControlName="fromDate" class="form-control well well-sm" bsDatepicker>
+                      <input type="text" formControlName="fromDate" class="form-control well well-sm" bsDatepicker [bsConfig]="{dateinputFormat:'DD/MM/YYYY'}">
                     </div>
                   </div>
                   <div class="col-md-6 offset-md-3">
                     <div class="form-group required">
                       <label class="control-label">Valid To</label>
-                      <input type="text" formControlName="toDate" class="form-control well well-sm" bsDatepicker>
+                      <input type="text" formControlName="toDate" class="form-control well well-sm" bsDatepicker [bsConfig]="{dateinputFormat:'DD/MM/YYYY'}">
                     </div>
                   </div>
                 </div>
