@@ -146,12 +146,12 @@ export class CollegeRegistrationComponent {
 
   checkForMandatoryValidations(collegeDetails) {
     let checkflag:boolean=false;
-    if (collegeDetails.name && collegeDetails.registrationId && collegeDetails.addressLine1 && collegeDetails.city && collegeDetails.state
+    if (collegeDetails.name && collegeDetails.addressLine1 && collegeDetails.city && collegeDetails.state
       && collegeDetails.pincode) {
 
       if (collegeDetails.mouDetails.length) {
         collegeDetails.mouDetails.forEach(o => {
-          if (!o.mouID || !o.mouStatus || !o.mouName) {
+          if (!o.mouStatus || !o.mouName || !o.fromDate || !o.toDate) {
             checkflag=true;
             return false;
           }

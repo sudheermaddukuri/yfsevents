@@ -23,7 +23,7 @@
           </div>
           <div class="row">
             <div class="col-md-6 offset-md-3">
-              <div class="form-group required">
+              <div class="form-group ">
                 <label class="control-label">Registration Id</label>
                 <input type="text" formControlName="registrationId" class="form-control well well-sm">
                 <!--<div *ngIf="collegeform.controls['collegeDetails'].controls.registrationId.errors&&(collegeform.controls['collegeDetails'].controls.registrationId.dirty||collegeform.controls['collegeDetails'].controls.registrationId.touched)" class="invalid-feedback">
@@ -110,12 +110,7 @@
 
               <div *ngIf="selectedTab==i">
                 <div class="row">
-                  <div class="col-md-6 offset-md-3">
-                    <div class="form-group required">
-                      <label class="control-label">MOU ID</label>
-                      <input type="text" formControlName="mouID" class="form-control well well-sm">
-                    </div>
-                  </div>
+                  
                   <div class="col-md-6 offset-md-3">
                     <div class="form-group required">
                       <label class="control-label">MOU STATUS</label>
@@ -130,7 +125,7 @@
                   <div class="col-md-6 offset-md-3">
                     <div class="form-group required">
                       <label class="control-label">MOU Name</label>
-                      <input type="text" formControlName="mouName" class="form-control well well-sm">
+                      <input type="text" style="text-transform:uppercase" formControlName="mouName" class="form-control well well-sm">
                     </div>
                   </div>
                   <div class="col-md-6 offset-md-3">
@@ -142,13 +137,13 @@
                 </div>
                 <div class="row">
                   <div class="col-md-6 offset-md-3">
-                    <div class="form-group">
+                    <div class="form-group required">
                       <label class="control-label">Valid From</label>
                       <input type="text" formControlName="fromDate" class="form-control well well-sm" bsDatepicker>
                     </div>
                   </div>
                   <div class="col-md-6 offset-md-3">
-                    <div class="form-group">
+                    <div class="form-group required">
                       <label class="control-label">Valid To</label>
                       <input type="text" formControlName="toDate" class="form-control well well-sm" bsDatepicker>
                     </div>
