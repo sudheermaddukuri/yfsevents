@@ -18,20 +18,29 @@ public class Volunteer {
 
     private String firstName;
     private String lastName;
-    private String phonePrefix;
+
     private String phoneNumber;
-    private String alternatePhonePrefix;
+
     private String alternatePhoneNumber;
     private String email;
-    private String alternateEmail;
+
     private String locality;
     private String city;
     private String state;
     private String pincode;
 
-    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
-    private List<VolunteerPreferredTime> preferredTimes;
+    public String getVolunteerPreferredTimes() {
+        return volunteerPreferredTimes;
+    }
 
+    public void setVolunteerPreferredTimes(String volunteerPreferredTimes) {
+        this.volunteerPreferredTimes = volunteerPreferredTimes;
+    }
+
+    private String volunteerPreferredTimes;
+    /*@OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
+    private List<VolunteerPreferredTime> preferredTimes;
+*/
     @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
     private List<VolunteerInterestedArea> interestedAreas;
 
@@ -59,13 +68,6 @@ public class Volunteer {
         this.lastName = lastName;
     }
 
-    public String getPhonePrefix() {
-        return phonePrefix;
-    }
-
-    public void setPhonePrefix(String phonePrefix) {
-        this.phonePrefix = phonePrefix;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -75,13 +77,7 @@ public class Volunteer {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getAlternatePhonePrefix() {
-        return alternatePhonePrefix;
-    }
 
-    public void setAlternatePhonePrefix(String alternatePhonePrefix) {
-        this.alternatePhonePrefix = alternatePhonePrefix;
-    }
 
     public String getAlternatePhoneNumber() {
         return alternatePhoneNumber;
@@ -99,13 +95,6 @@ public class Volunteer {
         this.email = email;
     }
 
-    public String getAlternateEmail() {
-        return alternateEmail;
-    }
-
-    public void setAlternateEmail(String alternateEmail) {
-        this.alternateEmail = alternateEmail;
-    }
 
     public String getLocality() {
         return locality;
@@ -139,13 +128,13 @@ public class Volunteer {
         this.pincode = pincode;
     }
 
-    public List<VolunteerPreferredTime> getPreferredTimes() {
+    /*public List<VolunteerPreferredTime> getPreferredTimes() {
         return preferredTimes;
     }
 
     public void setPreferredTimes(List<VolunteerPreferredTime> preferredTimes) {
         this.preferredTimes = preferredTimes;
-    }
+    }*/
 
     public List<VolunteerInterestedArea> getInterestedAreas() {
         return interestedAreas;

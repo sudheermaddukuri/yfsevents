@@ -134,10 +134,8 @@ export class PartnerNGOComponent implements OnInit, AfterViewInit {
       ]],
       email1: ['', [
         Validators.email, Validators.maxLength(50)
-      ]],
-      email2: ['', [
-        Validators.email, Validators.maxLength(50)
       ]]
+
     });
   }
 
