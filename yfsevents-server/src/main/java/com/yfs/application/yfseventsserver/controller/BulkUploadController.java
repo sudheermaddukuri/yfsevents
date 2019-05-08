@@ -1,14 +1,18 @@
 package com.yfs.application.yfseventsserver.controller;
 
+import com.yfs.application.yfseventsserver.entity.BulkVolunteer;
 import com.yfs.application.yfseventsserver.entity.Volunteer;
+import com.yfs.application.yfseventsserver.entity.VolunteerInterestedArea;
 import com.yfs.application.yfseventsserver.repository.VolunteerInterestedAreaRepository;
 import com.yfs.application.yfseventsserver.repository.VolunteerRepository;
+import com.yfs.application.yfseventsserver.services.VolunteerService;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/api")
@@ -29,17 +35,26 @@ public class BulkUploadController {
     VolunteerInterestedAreaRepository volunteerInterestedAreaRepository;
 
     @Autowired
+    VolunteerService volunteerService;
+
+    @Autowired
     private static Logger logger = LoggerFactory.getLogger(BulkUploadController.class);
 
+    private final Integer maxInterestedAreas = 5;
+    private final Integer baseInterestredAreasIndex = 10;
+
     @PostMapping("/bulk-upload")
-    public ResponseEntity< String > handleFileUpload(@RequestParam("file") MultipartFile file) throws InvalidFormatException {
+    public ResponseEntity<List<BulkVolunteer>> handleFileUpload(@RequestParam("file") MultipartFile file) throws InvalidFormatException {
         logger.info("Posting Bulk Data");
         //ToDo: Set Response
         try {
+
+            List<BulkVolunteer> bulkVolunteers = new ArrayList<>();
             if(file.getOriginalFilename().endsWith(".xls") || file.getOriginalFilename().endsWith(".xlsx")) {
                 if (!file.isEmpty()) {
-                    Workbook workbook = new HSSFWorkbook(file.getInputStream());
 
+//                    Ref: https://www.callicoder.com/java-read-excel-file-apache-poi/
+                    Workbook workbook = new HSSFWorkbook(file.getInputStream());
                     Sheet sheet = workbook.getSheetAt(0);
                     if(sheet.getSheetName().equals("Volunteer")) {
                         DataFormatter dataFormatter = new DataFormatter();
@@ -56,20 +71,38 @@ public class BulkUploadController {
                                 volunteer.setCity(dataFormatter.formatCellValue(row.getCell(7)));
                                 volunteer.setState(dataFormatter.formatCellValue(row.getCell(8)));
                                 volunteer.setPincode(dataFormatter.formatCellValue(row.getCell(9)));
-                                //TODO:Save intrested Areas
-//                                List<VolunteerInterestedArea> interestedAreas = new ArrayList<>();
-//                                interestedAreas.add(dataFormatter.formatCellValue(row.getCell(10)));
-//                                volunteer.setInterstedAreas();
-//                                row.forEach(cell -> {
-//                                  dataFormatter.formatCellValue(cell);
-//                                });
-                                Volunteer volunteer1 = volunteerRepository.save(volunteer);
 
-                                //TODO: Handle null values for intrested areas
-//                                volunteer1.getInterestedAreas().stream().forEach((interestedArea) -> {
-//                                    interestedArea.setVolunteer(volunteer1);
-//                                    volunteerInterestedAreaRepository.save(interestedArea);
-//                                });
+                                List<VolunteerInterestedArea> interestedAreas = new ArrayList<>();
+                                for(Integer index=0; index<maxInterestedAreas; index++){
+                                    VolunteerInterestedArea volunteerInterestedArea = new VolunteerInterestedArea();
+                                    String data =dataFormatter.formatCellValue(row.getCell(baseInterestredAreasIndex + index));
+                                    if(!data.isEmpty()) {
+                                        volunteerInterestedArea.setInterestedArea(data);
+                                        interestedAreas.add(volunteerInterestedArea);
+                                    }
+                                }
+                                volunteer.setInterstedAreas(interestedAreas);
+
+                                BulkVolunteer bulkVolunteer = new BulkVolunteer();
+
+                                //TODO: Move below check to Volunteer Service
+                                if(volunteerService.isPresent(volunteer)){
+                                    List<String> errors = new ArrayList<>();
+                                    errors.add("Volunteer Already Present");
+                                    bulkVolunteer.setVolunteer(volunteer);
+                                    bulkVolunteer.setErrors(errors);
+                                }else {
+                                    //TODO: CAll Save Service Directly.
+                                    Volunteer volunteer1 = volunteerRepository.save(volunteer);
+                                    volunteer1.getInterestedAreas().stream().forEach((interestedArea) -> {
+                                        interestedArea.setVolunteer(volunteer1);
+                                        volunteerInterestedAreaRepository.save(interestedArea);
+                                    });
+                                    List<String> errors = new ArrayList<>();
+                                    bulkVolunteer.setVolunteer(volunteer1);
+                                    bulkVolunteer.setErrors(errors);
+                                }
+                                bulkVolunteers.add(bulkVolunteer);
                             }
                         }
 
@@ -83,6 +116,7 @@ public class BulkUploadController {
             }else{
                 logger.error("Error in filename");
             }
+            return new ResponseEntity<>(bulkVolunteers, HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
         }
