@@ -10,16 +10,22 @@ export class BulkUploadComponent implements OnInit {
 
   selectedFiles: FileList;
   currentUploadedFile: File;
+  fileUrl;
 
   constructor(private uploadService: UploadService) { }
 
   ngOnInit() {
+    this.fileUrl = "/assets/sample.xls"
   }
 
   selectFile(event){
     this.selectedFiles = event.target.files;
     console.log('file uploaded: ');
     console.log(event.target.files);
+  }
+
+  downloadTemplate(){
+    
   }
 
   upload(){
