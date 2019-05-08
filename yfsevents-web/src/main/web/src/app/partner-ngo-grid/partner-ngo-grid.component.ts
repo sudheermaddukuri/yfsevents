@@ -25,31 +25,31 @@ export class PartnerNgoGridComponent implements OnInit {
 
     {headerName: 'Authorized Person Name', field: 'authorizedPersonName'},
     {headerName: 'Authorized Person Contact', field: 'authorizedPersonContact'},
-    {headerName: 'Alternate Contact Details', field: 'contact2'},
+    {headerName: 'Alternate Contact Number', field: 'contact2'},
     {headerName: 'Email ID', field: 'email1'},
     {headerName: 'Alternate Email ID', field: 'email2'},
 
     {headerName: 'Authorized Person Name (2)', field: 'authorizedPersonName1'},
     {headerName: 'Authorized Person Contact (2)', field: 'authorizedPersonContact1'},
-    {headerName: 'Alternate Contact Details (2)', field: 'contact21'},
+    {headerName: 'Alternate Contact Number (2)', field: 'contact21'},
     {headerName: 'Email ID (2)', field: 'email11'},
     {headerName: 'Alternate Email ID (2)', field: 'email21'},
     
     {headerName: 'Authorized Person Name (3)', field: 'authorizedPersonName2'},
     {headerName: 'Authorized Person Contact (3)', field: 'authorizedPersonContact2'},
-    {headerName: 'Alternate Contact Details (3)', field: 'contact22'},
+    {headerName: 'Alternate Contact Number (3)', field: 'contact22'},
     {headerName: 'Email ID (3)', field: 'email12'},
     {headerName: 'Alternate Email ID (3)', field: 'email22'},
 
     {headerName: 'Authorized Person Name (4)', field: 'authorizedPersonName3'},
     {headerName: 'Authorized Person Contact (4)', field: 'authorizedPersonContact3'},
-    {headerName: 'Alternate Contact Details (4)', field: 'contact23'},
+    {headerName: 'Alternate Contact Number (4)', field: 'contact23'},
     {headerName: 'Email ID (4)', field: 'email13'},
     {headerName: 'Alternate Email ID (4)', field: 'email23'},
 
     {headerName: 'Authorized Person Name (5)', field: 'authorizedPersonName4'},
     {headerName: 'Authorized Person Contact (5)', field: 'authorizedPersonContact4'},
-    {headerName: 'Alternate Contact Details (5)', field: 'contact24'},
+    {headerName: 'Alternate Contact Number (5)', field: 'contact24'},
     {headerName: 'Email ID (5)', field: 'email14'},
     {headerName: 'Alternate Email ID (5)', field: 'email24'},
 

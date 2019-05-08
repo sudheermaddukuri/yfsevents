@@ -21,7 +21,7 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
   private mode: String;
   private id: number;
   dropdownSettings = {};
-
+  preferredTimings:string[]=['Weekdays','Weekends','Both Weekdays and Weekends'];
 
   constructor(private formBuilder: FormBuilder,
     private apiService: ApiService, private route: ActivatedRoute, private router: Router) { }
@@ -126,14 +126,10 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
       alternatePhoneNumber: ['', [
         Validators.pattern("^[0-9]+$"), Validators.minLength(10), Validators.maxLength(10)
       ]],
-      phonePrefix: ['', []],
-      alternatePhonePrefix: ['', []],
       email: ['', [
         Validators.email, Validators.maxLength(50)
-      ]],
-      alternateEmail: ['', [
-        Validators.email, Validators.maxLength(50)
       ]]
+
     });
     return aboutVolunteer;
   }
@@ -162,6 +158,9 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
       interestedAreas: [this.formBuilder.array([this.interestedArea]), [
 
       ]],
+      volunteerPreferredTimes:['',[
+
+      ]]
 
     });
     return additionalInfo;
@@ -224,7 +223,7 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
 
 
     }
-    else { console.log("invalid"); } console.log("address is" + this.myForm.valid);
+    else { console.log("invalid");alert('please fill all the mandatory details'); } console.log("address is" + this.myForm.valid);
   }
 
 

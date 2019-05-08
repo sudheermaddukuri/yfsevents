@@ -18,6 +18,7 @@ public class Mou {
 
     private String mouID;
     private String mouStatus;
+    @Column(unique=true)
     private String mouName;
     private String noOfEvents;
     private String fromDate;

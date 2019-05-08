@@ -130,7 +130,6 @@ var ApiService = /** @class */ (function () {
         this.urlList.set('partnerngo', '/partnerngo');
         this.urlList.set('event', '/event');
         this.urlList.set('events', '/events');
-        this.urlList.set('volunteer-create', '/volunteer-create');
         this.urlList.set('volunteer', '/volunteer');
         this.urlList.set('collegeregistration', '/collegeregistration');
         this.urlList.set('interestedAreasCategory', '/interestedAreasCategory');
@@ -193,13 +192,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./college-registration/college-registration.component */ "./src/app/college-registration/college-registration.component.ts");
 /* harmony import */ var _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./send-mail/send-mail.component */ "./src/app/send-mail/send-mail.component.ts");
 /* harmony import */ var _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./inventory-data/inventory-list.component */ "./src/app/inventory-data/inventory-list.component.ts");
-/* harmony import */ var _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./college-registration/college-list.component */ "./src/app/college-registration/college-list.component.ts");
-/* harmony import */ var _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./partner-ngo-grid/partner-ngo-grid.component */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts");
-/* harmony import */ var _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./college-registration-grid/college-registration-grid.component */ "./src/app/college-registration-grid/college-registration-grid.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
-/* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
-
+/* harmony import */ var _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./partner-ngo-grid/partner-ngo-grid.component */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts");
+/* harmony import */ var _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./college-registration-grid/college-registration-grid.component */ "./src/app/college-registration-grid/college-registration-grid.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
+/* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
 
 
 
@@ -224,10 +221,10 @@ var routes = [
         ]
     },
     {
-        path: 'grid/collegeregistration', component: _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_13__["CollegeRegistrationGridComponent"]
+        path: 'grid/collegeregistration', component: _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_12__["CollegeRegistrationGridComponent"]
     },
     {
-        path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_14__["LoginComponent"]
+        path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_13__["LoginComponent"]
     },
     {
         path: 'inventorydata', children: [
@@ -239,10 +236,7 @@ var routes = [
         path: 'inventorylist', component: _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_10__["InventoryListComponent"]
     },
     {
-        path: 'collegelist', component: _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_11__["CollegeListComponent"]
-    },
-    {
-        path: 'grid/partnerngo', component: _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_12__["PartnerNgoGridComponent"]
+        path: 'grid/partnerngo', component: _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_11__["PartnerNgoGridComponent"]
     },
     {
         path: 'partnerngo', children: [
@@ -256,7 +250,7 @@ var routes = [
         path: 'email', component: _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_9__["SendMailComponent"]
     },
     {
-        path: 'grid/volunteer', component: _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_16__["VolunteerGridComponent"]
+        path: 'grid/volunteer', component: _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_15__["VolunteerGridComponent"]
     },
     {
         path: 'volunteer', children: [
@@ -268,7 +262,7 @@ var routes = [
         path: '**', redirectTo: 'login'
     },
     {
-        path: 'register', component: _register_register_component__WEBPACK_IMPORTED_MODULE_15__["RegisterComponent"]
+        path: 'register', component: _register_register_component__WEBPACK_IMPORTED_MODULE_14__["RegisterComponent"]
     }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -305,7 +299,7 @@ module.exports = "#app-root-container{\nwidth:100%;\n}\n\n/*# sourceMappingURL=d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" style=\"background-color: #ba2a29;margin-bottom:20px;\">\n  <div class=\"container-fluid\">\n\n    <a class=\"navbar-brand\" href=\"#\" style=\"height:70px\">\n      <img src=\"/assets/youth-for-seva.png\" style=\"height:50px\">\n    </a>\n\n    <div class=\"collapse navbar-collapse\">\n      <ul class=\"nav navbar-nav navbar-right text-white\" style=\"margin-top:12px;\">\n        <li><a href=\"\">HOME</a></li>\n        <li class=\"dropdown\" *ngIf=!isUser()>\n          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">REGISTER\n            <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li *ngIf=isAdmin()><a [routerLink]=\"['/grid/partnerngo']\">Partner NGO</a></li>\n            <li><a [routerLink]=\"['/grid/volunteer']\">Volunteer</a></li>\n            <li *ngIf=isAdmin()><a [routerLink]=\"['/grid/collegeregistration']\">College</a></li>\n            <li *ngIf=isAdmin()><a [routerLink]=\"['/inventorylist']\">Inventory Data</a></li>\n          </ul>\n        </li>\n        <li><a [routerLink]=\"['/events']\">EVENTS</a></li>\n\n        <li *ngIf=!app.authenticated><a [routerLink]=\"['/login']\">LOGIN</a></li>\n        <li *ngIf=app.authenticated><a href=\"#\" (click)=\"logout()\">LOGOUT</a></li>\n        <li><a [routerLink]=\"\">CONTACT</a></li>\n        <li><a [routerLink]=\"\"><span class=\"glyphicon glyphicon-search\"></span></a></li>\n      </ul>\n    </div>\n  </div>\n</nav>\n\n<div id=\"app-root-container\" class=\"container\">\n<router-outlet></router-outlet>\n</div>\n\n\n<!--<footer></footer>-->\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" style=\"background-color: #ba2a29;margin-bottom:20px;\">\n  <div class=\"container-fluid\">\n\n    <a class=\"navbar-brand\" href=\"#\" style=\"height:70px\">\n      <img src=\"/assets/youth-for-seva.png\" style=\"height:50px\">\n    </a>\n\n    <div class=\"collapse navbar-collapse\">\n      <ul class=\"nav navbar-nav navbar-right text-white\" style=\"margin-top:12px;\">\n        <li><a href=\"\">HOME</a></li>\n        <li class=\"dropdown\" *ngIf=isAdmin()>\n          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">REGISTER\n            <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a [routerLink]=\"['/grid/partnerngo']\">Partner NGO</a></li>\n            <li><a [routerLink]=\"['/grid/volunteer']\">Volunteer</a></li>\n            <li><a [routerLink]=\"['/grid/collegeregistration']\">College</a></li>\n            <li><a [routerLink]=\"['/inventorylist']\">Inventory Data</a></li>\n          </ul>\n        </li>\n        <li *ngIf=isAdmin()><a [routerLink]=\"['/events']\">EVENTS</a></li>\n\n        <li *ngIf=!app.authenticated><a [routerLink]=\"['/login']\">LOGIN</a></li>\n        <li *ngIf=app.authenticated><a href=\"#\" (click)=\"logout()\">LOGOUT</a></li>\n        <!--<li><a [routerLink]=\"\">CONTACT</a></li>-->\n        <!--<li><a [routerLink]=\"\"><span class=\"glyphicon glyphicon-search\"></span></a></li>-->\n      </ul>\n    </div>\n  </div>\n</nav>\n\n<div id=\"app-root-container\" class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n\n\n<!--<footer></footer>-->\n"
 
 /***/ }),
 
@@ -402,19 +396,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./welcome/welcome.component */ "./src/app/welcome/welcome.component.ts");
 /* harmony import */ var angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! angular2-multiselect-dropdown */ "./node_modules/angular2-multiselect-dropdown/fesm5/angular2-multiselect-dropdown.js");
 /* harmony import */ var _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./inventory-data/inventory-list.component */ "./src/app/inventory-data/inventory-list.component.ts");
-/* harmony import */ var _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./college-registration/college-list.component */ "./src/app/college-registration/college-list.component.ts");
-/* harmony import */ var _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./partner-ngo-grid/partner-ngo-grid.component */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts");
-/* harmony import */ var _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./college-registration-grid/college-registration-grid.component */ "./src/app/college-registration-grid/college-registration-grid.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
-/* harmony import */ var _urlPermission_url_permission__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./urlPermission/url.permission */ "./src/app/urlPermission/url.permission.ts");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
-/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
-/* harmony import */ var _app_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./app.service */ "./src/app/app.service.ts");
-/* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
-/* harmony import */ var _events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./events/renderer/button-renderer.component */ "./src/app/events/renderer/button-renderer.component.ts");
-/* harmony import */ var _xhrInterceptor__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./xhrInterceptor */ "./src/app/xhrInterceptor.ts");
-
+/* harmony import */ var _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./partner-ngo-grid/partner-ngo-grid.component */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts");
+/* harmony import */ var _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./college-registration-grid/college-registration-grid.component */ "./src/app/college-registration-grid/college-registration-grid.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
+/* harmony import */ var _urlPermission_url_permission__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./urlPermission/url.permission */ "./src/app/urlPermission/url.permission.ts");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var _app_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./app.service */ "./src/app/app.service.ts");
+/* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
+/* harmony import */ var _events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./events/renderer/button-renderer.component */ "./src/app/events/renderer/button-renderer.component.ts");
+/* harmony import */ var _xhrInterceptor__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./xhrInterceptor */ "./src/app/xhrInterceptor.ts");
 
 
 
@@ -471,16 +463,15 @@ var AppModule = /** @class */ (function () {
                 _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_21__["SendMailComponent"],
                 _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_22__["WelcomeComponent"],
                 _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_24__["InventoryListComponent"],
-                _college_registration_college_list_component__WEBPACK_IMPORTED_MODULE_25__["CollegeListComponent"],
-                _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_26__["PartnerNgoGridComponent"],
-                _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_27__["CollegeRegistrationGridComponent"],
-                _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_34__["VolunteerGridComponent"],
-                _login_login_component__WEBPACK_IMPORTED_MODULE_28__["LoginComponent"],
-                _register_register_component__WEBPACK_IMPORTED_MODULE_29__["RegisterComponent"],
-                _events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_35__["ButtonRendererComponent"]
+                _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_25__["PartnerNgoGridComponent"],
+                _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_26__["CollegeRegistrationGridComponent"],
+                _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_33__["VolunteerGridComponent"],
+                _login_login_component__WEBPACK_IMPORTED_MODULE_27__["LoginComponent"],
+                _register_register_component__WEBPACK_IMPORTED_MODULE_28__["RegisterComponent"],
+                _events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_34__["ButtonRendererComponent"]
             ],
             imports: [
-                ag_grid_angular__WEBPACK_IMPORTED_MODULE_3__["AgGridModule"].withComponents([_events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_35__["ButtonRendererComponent"]]),
+                ag_grid_angular__WEBPACK_IMPORTED_MODULE_3__["AgGridModule"].withComponents([_events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_34__["ButtonRendererComponent"]]),
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_17__["HttpClientModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
@@ -495,7 +486,7 @@ var AppModule = /** @class */ (function () {
                 _angular_http__WEBPACK_IMPORTED_MODULE_18__["HttpModule"]
             ],
             schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_2__["NO_ERRORS_SCHEMA"]],
-            providers: [_services_auth_service__WEBPACK_IMPORTED_MODULE_32__["AuthService"], _services_user_service__WEBPACK_IMPORTED_MODULE_31__["UserService"], _urlPermission_url_permission__WEBPACK_IMPORTED_MODULE_30__["UrlPermission"], _app_service__WEBPACK_IMPORTED_MODULE_33__["AppService"], { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_17__["HTTP_INTERCEPTORS"], useClass: _xhrInterceptor__WEBPACK_IMPORTED_MODULE_36__["XhrInterceptor"], multi: true }],
+            providers: [_services_auth_service__WEBPACK_IMPORTED_MODULE_31__["AuthService"], _services_user_service__WEBPACK_IMPORTED_MODULE_30__["UserService"], _urlPermission_url_permission__WEBPACK_IMPORTED_MODULE_29__["UrlPermission"], _app_service__WEBPACK_IMPORTED_MODULE_32__["AppService"], { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_17__["HTTP_INTERCEPTORS"], useClass: _xhrInterceptor__WEBPACK_IMPORTED_MODULE_35__["XhrInterceptor"], multi: true }],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
@@ -575,7 +566,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> College Registration</strong></h3>\n  </div>\n  <div class=\"col-md-10\" #myGrid  style=\"width: 100%; height: 100%;\">\n    <ag-grid-angular \n      class=\"ag-theme-balham\" \n      [rowData]=\"data\" \n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\">\n    </ag-grid-angular>\n  </div>\n  <div class=\"row\" style=\"margin-top:10px\">\n      <div class=\"col-md-1\"></div>\n      <div class=\"col-md-10\">\n          <div style=\"text-align:right\">\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/collegeregistration'])\">\n              Add College\n          </button>\n          </div>\n      </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> College Registration</strong></h3>\n  </div>\n  <div  #myGrid  style=\"width: 100%; height: 100%;\">\n    <ag-grid-angular style=\"height: 100%;\"\n      class=\"ag-theme-balham\" \n      [rowData]=\"data\" \n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\">\n    </ag-grid-angular>\n  </div>\n  <div class=\"row\" style=\"margin-top:10px\">\n      <div class=\"col-md-1\"></div>\n      <div class=\"col-md-10\">\n          <div style=\"text-align:right\">\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/collegeregistration'])\">\n              Add College\n          </button>\n          </div>\n      </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -616,181 +607,36 @@ var CollegeRegistrationGridComponent = /** @class */ (function () {
             { headerName: 'Number Of Events Agreed', field: 'noOfEvents' },
             { headerName: 'Valid From', field: 'fromDate' },
             { headerName: 'Valid To', field: 'toDate' },
-            { headerName: 'Comments', field: 'comments' },
-            { headerName: 'Mou ID (2)', field: 'mouID1', filter: true },
-            { headerName: 'Mou Status (2)', field: 'mouStatus1' },
-            { headerName: 'Mou Name (2)', field: 'mouName1' },
-            { headerName: 'Number Of Events Agreed (2)', field: 'noOfEvents1' },
-            { headerName: 'Valid From (2)', field: 'fromDate1' },
-            { headerName: 'Valid To (2)', field: 'toDate1' },
-            { headerName: 'Comments (2)', field: 'comments1' },
-            { headerName: 'Mou ID (3)', field: 'mouID2', filter: true },
-            { headerName: 'Mou Status (3)', field: 'mouStatus2' },
-            { headerName: 'Mou Name (3)', field: 'mouName2' },
-            { headerName: 'Number Of Events Agreed (3)', field: 'noOfEvents2' },
-            { headerName: 'Valid From (3)', field: 'fromDate2' },
-            { headerName: 'Valid To (3)', field: 'toDate2' },
-            { headerName: 'Comments (3)', field: 'comments2' },
-            { headerName: 'Mou ID (4)', field: 'mouID3', filter: true },
-            { headerName: 'Mou Status (4)', field: 'mouStatus3' },
-            { headerName: 'Mou Name (4)', field: 'mouName3' },
-            { headerName: 'Number Of Events Agreed (4)', field: 'noOfEvents3' },
-            { headerName: 'Valid From (4)', field: 'fromDate3' },
-            { headerName: 'Valid To (4)', field: 'toDate3' },
-            { headerName: 'Comments (4)', field: 'comments3' },
-            { headerName: 'Mou ID (5)', field: 'mouID4', filter: true },
-            { headerName: 'Mou Status (5)', field: 'mouStatus4' },
-            { headerName: 'Mou Name (5)', field: 'mouName4' },
-            { headerName: 'Number Of Events Agreed (5)', field: 'noOfEvents4' },
-            { headerName: 'Valid From (5)', field: 'fromDate4' },
-            { headerName: 'Valid To (5)', field: 'toDate4' },
-            { headerName: 'Comments (5)', field: 'comments4' },
-            { headerName: 'Mou ID (6)', field: 'mouID5', filter: true },
-            { headerName: 'Mou Status (6)', field: 'mouStatus5' },
-            { headerName: 'Mou Name (6)', field: 'mouName5' },
-            { headerName: 'Number Of Events Agreed (6)', field: 'noOfEvents5' },
-            { headerName: 'Valid From (6)', field: 'fromDate5' },
-            { headerName: 'Valid To (6)', field: 'toDate5' },
-            { headerName: 'Comments (6)', field: 'comments5' },
-            { headerName: 'Mou ID (7)', field: 'mouID6', filter: true },
-            { headerName: 'Mou Status (7)', field: 'mouStatus6' },
-            { headerName: 'Mou Name (7)', field: 'mouName6' },
-            { headerName: 'Number Of Events Agreed (7)', field: 'noOfEvents6' },
-            { headerName: 'Valid From (7)', field: 'fromDate6' },
-            { headerName: 'Valid To (7)', field: 'toDate6' },
-            { headerName: 'Comments (7)', field: 'comments6' },
-            { headerName: 'Mou ID (8)', field: 'mouID7', filter: true },
-            { headerName: 'Mou Status (8)', field: 'mouStatus7' },
-            { headerName: 'Mou Name (8)', field: 'mouName7' },
-            { headerName: 'Number Of Events Agreed (8)', field: 'noOfEvents7' },
-            { headerName: 'Valid From (8)', field: 'fromDate7' },
-            { headerName: 'Valid To (8)', field: 'toDate7' },
-            { headerName: 'Comments (8)', field: 'comments7' },
-            { headerName: 'Mou ID (9)', field: 'mouID8', filter: true },
-            { headerName: 'Mou Status (9)', field: 'mouStatus8' },
-            { headerName: 'Mou Name (9)', field: 'mouName8' },
-            { headerName: 'Number Of Events Agreed (9)', field: 'noOfEvents8' },
-            { headerName: 'Valid From (9)', field: 'fromDate8' },
-            { headerName: 'Valid To (9)', field: 'toDate8' },
-            { headerName: 'Comments (9)', field: 'comments8' },
-            { headerName: 'Mou ID (10)', field: 'mouID9', filter: true },
-            { headerName: 'Mou Status (10)', field: 'mouStatus9' },
-            { headerName: 'Mou Name (10)', field: 'mouName9' },
-            { headerName: 'Number Of Events Agreed (10)', field: 'noOfEvents9' },
-            { headerName: 'Valid From (10)', field: 'fromDate9' },
-            { headerName: 'Valid To (10)', field: 'toDate9' },
-            { headerName: 'Comments (10)', field: 'comments9' },
+            { headerName: 'Comments', field: 'comments' }
         ];
     }
     CollegeRegistrationGridComponent.prototype.ngOnInit = function () {
         var _this = this;
-        // this.data=[
-        //   {name:'n1', description: 'd1', city: 'c1', state: 's1', authorizedPerson: [
-        //     {name: 'a1'},{name:'a2'}
-        //   ]},
-        //   {name:'n2', description: 'd2', city: 'c2', state: 's2', authorizedPerson: [
-        //     {name: 'b1'},{name:'b2'},{name:'b3'},{name:'b4'},{name:'b5'}
-        //   ]}
-        // ];
+        var rows = [];
         this.apiService.getData('collegeregistration').subscribe(function (response) {
             var result = JSON.parse(JSON.stringify(response));
             Array.from(result).forEach(function (element) {
-                var mouDetails = JSON.parse(JSON.stringify(element)).mouDetails;
+                var collegeDetails = JSON.parse(JSON.stringify(element));
+                var mouDetails = collegeDetails.mouDetails;
                 console.log(mouDetails);
-                if (mouDetails[0] != null) {
-                    Object.assign(element, { mouID: mouDetails[0].mouID });
-                    Object.assign(element, { mouStatus: mouDetails[0].mouStatus });
-                    Object.assign(element, { mouName: mouDetails[0].mouName });
-                    Object.assign(element, { noOfEvents: mouDetails[0].noOfEvents });
-                    Object.assign(element, { fromDate: mouDetails[0].fromDate });
-                    Object.assign(element, { toDate: mouDetails[0].toDate });
-                    Object.assign(element, { comments: mouDetails[0].comments });
-                }
-                if (mouDetails[1] != null) {
-                    Object.assign(element, { mouID1: mouDetails[1].mouID });
-                    Object.assign(element, { mouStatus1: mouDetails[1].mouStatus });
-                    Object.assign(element, { mouName1: mouDetails[1].mouName });
-                    Object.assign(element, { noOfEvents1: mouDetails[1].noOfEvents });
-                    Object.assign(element, { fromDate1: mouDetails[1].fromDate });
-                    Object.assign(element, { toDate1: mouDetails[1].toDate });
-                    Object.assign(element, { comments1: mouDetails[1].comments });
-                }
-                if (mouDetails[2] != null) {
-                    Object.assign(element, { mouID2: mouDetails[2].mouID });
-                    Object.assign(element, { mouStatus2: mouDetails[2].mouStatus });
-                    Object.assign(element, { mouName2: mouDetails[2].mouName });
-                    Object.assign(element, { noOfEvents2: mouDetails[2].noOfEvents });
-                    Object.assign(element, { fromDate2: mouDetails[2].fromDate });
-                    Object.assign(element, { toDate2: mouDetails[2].toDate });
-                    Object.assign(element, { comments2: mouDetails[2].comments });
-                }
-                if (mouDetails[3] != null) {
-                    Object.assign(element, { mouID3: mouDetails[3].mouID });
-                    Object.assign(element, { mouStatus3: mouDetails[3].mouStatus });
-                    Object.assign(element, { mouName3: mouDetails[3].mouName });
-                    Object.assign(element, { noOfEvents3: mouDetails[3].noOfEvents });
-                    Object.assign(element, { fromDate3: mouDetails[3].fromDate });
-                    Object.assign(element, { toDate3: mouDetails[3].toDate });
-                    Object.assign(element, { comments3: mouDetails[3].comments });
-                }
-                if (mouDetails[4] != null) {
-                    Object.assign(element, { mouID4: mouDetails[4].mouID });
-                    Object.assign(element, { mouStatus4: mouDetails[4].mouStatus });
-                    Object.assign(element, { mouName4: mouDetails[4].mouName });
-                    Object.assign(element, { noOfEvents4: mouDetails[4].noOfEvents });
-                    Object.assign(element, { fromDate4: mouDetails[4].fromDate });
-                    Object.assign(element, { toDate4: mouDetails[4].toDate });
-                    Object.assign(element, { comments4: mouDetails[4].comments });
-                }
-                if (mouDetails[5] != null) {
-                    Object.assign(element, { mouID5: mouDetails[5].mouID });
-                    Object.assign(element, { mouStatus5: mouDetails[5].mouStatus });
-                    Object.assign(element, { mouName5: mouDetails[5].mouName });
-                    Object.assign(element, { noOfEvents5: mouDetails[5].noOfEvents });
-                    Object.assign(element, { fromDate5: mouDetails[5].fromDate });
-                    Object.assign(element, { toDate5: mouDetails[5].toDate });
-                    Object.assign(element, { comments5: mouDetails[5].comments });
-                }
-                if (mouDetails[6] != null) {
-                    Object.assign(element, { mouID6: mouDetails[6].mouID });
-                    Object.assign(element, { mouStatus6: mouDetails[6].mouStatus });
-                    Object.assign(element, { mouName6: mouDetails[6].mouName });
-                    Object.assign(element, { noOfEvents6: mouDetails[6].noOfEvents });
-                    Object.assign(element, { fromDate6: mouDetails[6].fromDate });
-                    Object.assign(element, { toDate6: mouDetails[6].toDate });
-                    Object.assign(element, { comments6: mouDetails[6].comments });
-                }
-                if (mouDetails[7] != null) {
-                    Object.assign(element, { mouID7: mouDetails[7].mouID });
-                    Object.assign(element, { mouStatus7: mouDetails[7].mouStatus });
-                    Object.assign(element, { mouName7: mouDetails[7].mouName });
-                    Object.assign(element, { noOfEvents7: mouDetails[7].noOfEvents });
-                    Object.assign(element, { fromDate7: mouDetails[7].fromDate });
-                    Object.assign(element, { toDate7: mouDetails[7].toDate });
-                    Object.assign(element, { comments7: mouDetails[7].comments });
-                }
-                if (mouDetails[8] != null) {
-                    Object.assign(element, { mouID8: mouDetails[8].mouID });
-                    Object.assign(element, { mouStatus8: mouDetails[8].mouStatus });
-                    Object.assign(element, { mouName8: mouDetails[8].mouName });
-                    Object.assign(element, { noOfEvents8: mouDetails[8].noOfEvents });
-                    Object.assign(element, { fromDate8: mouDetails[8].fromDate });
-                    Object.assign(element, { toDate8: mouDetails[8].toDate });
-                    Object.assign(element, { comments8: mouDetails[8].comments });
-                }
-                if (mouDetails[9] != null) {
-                    Object.assign(element, { mouID9: mouDetails[9].mouID });
-                    Object.assign(element, { mouStatus9: mouDetails[9].mouStatus });
-                    Object.assign(element, { mouName9: mouDetails[9].mouName });
-                    Object.assign(element, { noOfEvents9: mouDetails[9].noOfEvents });
-                    Object.assign(element, { fromDate9: mouDetails[9].fromDate });
-                    Object.assign(element, { toDate9: mouDetails[9].toDate });
-                    Object.assign(element, { comments9: mouDetails[9].comments });
-                }
+                Array.from(mouDetails).forEach(function (detail) {
+                    var mou = JSON.parse(JSON.stringify(detail));
+                    if (mou != null) {
+                        var collegeMou = {};
+                        Object.assign(collegeMou, collegeDetails);
+                        Object.assign(collegeMou, { mouID: mou.mouID });
+                        Object.assign(collegeMou, { mouStatus: mou.mouStatus });
+                        Object.assign(collegeMou, { mouName: mou.mouName });
+                        Object.assign(collegeMou, { noOfEvents: mou.noOfEvents });
+                        Object.assign(collegeMou, { fromDate: mou.fromDate });
+                        Object.assign(collegeMou, { toDate: mou.toDate });
+                        Object.assign(collegeMou, { comments: mou.comments });
+                        rows.push(collegeMou);
+                    }
+                });
             });
             console.log(response);
-            console.log(_this.data);
-            _this.data = result;
+            _this.data = rows;
             console.log(_this.data);
         });
     };
@@ -808,74 +654,6 @@ var CollegeRegistrationGridComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], CollegeRegistrationGridComponent);
     return CollegeRegistrationGridComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/college-registration/college-list.component.css":
-/*!*****************************************************************!*\
-  !*** ./src/app/college-registration/college-list.component.css ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbGxlZ2UtcmVnaXN0cmF0aW9uL2NvbGxlZ2UtbGlzdC5jb21wb25lbnQuY3NzIn0= */"
-
-/***/ }),
-
-/***/ "./src/app/college-registration/college-list.component.html":
-/*!******************************************************************!*\
-  !*** ./src/app/college-registration/college-list.component.html ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n<div class=\"row\" style=\"margin-top: 20px\">\n  <div class=\"col-md-1\">\n  \n  </div>\n  \n  <div class=\"col-md-10\">\n          <div id=\"myGrid\"  style=\"width: 100%; height: 100%;\">\n  <ag-grid-angular \n      class=\"ag-theme-balham\"\n      [rowData]=\"rowData\" \n      [columnDefs]=\"columnDefs\"\n      >\n  </ag-grid-angular>\n  </div>\n  </div>\n  <div class=\"col-md-1\">\n      \n  </div>\n  \n  </div>"
-
-/***/ }),
-
-/***/ "./src/app/college-registration/college-list.component.ts":
-/*!****************************************************************!*\
-  !*** ./src/app/college-registration/college-list.component.ts ***!
-  \****************************************************************/
-/*! exports provided: CollegeListComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CollegeListComponent", function() { return CollegeListComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var CollegeListComponent = /** @class */ (function () {
-    function CollegeListComponent() {
-        this.columnDefs = [
-            { headerName: 'College Name', field: 'collegename', filter: true },
-            { headerName: 'MOU Name', field: 'mouname', filter: true },
-            { headerName: 'MOU ID', field: 'mouID', filter: true },
-            { headerName: 'No Of Events', field: 'noOfEvents', filter: true },
-            { headerName: 'Start Date', field: 'startDate', filter: true },
-            { headerName: 'End Date', field: 'endDate', filter: true },
-            { headerName: 'Comments', field: 'comments', filter: true },
-        ];
-        this.rowData = [
-            { collegename: 'JNTU', mouname: 'a', mouID: '1', noOfEvents: '10', startDate: '2019-03-10', endDate: '2019-04-09', comments: '' },
-        ];
-    }
-    CollegeListComponent.prototype.ngOnInit = function () {
-    };
-    CollegeListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-college-list',
-            template: __webpack_require__(/*! ./college-list.component.html */ "./src/app/college-registration/college-list.component.html"),
-            styles: [__webpack_require__(/*! ./college-list.component.css */ "./src/app/college-registration/college-list.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], CollegeListComponent);
-    return CollegeListComponent;
 }());
 
 
@@ -900,7 +678,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well well-sm\">\n    <h3><strong> College Registration</strong></h3>\n  </div>\n\n  <form [formGroup]=\"collegeForm\">\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>About College</label>\n      </div>\n      <div class=\"panel-body\">\n        <div formGroupName=\"collegeDetails\">\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">College Name</label>\n                <input type=\"text\" formControlName=\"name\" class=\"form-control well well-sm\">\n               <!-- <div *ngIf=\"collegeForm.controls['collegeDetails'].controls.name.errors&&(collegeForm.controls['collegeDetails'].controls.name.dirty||collegeForm.controls['collegeDetails'].controls.name.touched)\" class=\"invalid-feedback\">\n                  <div *ngIf=\"collegeForm.controls['collegeDetails'].controls.name.errors.required\" class=\"field-invalid\">Name is required</div>\n                </div>-->\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Registration Id</label>\n                <input type=\"text\" formControlName=\"registrationId\" class=\"form-control well well-sm\">\n                <!--<div *ngIf=\"collegeform.controls['collegeDetails'].controls.registrationId.errors&&(collegeform.controls['collegeDetails'].controls.registrationId.dirty||collegeform.controls['collegeDetails'].controls.registrationId.touched)\" class=\"invalid-feedback\">\n                  <div *ngIf=\"collegeform.controls['collegeDetails'].controls.registrationId.errors.required\" class=\"field-invalid\"> RegistrationId is required</div>\n                </div>-->\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>Address</label>\n      </div>\n      <div class=\"panel-body\">\n        <div formGroupName=\"address\">\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Address Line 1</label>\n                <input type=\"text\" formControlName=\"addressLine1\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group\">\n                <label class=\"control-label\">Address Line 2</label>\n                <input type=\"text\" formControlName=\"addressLine2\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">City</label>\n                <input type=\"text\" formControlName=\"city\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">State</label>\n                <input type=\"text\" formControlName=\"state\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Pincode</label>\n                <input type=\"text\" formControlName=\"pincode\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>MOU Details</label>\n      </div>\n      <div class=\"panel-body\">\n        <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n          <li class=\"nav active\" *ngIf=\"numberOfMOUs>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">MOU\n              1</a></li>\n          <li class=\"nav\" *ngFor=\"let num of getArray(numberOfMOUs-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\"\n              (click)=\"activateTab(i+2)\">MOU {{i+2}}</a></li>\n\n          <div class=\"pull-right\">\n            <button class=\"btn btn-primary btn-sm btn-space\" (click)=addMOU() [disabled]=\"isMaxLimitReached(10)\">Add MOU</button>\n            <button class=\"btn btn-primary btn-sm \" (click)=removeMOU() >Remove MOU</button>\n\n          </div>\n\n        </ul>\n\n        <div class=\"tab-content\">\n          <div formArrayName=\"mouDetails\">\n            <div class=\"tab-pane\" *ngFor=\"let person of collegeForm.get('mouDetails').controls;let i=index\"\n              formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n\n              <div *ngIf=\"selectedTab==i\">\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU ID</label>\n                      <input type=\"text\" formControlName=\"mouID\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU STATUS</label>\n                      <!-- <input type=\"text\" formControlName=\"mouStatus\" class=\"form-control well well-sm\"> -->\n                      <select formControlName=\"mouStatus\" class=\"form-control\">\n                        <option *ngFor=\"let action of moustatusinfo\" [value]=\"action\">{{action}}</option>\n                      </select>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU Name</label>\n                      <input type=\"text\" formControlName=\"mouName\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Number Of Events Agreed</label>\n                      <input type=\"text\" formControlName=\"noOfEvents\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Valid From</label>\n                      <input type=\"text\" formControlName=\"fromDate\" class=\"form-control well well-sm\" bsDatepicker>\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Valid To</label>\n                      <input type=\"text\" formControlName=\"toDate\" class=\"form-control well well-sm\" bsDatepicker>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Comments</label>\n                      <textarea type=\"text\" formControlName=\"comments\" class=\"form-control well well-sm\"></textarea>\n                    </div>\n                  </div>\n                </div>\n\n              </div>\n\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n  </form>\n  <div class=\"text-center\">\n    <!--<button class=\"btn btn-primary btn-sx\"  (click)=\"onSubmit()\">Register</button>-->\n    <button (click)=\"onSubmit()\" *ngIf=\"!mode\" class=\"btn btn-primary btn-space\">Register</button>\n    <button (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" class=\"btn btn-primary btn-space\">Update</button>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well well-sm\">\n    <h3><strong> College Registration</strong></h3>\n  </div>\n\n  <form [formGroup]=\"collegeForm\">\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>About College</label>\n      </div>\n      <div class=\"panel-body\">\n        <div formGroupName=\"collegeDetails\">\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">College Name</label>\n                <input type=\"text\" formControlName=\"name\" class=\"form-control well well-sm\">\n               <!-- <div *ngIf=\"collegeForm.controls['collegeDetails'].controls.name.errors&&(collegeForm.controls['collegeDetails'].controls.name.dirty||collegeForm.controls['collegeDetails'].controls.name.touched)\" class=\"invalid-feedback\">\n                  <div *ngIf=\"collegeForm.controls['collegeDetails'].controls.name.errors.required\" class=\"field-invalid\">Name is required</div>\n                </div>-->\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group \">\n                <label class=\"control-label\">Registration Id</label>\n                <input type=\"text\" formControlName=\"registrationId\" class=\"form-control well well-sm\">\n                <!--<div *ngIf=\"collegeform.controls['collegeDetails'].controls.registrationId.errors&&(collegeform.controls['collegeDetails'].controls.registrationId.dirty||collegeform.controls['collegeDetails'].controls.registrationId.touched)\" class=\"invalid-feedback\">\n                  <div *ngIf=\"collegeform.controls['collegeDetails'].controls.registrationId.errors.required\" class=\"field-invalid\"> RegistrationId is required</div>\n                </div>-->\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>Address</label>\n      </div>\n      <div class=\"panel-body\">\n        <div formGroupName=\"address\">\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Address Line 1</label>\n                <input type=\"text\" formControlName=\"addressLine1\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group\">\n                <label class=\"control-label\">Address Line 2</label>\n                <input type=\"text\" formControlName=\"addressLine2\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">City</label>\n                <input type=\"text\" formControlName=\"city\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">State</label>\n                <input type=\"text\" formControlName=\"state\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Pincode</label>\n                <input type=\"text\" formControlName=\"pincode\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>MOU Details</label>\n      </div>\n      <div class=\"panel-body\">\n        <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n          <li class=\"nav active\" *ngIf=\"numberOfMOUs>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">MOU\n              1</a></li>\n          <li class=\"nav\" *ngFor=\"let num of getArray(numberOfMOUs-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\"\n              (click)=\"activateTab(i+2)\">MOU {{i+2}}</a></li>\n\n          <div class=\"pull-right\">\n            <button class=\"btn btn-primary btn-sm btn-space\" (click)=addMOU() [disabled]=\"isMaxLimitReached(10)\">Add MOU</button>\n            <button class=\"btn btn-primary btn-sm \" (click)=removeMOU() >Remove MOU</button>\n\n          </div>\n\n        </ul>\n\n        <div class=\"tab-content\">\n          <div formArrayName=\"mouDetails\">\n            <div class=\"tab-pane\" *ngFor=\"let person of collegeForm.get('mouDetails').controls;let i=index\"\n              formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n\n              <div *ngIf=\"selectedTab==i\">\n                <div class=\"row\">\n                  \n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU STATUS</label>\n                      <!-- <input type=\"text\" formControlName=\"mouStatus\" class=\"form-control well well-sm\"> -->\n                      <select formControlName=\"mouStatus\" class=\"form-control\">\n                        <option *ngFor=\"let action of moustatusinfo\" [value]=\"action\">{{action}}</option>\n                      </select>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU Name</label>\n                      <input type=\"text\" style=\"text-transform:uppercase\" formControlName=\"mouName\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Number Of Events Agreed</label>\n                      <input type=\"text\" formControlName=\"noOfEvents\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Valid From</label>\n                      <input type=\"text\" formControlName=\"fromDate\" class=\"form-control well well-sm\" bsDatepicker>\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Valid To</label>\n                      <input type=\"text\" formControlName=\"toDate\" class=\"form-control well well-sm\" bsDatepicker>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Comments</label>\n                      <textarea type=\"text\" formControlName=\"comments\" class=\"form-control well well-sm\"></textarea>\n                    </div>\n                  </div>\n                </div>\n\n              </div>\n\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n  </form>\n  <div class=\"text-center\">\n    <!--<button class=\"btn btn-primary btn-sx\"  (click)=\"onSubmit()\">Register</button>-->\n    <button (click)=\"onSubmit()\" *ngIf=\"!mode\" class=\"btn btn-primary btn-space\">Register</button>\n    <button (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" class=\"btn btn-primary btn-space\">Update</button>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1046,11 +824,11 @@ var CollegeRegistrationComponent = /** @class */ (function () {
     };
     CollegeRegistrationComponent.prototype.checkForMandatoryValidations = function (collegeDetails) {
         var checkflag = false;
-        if (collegeDetails.name && collegeDetails.registrationId && collegeDetails.addressLine1 && collegeDetails.city && collegeDetails.state
+        if (collegeDetails.name && collegeDetails.addressLine1 && collegeDetails.city && collegeDetails.state
             && collegeDetails.pincode) {
             if (collegeDetails.mouDetails.length) {
                 collegeDetails.mouDetails.forEach(function (o) {
-                    if (!o.mouID || !o.mouStatus || !o.mouName) {
+                    if (!o.mouStatus || !o.mouName || !o.fromDate || !o.toDate) {
                         checkflag = true;
                         return false;
                     }
@@ -1322,7 +1100,7 @@ var Eventdata = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"row\" style=\"margin-top: 20px\">\n<div class=\"col-md-1\">\n\n</div>\n\n<div class=\"col-md-10\">\n        <div id=\"myGrid\"  style=\"width: 100%; height: 100%;\">\n<ag-grid-angular \n    class=\"ag-theme-balham\"\n    [rowData]=\"rowData\" \n    [columnDefs]=\"columnDefs\"\n    [frameworkComponents]=\"frameworkComponents\">\n</ag-grid-angular>\n        </div>\n</div>\n<div class=\"col-md-1\">\n    \n</div>\n\n</div>\n\n<div class=\"row\" style=\"margin-top:10px\">\n    <div class=\"col-md-1\"></div>\n    <div class=\"col-md-10\">\n        <div style=\"text-align:right\">\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/addevent'])\">\n            Add Event\n        </button>\n        </div>\n    </div>\n</div>"
+module.exports = "\n<div class=\"row\" style=\"margin-top: 20px\">\n<div class=\"col-md-1\">\n\n</div>\n\n<div >\n        <div id=\"myGrid\"  style=\"width: 100%; height: 100%;\">\n<ag-grid-angular style=\"height: 100%;\"\n    class=\"ag-theme-balham\"\n    [rowData]=\"rowData\" \n    [columnDefs]=\"columnDefs\"\n    [frameworkComponents]=\"frameworkComponents\">\n</ag-grid-angular>\n        </div>\n</div>\n<div class=\"col-md-1\">\n    \n</div>\n\n</div>\n\n<div class=\"row\" style=\"margin-top:10px\">\n    <div class=\"col-md-1\"></div>\n    <div class=\"col-md-10\">\n        <div style=\"text-align:right\">\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/addevent'])\">\n            Add Event\n        </button>\n        </div>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -1730,7 +1508,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"row\" style=\"margin-top: 20px\">\n  <div class=\"col-md-1\">\n  \n  </div>\n  \n  <div class=\"col-md-10\">\n          <div id=\"myGrid\"  style=\"width: 100%; height: 115px;\">\n  <ag-grid-angular \n      class=\"ag-theme-balham\"\n      [rowData]=\"rowData\" \n      [columnDefs]=\"columnDefs\"\n      (rowClicked)=\"onSearch($event)\"\n      >\n  </ag-grid-angular>\n  </div>\n  </div>\n  <div class=\"col-md-1\">\n      \n  </div>\n  \n  </div>\n\n  <div class=\"row\" style=\"margin-top:10px\">\n      <div class=\"col-md-1\"></div>\n      <div class=\"col-md-10\">\n          <div style=\"text-align:right\">\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/inventorydata'])\">\n              Add Inventory\n          </button>\n          </div>\n      </div>\n  </div>\n"
+module.exports = "\n<div class=\"row\" style=\"margin-top: 20px\">\n  <div class=\"col-md-1\">\n  \n  </div>\n  \n  <div>\n          <div id=\"myGrid\"  style=\"width: 100%; height: 115px;\">\n  <ag-grid-angular style=\"height: 100%;\"\n      class=\"ag-theme-balham\"\n      [rowData]=\"rowData\" \n      [columnDefs]=\"columnDefs\"\n      (rowClicked)=\"onSearch($event)\"\n      >\n  </ag-grid-angular>\n  </div>\n  </div>\n  <div class=\"col-md-1\">\n      \n  </div>\n  \n  </div>\n\n  <div class=\"row\" style=\"margin-top:10px\">\n      <div class=\"col-md-1\"></div>\n      <div class=\"col-md-10\">\n          <div style=\"text-align:right\">\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/inventorydata'])\">\n              Add Inventory\n          </button>\n          </div>\n      </div>\n  </div>\n"
 
 /***/ }),
 
@@ -1849,7 +1627,7 @@ var InventorydataService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"card card-container\">\n    <!-- <img class=\"profile-img-card\" src=\"//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120\" alt=\"\" /> -->\n    <img class=\"profile-img-card\" id=\"profile-img\" src=\"//ssl.gstatic.com/accounts/ui/avatar_2x.png\"/>\n    <p class=\"profile-name-card\" id=\"profile-name\"></p>\n\n    <form #f=\"ngForm\" (ngSubmit)=\"f.form.valid && login()\" name=\"form-signin\" novalidate>\n      <div *ngIf=\"errorMessage\" class=\"alert alert-danger\" role=\"alert\">{{errorMessage}}</div>\n      <span class=\"reauth-email\" id=\"reauth-email\"></span>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\" class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input #username=\"ngModel\" [(ngModel)]=\"user.username\" class=\"form-control\" id=\"username\" name=\"username\"\n               required type=\"text\"/>\n        <!-- <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">an valid email is required</div>-->\n      </div>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\" class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input #password=\"ngModel\" [(ngModel)]=\"user.password\" class=\"form-control\" id=\"password\" name=\"password\"\n               required type=\"password\"/>\n        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Password is required</div>\n      </div>\n      <div class=\"checkbox\" id=\"remember\">\n\n      </div>\n      <button class=\"btn btn-lg btn-primary btn-block btn-signin\" type=\"submit\">Sign in</button>\n    </form><!-- /form -->\n    <a [routerLink]=\"['/register']\" class=\"btn btn-link\">Create new Account!</a>\n  </div><!-- /card-container -->\n</div><!-- /container -->\n"
+module.exports = "<div class=\"container\">\n  <div class=\"card card-container\">\n\n<div class=\"row\"><div class=\"col-md-4\"></div><div class=\"col-md-4\">\n    <form #f=\"ngForm\" (ngSubmit)=\"f.form.valid && login()\" name=\"form-signin\" novalidate>\n      <div *ngIf=\"errorMessage\" class=\"alert alert-danger\" role=\"alert\">{{errorMessage}}</div>\n      <span class=\"reauth-email\" id=\"reauth-email\"></span>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\" class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input #username=\"ngModel\" [(ngModel)]=\"user.username\" class=\"form-control\" id=\"username\" name=\"username\"\n               required type=\"text\"/>\n        <!-- <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">an valid email is required</div>-->\n      </div>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\" class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input #password=\"ngModel\" [(ngModel)]=\"user.password\" class=\"form-control\" id=\"password\" name=\"password\"\n               required type=\"password\"/>\n        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Password is required</div>\n      </div>\n      <div class=\"checkbox\" id=\"remember\">\n\n      </div>\n      <div class=\"row\"><div class=\"col-md-4\"></div>\n    <div class=\"col-md-4\">  <button class=\"btn btn-lg btn-primary btn-block btn-signin\" type=\"submit\">Sign in</button></div>\n        <div class=\"col-md-4\"></div> </div><!--<a [routerLink]=\"['/register']\" class=\"btn btn-link\">Create new Account!</a>-->\n    </form></div> <div class=\"col-md-4\"></div></div><!-- /form -->\n\n  </div><!-- /card-container -->\n</div><!-- /container -->\n"
 
 /***/ }),
 
@@ -1941,7 +1719,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> Partner NGO </strong></h3>\n  </div>\n  <div class=\"col-md-10\" #myGrid  style=\"width: 100%; height: 100%;\">\n    <ag-grid-angular \n      class=\"ag-theme-balham\" \n      [rowData]=\"data\" \n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\"\n    >\n      <!-- \n      (rowDoubleClicked)=\"onRowDoubleCilcked(event)\"\n      (cellDoubleClicked)=\"onCellDoubleClicked($event)\"-->\n    </ag-grid-angular>\n  </div>\n  <div class=\"col-md-10\">\n      <div style=\"text-align:right\">\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/partnerngo'])\">\n          Add partner NGO\n      </button>\n      </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> Partner NGO </strong></h3>\n  </div>\n  <div  #myGrid  style=\"width: 100%; height: 100%;\">\n    <ag-grid-angular style=\"height: 100%;\"\n      class=\"ag-theme-balham\" \n      [rowData]=\"data\" \n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\"\n    >\n      <!-- \n      (rowDoubleClicked)=\"onRowDoubleCilcked(event)\"\n      (cellDoubleClicked)=\"onCellDoubleClicked($event)\"-->\n    </ag-grid-angular>\n  </div>\n  <div class=\"col-md-10\">\n      <div style=\"text-align:right\">\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/partnerngo'])\">\n          Add partner NGO\n      </button>\n      </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1980,27 +1758,27 @@ var PartnerNgoGridComponent = /** @class */ (function () {
             { headerName: 'Pincode', field: 'pincode', filter: true },
             { headerName: 'Authorized Person Name', field: 'authorizedPersonName' },
             { headerName: 'Authorized Person Contact', field: 'authorizedPersonContact' },
-            { headerName: 'Alternate Contact Details', field: 'contact2' },
+            { headerName: 'Alternate Contact Number', field: 'contact2' },
             { headerName: 'Email ID', field: 'email1' },
             { headerName: 'Alternate Email ID', field: 'email2' },
             { headerName: 'Authorized Person Name (2)', field: 'authorizedPersonName1' },
             { headerName: 'Authorized Person Contact (2)', field: 'authorizedPersonContact1' },
-            { headerName: 'Alternate Contact Details (2)', field: 'contact21' },
+            { headerName: 'Alternate Contact Number (2)', field: 'contact21' },
             { headerName: 'Email ID (2)', field: 'email11' },
             { headerName: 'Alternate Email ID (2)', field: 'email21' },
             { headerName: 'Authorized Person Name (3)', field: 'authorizedPersonName2' },
             { headerName: 'Authorized Person Contact (3)', field: 'authorizedPersonContact2' },
-            { headerName: 'Alternate Contact Details (3)', field: 'contact22' },
+            { headerName: 'Alternate Contact Number (3)', field: 'contact22' },
             { headerName: 'Email ID (3)', field: 'email12' },
             { headerName: 'Alternate Email ID (3)', field: 'email22' },
             { headerName: 'Authorized Person Name (4)', field: 'authorizedPersonName3' },
             { headerName: 'Authorized Person Contact (4)', field: 'authorizedPersonContact3' },
-            { headerName: 'Alternate Contact Details (4)', field: 'contact23' },
+            { headerName: 'Alternate Contact Number (4)', field: 'contact23' },
             { headerName: 'Email ID (4)', field: 'email13' },
             { headerName: 'Alternate Email ID (4)', field: 'email23' },
             { headerName: 'Authorized Person Name (5)', field: 'authorizedPersonName4' },
             { headerName: 'Authorized Person Contact (5)', field: 'authorizedPersonContact4' },
-            { headerName: 'Alternate Contact Details (5)', field: 'contact24' },
+            { headerName: 'Alternate Contact Number (5)', field: 'contact24' },
             { headerName: 'Email ID (5)', field: 'email14' },
             { headerName: 'Alternate Email ID (5)', field: 'email24' },
         ];
@@ -2098,7 +1876,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1 user-scalable=no\">\n  </head>\n\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"page-header well well-sm\">\n        <h3><strong> Partner NGO Registration</strong></h3>\n      </div>\n      \n      <form [formGroup]=\"myForm\">\n        <!-- ToDo: Decrease space between the table rows-->\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Basic Information</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"basicInfo\">\n              <!-- <table class=\"form-table\"> -->\n              <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Name</label>\n                      <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Description</label>\n                      <input type=\"text\" formControlName = \"description\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Branch</label>\n                      <input type=\"text\" formControlName = \"branch\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Registration Number</label>\n                      <input type=\"text\" formControlName = \"registrationNumber\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Address</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"address\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Address Line 1</label>\n                      <input type=\"text\" formControlName = \"addressLine1\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Address Line 2</label>\n                      <input type=\"text\" formControlName = \"addressLine2\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">City</label>\n                      <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">State</label>\n                      <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Pincode</label>\n                      <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Authorised Persons</label>\n          </div>\n          <div class=\"panel-body\">\n            <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n              <li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">Person 1</a></li>\n              <li class=\"nav\" *ngFor=\"let num of getArray(numberOfAuthorizedPersons-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\" (click)=\"activateTab(i+2)\">Person {{i+2}}</a></li>\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"activateTab(numberOfAuthorizedPersons)\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"selectedTab=i\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <div class=\"pull-right\">\n                <button class=\"btn btn-sm btn-primary btn-space\" (click)=\"addAuthorisedPerson()\" [disabled]=\"isMaxLimitReached(5)\">Add Person</button>\n                <button class=\"btn btn-sm btn-primary\" (click)=\"removeAuthorisedPerson(selectedTab)\" confirm=\"Are you sure you want to delete?\" confirm-ok=\"Yes\" confirm-cancel=\"No\" [disabled]=\"isMinLimitReached()\">Remove Person</button>\n              </div>\n              <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->\n            </ul>\n\n            <div class=\"tab-content\">\n              <div formArrayName=\"authorizedPersons\">\n                <!--ToDo: NgFor not working: Check-->\n                <div class=\"tab-pane\" *ngFor=\"let person of myForm.get('authorizedPersons').controls;let i=index\" formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n                  <!-- <table class=\"form-table\"> -->\n                  <div *ngIf=\"selectedTab==i\">\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Name</label>\n                          <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Contact Details</label>\n                          <input type=\"text\" formControlName = \"contact1\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Alternate Contact Details</label>\n                          <input type=\"text\" formControlName = \"contact2\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Email ID</label>\n                            <input type=\"text\" formControlName = \"email1\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Alternate Email ID</label>\n                            <input type=\"text\" formControlName = \"email2\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  <!-- </table>               -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </form>\n      <!--<span>{{myForm.value | json}}</span>-->\n      <div class=\"pull-right\">\n        <button (click)=\"onSubmit()\" *ngIf=\"!mode\" class=\"btn btn-primary btn-space\">Register</button>\n        <button (click)=\"onEdit()\" *ngIf=\"mode=='view'\" class=\"btn btn-primary btn-space\">Edit</button>\n        <button (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" class=\"btn btn-primary btn-space\">Update</button>\n        <button (click)=\"onClose()\" *ngIf=\"mode=='view' || mode=='edit'\" class=\"btn btn-primary btn-space\">Close\n        </button>\n      </div>\n    </div>\n\n  </body>\n</html>\n"
+module.exports = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1 user-scalable=no\">\n  </head>\n\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"page-header well well-sm\">\n        <h3><strong> Partner NGO Registration</strong></h3>\n      </div>\n      \n      <form [formGroup]=\"myForm\">\n        <!-- ToDo: Decrease space between the table rows-->\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Basic Information</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"basicInfo\">\n              <!-- <table class=\"form-table\"> -->\n              <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Name</label>\n                      <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Description</label>\n                      <input type=\"text\" formControlName = \"description\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Branch</label>\n                      <input type=\"text\" formControlName = \"branch\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Registration Number</label>\n                      <input type=\"text\" formControlName = \"registrationNumber\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Address</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"address\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Address Line 1</label>\n                      <input type=\"text\" formControlName = \"addressLine1\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Address Line 2</label>\n                      <input type=\"text\" formControlName = \"addressLine2\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">City</label>\n                      <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">State</label>\n                      <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Pincode</label>\n                      <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Authorised Persons</label>\n          </div>\n          <div class=\"panel-body\">\n            <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n              <li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">Person 1</a></li>\n              <li class=\"nav\" *ngFor=\"let num of getArray(numberOfAuthorizedPersons-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\" (click)=\"activateTab(i+2)\">Person {{i+2}}</a></li>\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"activateTab(numberOfAuthorizedPersons)\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"selectedTab=i\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <div class=\"pull-right\">\n                <button class=\"btn btn-sm btn-primary btn-space\" (click)=\"addAuthorisedPerson()\" [disabled]=\"isMaxLimitReached(5)\">Add Person</button>\n                <button class=\"btn btn-sm btn-primary\" (click)=\"removeAuthorisedPerson(selectedTab)\" confirm=\"Are you sure you want to delete?\" confirm-ok=\"Yes\" confirm-cancel=\"No\" [disabled]=\"isMinLimitReached()\">Remove Person</button>\n              </div>\n              <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->\n            </ul>\n\n            <div class=\"tab-content\">\n              <div formArrayName=\"authorizedPersons\">\n                <!--ToDo: NgFor not working: Check-->\n                <div class=\"tab-pane\" *ngFor=\"let person of myForm.get('authorizedPersons').controls;let i=index\" formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n                  <!-- <table class=\"form-table\"> -->\n                  <div *ngIf=\"selectedTab==i\">\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Name</label>\n                          <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Contact Number</label>\n                          <input type=\"text\" formControlName = \"contact1\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Alternate Contact Number</label>\n                          <input type=\"text\" formControlName = \"contact2\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Email ID</label>\n                            <input type=\"text\" formControlName = \"email1\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Alternate Email ID</label>\n                            <input type=\"text\" formControlName = \"email2\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  <!-- </table>               -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </form>\n      <!--<span>{{myForm.value | json}}</span>-->\n      <div class=\"pull-right\">\n        <button (click)=\"onSubmit()\" *ngIf=\"!mode\" class=\"btn btn-primary btn-space\">Register</button>\n        <button (click)=\"onEdit()\" *ngIf=\"mode=='view'\" class=\"btn btn-primary btn-space\">Edit</button>\n        <button (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" class=\"btn btn-primary btn-space\">Update</button>\n        <button (click)=\"onClose()\" *ngIf=\"mode=='view' || mode=='edit'\" class=\"btn btn-primary btn-space\">Close\n        </button>\n      </div>\n    </div>\n\n  </body>\n</html>\n"
 
 /***/ }),
 
@@ -2701,7 +2479,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> Volunteer </strong></h3>\n  </div>\n  <div class=\"col-md-10\" #myGrid  style=\"width: 100%; height: 100%;\">\n    <ag-grid-angular\n      class=\"ag-theme-balham\"\n      [rowData]=\"data\"\n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\"\n\n    >\n\n    </ag-grid-angular>\n  </div>\n  <div class=\"col-md-10\">\n      <div style=\"text-align:right\">\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/volunteer'])\">\n          Add Volunteer\n      </button>\n      </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> Volunteer </strong></h3>\n  </div>\n  <div  #myGrid  style=\"width: 100%; height: 100%;\">\n    <ag-grid-angular style=\"height: 100%;\"\n      class=\"ag-theme-balham\"\n      [rowData]=\"data\"\n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\"\n\n    >\n\n    </ag-grid-angular>\n  </div>\n  <div class=\"col-md-10\">\n      <div style=\"text-align:right\">\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/volunteer'])\">\n          Add Volunteer\n      </button>\n      </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -3189,7 +2967,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/force/yfsevents/yfsevents-web/src/main/web/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /home/force/Documents/yfsevents/yfsevents-web/src/main/web/src/main.ts */"./src/main.ts");
 
 
 /***/ })
