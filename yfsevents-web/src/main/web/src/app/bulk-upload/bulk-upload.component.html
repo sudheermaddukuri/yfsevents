@@ -1,11 +1,36 @@
-<div>
-  <a href={{fileUrl}} download>
-    <!-- <button class="btn btn-sm btn-primary" (click)="downloadTemplate()">Download Template</button> -->
-    <button class="btn btn-sm btn-primary">Download Template</button>
-  </a>
-</div>
+<div class="container-fluid">
 
-<div>
-  <input type="file" (change)="selectFile($event)" placeholder="Upload file" accept=".xls, .xlsx">
-  <button class="btn btn-sm btn-primary" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+  <div>
+    <a href={{fileUrl}} download>
+      <!-- <button class="btn btn-sm btn-primary" (click)="downloadTemplate()">Download Template</button> -->
+      <button class="btn btn-sm btn-primary">Download Template</button>
+    </a>
+  </div>
+
+  <div>
+    <input type="file" (change)="selectFile($event)" placeholder="Upload file" accept=".xls, .xlsx">
+    <button class="btn btn-sm btn-primary" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+  </div>
+
+  <div *ngIf="data!=null">
+    <div class="page-header well text-center well-sm">
+      <h5><strong> Uploaded Volunteer Data </strong></h5>
+    </div>
+    
+    <div  #bulkGrid  style="width: 100%; height: 100%;">
+      <ag-grid-angular style="height: 100%;"
+        class="ag-theme-balham" 
+        [rowData]="data" 
+        [columnDefs]="headers"
+      >
+      </ag-grid-angular>
+    </div>
+    <div class="col-md-10">
+        <div style="text-align:right">
+        <button type="button" class="btn btn-primary" (click)="save()">
+            Save
+        </button>
+        </div>
+    </div>
+  </div>
 </div>

@@ -5790,13 +5790,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-__webpack_require__(/*! /home/force/yfsevents/yfsevents-web/src/main/web/src/polyfills.ts */"./src/polyfills.ts");
-module.exports = __webpack_require__(/*! /home/force/yfsevents/yfsevents-web/src/main/web/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
-=======
 __webpack_require__(/*! /home/force/Documents/Ideaprojects/yfsevents_snehasingh95/yfsevents-web/src/main/web/src/polyfills.ts */"./src/polyfills.ts");
 module.exports = __webpack_require__(/*! /home/force/Documents/Ideaprojects/yfsevents_snehasingh95/yfsevents-web/src/main/web/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
->>>>>>> 224475f5d65d2987b2293de62169ac16e38e8f2f
 
 
 /***/ })

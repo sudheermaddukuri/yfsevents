@@ -12,8 +12,8 @@ import { JsonPipe}from '@angular/common';
 })
 export class VolunteerGridComponent implements OnInit {
 
- private data:any=[];
-   private headers=[
+  private data:any=[];
+  private headers=[
      {headerName: 'First Name', field: 'firstName',filter:true, sortable: true },
      {headerName: 'Last Name', field: 'lastName',filter:true},
      {headerName: 'Phone Prefix', field: 'phonePrefix',filter:true},
@@ -27,7 +27,6 @@ export class VolunteerGridComponent implements OnInit {
      {headerName: 'State', field: 'state',filter:true},
      {headerName: 'PinCode', field: 'pincode',filter:true},
      {headerName: 'Interested Areas', field: 'interestedAreas'}
-
    ];
    private myGrid: any;
    private gridApi: any;

@@ -43,8 +43,8 @@ public class BulkUploadController {
     private final Integer maxInterestedAreas = 5;
     private final Integer baseInterestredAreasIndex = 10;
 
-    @PostMapping("/bulk-upload")
-    public ResponseEntity<List<BulkVolunteer>> handleFileUpload(@RequestParam("file") MultipartFile file) throws InvalidFormatException {
+    @PostMapping("/bulk/upload")
+    public ResponseEntity<List<BulkVolunteer>> extractFileData(@RequestParam("file") MultipartFile file) throws InvalidFormatException {
         logger.info("Posting Bulk Data");
         //ToDo: Set Response
         try {
@@ -84,24 +84,15 @@ public class BulkUploadController {
                                 volunteer.setInterstedAreas(interestedAreas);
 
                                 BulkVolunteer bulkVolunteer = new BulkVolunteer();
+                                List<String> errors = new ArrayList<>();
+                                bulkVolunteer.setVolunteer(volunteer);
 
                                 //TODO: Move below check to Volunteer Service
-                                if(volunteerService.isPresent(volunteer)){
-                                    List<String> errors = new ArrayList<>();
+                                if(volunteerService.isPresent(volunteer)) {
                                     errors.add("Volunteer Already Present");
-                                    bulkVolunteer.setVolunteer(volunteer);
-                                    bulkVolunteer.setErrors(errors);
-                                }else {
-                                    //TODO: CAll Save Service Directly.
-                                    Volunteer volunteer1 = volunteerRepository.save(volunteer);
-                                    volunteer1.getInterestedAreas().stream().forEach((interestedArea) -> {
-                                        interestedArea.setVolunteer(volunteer1);
-                                        volunteerInterestedAreaRepository.save(interestedArea);
-                                    });
-                                    List<String> errors = new ArrayList<>();
-                                    bulkVolunteer.setVolunteer(volunteer1);
-                                    bulkVolunteer.setErrors(errors);
                                 }
+
+                                bulkVolunteer.setErrors(errors);
                                 bulkVolunteers.add(bulkVolunteer);
                             }
                         }
@@ -116,12 +107,27 @@ public class BulkUploadController {
             }else{
                 logger.error("Error in filename");
             }
-            return new ResponseEntity<>(bulkVolunteers, HttpStatus.OK);
+            return new ResponseEntity<List<BulkVolunteer>>(bulkVolunteers, HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    @PostMapping("/bulk/save")
+    public ResponseEntity<String> saveBulkData(List<BulkVolunteer> bulkVolunteerList){
+        bulkVolunteerList.forEach(bulkVolunteer -> {
+            //TODO: CAll Save Service Directly.
+            if(bulkVolunteer.getErrors().isEmpty()) {
+                Volunteer volunteer1 = volunteerRepository.save(bulkVolunteer.getVolunteer());
+                volunteer1.getInterestedAreas().stream().forEach((interestedArea) -> {
+                    interestedArea.setVolunteer(volunteer1);
+                    volunteerInterestedAreaRepository.save(interestedArea);
+                });
+            }
+        });
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }
