@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Controller
 @RequestMapping("/api")
@@ -117,6 +118,7 @@ public class BulkUploadController {
 
     @PostMapping("/bulk/save")
     public ResponseEntity<String> saveBulkData(List<BulkVolunteer> bulkVolunteerList){
+        AtomicReference<Long> count= new AtomicReference<>(0L);
         bulkVolunteerList.forEach(bulkVolunteer -> {
             //TODO: CAll Save Service Directly.
             if(bulkVolunteer.getErrors().isEmpty()) {
@@ -125,9 +127,10 @@ public class BulkUploadController {
                     interestedArea.setVolunteer(volunteer1);
                     volunteerInterestedAreaRepository.save(interestedArea);
                 });
+                count.getAndSet(count.get() + 1);
             }
         });
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(count, HttpStatus.OK);
     }
 
 }

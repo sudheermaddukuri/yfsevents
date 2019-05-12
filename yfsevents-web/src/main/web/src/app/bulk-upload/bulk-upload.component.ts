@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../upload.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bulk-upload',
@@ -27,11 +28,12 @@ export class BulkUploadComponent implements OnInit {
     {headerName: 'State', field: 'state',filter:true},
     {headerName: 'PinCode', field: 'pincode',filter:true},
     {headerName: 'Interested Areas', field: 'interestedAreas'},
-    {headerName: 'Comments', field: 'status'}
+    {headerName: 'Comments', field: 'errors'}
   ];
   private bulkGrid:any;
 
-  constructor(private uploadService: UploadService) { }
+  constructor(private uploadService: UploadService,
+              private router: Router) { }
 
   ngOnInit() {
     this.fileUrl = "/assets/sample.xls"
@@ -56,7 +58,11 @@ export class BulkUploadComponent implements OnInit {
         let volunteers =[];
         (response.body).forEach(element => {
           let volunteer={};
-          Object.assign(volunteer, element.errors);
+          if(element.errors!=null){
+            Object.assign(volunteer, element.errors);
+          }else{
+            Object.assign(volunteer, {"errors" : ["No Errors"]})
+          }
           Object.assign(volunteer, element.volunteer);
           let interestedAreas = [];
           (element.volunteer.interestedAreas).forEach(interestedArea => {
@@ -73,6 +79,13 @@ export class BulkUploadComponent implements OnInit {
 
   save(){
     alert("Only data with no errors will be saved");
+    this.uploadService.saveBulkData(this.data).subscribe(result=>{
+      let response = JSON.parse(JSON.stringify(result));
+      if(response.status && response.status===200){
+        alert("Bulk upLoad successful. "+response.count+" records saved.");
+        this.router.navigateByUrl("/grid/volunteer");
+      }
+    });
   } 
 
 }

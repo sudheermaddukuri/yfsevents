@@ -134,6 +134,7 @@ var ApiService = /** @class */ (function () {
         this.urlList.set('collegeregistration', '/collegeregistration');
         this.urlList.set('interestedAreasCategory', '/interestedAreasCategory');
         this.urlList.set('collegeregistration-list', '/collegeregistration/list');
+        this.urlList.set('bulkSave', 'bulk/save');
     };
     ApiService.prototype.postData = function (data, type) {
         return this.post(data, type).subscribe(function (response) {
@@ -591,12 +592,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _upload_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../upload.service */ "./src/app/upload.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
 
 
 
 var BulkUploadComponent = /** @class */ (function () {
-    function BulkUploadComponent(uploadService) {
+    function BulkUploadComponent(uploadService, router) {
         this.uploadService = uploadService;
+        this.router = router;
         this.data = [];
         this.headers = [
             { headerName: 'First Name', field: 'firstName', filter: true, sortable: true },
@@ -612,7 +616,7 @@ var BulkUploadComponent = /** @class */ (function () {
             { headerName: 'State', field: 'state', filter: true },
             { headerName: 'PinCode', field: 'pincode', filter: true },
             { headerName: 'Interested Areas', field: 'interestedAreas' },
-            { headerName: 'Comments', field: 'status' }
+            { headerName: 'Comments', field: 'errors' }
         ];
     }
     BulkUploadComponent.prototype.ngOnInit = function () {
@@ -635,14 +639,19 @@ var BulkUploadComponent = /** @class */ (function () {
                 var volunteers_1 = [];
                 (response.body).forEach(function (element) {
                     var volunteer = {};
-                    Object.assign(volunteer, element.errors);
+                    if (element.errors != null) {
+                        Object.assign(volunteer, element.errors);
+                    }
+                    else {
+                        Object.assign(volunteer, { "errors": ["No Errors"] });
+                    }
                     Object.assign(volunteer, element.volunteer);
                     var interestedAreas = [];
                     (element.volunteer.interestedAreas).forEach(function (interestedArea) {
                         interestedAreas.push(interestedArea["interestedArea"]);
                     });
                     Object.assign(volunteer, interestedAreas);
-                    volunteers_1.push(interestedAreas);
+                    volunteers_1.push(volunteer);
                 });
                 _this.data = volunteers_1;
             }
@@ -650,7 +659,15 @@ var BulkUploadComponent = /** @class */ (function () {
         });
     };
     BulkUploadComponent.prototype.save = function () {
+        var _this = this;
         alert("Only data with no errors will be saved");
+        this.uploadService.saveBulkData(this.data).subscribe(function (result) {
+            var response = JSON.parse(JSON.stringify(result));
+            if (response.status && response.status === 200) {
+                alert("Bulk upLoad successful. " + response.count + " records saved.");
+                _this.router.navigateByUrl("/grid/volunteer");
+            }
+        });
     };
     BulkUploadComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -658,7 +675,8 @@ var BulkUploadComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./bulk-upload.component.html */ "./src/app/bulk-upload/bulk-upload.component.html"),
             styles: [__webpack_require__(/*! ./bulk-upload.component.css */ "./src/app/bulk-upload/bulk-upload.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_upload_service__WEBPACK_IMPORTED_MODULE_2__["UploadService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_upload_service__WEBPACK_IMPORTED_MODULE_2__["UploadService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], BulkUploadComponent);
     return BulkUploadComponent;
 }());
@@ -2553,12 +2571,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./api.service */ "./src/app/api.service.ts");
+
 
 
 
 var UploadService = /** @class */ (function () {
-    function UploadService(http) {
+    function UploadService(http, apiService) {
         this.http = http;
+        this.apiService = apiService;
     }
     UploadService.prototype.pushFileData = function (file) {
         var formData = new FormData();
@@ -2567,11 +2588,15 @@ var UploadService = /** @class */ (function () {
         console.log(request);
         return this.http.request(request);
     };
+    UploadService.prototype.saveBulkData = function (data) {
+        return this.apiService.post(data, 'bulkSave');
+    };
     UploadService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"]])
     ], UploadService);
     return UploadService;
 }());
