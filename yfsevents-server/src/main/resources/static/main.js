@@ -134,7 +134,7 @@ var ApiService = /** @class */ (function () {
         this.urlList.set('collegeregistration', '/collegeregistration');
         this.urlList.set('interestedAreasCategory', '/interestedAreasCategory');
         this.urlList.set('collegeregistration-list', '/collegeregistration/list');
-        this.urlList.set('bulkSave', 'bulk/save');
+        this.urlList.set('bulkSave', '/bulk/save');
     };
     ApiService.prototype.postData = function (data, type) {
         return this.post(data, type).subscribe(function (response) {
