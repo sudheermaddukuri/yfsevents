@@ -1,55 +1,41 @@
 <alert type="md-local" *ngIf="submitSuc">{{message}}</alert>
 
 <div class="container-fluid">
-    <div class="page-header well text-center well-sm">
-      <h3><strong> Event Registration</strong></h3>
-    </div>
+  <div class="page-header well text-center well-sm">
+    <h3><strong> Event Registration</strong></h3>
+  </div>
 
-    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          
-          <div class="row form-row">
-            <div class="col-md-6 offset-md-3 form-group">
-                <label class="control-label">Event Name</label>
-                <input type="text" formControlName="eventName" placeholder="Event Name" class="form-control">
-            </div>
-            <div class="col-md-4 form-group">
-                <label class="control-label">Action</label>
-                <select formControlName="eventAction" class="form-control">
-                  <option *ngFor="let action of eventActions" [value]="action">{{action}}</option>
-                </select>
-            </div>
-            <div class="col-md-2 form-group">
-                <label class="control-label">Recurring Event:</label>
-                <select formControlName="recurringEvent" class="form-control">
-                  <option *ngFor="let value of recurringEventOptions" [value]="value">{{value}}</option>
-                </select>
-              </div>
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <div class="row form-row">
+          <div class="col-md-6 offset-md-3 form-group">
+            <label class="control-label">Event Name</label>
+            <input type="text" formControlName="eventName" placeholder="Event Name" class="form-control">
           </div>
-
-          <div class="row form-row">
-            <div class="col-md-4 offset-md-3 form-group">
-                <label class="control-label">PartnerNGO Name</label>
-                <!-- <input formControlName="ngoName" [typeahead]="ngos" placeholder="PartnerNGO Name" class="form-control"> -->
-                <select formControlName="ngoName" class="form-control">
-                    <option *ngFor="let value of ngos" [value]="value">{{value}}</option>
-                  </select>
-            </div>
-            <div class="col-md-4 form-group">
-                <label class="control-label">Category</label>
-                <select formControlName="eventCategory" class="form-control" (change)="onCategorySelected()">
-                  <option *ngFor="let category of eventCategories" [value]="category">{{category}}</option>
-                </select>
-            </div> 
-            <div class="col-md-4 form-group">
-                <label class="control-label">College-MOU</label>
-                <select formControlName="college" class="form-control">
-                  <option *ngFor="let mou of mouItems" [value]="mou">{{mou}}</option>
-                </select>
-            </div>          
+          <div class="col-md-4 form-group">
+            <label class="control-label">Action</label>
+            <select formControlName="eventAction" class="form-control">
+              <option *ngFor="let action of eventActions" [value]="action">{{action}}</option>
+            </select>
           </div>
+          <div class="col-md-2 form-group">
+            <label class="control-label">Recurring Event:</label>
+            <select formControlName="recurringEvent" class="form-control">
+              <option *ngFor="let value of recurringEventOptions" [value]="value">{{value}}</option>
+            </select>
+          </div>
+        </div>
 
+        <div class="row form-row">
+          <div class="col-md-4 offset-md-3 form-group">
+            <label class="control-label">Partner Ngos</label>
+            <angular2-multiselect [data]="ngos" [settings]="settingsNgos" (onSelect)="log($event)"
+              (onDeSelect)="log($event)" (onSelectAll)="log($event)" (onDeSelectAll)="log($event)"
+              formControlName="ngoName">
+            </angular2-multiselect>
+          </div>
             <div class="row form-row itemsrow">
               <div class="col-md-6 offset-md-3 form-group">
                 <label for="datepicker">Select Date & Time Range</label>
@@ -64,38 +50,69 @@
               </div>
             </div>
 
-            <div class="row form-row">
-              <div class="col-md-8 offset-md-3 form-group">
-                <label class="control-label">Items Required:</label>
-                <angular2-multiselect [data]="itemList" [settings]="settings" 
-                  (onSelect)="log($event)"
-                  (onDeSelect)="log($event)" 
-                  (onSelectAll)="log($event)" 
-                  (onDeSelectAll)="log($event)" formControlName="items">
-                </angular2-multiselect>
-              </div>
-              <div class="col-md-2  form-group">
-                  <label class="control-label">Volunteers Required</label>
-                  <input type="text" formControlName="volunteersReq" placeholder="0" class="form-control">
-              </div>
-              <div class="col-md-2 form-group">
-                  <label class="control-label">Volunteers Registered</label>
-                  <input type="text" formControlName="volunteersReg" placeholder="0" class="form-control">
-              </div>
-            </div>
-
-            <div class="row form-row">
-              <div class =" col-md-12 offset-md-3 form-group">
-                <label class="control-label">Comments</label>
-                <textarea type="text" formControlName="comments" class="form-control"></textarea>
-              </div>
-            </div>
-
+          <div class="col-md-4 form-group">
+            <label class="control-label">Category</label>
+            <select formControlName="eventCategory" class="form-control" (change)="onCategorySelected()">
+              <option *ngFor="let category of eventCategories" [value]="category">{{category}}</option>
+            </select>
+          </div>
+          <div class="col-md-4 form-group">
+            <label class="control-label">College-MOU</label>
+            <select formControlName="college" class="form-control">
+              <option *ngFor="let mou of mouItems" [value]="mou">{{mou}}</option>
+            </select>
+          </div>
         </div>
+
+        <div class="row form-row itemsrow">
+          <div class="col-md-6 offset-md-3 form-group">
+            <label for="datepicker">Select Date & Time Range</label>
+            <input type="text" class="form-control" id="datepicker" formControlName="eventDuration" bsDaterangepicker />
+          </div>
+          <div class="col-md-3 form-group">
+            <timepicker [formControlName]="'fromTime'">
+            </timepicker>
+          </div>
+          <div class="col-md-3 form-group">
+            <timepicker [formControlName]="'toTime'"></timepicker>
+          </div>
+        </div>
+
+        <div class="row form-row">
+          <div class="col-md-8 offset-md-3 form-group">
+            <label class="control-label">Items Required:</label>
+            <angular2-multiselect [data]="itemList" [settings]="settings" (onSelect)="log($event)"
+              (onDeSelect)="log($event)" (onSelectAll)="log($event)" (onDeSelectAll)="log($event)"
+              formControlName="items">
+            </angular2-multiselect>
+          </div>
+          <div class="col-md-2  form-group">
+            <label class="control-label">Volunteers Required</label>
+            <input type="text" formControlName="volunteersReq" placeholder="0" class="form-control">
+          </div>
+          <div class="col-md-2 form-group">
+            <label class="control-label">Volunteers Registered</label>
+            <input type="text" formControlName="volunteersReg" placeholder="0" class="form-control">
+          </div>
+        </div>
+        <div class="row form-row">
+          <div class="col-md-6 offset-md-3 form-group">
+            <label class="control-label">Offline Registered Volunteers</label>
+            <input type="text" formControlName="volunteersOff" placeholder="0" class="form-control">
+          </div>
+        </div>
+        <div class="row form-row">
+          <div class=" col-md-12 offset-md-3 form-group">
+            <label class="control-label">Comments</label>
+            <textarea type="text" formControlName="comments" class="form-control"></textarea>
+          </div>
+        </div>
+
       </div>
-      <button type="submit" [disabled]="eventForm.pristine">Save</button>
-    </form>
-</div>  
+    </div>
+    <button type="submit" [disabled]="eventForm.pristine">Save</button>
+  </form>
+</div>
 
 
 
