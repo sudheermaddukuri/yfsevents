@@ -20,7 +20,6 @@ export class SendMailComponent implements OnInit {
   constructor(private apiService:ApiService,
               private apiServiceMail: ApiServiceMail,private route: ActivatedRoute,public router:Router) { }
   ngOnInit() {
-    this.pipe = new DatePipe('en-US');
     this.eventData=new Eventdata();
     this.email=new Email({to:"",cc:"",bcc:"",
     text:"",eventId:this.route.snapshot.paramMap.get('id'),subject:""});
@@ -53,7 +52,7 @@ export class SendMailComponent implements OnInit {
     //this.eventData.eventCategory='abc';
     //this.apiServiceMail.postData(this.email);
     console.log("hello mate, routing offf");
-    this.router.navigate(['selectVolenteer']);
+    //this.router.navigate(['selectVolenteer']);
   }
   public createDefaultSubject(eventName,ngoName,eventTo,eventFor)
   {

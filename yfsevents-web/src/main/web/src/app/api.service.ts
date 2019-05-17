@@ -48,7 +48,7 @@ export class ApiService {
       }
     }
     console.log(uri);
-    return this.http.get(uri);
+    return(this.http.get(uri));
   }
 
   putData(data:any,id:any,type:string){

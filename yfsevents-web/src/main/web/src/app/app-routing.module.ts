@@ -57,11 +57,10 @@ path: 'login', component: LoginComponent
   {path:'events',component:EventListComponent},
   {path:'addevent',component:AddEventComponent},
   {
-
-    path:'email/:id',component:SendMailComponent
+    path:'email',component:SendMailComponent
   },
    {
-    path: 'grid/volunteer/:id', component: VolunteerGridComponent
+    path: 'grid/volunteer', component: VolunteerGridComponent
     },
   {
   path: 'volunteer', children:[
