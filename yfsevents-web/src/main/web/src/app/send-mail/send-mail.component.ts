@@ -51,14 +51,15 @@ export class SendMailComponent implements OnInit {
     console.log(value);
     console.log(this.route.snapshot.paramMap.get("name"));
     //this.eventData.eventCategory='abc';
-    this.apiServiceMail.postData(this.email);
-     
-
+    //this.apiServiceMail.postData(this.email);
+    console.log("hello mate, routing offf");
+    this.router.navigate(['selectVolenteer']);
   }
   public createDefaultSubject(eventName,ngoName,eventTo,eventFor)
   {
     return "We invite You for event : " + eventName + "by NGO : "+ngoName+" from :"+eventFor+"to : "+eventTo; 
   }
+
   public  getEmailId()
   {
     //String resp;

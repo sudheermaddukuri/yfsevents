@@ -1,19 +1,24 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {ngDevModeResetPerfCounters}from '@angular/core/src/render3/ng_dev_mode';
 import { JsonPipe}from '@angular/common';
-import { GridApi } from 'ag-grid-community';
+import { GridApi, Column } from 'ag-grid-community';
 import {GridOptions} from 'ag-grid-community';
+
+
 
 @Component({
   selector: 'app-volunteer-grid',
   templateUrl: './volunteer-grid.component.html',
   styleUrls: ['./volunteer-grid.component.css']
 })
+
 export class VolunteerGridComponent implements OnInit {
+ 
  private data:any=[];
+ private eventId:any;
  public  selectedEmails:any="";
    private headers=[
      {headerName: 'First Name', field: 'firstName',filter:true, sortable: true,headerCheckboxSelection: true,
@@ -34,13 +39,15 @@ export class VolunteerGridComponent implements OnInit {
    ];
    private myGrid: any;
    private gridApi: any;
+   private gridOptions: any;
    private gridColumnApi: any;
    private rowSelection :any;
-   public gridOptions: GridOptions;
+   private columnDefs: Object[];
   interestedList:any[]=new Array();
    constructor(private apiService:ApiService,
-               private router:Router) { }
-   ngOnInit() {
+               private router:Router,private route: ActivatedRoute,) { }
+               ngOnInit() {      
+    this.eventId=this.route.snapshot.paramMap.get('id')
     this.rowSelection = "multiple";
     this.apiService.getData('volunteer').subscribe(response=>{
           let result:any=JSON.parse(JSON.stringify(response));
@@ -65,24 +72,34 @@ export class VolunteerGridComponent implements OnInit {
           
         });
     }
-    onGridReady(params) {
-      this.gridOptions.columnDefs=this.headers;
+   onGridReady(params) {
+      
+      //this.gridOptions=params.GridOptions;
       console.log("You are here");
       this.gridApi = params.api;
       this.gridColumnApi = params.columnApi;
+      this.gridColumnApi.columnDefs=params.columnDefs;
+      this.gridOptions = <GridOptions>{
+        context: {parentComponent: this},
+      };
+      //new agGrid.Grid( this.gridOptions)
     }
 
    onRowCilcked(event){
      console.log(event.rowIndex);
     // this.router.navigateByUrl("/volunteer/edit/"+((event.rowIndex)+1));
        //console.log(this.printAllDisplayedRows());
-       this.onBtForEachNodeAfterFilterAndSort();
+       console.log("### api.forEachNodeAfterFilterAndSort() ###");
+       //this.gridApi.forEachNodeAfterFilterAndSort(this.printNode);
+     //  this.gridApi.getSelectedNodes().forEach(node=>{console.log(node.data.email)});
+      this.onBtForEachNodeAfterFilterAndSort();
      }
 
      onBtForEachNodeAfterFilterAndSort() {
       console.log("### api.forEachNodeAfterFilterAndSort() ###");
       //this.gridApi.forEachNodeAfterFilterAndSort(this.printNode);
-      this.gridOptions.api.getSelectedNodes().forEach(node=>{console.log(node.data.email)});
+      this.gridApi.getSelectedNodes().forEach(node=>{console.log(node.data.email)});
+      this.router.navigate(['email',{id:this.eventId}]);
     }
     
      printNode(node, index) {

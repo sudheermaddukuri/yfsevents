@@ -69,7 +69,6 @@ public class VolunteerResponseController {
     {
         Long accepted=volunteersAcceptedRepository.getCountOfNotAccepteVolunteers(eventId);
         return accepted;
-
     }
     @RequestMapping(value="/get/{eventId}",method = RequestMethod.GET)
     public @ResponseBody
@@ -78,13 +77,12 @@ public class VolunteerResponseController {
         List<String> accepted=volunteersAcceptedRepository.getEmailsOfVolunteers(eventId);
         return accepted;
     }
-
-    @RequestMapping(value="/getAllInformation/{eventId}",method = RequestMethod.GET)
+    @RequestMapping(value="/api/getAllInformation/{eventId}",method = RequestMethod.GET)
     public @ResponseBody
      Iterable<Volunteer> getAllInformation(@PathVariable("eventId") Long eventId)
     {
         List<String> accepted=volunteersAcceptedRepository.getEmailsOfAcceptedVolunteers(eventId);
+        System.out.println(accepted.toString());
         return volunteerController.getAcceptedVolunteers(accepted);
     }
-
 }

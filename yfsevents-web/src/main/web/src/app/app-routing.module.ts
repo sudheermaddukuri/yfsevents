@@ -16,7 +16,7 @@ import { CollegeRegistrationGridComponent } from './college-registration-grid/co
 import { LoginComponent}from './login/login.component';
 import {RegisterComponent}from "./register/register.component";
 import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
-
+import{SelectablevolunteerComponent} from './selectablevolunteer/selectablevolunteer.component';
 const routes: Routes = [
   {
     path: 'collegeregistration', children:[
@@ -58,10 +58,10 @@ path: 'login', component: LoginComponent
   {path:'addevent',component:AddEventComponent},
   {
 
-    path:'email',component:SendMailComponent
+    path:'email/:id',component:SendMailComponent
   },
    {
-    path: 'grid/volunteer', component: VolunteerGridComponent
+    path: 'grid/volunteer/:id', component: VolunteerGridComponent
     },
   {
   path: 'volunteer', children:[
@@ -76,9 +76,11 @@ path: '**', redirectTo: 'login'
 },
 {
 path: 'register', component: RegisterComponent
+  },
+  {
+    path:'selectVolenteer',component:SelectablevolunteerComponent
   }
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
