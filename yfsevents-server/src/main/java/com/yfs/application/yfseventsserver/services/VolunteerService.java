@@ -13,6 +13,8 @@ public class VolunteerService {
 
     public boolean isPresent(Volunteer volunteer){
 //        TODO based on email tentatively.
+        if(!volunteerRepository.findVolunteerWithEmail(volunteer.getEmail()).isEmpty())
+            return true;
         return false;
     }
 

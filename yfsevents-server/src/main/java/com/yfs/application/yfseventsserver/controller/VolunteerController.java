@@ -5,6 +5,7 @@ import com.yfs.application.yfseventsserver.KeyValuePair;
 import com.yfs.application.yfseventsserver.entity.PartnerNgo;
 import com.yfs.application.yfseventsserver.entity.Volunteer;
 import com.yfs.application.yfseventsserver.repository.*;
+import com.yfs.application.yfseventsserver.services.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,10 +22,21 @@ public class VolunteerController {
     VolunteerRepository volunteerRepository;
 
     @Autowired
+    VolunteerService volunteerService;
+
+    @Autowired
     VolunteerInterestedAreaRepository volunteerInterestedAreaRepository;
     @Autowired
     VolunteerPreferredTimeRepository volunteerPreferredTimeRepository;
 
+    //ToDo: ONLy foR teStIng. Remove lAter.
+    @ResponseBody
+    @GetMapping("/volunteerPresent/{email}")
+    public boolean checkVolunteer(@PathVariable String email){
+        Volunteer volunteer = new Volunteer();
+        volunteer.setEmail(email);
+        return volunteerService.isPresent(volunteer);
+    }
 
 
     @ResponseBody
