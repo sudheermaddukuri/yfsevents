@@ -20,7 +20,17 @@ export class UploadService {
   }
 
   saveBulkData(data){
-    return this.apiService.post(data, 'bulkSave');
+    let formData: FormData = new FormData();
+    formData.append('bulkVolunteer', data);
+    let request = new HttpRequest('POST', '/api/bulk/save', formData);
+    return this.http.request(request);
+    // return this.http.post("/api/bulk/save",data).subscribe(result=>{
+    //   console.log("Save ReSUlt: "+result);
+    //   let result1 = JSON.parse(JSON.stringify(result));
+    //   let response = {};
+    //   Object.assign(response, { status:result1.status, body:result1.body}) ;
+    //   return response;
+    // });
   }
 }
  

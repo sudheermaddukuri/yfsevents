@@ -5,14 +5,15 @@
       <!-- <button class="btn btn-sm btn-primary" (click)="downloadTemplate()">Download Template</button> -->
       <button class="btn btn-sm btn-primary">Download Template</button>
     </a>
+    <button class="btn btn-sm btn-primary" (click)="open(content)">Upload</button>
   </div>
 
   <div>
-    <input type="file" (change)="selectFile($event)" placeholder="Upload file" accept=".xls, .xlsx">
+    <input type="file" (change)="selectFile ($event)" placeholder="Upload file" accept=".xls, .xlsx">
     <button class="btn btn-sm btn-primary" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
   </div>
 
-  <div *ngIf="data!=null">
+  <div *ngIf="data.length">
     <div class="page-header well text-center well-sm">
       <h5><strong> Uploaded Volunteer Data </strong></h5>
     </div>
@@ -34,3 +35,19 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header card-header">
+      <h4 class="modal-title" id="modal-basic-title">File Upload</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="file" (change)="selectFile($event)" placeholder="Upload file" accept=".xls, .xlsx">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-sm btn-primary" (click)="modal.close('Close click')">Cancel</button>
+      <button class="btn btn-sm btn-primary" [disabled]="!selectedFiles" (click)="upload()">Add File</button>
+    </div>
+</ng-template>

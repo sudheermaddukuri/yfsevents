@@ -117,7 +117,7 @@ public class BulkUploadController {
     }
 
     @PostMapping("/bulk/save")
-    public ResponseEntity<String> saveBulkData(List<BulkVolunteer> bulkVolunteerList){
+    public ResponseEntity<String> saveBulkData(@RequestParam("bulkVolunteer") List<BulkVolunteer> bulkVolunteerList){
         AtomicReference<Long> count= new AtomicReference<>(0L);
         bulkVolunteerList.forEach(bulkVolunteer -> {
             //TODO: CAll Save Service Directly.
@@ -130,7 +130,8 @@ public class BulkUploadController {
                 count.getAndSet(count.get() + 1);
             }
         });
-        return new ResponseEntity(count, HttpStatus.OK);
+        return ResponseEntity.ok(count.toString());
+//        return new ResponseEntity<String>(count.toString(), HttpStatus.OK);
     }
 
 }
