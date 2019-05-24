@@ -19,4 +19,8 @@ INSERT INTO EVENT(ID,COMMENTS,EVENT_NAME,EVENTFROM_TIME,EVENTTO_TIME,NGO_NAME,VO
 --INSERT INTO STAGING_EMAIL(ID_EVENT, TX_PAYLOAD, TX_STATUS, NM_RETRY_COUNT, DT_CREATED, DT_UPDATED, ID_CREATED_BY, ID_UPDATED_BY, REASON)
 --VALUES (1, '{"to":"akulavij@gmail.com","toMultiple":null,"subject":"Subject1","text":"Some Body text1","bcc":null,"cc":null,"eventId":1}', 'NOT_STARTED',0,sysdate,sysdate,'ADMIN','ADMIN',null);
 
+Insert into VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PHONE_PREFIX,PINCODE,STATE) VALUES ('city','try@gmail.com','sachin','endulkar','locality','334343','12','3432','austalia');
+Insert into VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PHONE_PREFIX,PINCODE,STATE) VALUES ('city','try1@gmail.com','sehwag','virender','locality','334343','12','3432','india');
 
+INSERT INTO VOLUNTEERS_ACCEPTED VALUES(1,TRUE,1,'try@gmail.com','Yes');
+INSERT INTO VOLUNTEERS_ACCEPTED VALUES(2,TRUE,1,'try1@gmail.com','Yes');

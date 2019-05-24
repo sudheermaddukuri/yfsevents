@@ -43,10 +43,12 @@ export class VolunteerGridComponent implements OnInit {
    private gridColumnApi: any;
    private rowSelection :any;
    private columnDefs: Object[];
+   private emailsSelected: any;
   interestedList:any[]=new Array();
    constructor(private apiService:ApiService,
                private router:Router,private route: ActivatedRoute,) { }
-               ngOnInit() {      
+               ngOnInit() {    
+                 this.emailsSelected="";  
     this.eventId=this.route.snapshot.paramMap.get('id')
     this.rowSelection = "multiple";
     this.apiService.getData('volunteer').subscribe(response=>{
@@ -98,8 +100,9 @@ export class VolunteerGridComponent implements OnInit {
      onBtForEachNodeAfterFilterAndSort() {
       console.log("### api.forEachNodeAfterFilterAndSort() ###");
       //this.gridApi.forEachNodeAfterFilterAndSort(this.printNode);
-      this.gridApi.getSelectedNodes().forEach(node=>{console.log(node.data.email)});
-      this.router.navigate(['email',{id:this.eventId}]);
+
+      this.gridApi.getSelectedNodes().forEach(node=>{this.appendEmails(node.data.email)});
+      this.router.navigate(['email',{id:this.eventId,emails:this.emailsSelected}]);
     }
     
      printNode(node, index) {
@@ -108,6 +111,14 @@ export class VolunteerGridComponent implements OnInit {
       } else {
         console.log(index + " -> data: " + node.data.city + ", " + node.data.email);
       }
+    }
+    
+    appendEmails(email)
+    {
+    if(this.emailsSelected=="")
+    this.emailsSelected=email;
+    else
+    this.emailsSelected=this.emailsSelected+","+email;
     }
 
 }

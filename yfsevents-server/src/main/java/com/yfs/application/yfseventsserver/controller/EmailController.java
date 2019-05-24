@@ -219,6 +219,7 @@ public class EmailController {
 
     @PostMapping("/send")
             public @ResponseBody HashMap<String,String> sendmail(@RequestBody Email em) {
+        System.out.println("here");
         System.out.println(em.toString());
         System.out.println(em.getTo());
         System.out.println(em.getSubject());
