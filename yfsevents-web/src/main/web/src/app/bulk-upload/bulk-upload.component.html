@@ -5,12 +5,9 @@
       <!-- <button class="btn btn-sm btn-primary" (click)="downloadTemplate()">Download Template</button> -->
       <button class="btn btn-sm btn-primary">Download Template</button>
     </a>
-    <button class="btn btn-sm btn-primary" (click)="open(content)">Upload</button>
-  </div>
-
-  <div>
-    <input type="file" (change)="selectFile ($event)" placeholder="Upload file" accept=".xls, .xlsx">
-    <button class="btn btn-sm btn-primary" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+    <div class="pull-right">
+    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#content">Upload Template</button>
+    </div>
   </div>
 
   <div *ngIf="data.length">
@@ -26,28 +23,27 @@
       >
       </ag-grid-angular>
     </div>
-    <div class="col-md-10">
-        <div style="text-align:right">
-        <button type="button" class="btn btn-primary" (click)="save()">
-            Save
-        </button>
-        </div>
+    <div class="pull-right">
+      <button type="button" class="btn btn-primary btn-space" (click)="save()">Save</button>
     </div>
   </div>
 </div>
 
-<ng-template #content let-modal>
-    <div class="modal-header card-header">
-      <h4 class="modal-title" id="modal-basic-title">File Upload</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+<!-- Modal -->
+<div class="modal fade" id="content" tabindex="-1" role="dialog" aria-labelledby="FileUpload" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header card-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modal-basic-title">File Upload</h4>
+      </div>
+      <div class="modal-body">
+        <input type="file" (change)="selectFile($event)" placeholder="Upload file" accept=".xls, .xlsx">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
+        <button class="btn btn-sm btn-primary" [disabled]="!selectedFiles" (click)="upload()">Add File</button>
+      </div>
     </div>
-    <div class="modal-body">
-      <input type="file" (change)="selectFile($event)" placeholder="Upload file" accept=".xls, .xlsx">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-sm btn-primary" (click)="modal.close('Close click')">Cancel</button>
-      <button class="btn btn-sm btn-primary" [disabled]="!selectedFiles" (click)="upload()">Add File</button>
-    </div>
-</ng-template>
+  </div>
+</div>

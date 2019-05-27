@@ -3,6 +3,8 @@ import { UploadService } from '../upload.service';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
+declare var $: any;
+
 @Component({
   selector: 'app-bulk-upload',
   templateUrl: './bulk-upload.component.html',
@@ -16,7 +18,7 @@ export class BulkUploadComponent implements OnInit {
   fileUrl;
 
   private data:any=[];
-  private uploadResponse;
+  private uploadResponse:any=[];
   private headers=[
     {headerName: 'First Name', field: 'firstName',filter:true, sortable: true },
     {headerName: 'Last Name', field: 'lastName',filter:true},
@@ -60,6 +62,7 @@ export class BulkUploadComponent implements OnInit {
   }
 
   upload(){
+    $("#content").modal('toggle');
     this.currentUploadedFile = this.selectedFiles.item(0);
     this.uploadService.pushFileData(this.currentUploadedFile).subscribe(result=>{
       console.log("Upload Response" + result);
@@ -70,9 +73,9 @@ export class BulkUploadComponent implements OnInit {
         (response.body).forEach(element => {
           let volunteer={};
           if(element.errors!=null){
-            Object.assign(volunteer, element.errors);
+            Object.assign(volunteer, {"errors" : element.errors.toString()});
           }else{
-            Object.assign(volunteer, {"errors" : ["No Errors"]})
+            Object.assign(volunteer, {"errors" : "No Errors"})
           }
           Object.assign(volunteer, element.volunteer);
           let interestedAreas = [];
@@ -90,14 +93,14 @@ export class BulkUploadComponent implements OnInit {
 
   save(){
     alert("Only data with no errors will be saved");
-    let result=this.uploadService.saveBulkData(this.uploadResponse);
-    console.log("Result: "+result);
+    this.uploadService.saveBulkData(this.uploadResponse).subscribe(result=>{
+      console.log("Bulk Save Api Response: "+result);
       let response = JSON.parse(JSON.stringify(result));
-      console.log("After Parsing:"+response);
       if(response.status && response.status===200){
-        alert("Bulk upLoad successful. "+response.count+" records saved.");
+        alert("Bulk upload successful. "+response.body+" records saved.");
         this.router.navigateByUrl("/grid/volunteer");
       }
+    });
   } 
 
 }

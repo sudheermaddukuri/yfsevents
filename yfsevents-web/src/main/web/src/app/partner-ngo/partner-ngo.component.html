@@ -113,7 +113,7 @@
               <!--li class="nav active" *ngIf="numberOfAuthorizedPersons>0"><a href="#tab{{numberOfAuthorizedPersons-1}}" data-toggle="tab" (click)="activateTab(numberOfAuthorizedPersons)">Person {{numberOfAuthorizedPersons}}</a></li-->
               <!--li class="nav active" *ngIf="numberOfAuthorizedPersons>0"><a href="#tab{{numberOfAuthorizedPersons-1}}" data-toggle="tab" (click)="selectedTab=i">Person {{numberOfAuthorizedPersons}}</a></li-->
               <div class="pull-right">
-                <button class="btn btn-sm btn-primary btn-space" (click)="addAuthorisedPerson()" [disabled]="isMaxLimitReached(5)">Add Person</button>
+                <button class="btn btn-sm btn-primary btn-space right" (click)="addAuthorisedPerson()" [disabled]="isMaxLimitReached(5)">Add Person</button>
                 <button class="btn btn-sm btn-primary" (click)="removeAuthorisedPerson(selectedTab)" confirm="Are you sure you want to delete?" confirm-ok="Yes" confirm-cancel="No" [disabled]="isMinLimitReached()">Remove Person</button>
               </div>
               <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->
