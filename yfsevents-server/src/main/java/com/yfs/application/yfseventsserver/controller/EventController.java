@@ -30,8 +30,8 @@ public class EventController {
 
     @ResponseBody
     @GetMapping("/event/{id}")
-    public Optional<Event> getEventById(@PathVariable Long id) {
-        return eventDataRepository.findById(id);
+    public Event getEventById(@PathVariable Long id) {
+        return eventDataRepository.findById(id).orElse(null);
     }
 
     @ResponseBody

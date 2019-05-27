@@ -14,7 +14,7 @@ import { ButtonRendererComponent } from './renderer/button-renderer.component';
 export class EventListComponent implements OnInit{
   pipe:any;
   rowData :any;
-
+  private paginationPageSize;
 	columnDefs = [
         {headerName: 'EventId', field: 'id',filter:true },
         {headerName: 'Action', field: 'eventAction',filter:true},
@@ -48,6 +48,7 @@ export class EventListComponent implements OnInit{
       this.frameworkComponents = {
         buttonRenderer: ButtonRendererComponent,
       }
+      this.paginationPageSize=10;
     }
 
 	ngOnInit():void{

@@ -63,8 +63,6 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
       this.apiService.getData('partnerngo').subscribe((data:any)=>{
             this.ngos_data=data;
             this.ngos=this.ngos_data.map(ngo=>{
-              console.log("888",ngo.name);
-                console.log("pplll",ngo.ngoName);
                 return {"id":data.indexOf(ngo),"itemName":ngo.name};
                 
             });
@@ -128,7 +126,8 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
           volunteersReq:data.volunteers,
           comments:data.comments,
           college:data.college,
-          volunteersReg:''
+          volunteersReg:'',
+          volunteersOff:''
         });
         console.log(this.eventForm.value.eventDuration);
       })

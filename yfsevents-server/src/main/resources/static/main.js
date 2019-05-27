@@ -903,7 +903,7 @@ module.exports = ".row {\n    margin-bottom:25px;\n}\n:host >>> .alert-md-local 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<alert type=\"md-local\" *ngIf=\"submitSuc\">{{message}}</alert>\n\n<div class=\"container-fluid\">\n    <div class=\"page-header well text-center well-sm\">\n      <h3><strong> Event Registration</strong></h3>\n    </div>\n\n    <form [formGroup]=\"eventForm\" (ngSubmit)=\"onSubmit()\">\n      <div class=\"panel panel-default\">\n        <div class=\"panel-body\">\n          \n          <div class=\"row form-row\">\n            <div class=\"col-md-6 offset-md-3 form-group\">\n                <label class=\"control-label\">Event Name</label>\n                <input type=\"text\" formControlName=\"eventName\" placeholder=\"Event Name\" class=\"form-control\">\n            </div>\n            <div class=\"col-md-4 form-group\">\n                <label class=\"control-label\">Action</label>\n                <select formControlName=\"eventAction\" class=\"form-control\">\n                  <option *ngFor=\"let action of eventActions\" [value]=\"action\">{{action}}</option>\n                </select>\n            </div>\n            <div class=\"col-md-2 form-group\">\n                <label class=\"control-label\">Recurring Event:</label>\n                <select formControlName=\"recurringEvent\" class=\"form-control\">\n                  <option *ngFor=\"let value of recurringEventOptions\" [value]=\"value\">{{value}}</option>\n                </select>\n              </div>\n          </div>\n\n          <div class=\"row form-row\">\n            <div class=\"col-md-4 offset-md-3 form-group\">\n                <label class=\"control-label\">PartnerNGO Name</label>\n                <!-- <input formControlName=\"ngoName\" [typeahead]=\"ngos\" placeholder=\"PartnerNGO Name\" class=\"form-control\"> -->\n                <select formControlName=\"ngoName\" class=\"form-control\">\n                    <option *ngFor=\"let value of ngos\" [value]=\"value\">{{value}}</option>\n                  </select>\n            </div>\n            <div class=\"col-md-4 form-group\">\n                <label class=\"control-label\">Category</label>\n                <select formControlName=\"eventCategory\" class=\"form-control\" (change)=\"onCategorySelected()\">\n                  <option *ngFor=\"let category of eventCategories\" [value]=\"category\">{{category}}</option>\n                </select>\n            </div> \n            <div class=\"col-md-4 form-group\">\n                <label class=\"control-label\">College-MOU</label>\n                <select formControlName=\"college\" class=\"form-control\">\n                  <option *ngFor=\"let mou of mouItems\" [value]=\"mou\">{{mou}}</option>\n                </select>\n            </div>          \n          </div>\n\n            <div class=\"row form-row itemsrow\">\n              <div class=\"col-md-6 offset-md-3 form-group\">\n                <label for=\"datepicker\">Select Date & Time Range</label>\n                 <input type=\"text\" class=\"form-control\" id=\"datepicker\" formControlName=\"eventDuration\" bsDaterangepicker [bsConfig]=\"{rangeInputFormat:'DD/MM/YYYY'}\"/>\n              </div>\n              <div class=\"col-md-3 form-group\">\n                <timepicker [formControlName]=\"'fromTime'\">\n                  </timepicker>\n              </div>\n              <div class=\"col-md-3 form-group\">\n                <timepicker [formControlName]=\"'toTime'\"></timepicker>\n              </div>\n            </div>\n\n            <div class=\"row form-row\">\n              <div class=\"col-md-8 offset-md-3 form-group\">\n                <label class=\"control-label\">Items Required:</label>\n                <angular2-multiselect [data]=\"itemList\" [settings]=\"settings\" \n                  (onSelect)=\"log($event)\"\n                  (onDeSelect)=\"log($event)\" \n                  (onSelectAll)=\"log($event)\" \n                  (onDeSelectAll)=\"log($event)\" formControlName=\"items\">\n                </angular2-multiselect>\n              </div>\n              <div class=\"col-md-2  form-group\">\n                  <label class=\"control-label\">Volunteers Required</label>\n                  <input type=\"text\" formControlName=\"volunteersReq\" placeholder=\"0\" class=\"form-control\">\n              </div>\n              <div class=\"col-md-2 form-group\">\n                  <label class=\"control-label\">Volunteers Registered</label>\n                  <input type=\"text\" formControlName=\"volunteersReg\" placeholder=\"0\" class=\"form-control\">\n              </div>\n            </div>\n\n            <div class=\"row form-row\">\n              <div class =\" col-md-12 offset-md-3 form-group\">\n                <label class=\"control-label\">Comments</label>\n                <textarea type=\"text\" formControlName=\"comments\" class=\"form-control\"></textarea>\n              </div>\n            </div>\n\n        </div>\n      </div>\n      <button type=\"submit\" [disabled]=\"eventForm.pristine\">Save</button>\n    </form>\n</div>  \n\n\n\n\n\n<!-- <form >\n        <div class=\"form-row\">\n            <div class=\"col-md-1\"></div>\n          <div class=\"form-group col-md-5\">\n            <label for=\"eventname\">Event Name</label>\n            <input type=\"text\" class=\"form-control\" id=\"eventname\" placeholder=\"Name\">\n          </div>\n          <div class=\"form-group col-md-5\">\n                <label for=\"eventaction\">Action</label>\n                <select id=\"eventaction\" class=\"form-control\">\n                  <option selected>Choose...</option>\n                  <option>Not Started</option>\n                  <option>In progress</option>\n                  <option>completed</option>\n                  <option>Abandoned</option>\n                </select>\n          </div>\n          <div class=\"col-md-1\"></div>\n        </div>\n\n        <div class=\"form-row\">\n                <div class=\"col-md-1\"></div>\n              <div class=\"form-group col-md-5\">\n                <label for=\"ngoname\">Partner Name</label>\n                <input type=\"text\" class=\"form-control\" id=\"ngoname\" placeholder=\"NGO Name\" >\n              </div>\n              <div class=\"form-group col-md-5\">\n                    <label for=\"eventcategory\">Event category</label>\n                    <select id=\"eventcategory\" class=\"form-control\">\n                      <option selected>Choose...</option>\n                      <option>Not Started</option>\n                      <option>In progress</option>\n                      <option>completed</option>\n                      <option>Abandoned</option>\n                    </select>\n              </div>\n              <div class=\"col-md-1\"></div>\n            </div>\n\n            <div class=\"form-row\">\n              <div class=\"col-md-1\"></div>\n            <div class=\"form-group col-md-5\">\n                <label for=\"datepicker\">Select Date Range</label>\n                <input id=\"datepicker\" class=\"form-control\"\n                bsDaterangepicker [(ngModel)]=\"bsRangeValue\" >\n            </div>\n            <div class=\"form-group col-md-5\">\n                <label for=\"eventaction\">Recurring Event</label>\n                <select id=\"eventaction\" class=\"form-control\">\n                  <option selected>No</option>\n                  <option>Yes</option>\n                </select>\n            </div>\n            <div class=\"col-md-1\"></div>\n          </div>\n\n\n        \n\n            \n</form> -->\n"
+module.exports = "<alert type=\"md-local\" *ngIf=\"submitSuc\">{{message}}</alert>\n\n<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> Event Registration</strong></h3>\n  </div>\n\n  <form [formGroup]=\"eventForm\" (ngSubmit)=\"onSubmit()\">\n    <div class=\"panel panel-default\">\n      <div class=\"panel-body\">\n\n        <div class=\"row form-row\">\n          <div class=\"col-md-6 offset-md-3 form-group\">\n            <label class=\"control-label\">Event Name</label>\n            <input type=\"text\" formControlName=\"eventName\" placeholder=\"Event Name\" class=\"form-control\">\n          </div>\n          <div class=\"col-md-4 form-group\">\n            <label class=\"control-label\">Action</label>\n            <select formControlName=\"eventAction\" class=\"form-control\">\n              <option *ngFor=\"let action of eventActions\" [value]=\"action\">{{action}}</option>\n            </select>\n          </div>\n          <div class=\"col-md-2 form-group\">\n            <label class=\"control-label\">Recurring Event:</label>\n            <select formControlName=\"recurringEvent\" class=\"form-control\">\n              <option *ngFor=\"let value of recurringEventOptions\" [value]=\"value\">{{value}}</option>\n            </select>\n          </div>\n        </div>\n\n        <div class=\"row form-row\">\n          <div class=\"col-md-4 offset-md-3 form-group\">\n            <label class=\"control-label\">Partner Ngos</label>\n            <angular2-multiselect [data]=\"ngos\" [settings]=\"settingsNgos\" (onSelect)=\"log($event)\"\n              (onDeSelect)=\"log($event)\" (onSelectAll)=\"log($event)\" (onDeSelectAll)=\"log($event)\"\n              formControlName=\"ngoName\">\n            </angular2-multiselect>\n          </div>            \n          <div class=\"col-md-4 form-group\">\n            <label class=\"control-label\">Category</label>\n            <select formControlName=\"eventCategory\" class=\"form-control\" (change)=\"onCategorySelected()\">\n              <option *ngFor=\"let category of eventCategories\" [value]=\"category\">{{category}}</option>\n            </select>\n          </div>\n          <div class=\"col-md-4 form-group\">\n            <label class=\"control-label\">College-MOU</label>\n            <select formControlName=\"college\" class=\"form-control\">\n              <option *ngFor=\"let mou of mouItems\" [value]=\"mou\">{{mou}}</option>\n            </select>\n          </div>\n        </div>\n\n        <div class=\"row form-row itemsrow\">\n          <div class=\"col-md-6 offset-md-3 form-group\">\n            <label for=\"datepicker\">Select Date & Time Range</label>\n            <input type=\"text\" class=\"form-control\" id=\"datepicker\" formControlName=\"eventDuration\" bsDaterangepicker />\n          </div>\n          <div class=\"col-md-3 form-group\">\n            <timepicker [formControlName]=\"'fromTime'\">\n            </timepicker>\n          </div>\n          <div class=\"col-md-3 form-group\">\n            <timepicker [formControlName]=\"'toTime'\"></timepicker>\n          </div>\n        </div>\n\n        <div class=\"row form-row\">\n          <div class=\"col-md-8 offset-md-3 form-group\">\n            <label class=\"control-label\">Items Required:</label>\n            <angular2-multiselect [data]=\"itemList\" [settings]=\"settings\" (onSelect)=\"log($event)\"\n              (onDeSelect)=\"log($event)\" (onSelectAll)=\"log($event)\" (onDeSelectAll)=\"log($event)\"\n              formControlName=\"items\">\n            </angular2-multiselect>\n          </div>\n          <div class=\"col-md-2  form-group\">\n            <label class=\"control-label\">Volunteers Required</label>\n            <input type=\"text\" formControlName=\"volunteersReq\" placeholder=\"0\" class=\"form-control\">\n          </div>\n          <div class=\"col-md-2 form-group\">\n            <label class=\"control-label\">Volunteers Registered</label>\n            <input type=\"text\" formControlName=\"volunteersReg\" placeholder=\"0\" class=\"form-control\">\n          </div>\n        </div>\n        <div class=\"row form-row\">\n          <div class=\"col-md-6 offset-md-3 form-group\">\n            <label class=\"control-label\">Offline Registered Volunteers</label>\n            <input type=\"text\" formControlName=\"volunteersOff\" placeholder=\"0\" class=\"form-control\">\n          </div>\n        </div>\n        <div class=\"row form-row\">\n          <div class=\" col-md-12 offset-md-3 form-group\">\n            <label class=\"control-label\">Comments</label>\n            <textarea type=\"text\" formControlName=\"comments\" class=\"form-control\"></textarea>\n          </div>\n        </div>\n\n      </div>\n    </div>\n    <button type=\"submit\" [disabled]=\"eventForm.pristine\">Save</button>\n  </form>\n</div>\n\n\n\n\n\n<!-- <form >\n        <div class=\"form-row\">\n            <div class=\"col-md-1\"></div>\n          <div class=\"form-group col-md-5\">\n            <label for=\"eventname\">Event Name</label>\n            <input type=\"text\" class=\"form-control\" id=\"eventname\" placeholder=\"Name\">\n          </div>\n          <div class=\"form-group col-md-5\">\n                <label for=\"eventaction\">Action</label>\n                <select id=\"eventaction\" class=\"form-control\">\n                  <option selected>Choose...</option>\n                  <option>Not Started</option>\n                  <option>In progress</option>\n                  <option>completed</option>\n                  <option>Abandoned</option>\n                </select>\n          </div>\n          <div class=\"col-md-1\"></div>\n        </div>\n\n        <div class=\"form-row\">\n                <div class=\"col-md-1\"></div>\n              <div class=\"form-group col-md-5\">\n                <label for=\"ngoname\">Partner Name</label>\n                <input type=\"text\" class=\"form-control\" id=\"ngoname\" placeholder=\"NGO Name\" >\n              </div>\n              <div class=\"form-group col-md-5\">\n                    <label for=\"eventcategory\">Event category</label>\n                    <select id=\"eventcategory\" class=\"form-control\">\n                      <option selected>Choose...</option>\n                      <option>Not Started</option>\n                      <option>In progress</option>\n                      <option>completed</option>\n                      <option>Abandoned</option>\n                    </select>\n              </div>\n              <div class=\"col-md-1\"></div>\n            </div>\n\n            <div class=\"form-row\">\n              <div class=\"col-md-1\"></div>\n            <div class=\"form-group col-md-5\">\n                <label for=\"datepicker\">Select Date Range</label>\n                <input id=\"datepicker\" class=\"form-control\"\n                bsDaterangepicker [(ngModel)]=\"bsRangeValue\" >\n            </div>\n            <div class=\"form-group col-md-5\">\n                <label for=\"eventaction\">Recurring Event</label>\n                <select id=\"eventaction\" class=\"form-control\">\n                  <option selected>No</option>\n                  <option>Yes</option>\n                </select>\n            </div>\n            <div class=\"col-md-1\"></div>\n          </div>\n\n\n        \n\n            \n</form> -->\n"
 
 /***/ }),
 
@@ -933,11 +933,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AddEventComponent = /** @class */ (function () {
-    function AddEventComponent(formBuilder, apiService, route, inventoryService) {
+    function AddEventComponent(formBuilder, apiService, route, inventoryService, router) {
         this.formBuilder = formBuilder;
         this.apiService = apiService;
         this.route = route;
         this.inventoryService = inventoryService;
+        this.router = router;
+        this.ngos = [];
         this.bsValue = new Date();
         this.maxDate = new Date();
         this.eventData = new Eventdata();
@@ -951,6 +953,7 @@ var AddEventComponent = /** @class */ (function () {
         };
         this.selectedItems = [];
         this.settings = {};
+        this.settingsNgos = {};
         this.eventActions = ['Not Started', 'In progress', 'Completed', 'Abandoned'];
         this.eventCategories = ['PartnerNGO', 'Education', 'Environment', 'Health', 'Other'];
         this.recurringEventOptions = ['Yes', 'No'];
@@ -961,13 +964,14 @@ var AddEventComponent = /** @class */ (function () {
             eventDuration: null,
             fromTime: new Date(),
             toTime: new Date(),
-            ngoName: '',
+            ngoName: [],
             eventCategory: '',
             college: '',
             recurringEvent: 'No',
             items: [],
             volunteersReq: '',
             volunteersReg: '',
+            volunteersOff: '',
             comments: '',
         });
         this.submitSuc = false;
@@ -977,7 +981,7 @@ var AddEventComponent = /** @class */ (function () {
         this.apiService.getData('partnerngo').subscribe(function (data) {
             _this.ngos_data = data;
             _this.ngos = _this.ngos_data.map(function (ngo) {
-                return ngo.name;
+                return { "id": data.indexOf(ngo), "itemName": ngo.name };
             });
         });
         this.apiService.getData('collegeregistration-list').subscribe(function (data) {
@@ -1001,6 +1005,13 @@ var AddEventComponent = /** @class */ (function () {
             unSelectAllText: 'UnSelect All',
             enableSearchFilter: true
         };
+        this.settingsNgos = {
+            singleSelection: false,
+            text: "Select PartnerNgos",
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            enableSearchFilter: true
+        };
         if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
             this.apiService.getData('event', this.route.snapshot.paramMap.get('id')).subscribe(function (data) {
                 console.log(data.eventDuration);
@@ -1013,7 +1024,10 @@ var AddEventComponent = /** @class */ (function () {
                     }),
                     fromTime: data.eventfromTime,
                     toTime: data.eventtoTime,
-                    ngoName: data.ngoName,
+                    ngoName: data.ngoName.map(function (ngo) { return ({
+                        id: data.ngoName.indexOf(ngo),
+                        itemName: ngo.name
+                    }); }),
                     eventCategory: data.eventCategory,
                     recurringEvent: data.recurringEvent,
                     items: data.eventItems.map(function (item) { return ({
@@ -1023,7 +1037,8 @@ var AddEventComponent = /** @class */ (function () {
                     volunteersReq: data.volunteers,
                     comments: data.comments,
                     college: data.college,
-                    volunteersReg: ''
+                    volunteersReg: '',
+                    volunteersOff: ''
                 });
                 console.log(_this.eventForm.value.eventDuration);
             });
@@ -1032,33 +1047,50 @@ var AddEventComponent = /** @class */ (function () {
     AddEventComponent.prototype.log = function ($event) {
         console.log("hi");
     };
+    AddEventComponent.prototype.checkForMandatoryValidations = function (eventDataValues) {
+        if (eventDataValues.eventName && eventDataValues.eventAction && eventDataValues.fromTime && eventDataValues.toTime &&
+            eventDataValues.recurringEvent && eventDataValues.eventCategory && eventDataValues.volunteersReg &&
+            eventDataValues.eventDuration && eventDataValues.items && eventDataValues.volunteersOff)
+            return true;
+        else
+            return false;
+    };
     AddEventComponent.prototype.onSubmit = function () {
         var _this = this;
-        console.log(this.eventForm.value);
-        this.eventData.eventName = this.eventForm.value.eventName;
-        this.eventData.eventAction = this.eventForm.value.eventAction;
-        this.eventData.eventfromTime = this.eventForm.value.fromTime;
-        this.eventData.eventtoTime = this.eventForm.value.toTime;
-        this.eventData.ngoName = this.eventForm.value.ngoName;
-        this.eventData.volunteers = this.eventForm.value.volunteersReq;
-        this.eventData.recurringEvent = this.eventForm.value.recurringEvent;
-        // this.eventData.eventDuration=[];
-        // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[0],'fullDate','en-US'));
-        // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[1],'fullDate','en-US'));
-        this.eventData.eventCategory = this.eventForm.value.eventCategory;
-        this.eventData.eventDuration = this.eventForm.value.eventDuration;
-        this.eventData.eventItems = this.eventForm.value.items.map(function (item) { return item.itemName; });
-        this.eventData.comments = this.eventForm.value.comments;
-        this.eventData.college = this.eventForm.value.college;
-        console.log(this.eventData);
-        if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
-            this.apiService.putData(this.eventData, this.route.snapshot.paramMap.get('id'), 'event');
+        var eventDataValues = this.eventForm.getRawValue();
+        if (this.checkForMandatoryValidations(eventDataValues)) {
+            console.log(this.eventForm.value);
+            this.eventData.eventName = this.eventForm.value.eventName;
+            this.eventData.eventAction = this.eventForm.value.eventAction;
+            this.eventData.eventfromTime = this.eventForm.value.fromTime;
+            this.eventData.eventtoTime = this.eventForm.value.toTime;
+            this.eventData.ngoName = this.eventForm.value.ngoName.map(function (ngo) { return ngo.ngoName; });
+            this.eventData.volunteers = this.eventForm.value.volunteersReq;
+            this.eventData.recurringEvent = this.eventForm.value.recurringEvent;
+            // this.eventData.eventDuration=[];
+            // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[0],'fullDate','en-US'));
+            // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[1],'fullDate','en-US'));
+            this.eventData.eventCategory = this.eventForm.value.eventCategory;
+            this.eventData.eventDuration = this.eventForm.value.eventDuration;
+            this.eventData.eventItems = this.eventForm.value.items.map(function (item) { return item.itemName; });
+            this.eventData.comments = this.eventForm.value.comments;
+            this.eventData.college = this.eventForm.value.college;
+            this.eventData.volunteersOffline = this.eventForm.value.volunteersOff;
+            console.log(this.eventData);
+            if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
+                this.apiService.putData(this.eventData, this.route.snapshot.paramMap.get('id'), 'event');
+            }
+            else {
+                var response = this.apiService.post(this.eventData, 'event').subscribe(function (response) {
+                    _this.message = "Event Submitted: http://yfsevents.com?id=" + response.id;
+                    _this.submitSuc = true;
+                    alert('Succesfully saved Event Details');
+                    _this.router.navigateByUrl("/events");
+                });
+            }
         }
         else {
-            var response = this.apiService.post(this.eventData, 'event').subscribe(function (response) {
-                _this.message = "Event Submitted: http://yfsevents.com?id=" + response.id;
-                _this.submitSuc = true;
-            });
+            alert('Please fill out the mandatory fields');
         }
     };
     AddEventComponent.prototype.onCategorySelected = function (event) {
@@ -1078,7 +1110,8 @@ var AddEventComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./add-event.component.html */ "./src/app/events/add-event.component.html"),
             styles: [__webpack_require__(/*! ./add-event.component.css */ "./src/app/events/add-event.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _api_service__WEBPACK_IMPORTED_MODULE_4__["ApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"], _inventory_data_inventorydata_service__WEBPACK_IMPORTED_MODULE_6__["InventorydataService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _api_service__WEBPACK_IMPORTED_MODULE_4__["ApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"], _inventory_data_inventorydata_service__WEBPACK_IMPORTED_MODULE_6__["InventorydataService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], AddEventComponent);
     return AddEventComponent;
 }());
@@ -1158,6 +1191,7 @@ var EventListComponent = /** @class */ (function () {
         this.frameworkComponents = {
             buttonRenderer: _renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_5__["ButtonRendererComponent"],
         };
+        this.paginationPageSize = 10;
     }
     EventListComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1437,7 +1471,7 @@ var InventoryDataComponent = /** @class */ (function () {
         }
     };
     InventoryDataComponent.prototype.checkForMandatoryValidations = function (inventoryData) {
-        if (inventoryData.itemName && inventoryData.eventCategory && inventoryData.comments)
+        if (inventoryData.itemName && inventoryData.eventCategory)
             return true;
         else
             return false;
