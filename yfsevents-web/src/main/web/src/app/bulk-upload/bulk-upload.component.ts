@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../upload.service';
 import { Router } from '@angular/router';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 declare var $: any;
 
@@ -9,7 +8,6 @@ declare var $: any;
   selector: 'app-bulk-upload',
   templateUrl: './bulk-upload.component.html',
   styleUrls: ['./bulk-upload.component.css'],
-  providers: [NgbModalConfig, NgbModal]
 })
 export class BulkUploadComponent implements OnInit {
 
@@ -37,9 +35,7 @@ export class BulkUploadComponent implements OnInit {
   ];
   private bulkGrid:any;
 
-  constructor(private config: NgbModalConfig,
-              private modalService: NgbModal,
-              private uploadService: UploadService,
+  constructor(private uploadService: UploadService,
               private router: Router) {
               }
 
@@ -55,10 +51,6 @@ export class BulkUploadComponent implements OnInit {
 
   downloadTemplate(){
     
-  }
-
-  open(content){
-    this.modalService.open(content);
   }
 
   upload(){

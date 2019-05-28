@@ -36,7 +36,6 @@ import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component'
 import { ButtonRendererComponent } from './events/renderer/button-renderer.component';
 import { XhrInterceptor } from './xhrInterceptor';
 import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
-import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
 declarations: [
@@ -73,7 +72,6 @@ BulkUploadComponent
     TimepickerModule.forRoot(),
     TypeaheadModule.forRoot(),
     AngularMultiSelectModule,
-    NgbModule,
     HttpModule
   ],
 
