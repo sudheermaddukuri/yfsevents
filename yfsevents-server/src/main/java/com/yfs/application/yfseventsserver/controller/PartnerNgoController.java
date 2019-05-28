@@ -89,7 +89,7 @@ public class PartnerNgoController {
                 authPerson.put("contact1", authorizedPerson.getContact1());
                 authPerson.put("contact2", authorizedPerson.getContact2());
                 authPerson.put("email1", authorizedPerson.getEmail1());
-                authPerson.put("email2", authorizedPerson.getEmail2());
+
                 authPerson.put("name", authorizedPerson.getName());
 
                 authorizedPersons.add(authPerson);

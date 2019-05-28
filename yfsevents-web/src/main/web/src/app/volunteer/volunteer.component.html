@@ -33,29 +33,20 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-1 offset-md-3">
-            <div class="form-group required">
-              <label class="control-label">Prefix</label>
-              <input type="text" formControlName = "phonePrefix" class="form-control well well-sm">
-            </div>
-          </div>
+
+
+
           <div class="col-md-6 offset-md-3">
             <div class="form-group required">
-              <label class="control-label">Phone Number</label>
+              <label class="control-label">Contact Number</label>
               <input type="text" formControlName = "phoneNumber" class="form-control well well-sm">
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-1 offset-md-3">
-            <div class="form-group">
-              <label class="control-label">Prefix</label>
-              <input type="text" formControlName = "alternatePhonePrefix" class="form-control well well-sm">
-            </div>
-          </div>
+
+
           <div class="col-md-6 offset-md-3">
             <div class="form-group">
-              <label class="control-label">Alternate Phone</label>
+              <label class="control-label">Alternate Contact Number</label>
               <input type="text" formControlName = "alternatePhoneNumber" class="form-control well well-sm">
             </div>
           </div>
@@ -68,12 +59,12 @@
             </div>
           </div>
 
-          <div class="col-md-6 offset-md-3">
-            <div class="form-group">
-              <label class="control-label">Alternate Email</label>
-              <input type="text" formControlName = "alternateEmail" class="form-control well well-sm">
-            </div>
-          </div>
+
+
+
+
+
+
         </div>
 
 
@@ -148,7 +139,7 @@
 
 
             <div class="row">
-              <div class="col-md">
+              <div class="col-md-6 offset-md-3">
                 <div class="form-group">
                   <label class="control-label">Interest Areas</label>
 
@@ -158,13 +149,23 @@
 
                 </div>
               </div>
+                <div class="col-md-6 offset-md-3">
+                  <div class="form-group ">
+                    <label class="control-label">Preferred Timings</label>
+                    <!-- <input type="text" formControlName="mouStatus" class="form-control well well-sm"> -->
+                    <select formControlName="volunteerPreferredTimes" class="form-control">
+                      <option *ngFor="let action of preferredTimings" [value]="action">{{action}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
 
             </div>
 
 
 
 
-        </div>
+
 
         </form>
 
