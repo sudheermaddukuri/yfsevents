@@ -16,17 +16,18 @@ export class VolunteerGridComponent implements OnInit {
    private headers=[
      {headerName: 'First Name', field: 'firstName',filter:true, sortable: true },
      {headerName: 'Last Name', field: 'lastName',filter:true},
-     {headerName: 'Phone Prefix', field: 'phonePrefix',filter:true},
-     {headerName: 'Phone Number', field: 'phoneNumber',filter:true},
-     {headerName: 'Phone Prefix', field: 'alternatePhonePrefix',filter:true},
-     {headerName: 'Alternate Phone Number', field: 'alternatePhoneNumber',filter:true},
+
+     {headerName: 'Contact Number', field: 'phoneNumber',filter:true},
+
+     {headerName: 'Alternate Contact Number', field: 'alternatePhoneNumber',filter:true},
      {headerName: 'EmailId', field: 'email',filter:true},
-     {headerName: 'EmailId2', field: 'alternateEmail',filter:true},
+
      {headerName: 'Locality', field: 'locality',filter:true},
      {headerName: 'City', field: 'city',filter:true},
      {headerName: 'State', field: 'state',filter:true},
      {headerName: 'PinCode', field: 'pincode',filter:true},
-     {headerName: 'Interested Areas', field: 'interestedAreas'}
+     {headerName: 'Interested Areas', field: 'interestedAreas',filter:true},
+     {headerName: 'PreferredTimings', field: 'volunteerPreferredTimings',filter:true}
 
    ];
    private myGrid: any;
