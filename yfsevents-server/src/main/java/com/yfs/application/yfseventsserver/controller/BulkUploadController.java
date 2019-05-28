@@ -41,7 +41,7 @@ public class BulkUploadController {
     private static Logger logger = LoggerFactory.getLogger(BulkUploadController.class);
 
     private final Integer maxInterestedAreas = 5;
-    private final Integer baseInterestredAreasIndex = 10;
+    private final Integer baseInterestredAreasIndex = 9;
 
     @PostMapping("/bulk/upload")
     public ResponseEntity<List<BulkVolunteer>> extractFileData(@RequestParam("file") MultipartFile file) throws InvalidFormatException {
@@ -66,11 +66,10 @@ public class BulkUploadController {
                                 volunteer.setPhoneNumber(dataFormatter.formatCellValue(row.getCell(2)));
                                 volunteer.setAlternatePhoneNumber(dataFormatter.formatCellValue(row.getCell(3)));
                                 volunteer.setEmail(dataFormatter.formatCellValue(row.getCell(4)));
-                                volunteer.setAlternateEmail(dataFormatter.formatCellValue(row.getCell(5)));
-                                volunteer.setLocality(dataFormatter.formatCellValue(row.getCell(6)));
-                                volunteer.setCity(dataFormatter.formatCellValue(row.getCell(7)));
-                                volunteer.setState(dataFormatter.formatCellValue(row.getCell(8)));
-                                volunteer.setPincode(dataFormatter.formatCellValue(row.getCell(9)));
+                                volunteer.setLocality(dataFormatter.formatCellValue(row.getCell(5)));
+                                volunteer.setCity(dataFormatter.formatCellValue(row.getCell(6)));
+                                volunteer.setState(dataFormatter.formatCellValue(row.getCell(7)));
+                                volunteer.setPincode(dataFormatter.formatCellValue(row.getCell(8)));
 
                                 List<VolunteerInterestedArea> interestedAreas = new ArrayList<>();
                                 for(Integer index=0; index<maxInterestedAreas; index++){
