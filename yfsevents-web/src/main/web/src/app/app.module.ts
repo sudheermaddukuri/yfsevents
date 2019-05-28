@@ -35,6 +35,7 @@ import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component'
 //import{EventEmiterService} from './event-emmiter-service1.service';
 import { ButtonRendererComponent } from './events/renderer/button-renderer.component';
 import { XhrInterceptor } from './xhrInterceptor';
+import { ResetComponent } from './reset/reset.component';
 @NgModule({
 declarations: [
 AppComponent,
@@ -54,7 +55,8 @@ WelcomeComponent,
   VolunteerGridComponent,
   LoginComponent,
 RegisterComponent,
-ButtonRendererComponent
+ButtonRendererComponent,
+ResetComponent
   ],
   imports: [
     AgGridModule.withComponents([ButtonRendererComponent]),

@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="card card-container">
+
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <form #f="ngForm" (ngSubmit)="f.form.valid && checkEmail()" name="form-signin" novalidate>
+          <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+
+          <div [ngClass]="{ 'has-error': f.submitted && !username.valid }" class="form-group">
+            <label for="username">Email</label>
+            <input #username="ngModel" [(ngModel)]="user.username" class="form-control" id="username" name="username"
+                   required type="text"/>
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Check</button>
+            <!-- <div *ngIf="f.submitted && !username.valid" class="help-block">an valid email is required</div>-->
+          </div>
+
+        </form>
+      </div>
+    </div><!-- /form -->
+
+  </div><!-- /card-container -->
+</div><!-- /container -->
