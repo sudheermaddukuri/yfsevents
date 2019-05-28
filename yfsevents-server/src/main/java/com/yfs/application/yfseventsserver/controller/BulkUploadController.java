@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Controller
 @RequestMapping("/api")
@@ -94,6 +92,42 @@ public class BulkUploadController {
                                     errors.add("Volunteer Already Present");
                                 }
 
+                                //null checks
+                                if(volunteer.getFirstName().isEmpty()){
+                                    errors.add("First Name is Mandatory");
+                                }
+                                if(volunteer.getLastName().isEmpty()){
+                                    errors.add("Last Name is Mandatory");
+                                }
+                                if(volunteer.getPhoneNumber().isEmpty()){
+                                    errors.add("Phone Number is Mandatory");
+                                }
+                                if(volunteer.getEmail().isEmpty()){
+                                    errors.add("Email is Mandatory");
+                                }
+                                if(volunteer.getLocality().isEmpty()){
+                                    errors.add("Locality is Mandatory");
+                                }
+                                if(volunteer.getCity().isEmpty()){
+                                    errors.add("City is Mandatory");
+                                }
+                                if(volunteer.getState().isEmpty()){
+                                    errors.add("State is Mandatory");
+                                }
+                                if(volunteer.getPincode().isEmpty()){
+                                    errors.add("Pincode is Mandatory");
+                                }
+
+                                //TODO: Add other validation checks
+
+                                if(errors.isEmpty()){
+                                    Volunteer volunteer1 = volunteerRepository.save(bulkVolunteer.getVolunteer());
+                                    volunteer1.getInterestedAreas().stream().forEach((interestedArea) -> {
+                                        interestedArea.setVolunteer(volunteer1);
+                                        volunteerInterestedAreaRepository.save(interestedArea);
+                                    });
+                                }
+
                                 bulkVolunteer.setErrors(errors);
                                 bulkVolunteers.add(bulkVolunteer);
                             }
@@ -115,24 +149,6 @@ public class BulkUploadController {
         }
 
         return null;
-    }
-
-    @PostMapping("/bulk/save")
-    public ResponseEntity<String> saveBulkData(@RequestBody List<BulkVolunteer> bulkVolunteerList){
-        AtomicReference<Long> count= new AtomicReference<>(0L);
-        bulkVolunteerList.forEach(bulkVolunteer -> {
-            //TODO: CAll Save Service Directly.
-            if(bulkVolunteer.getErrors().isEmpty()) {
-                Volunteer volunteer1 = volunteerRepository.save(bulkVolunteer.getVolunteer());
-                volunteer1.getInterestedAreas().stream().forEach((interestedArea) -> {
-                    interestedArea.setVolunteer(volunteer1);
-                    volunteerInterestedAreaRepository.save(interestedArea);
-                });
-                count.getAndSet(count.get() + 1);
-            }
-        });
-        return ResponseEntity.ok(count.toString());
-//        return new ResponseEntity<String>(count.toString(), HttpStatus.OK);
     }
 
 }

@@ -20,6 +20,7 @@ export class BulkUploadComponent implements OnInit {
   private data:any=[];
   private uploadResponse:any=[];
   private headers=[
+    {headerName: 'Status', field: 'status'},
     {headerName: 'First Name', field: 'firstName',filter:true, sortable: true },
     {headerName: 'Last Name', field: 'lastName',filter:true},
     {headerName: 'Phone Prefix', field: 'phonePrefix',filter:true},
@@ -32,8 +33,7 @@ export class BulkUploadComponent implements OnInit {
     {headerName: 'City', field: 'city',filter:true},
     {headerName: 'State', field: 'state',filter:true},
     {headerName: 'PinCode', field: 'pincode',filter:true},
-    {headerName: 'Interested Areas', field: 'formattedInterestedAreas'},
-    {headerName: 'Comments', field: 'errors'}
+    {headerName: 'Interested Areas', field: 'formattedInterestedAreas'}
   ];
   private bulkGrid:any;
 
@@ -41,10 +41,10 @@ export class BulkUploadComponent implements OnInit {
               private modalService: NgbModal,
               private uploadService: UploadService,
               private router: Router) {
-               }
+              }
 
   ngOnInit() {
-    this.fileUrl = "/assets/sample.xls"
+    this.fileUrl = "/assets/Volunteer Template.xls"
   }
 
   selectFile(event){
@@ -72,10 +72,10 @@ export class BulkUploadComponent implements OnInit {
         let volunteers =[];
         (response.body).forEach(element => {
           let volunteer={};
-          if(element.errors!=null){
-            Object.assign(volunteer, {"errors" : element.errors.toString()});
+          if(element.errors.length){
+            Object.assign(volunteer, {"status" : element.errors.toString()});
           }else{
-            Object.assign(volunteer, {"errors" : "No Errors"})
+            Object.assign(volunteer, {"status" : "No Errors"});
           }
           Object.assign(volunteer, element.volunteer);
           let interestedAreas = [];
@@ -86,21 +86,15 @@ export class BulkUploadComponent implements OnInit {
           volunteers.push(volunteer);
         });
         this.data = volunteers;
+        alert("Only data with no errors were saved");
       }
       console.log("Upload Parsed Response" + result);
     });
   }
 
-  save(){
-    alert("Only data with no errors will be saved");
-    this.uploadService.saveBulkData(this.uploadResponse).subscribe(result=>{
-      console.log("Bulk Save Api Response: "+result);
-      let response = JSON.parse(JSON.stringify(result));
-      if(response.status && response.status===200){
-        alert("Bulk upload successful. "+response.body+" records saved.");
-        this.router.navigateByUrl("/grid/volunteer");
-      }
-    });
-  } 
+  close(){
+    alert("Please correct and reupload data with errors");
+    this.router.navigateByUrl("/grid/volunteer");
+  }
 
 }
