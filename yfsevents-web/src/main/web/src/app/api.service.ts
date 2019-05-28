@@ -22,7 +22,8 @@ export class ApiService {
     this.urlList.set('volunteer','/volunteer');
     this.urlList.set('collegeregistration','/collegeregistration');
     this.urlList.set('interestedAreasCategory','/interestedAreasCategory');
-    this.urlList.set('collegeregistration-list','/collegeregistration/list')
+    this.urlList.set('collegeregistration-list','/collegeregistration/list');
+    this.urlList.set('bulkSave','/bulk/save');
   }
 
    postData(data:any, type:string) {
