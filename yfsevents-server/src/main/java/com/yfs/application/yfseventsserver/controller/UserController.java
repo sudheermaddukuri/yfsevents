@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -42,6 +44,17 @@ public class UserController {
     public Principal user(HttpServletRequest request) {
         String authToken = request.getHeader("Authorization").substring("Basic".length()).trim();
         return () -> new String(Base64.getDecoder().decode(authToken)).split(":")[0];
+    }
+
+    @ResponseBody
+    @GetMapping("/api/checkuser/{email}")
+    public Map getCollegeRegistrationFormatted(@PathVariable String email) {
+
+        Map output = new HashMap();
+        output.put("exists", userService.doesUserExists(email));
+
+        return output;
+
     }
 
     @CrossOrigin

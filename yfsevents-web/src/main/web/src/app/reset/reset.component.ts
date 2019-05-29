@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-reset',
@@ -7,15 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResetComponent implements OnInit {
 
-  constructor() { }
+ user = {username: '', password: ''};
+
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
   }
 
-  login() {
-      this.app.authenticate(this.user, () => {
-          this.router.navigateByUrl('/events');
-      });
+  checkEmail() {
+
+      this.apiService.getData('checkuser', this.user.username, false).subscribe(response=>{
+
+                                                                                         let result:any=JSON.parse(JSON.stringify(response));
+                                                                                         });
       return false;
     }
 

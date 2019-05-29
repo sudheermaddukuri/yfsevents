@@ -113,4 +113,8 @@ public class User implements UserDetails {
     public void setResetToken(String resetToken) {
         this.resetToken = resetToken;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
