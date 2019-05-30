@@ -33,10 +33,32 @@ public class Event {
     }
 
     private Date eventtoTime;
-    private String ngoName;
+
+    public List<String> getNgoName() {
+        return ngoName;
+    }
+
+    public void setNgoName(List<String> ngoName) {
+        this.ngoName = ngoName;
+    }
+
+    @ElementCollection
+    private List<String> ngoName;
+
     private String eventCategory;
     private String recurringEvent;
     private String volunteers;
+    private String volunteersOffline;
+
+    public String getVolunteersOffline() {
+        return volunteersOffline;
+    }
+
+    public void setVolunteersOffline(String volunteersOffline) {
+        this.volunteersOffline = volunteersOffline;
+    }
+
+
 
     public String getCollege() {
         return college;
@@ -108,17 +130,6 @@ public class Event {
         this.eventAction = eventAction;
     }
 
-
-
-
-
-    public String getNgoName() {
-        return ngoName;
-    }
-
-    public void setNgoName(String ngoName) {
-        this.ngoName = ngoName;
-    }
 
     public String getEventCategory() {
         return eventCategory;
