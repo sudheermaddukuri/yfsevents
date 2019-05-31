@@ -77,13 +77,13 @@ public class VolunteerController {
             Map personalInfo = new HashMap();
             personalInfo.put("firstName", volunteerData.getFirstName());
             personalInfo.put("lastName", volunteerData.getLastName());
-            personalInfo.put("phonePrefix", volunteerData.getPhonePrefix());
+
             personalInfo.put("phoneNumber", volunteerData.getPhoneNumber());
-            personalInfo.put("alternatePhonePrefix", volunteerData.getAlternatePhonePrefix());
+
             personalInfo.put("alternatePhoneNumber", volunteerData.getAlternatePhoneNumber());
             personalInfo.put("email", volunteerData.getEmail());
-            personalInfo.put("alternateEmail", volunteerData.getAlternateEmail());
-            Map interestedlist= new HashMap();
+
+            Map additionalInfo= new HashMap();
             List<Map> interestedAreasList=new ArrayList<>();
             volunteerData.getInterestedAreas().stream().forEach((interestedArea)-> {
                 Map interested= new HashMap();
@@ -91,10 +91,11 @@ public class VolunteerController {
                 interested.put("id",interestedArea.getId());
                 interestedAreasList.add(interested);
             });
-            interestedlist.put("interestedAreas",interestedAreasList);
+            additionalInfo.put("interestedAreas",interestedAreasList);
+            additionalInfo.put("volunteerPreferredTimes",volunteerData.getVolunteerPreferredTimes());
             output.put("address", address);
             output.put("personalInfo", personalInfo);
-            output.put("additionalInfo",interestedlist);
+            output.put("additionalInfo",additionalInfo);
         }
 
         return  output;

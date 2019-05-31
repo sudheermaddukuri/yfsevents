@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@ang
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../api.service'
 import { HttpErrorResponse } from '@angular/common/http';
+
+import {InventorydataService} from '../inventory-data/inventorydata.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { NgOnChangesFeature } from '@angular/core/src/render3';
@@ -14,16 +16,18 @@ import { NgOnChangesFeature } from '@angular/core/src/render3';
 export class VolunteerComponent implements OnInit, AfterViewInit {
 
   myForm: FormGroup;
-  interestedAreasCategory: any[];
-  selected: any[] = new Array();
+  interestedAreasCategorydata: any[];
+
+ interestedAreasCategory=[];
+
   selectedList: any[];
   interestedList: any[] = new Array();
   private mode: String;
   private id: number;
   dropdownSettings = {};
+  preferredTimings:string[]=['Weekdays','Weekends','Both Weekdays and Weekends'];
 
-
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder, private inventoryService: InventorydataService,
     private apiService: ApiService, private route: ActivatedRoute, private router: Router) { }
 
 
@@ -35,12 +39,26 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
       additionalInfo: this.additionalInfo()
 
     });
-    this.interestedAreasCategory = [
-      { "id": 1, "itemName": "Education" },
-      { "id": 2, "itemName": "Health" },
-      { "id": 3, "itemName": "Environment" }
 
-    ];
+
+    this.inventoryService.getEventCategoryList().subscribe((data: any) => {
+          this.interestedAreasCategorydata=data;
+                      this.interestedAreasCategory=this.interestedAreasCategorydata.map(interestedAreasCategory=>{
+                        console.log("888",interestedAreasCategory.value);
+
+                          return {"id":interestedAreasCategory.key,"itemName":interestedAreasCategory.value};
+
+                      });
+        }, (err: HttpErrorResponse) => {
+          console.log(err.message);
+        });
+
+  //  this.interestedAreasCategory = [
+   //   { "id": 1, "itemName": "Education" },
+    //  { "id": 2, "itemName": "Health" },
+     // { "id": 3, "itemName": "Environment" }
+
+    //];
 
 
 
@@ -50,7 +68,7 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
 
     this.dropdownSettings = {
       singleSelection: false,
-      text: "Select interested Areas",
+      text: "Select Interested Areas",
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       enableSearchFilter: true,
@@ -65,22 +83,19 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
       if (this.id) {
         if (!isNaN(this.id)) {
 
-          this.apiService.getData('volunteer', this.id, true).subscribe(result => {
+           this.apiService.getData('volunteer', this.id, true).subscribe(result => {
             let data = JSON.parse(JSON.stringify(result));
             console.log("GetResponse: " + data);
+            data.additionalInfo.interestedAreas=data.additionalInfo.interestedAreas.map(interestedArea1=>({
+                        id:data.additionalInfo.interestedAreas.indexOf(interestedArea1),
+                        itemName:interestedArea1.interestedArea
+                      }));
+
+
 
 
             if (data.additionalInfo.interestedAreas) {
-              data.additionalInfo.interestedAreas.forEach((interestedArea, index) => {
-                if (index != 0) {
 
-
-                  this.selected.push({ "id": interestedArea["id"], "itemName": interestedArea["interestedArea"] });
-
-                }
-
-              });
-              this.setSelectedList(this.selected);
             }
             this.myForm.setValue(data);
           });
@@ -91,10 +106,7 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
     });
 
   }
-  setSelectedList(selected) {
-    console.log("came to selected");
-    this.selectedList = selected;
-  }
+
 
   ngAfterViewInit() {
     if (this.mode == 'view') {
@@ -105,9 +117,13 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
       Array.from(document.getElementsByClassName('form-control')).forEach(element => {
         (<HTMLInputElement>element).disabled = false;
       });
+
     }
 
 
+  }
+  log($event)
+  {
   }
 
   personalInfo(): FormGroup {
@@ -126,14 +142,10 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
       alternatePhoneNumber: ['', [
         Validators.pattern("^[0-9]+$"), Validators.minLength(10), Validators.maxLength(10)
       ]],
-      phonePrefix: ['', []],
-      alternatePhonePrefix: ['', []],
       email: ['', [
         Validators.email, Validators.maxLength(50)
-      ]],
-      alternateEmail: ['', [
-        Validators.email, Validators.maxLength(50)
       ]]
+
     });
     return aboutVolunteer;
   }
@@ -159,21 +171,17 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
   additionalInfo(): FormGroup {
     let me = this;
     const additionalInfo = this.formBuilder.group({
-      interestedAreas: [this.formBuilder.array([this.interestedArea]), [
+      interestedAreas: ['', [
 
       ]],
-
-    });
-    return additionalInfo;
-  }
-  interestedArea(): FormGroup {
-    return this.formBuilder.group({
-      interestedArea: ['', [
+      volunteerPreferredTimes:['',[
 
       ]]
 
     });
+    return additionalInfo;
   }
+
 
 
 
@@ -191,16 +199,13 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     console.log("Insubmit");
-    if (this.selectedList) {
-      for (var val of this.selectedList) {
-        console.log("interestedArea:" + val["itemName"]);
-        this.interestedList.push({ "interestedArea": val["itemName"] });
+    this.interestedList=this.myForm.get('additionalInfo').get('interestedAreas').value.map(interestedArea=>{return {"interestedArea":interestedArea.itemName};});
 
-      }
-    }
-    console.log(this.address); if (this.myForm.valid) {
+
+
+     if (this.myForm.valid) {
       console.log("valid");
-      let json = Object.assign(this.myForm.get('personalInfo').value, this.myForm.get('address').value, { interestedAreas: this.interestedList });
+      let json = Object.assign(this.myForm.get('personalInfo').value, this.myForm.get('address').value, { interestedAreas: this.interestedList },{volunteerPreferredTimes:this.myForm.get('additionalInfo').get('volunteerPreferredTimes').value});
       if (this.mode == 'edit') {
         json = Object.assign(json, { id: this.id });
       }
@@ -208,7 +213,7 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
       console.log('submitting: ', json);
 
       let response = this.apiService.postData(json, 'volunteer');
-      console.log("boolean is" + response);
+      console.log("response is" + response);
       while (this.interestedList.length) {
         this.interestedList.pop();
       }
@@ -224,12 +229,9 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
 
 
     }
-    else { console.log("invalid"); } console.log("address is" + this.myForm.valid);
+    else { console.log("invalid");alert('please fill all the mandatory details'); } console.log("address is" + this.myForm.valid);
   }
 
 
-  fx(val) {
-    console.log(val);
-  }
 
 }

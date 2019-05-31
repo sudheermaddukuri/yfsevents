@@ -56,7 +56,7 @@ export class InventoryDataComponent implements OnInit {
   }
 
   checkForMandatoryValidations(inventoryData) {
-    if (inventoryData.itemName && inventoryData.eventCategory && inventoryData.comments)
+    if (inventoryData.itemName && inventoryData.eventCategory)
       return true;
     else
       return false;
