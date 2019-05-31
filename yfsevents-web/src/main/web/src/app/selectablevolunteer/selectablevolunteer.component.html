@@ -1,0 +1,183 @@
+<div class="container">
+  <div class="page-header well well-sm text-center">
+    <h3><strong> Volunteer Registration</strong></h3>
+  </div>
+  <div class="panel panel-info" >
+   <!-- <fieldset>
+
+    <legend>Personal Details</legend>-->
+    <!--<h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Personal Information</strong></h3>-->
+  <div class="panel-heading">
+    <label>Personal Information</label>
+  </div>
+  <div class="panel-body" >
+    <form #form="ngForm" [formGroup]="myForm" (ngSubmit)="personalInfo()">
+    <div  formGroupName="personalInfo">
+
+
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="form-group required">
+              <label class="control-label">First Name</label>
+              <input type="text" formControlName = "firstName" class="form-control well well-sm"[ngClass]="{'is-invalid':myForm.controls['personalInfo'].controls.firstName.errors&&(myForm.controls['personalInfo'].controls.firstName.dirty||myForm.controls['personalInfo'].controls.firstName.touched)}">
+              <div *ngIf="myForm.controls['personalInfo'].controls.firstName.errors&&(myForm.controls['personalInfo'].controls.firstName.dirty||myForm.controls['personalInfo'].controls.firstName.touched)" class="invalid-feedback">
+                <div *ngIf="myForm.controls['personalInfo'].controls.firstName.errors.required" class="field-invalid">First Name is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 offset-md-3">
+            <div class="form-group required">
+              <label class="control-label">Last Name</label>
+              <input type="text" formControlName = "lastName" class="form-control well well-sm">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-1 offset-md-3">
+            <div class="form-group required">
+              <label class="control-label">Prefix</label>
+              <input type="text" formControlName = "phonePrefix" class="form-control well well-sm">
+            </div>
+          </div>
+          <div class="col-md-6 offset-md-3">
+            <div class="form-group required">
+              <label class="control-label">Phone Number</label>
+              <input type="text" formControlName = "phoneNumber" class="form-control well well-sm">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-1 offset-md-3">
+            <div class="form-group">
+              <label class="control-label">Prefix</label>
+              <input type="text" formControlName = "alternatePhonePrefix" class="form-control well well-sm">
+            </div>
+          </div>
+          <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+              <label class="control-label">Alternate Phone</label>
+              <input type="text" formControlName = "alternatePhoneNumber" class="form-control well well-sm">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="form-group required">
+              <label class="control-label">Email</label>
+              <input type="text" formControlName = "email" class="form-control well well-sm">
+            </div>
+          </div>
+
+          <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+              <label class="control-label">Alternate Email</label>
+              <input type="text" formControlName = "alternateEmail" class="form-control well well-sm">
+            </div>
+          </div>
+        </div>
+
+
+    </div>
+    </form>
+  </div>
+    <!--</fieldset>-->
+  </div>
+
+  <div class="panel panel-info">
+    <!--<fieldset>
+
+      <legend>Address</legend>-->
+
+    <!--<h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Address</strong></h3>-->
+    <div class="panel-heading">
+      <label>Address</label>
+    </div>
+      <div class="panel-body">
+        <form [formGroup]="myForm" >
+        <div formGroupName="address">
+
+
+            <div class="row">
+              <div class="col-md-6 offset-md-3">
+                <div class="form-group required">
+                  <label class="control-label">Locality</label>
+                  <input type="text" formControlName = "locality" class="form-control well well-sm">
+                </div>
+              </div>
+              <div class="col-md-6 offset-md-3">
+                <div class="form-group required">
+                  <label class="control-label">City</label>
+                  <input type="text" formControlName = "city" class="form-control well well-sm">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 offset-md-3">
+                <div class="form-group required">
+                  <label class="control-label">State</label>
+                  <input type="text" formControlName = "state" class="form-control well well-sm">
+                </div>
+              </div>
+
+              <div class="col-md-6 offset-md-3">
+                <div class="form-group required">
+                  <label class="control-label">Pin Code</label>
+                  <input type="text" formControlName = "pincode" class="form-control well well-sm">
+                </div>
+              </div>
+            </div>
+
+
+        </div>
+        </form>
+      </div>
+   <!-- </fieldset>-->
+  </div>
+  <div class="panel panel-info">
+    <!--<fieldset>
+
+      <legend>Additional Information</legend>-->
+   <!-- <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Additional Information </strong></h3>-->
+      <div class="panel-heading">
+        <label>Additional Information</label>
+      </div>
+      <div class="panel-body">
+        <form #form="ngForm" [formGroup]="myForm" (ngSubmit)="additionalInfo()">
+        <div formGroupName="additionalInfo">
+
+
+            <div class="row">
+              <div class="col-md">
+                <div class="form-group">
+                  <label class="control-label">Interest Areas</label>
+
+
+
+                  <angular2-multiselect [data]="interestedAreasCategory" [(ngModel)]="selectedList" formControlName="interestedAreas" settings="dropdownSettings"></angular2-multiselect>
+
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+        </div>
+
+        </form>
+
+      </div>
+    <!--</fieldset>-->
+  </div>
+  <div class="text-center">
+ <!-- <button  class="btn btn-default" (click)="onSubmit()">Register</button>-->
+    <button class="btn btn-default" (click)="onSubmit()"  *ngIf="mode!='view' && mode!='edit'">Register</button>
+    <button class="btn btn-default" (click)="onSubmit()" *ngIf="mode=='edit'" >Update</button>
+
+    <button class="btn btn-default"(click)="onEdit()" *ngIf="mode=='view'">Edit</button>
+    <button class="btn btn-default"(click)="onClose()" *ngIf="mode=='view' || mode=='edit'" >Close</button>
+  </div>
+</div>
+
