@@ -129,8 +129,10 @@ public class EmailController {
                 "Website: https://www.youthforseva.org<br>\n" +
                 "Ph Number: 7878787834<br>\n" +
                 "email:     abc@gmail.com\n" +
+                messageText+
                 "</body>\n" +
                 "</html>\n";
+
             message.setContent(s,"text/html");
 
             // Send message
