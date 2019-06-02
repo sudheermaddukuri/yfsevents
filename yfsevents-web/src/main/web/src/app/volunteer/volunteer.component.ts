@@ -87,16 +87,14 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
             let data = JSON.parse(JSON.stringify(result));
             console.log("GetResponse: " + data);
             data.additionalInfo.interestedAreas=data.additionalInfo.interestedAreas.map(interestedArea1=>({
-                        id:data.additionalInfo.interestedAreas.indexOf(interestedArea1),
+                        id:interestedArea1.interestedAreaId,
                         itemName:interestedArea1.interestedArea
                       }));
 
 
 
 
-            if (data.additionalInfo.interestedAreas) {
 
-            }
             this.myForm.setValue(data);
           });
         } else {
@@ -199,7 +197,7 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     console.log("Insubmit");
-    this.interestedList=this.myForm.get('additionalInfo').get('interestedAreas').value.map(interestedArea=>{return {"interestedArea":interestedArea.itemName};});
+    this.interestedList=this.myForm.get('additionalInfo').get('interestedAreas').value.map(interestedArea=>{return {"interestedArea":interestedArea.itemName,"interestedAreaId":interestedArea.id};});
 
 
 

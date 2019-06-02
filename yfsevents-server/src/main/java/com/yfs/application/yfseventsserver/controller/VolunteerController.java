@@ -87,6 +87,7 @@ public class VolunteerController {
             volunteerData.getInterestedAreas().stream().forEach((interestedArea)-> {
                 Map interested= new HashMap();
                 interested.put("interestedArea",interestedArea.getInterestedArea());
+                interested.put("interestedAreaId",interestedArea.getInterestedAreaId());
                 interested.put("id",interestedArea.getId());
                 interestedAreasList.add(interested);
             });
