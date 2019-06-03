@@ -23,7 +23,8 @@ export class ApiService {
     this.urlList.set('collegeregistration','/collegeregistration');
     this.urlList.set('interestedAreasCategory','/interestedAreasCategory');
     this.urlList.set('collegeregistration-list','/collegeregistration/list');
-    this.urlList.set('checkuser','/checkuser');
+    this.urlList.set('preresetpassword','/preresetpassword');
+    this.urlList.set('resetpassword','/resetpassword');
   }
 
    postData(data:any, type:string) {

@@ -8,7 +8,7 @@ import { ApiService } from '../api.service';
 })
 export class ResetComponent implements OnInit {
 
- user = {username: '', password: ''};
+ user = {username: '', password: '', password:''};
 
   constructor(private apiService: ApiService) { }
 
@@ -17,11 +17,20 @@ export class ResetComponent implements OnInit {
 
   checkEmail() {
 
-      this.apiService.getData('checkuser', this.user.username, false).subscribe(response=>{
+      this.apiService.getData('preresetpassword', this.user.username, false).subscribe(response=>{
 
                                                                                          let result:any=JSON.parse(JSON.stringify(response));
                                                                                          });
       return false;
-    }
+    };
+
+      reset() {
+
+          this.apiService.post( this.user, 'resetpassword').subscribe(response=>{
+
+                                                                                             let result:any=JSON.parse(JSON.stringify(response));
+                                                                                             });
+          return false;
+        }
 
 }

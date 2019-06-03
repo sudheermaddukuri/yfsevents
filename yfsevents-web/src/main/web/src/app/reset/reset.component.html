@@ -4,20 +4,32 @@
     <div class="row">
       <div class="col-md-4"></div>
       <div class="col-md-4">
-        <form #f="ngForm" (ngSubmit)="f.form.valid && checkEmail()" name="form-signin" novalidate>
+        <form #f="ngForm"  name="form-signin" novalidate>
           <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
 
           <div [ngClass]="{ 'has-error': f.submitted && !username.valid }" class="form-group">
             <label for="username">Email</label>
             <input #username="ngModel" [(ngModel)]="user.username" class="form-control" id="username" name="username"
                    required type="text"/>
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Check</button>
+            <label for="token">Token</label>
+            <input #token="ngModel" [(ngModel)]="user.resetToken" class="form-control" id="resetToken" name="resetToken"
+                   required type="text"/>
+
+            <label for="password">Password</label>
+            <input #password="ngModel" [(ngModel)]="user.password" class="form-control" id="password" name="password"
+                   required type="password"/>
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" (click)="f.form.valid && checkEmail()">Check</button>
+
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" (click)="f.form.valid && reset()">Reset</button>
             <!-- <div *ngIf="f.submitted && !username.valid" class="help-block">an valid email is required</div>-->
           </div>
 
         </form>
+
+
       </div>
     </div><!-- /form -->
 
   </div><!-- /card-container -->
 </div><!-- /container -->
+

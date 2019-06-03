@@ -1,12 +1,17 @@
 package com.yfs.application.yfseventsserver.services;
 
 
+import com.yfs.application.yfseventsserver.controller.EmailController;
 import com.yfs.application.yfseventsserver.entity.User;
 import com.yfs.application.yfseventsserver.entity.Volunteer;
 import com.yfs.application.yfseventsserver.repository.UserRepository;
 import com.yfs.application.yfseventsserver.repository.VolunteerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author kamal berriga
@@ -20,6 +25,9 @@ public class UserService {
     @Autowired
     VolunteerRepository volunteerRepository;
 
+    @Autowired
+    EmailController emailController;
+
     public User save(User user) {
         return userRepository.save(user);
     }
@@ -32,30 +40,74 @@ public class UserService {
         return userRepository.findOneByUsername(userName);
     }
 
-    public Boolean doesUserExists(String email) {
+    public Map preResetPassword(String email) {
+
+
+        Map output = new HashMap();
+
+        output.put("mailsent", false);
+
+        boolean userExists = false;
 
         User user = userRepository.findOneByUsername(email);
 
         if(user != null) {
-            return true;
+            userExists =  true;
         }
 
-        Volunteer volunteer = volunteerRepository.findOneByEmail(email);
+        if(!userExists) {
 
-        if(volunteer != null) {
-            User newUser = new User();
-            newUser.setUsername(email);
-            newUser.setRole("ROLE_USER");
+            Volunteer volunteer = volunteerRepository.findOneByEmail(email);
 
-            newUser.setFullName(volunteer.getFirstName());
+            if(volunteer != null) {
+                user = new User();
+                user.setUsername(email);
+                user.setRole("ROLE_USER");
 
-            userRepository.save(newUser);
+                user.setFullName(volunteer.getFirstName());
+                userExists =  true;
 
-            return true;
+
+            }
 
         }
 
-        return false;
+        if(userExists) {
+
+            user.setResetToken(UUID.randomUUID().toString());
+            user = userRepository.save(user);
+
+
+            output.put("mailsent", EmailController.sendMailController(user.getUsername(),"", "", "Youth For Seva password reset token",
+                "Token to reset password : " + user.getResetToken() ));
+
+
+        }
+
+        output.put("userExists", userExists);
+
+        return output;
+
+    }
+
+    public Map resetPassword(User resetUser) {
+
+
+        Map output = new HashMap();
+
+        output.put("mailsent", false);
+
+        boolean userExists = false;
+
+        User user = userRepository.findOneByUsernameAndResetToken(resetUser.getUsername(), resetUser.getResetToken());
+
+        if(user != null) {
+            user.setPassword(resetUser.getPassword());
+            userRepository.save(user);
+        }
+
+
+        return output;
 
     }
 

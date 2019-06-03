@@ -17,4 +17,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     public User findOneByUsername(String username);
 
     User findByResetToken(String resetToken);
+
+    User findOneByUsernameAndResetToken(String username, String resetToken);
 }

@@ -47,28 +47,35 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping("/api/checkuser/{email}")
-    public Map getCollegeRegistrationFormatted(@PathVariable String email) {
+    @GetMapping("/api/preresetpassword/{email}")
+    public Map preResetPassword(@PathVariable String email) {
 
-        Map output = new HashMap();
-        output.put("exists", userService.doesUserExists(email));
 
-        return output;
+        return userService.preResetPassword(email);
 
     }
+
+
 
     @CrossOrigin
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<?> createUser(@RequestBody User newUser) {
-        if (userService.find(newUser.getUsername()) != null) {
-            logger.error("username Already exist " + newUser.getUsername());
-            return new ResponseEntity(
-                new CustomErrorType("user with username " + newUser.getUsername() + "already exist "),
-                HttpStatus.CONFLICT);
-        }
-        newUser.setRole("USER");
+    @RequestMapping(value = "/api/resetpassword", method = RequestMethod.POST)
+    public Map resetPassword(@RequestBody User resetUser) {
 
-        return new ResponseEntity<User>(userService.save(newUser), HttpStatus.CREATED);
+        return userService.resetPassword(resetUser);
     }
+
+//    @CrossOrigin
+//    @RequestMapping(value = "/register", method = RequestMethod.POST)
+//    public ResponseEntity<?> createUser(@RequestBody User newUser) {
+//        if (userService.find(newUser.getUsername()) != null) {
+//            logger.error("username Already exist " + newUser.getUsername());
+//            return new ResponseEntity(
+//                new CustomErrorType("user with username " + newUser.getUsername() + "already exist "),
+//                HttpStatus.CONFLICT);
+//        }
+//        newUser.setRole("USER");
+//
+//        return new ResponseEntity<User>(userService.save(newUser), HttpStatus.CREATED);
+//    }
 }
 
