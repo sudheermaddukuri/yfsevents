@@ -66,10 +66,8 @@ public class EmailController {
         try {
             // Create a default MimeMessage object.
             Message message = new MimeMessage(session);
-
             // Set From: header field of the header.
             message.setFrom(new InternetAddress(from));
-
             // Set To: header field of the header.
             message.setRecipients(Message.RecipientType.TO,
                 InternetAddress.parse(to));
@@ -81,7 +79,61 @@ public class EmailController {
             message.setSubject(Subject);
 
             // Now set the actual message
-            message.setText(messageText);
+            String s="<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "<style>\n" +
+                "</style>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "\n" +
+                "<h2>We require your presence</h2>\n" +
+                "<p>Here are the event Details</p>\n" +
+                "\n" +
+                "<table style=\"width:100%;border:1px solid black\">\n" +
+                "  <tr style=\"border:1px solid black\">\n" +
+                "    <td style=\"border:1px solid black\">NGO Name</td>\n" +
+                "    <td style=\"border:1px solid black\">Youth For Seva</td>\n" +
+                "  </tr>\n" +
+                "  <tr style=\"border:1px solid black\">\n" +
+                "    <td style=\"border:1px solid black\">Event name</td>\n" +
+                "    <td style=\"border:1px solid black\">Blood Bank</td>\n" +
+                "  </tr>\n" +
+                "  <tr style=\"border:1px solid black\">\n" +
+                "    <td style=\"border:1px solid black\">Date</td>\n" +
+                "    <td style=\"border:1px solid black\">12-4-2018</td>\n" +
+                "  </tr>\n" +
+                "  <tr style=\"border:1px solid black\">\n" +
+                "    <td style=\"border:1px solid black\">Event End Time</td>\n" +
+                "    <td style=\"border:1px solid black\">12 a.m</td>\n" +
+                "  </tr>\n" +
+                "  <tr style=\"border:1px solid black\">\n" +
+                "    <td style=\"border:1px solid black\">Event End Time</td>\n" +
+                "    <td style=\"border:1px solid black\">12 a.m</td>\n" +
+                "  </tr>\n" +
+                "</table>\n" +
+                "\n" +
+                "<h1>Based on our filters we think that this event may be something  of your intrest.</h1>\n" +
+                "\n" +
+                "Please click on the the following link to accept our invitation.<br> \n" +
+                "<a href=\"Click  me to accept invitation\">Click here to accept invitation</a><br><br>\n" +
+                "\n" +
+                "After accepting , if you feel You wont be able to make to the event ,Please tell us.<br><br>\n" +
+                "\n" +
+                "<b><i>If there are any changes in schedule from our side we will let you know</i></b>.\n" +
+                "<br>\n" +
+                "<br>\n" +
+                "\n" +
+                "\n" +
+                "For More information contact do us at :<br>\n" +
+                "Website: https://www.youthforseva.org<br>\n" +
+                "Ph Number: 7878787834<br>\n" +
+                "email:     abc@gmail.com\n" +
+                messageText+
+                "</body>\n" +
+                "</html>\n";
+
+            message.setContent(s,"text/html");
 
             // Send message
             Transport.send(message);
@@ -163,12 +215,13 @@ public class EmailController {
         System.out.println("Try");
 
         //System.out.println(volunteersAcceptedRepository.getAccepteVolunteersCount(123L));
-        VolunteersAccepted v=volunteersAcceptedRepository.save(volunteersAccepted);
+//        VolunteersAccepted v=volunteersAcceptedRepository.save(volunteersAccepted);
     }
 
 
     @PostMapping("/send")
             public @ResponseBody HashMap<String,String> sendmail(@RequestBody Email em) {
+        System.out.println("here");
         System.out.println(em.toString());
         System.out.println(em.getTo());
         System.out.println(em.getSubject());
@@ -181,7 +234,7 @@ public class EmailController {
     }
     public static void main(String[] args) {
         Email email= new Email();
-        email.setTo("rainatushar221995@gmail.com,wwwwww@gmail.com,random1@yahoo.com");
+        email.setTo("rainatushar221995@gmail.com,akulavij@gmail.com ,random1@yahoo.com");
         email.setSubject("Subject Test3 again");
         email.setText("Text is working");
         email.setEventId(312L);
@@ -191,7 +244,7 @@ public class EmailController {
     public void fun()
     {
         Email email= new Email();
-        email.setTo("rainatushar221995@gmail.com,wwwwww@gmail.com,random1@yahoo.com");
+        email.setTo("rainatushar221995@gmail.com,akulavij@gmail.com ,wwwwww@gmail.com,random1@yahoo.com");
         email.setSubject("Subject Test3 again");
         email.setText("Text is working");
         //event.setId(312L);
