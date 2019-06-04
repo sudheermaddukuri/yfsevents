@@ -31,7 +31,7 @@ public class VolunteerController {
     @GetMapping("/interestedAreasCategory")
     public Iterable<KeyValuePair> getInterestedAreasCategoryList(){
         Volunteer volunteer = new Volunteer();
-        return volunteer.getInterestedAreasCategoryList();
+        return volunteer.InterestedAreasCategoryList();
 
     }
     @ResponseBody
