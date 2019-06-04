@@ -52,7 +52,7 @@ public class InventoryData {
         this.comments = comments;
     }
 
-    public List<KeyValuePair> getEventCategoryList(){
+    public List<KeyValuePair> EventCategoryList(){
         return EventCategory.getEnumList();
     }
 
