@@ -1,0 +1,27 @@
+<div class="modal-header" id="abc">
+    <h4 class="modal-title">Volunteers who have accepte the invitation</h4>
+    <button type="button" class="close" aria-label="Close"
+     (click)="activeModal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="container-fluid">
+      <div class="page-header well text-center well-sm">
+        <h3><strong> Volunteer </strong></h3>
+      </div>
+      <div  #myGrid  style="width: 100%; height: 600px;">
+        <ag-grid-angular style="height: 100%;"
+          class="ag-theme-balham"
+          [rowData]="data"
+          [columnDefs]="headers"
+          (rowClicked)="onRowCilcked($event)"
+          (gridReady)="onGridReady($event)"
+          [rowSelection]="rowSelection"
+          [gridOptions]="gridOptions"
+          >
+        </ag-grid-angular>
+      </div>
+  <div class="modal-footer">
+    <button (click)="activeModal.dismiss('Close clicked')">
+      Close Clicked
+    </button>
+  </div>

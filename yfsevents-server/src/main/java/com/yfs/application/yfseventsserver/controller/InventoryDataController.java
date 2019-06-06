@@ -37,15 +37,16 @@ public class InventoryDataController {
     @GetMapping("/eventcategory")
     public Iterable<KeyValuePair> getEventCategoryList(){
          InventoryData inventoryData = new InventoryData();
-         return inventoryData.getEventCategoryList();
+         return inventoryData.EventCategoryList();
 
     }
 
     @ResponseBody
     @GetMapping("/list/{id}")
-    public Optional<InventoryData> getInventoryDataById(@PathVariable Long id) {
-        return inventoryDataRepository.findById(id);
+    public InventoryData getInventoryDataById(@PathVariable Long id) {
+        return inventoryDataRepository.findById(id).orElse(null);
     }
+
 
     @ResponseBody
     @GetMapping("/items/{eventCategory}")

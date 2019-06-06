@@ -30,10 +30,10 @@ public class EventController {
 
     @ResponseBody
     @GetMapping("/event/{id}")
+
     public Event getEventById(@PathVariable Long id) {
         return eventDataRepository.findById(id).orElse(null);
     }
-
     @ResponseBody
     @PutMapping("/event/{id}")
     public ResponseEntity<Object> updateEvent(@RequestBody Event event, @PathVariable Long Id){

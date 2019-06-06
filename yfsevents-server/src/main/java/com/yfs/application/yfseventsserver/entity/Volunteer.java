@@ -143,7 +143,7 @@ public class Volunteer {
     public void setInterstedAreas(List<VolunteerInterestedArea> interestedAreas) {
         this.interestedAreas = interestedAreas;
     }
-    public List<KeyValuePair> getInterestedAreasCategoryList(){
+    public List<KeyValuePair> InterestedAreasCategoryList(){
         return InterestedAreasCategory.getEnumList();
     }
 

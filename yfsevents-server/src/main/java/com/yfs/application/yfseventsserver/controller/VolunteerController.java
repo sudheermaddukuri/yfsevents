@@ -5,6 +5,7 @@ import com.yfs.application.yfseventsserver.KeyValuePair;
 import com.yfs.application.yfseventsserver.entity.PartnerNgo;
 import com.yfs.application.yfseventsserver.entity.Volunteer;
 import com.yfs.application.yfseventsserver.repository.*;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,7 @@ public class VolunteerController {
     @GetMapping("/interestedAreasCategory")
     public Iterable<KeyValuePair> getInterestedAreasCategoryList(){
         Volunteer volunteer = new Volunteer();
-        return volunteer.getInterestedAreasCategoryList();
+        return volunteer.InterestedAreasCategoryList();
 
     }
     @ResponseBody
@@ -87,6 +88,7 @@ public class VolunteerController {
             volunteerData.getInterestedAreas().stream().forEach((interestedArea)-> {
                 Map interested= new HashMap();
                 interested.put("interestedArea",interestedArea.getInterestedArea());
+                interested.put("interestedAreaId",interestedArea.getInterestedAreaId());
                 interested.put("id",interestedArea.getId());
                 interestedAreasList.add(interested);
             });
@@ -144,4 +146,15 @@ public class VolunteerController {
         volunteerRepository.deleteById(id);
         return true;
     }
+
+    public Iterable<Volunteer> getAcceptedVolunteers(@PathVariable List<String> emaillist)
+    {
+//        List<String> emaillist=new ArrayList<>();
+//        emaillist.add("try@gmail.com");
+//        emaillist.add("try1@gmail.com");
+//        System.out.println("emails");
+        System.out.println(volunteerRepository.getVolunteersPerEmailIds(emaillist).toString());
+        return volunteerRepository.getVolunteersPerEmailIds(emaillist);
+    }
+
 }
