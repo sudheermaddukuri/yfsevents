@@ -14,6 +14,7 @@ import { PartnerNgoGridComponent } from './partner-ngo-grid/partner-ngo-grid.com
 import { CollegeRegistrationGridComponent } from './college-registration-grid/college-registration-grid.component';
 import { LoginComponent}from './login/login.component';
 import { ResetComponent}from './reset/reset.component';
+import { RegisteredEventsComponent}from './registered-events/registered-events.component';
 import {RegisterComponent}from "./register/register.component";
 import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
 
@@ -52,7 +53,9 @@ path: 'login', component: LoginComponent
     ]
   },
   {path:'events',component:EventListComponent},
+  {path:'home',component:WelcomeComponent},
   {path:'reset',component:ResetComponent},
+  {path:'registered-events',component:RegisteredEventsComponent},
   {path:'addevent',component:AddEventComponent},
   {
     path:'email',component:SendMailComponent
@@ -69,7 +72,7 @@ path: 'login', component: LoginComponent
 
 {
 
-path: '**', redirectTo: 'login'
+path: '**', redirectTo: 'home'
 },
 {
 path: 'register', component: RegisterComponent

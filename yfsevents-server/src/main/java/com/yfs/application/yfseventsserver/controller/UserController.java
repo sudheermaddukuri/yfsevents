@@ -28,19 +28,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/logout")
+    @RequestMapping("/api/logout")
     public void logout(HttpServletRequest request) {
         new SecurityContextLogoutHandler().logout(request, null, null);
     }
 
     @CrossOrigin
-    @RequestMapping("/user")
+    @RequestMapping("/api/user")
     public Principal user(Principal principal) {
         logger.info("user logged " + principal);
         return principal;
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/api/login")
     public Principal user(HttpServletRequest request) {
         String authToken = request.getHeader("Authorization").substring("Basic".length()).trim();
         return () -> new String(Base64.getDecoder().decode(authToken)).split(":")[0];

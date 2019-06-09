@@ -49,7 +49,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and().cors().and().csrf().disable()
             .authorizeRequests()
             .antMatchers("/**/*.png","/*.png","/*.js","/*.css","/*.woff2","/*.woff","/*.ttf","/*.ico",
-                "/user", "/api/preresetpassword/**","/api/resetpassword", "/index.html", "/", "/home", "/login","/logout", "/h2-console/**").permitAll()
+                "/api/user", "/api/preresetpassword/**","/api/resetpassword", "/index.html", "/", "/home",
+                "/api/login","/api/logout", "/h2-console/**").permitAll()
             .anyRequest().authenticated().and().logout().logoutUrl("/logout") ;
 
 

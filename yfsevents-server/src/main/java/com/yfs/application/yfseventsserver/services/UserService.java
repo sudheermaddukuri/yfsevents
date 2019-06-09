@@ -95,14 +95,14 @@ public class UserService {
 
         Map output = new HashMap();
 
-        output.put("mailsent", false);
+        output.put("reset", false);
 
-        boolean userExists = false;
 
         User user = userRepository.findOneByUsernameAndResetToken(resetUser.getUsername(), resetUser.getResetToken());
 
         if(user != null) {
-            user.setPassword(resetUser.getPassword());
+            output.put("reset", true);
+            user.setPassword("{noop}" + resetUser.getPassword());
             userRepository.save(user);
         }
 
