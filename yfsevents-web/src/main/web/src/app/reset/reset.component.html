@@ -23,11 +23,12 @@
             <input #password="ngModel" [(ngModel)]="user.password" class="form-control" id="password" name="password"
                    required type="password"/>
             </div>
+            <br/>
             <div *ngIf="!showReset">
-            <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="checkEmail($event)">Check</button>
+            <button class="btn btn-sm btn-primary btn-block btn-signin" (click)="checkEmail($event)">Check & Generate Reset Token</button>
             </div>
               <div *ngIf="showReset">
-            <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="reset($event)">Reset</button>
+            <button class="btn btn-sm btn-primary btn-block btn-signin" (click)="reset($event)">Reset Password</button>
             <!-- <div *ngIf="f.submitted && !username.valid" class="help-block">an valid email is required</div>-->
 </div>
           </div>
