@@ -5,6 +5,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { formatDate, DatePipe } from '@angular/common';
 import { ButtonRendererComponent } from './renderer/button-renderer.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormModalComponent } from '../form-modal/form-modal.component';
 @Component({
   selector:'event-list',
   templateUrl: './event-list.component.html'
@@ -38,13 +40,21 @@ export class EventListComponent implements OnInit{
             onClick: this.onSearch.bind(this),
             label: 'Edit'
           }
-        }
+        },
+        {
+          headerName: 'Volunteers Accepted',
+          cellRenderer: 'buttonRenderer',
+          cellRendererParams: {
+            onClick: this.onBtnClick2.bind(this),
+            label: 'Accepted Count'
+          }
+        },
 
     ];
 
     eventData :any[];
     frameworkComponents:any;
-    constructor(private apiService: ApiService,private router:Router){
+    constructor(private apiService: ApiService,private router:Router,private modalService: NgbModal){
       this.frameworkComponents = {
         buttonRenderer: ButtonRendererComponent,
       }
@@ -73,8 +83,24 @@ export class EventListComponent implements OnInit{
     this.router.navigate(['addevent',{id:event.rowData.id}]);
   }
   onBtnClick1(event:any){
-    this.router.navigate(['email',{id:event.rowData.id}]);
+    console.log("grid/volunteer",event.rowData.id);
+    this.router.navigate(['grid/volunteer',{id:event.rowData.id}]);
   }
+  onBtnClick2(event:any){
+    this.openFormModal();
+  }
+
+  
+  openFormModal() {
+    const modalRef = this.modalService.open(FormModalComponent);
+    console.log("ddff");
+    modalRef.result.then((result) => {
+      console.log(result);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+  
 }
 
 

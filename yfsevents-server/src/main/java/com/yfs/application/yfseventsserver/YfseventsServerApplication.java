@@ -23,6 +23,7 @@ public class YfseventsServerApplication {
             .paths(regex("/*.*"))
             .build();
     }
+
 	public static void main(String[] args) {
 		SpringApplication.run(YfseventsServerApplication.class, args);
 	}
