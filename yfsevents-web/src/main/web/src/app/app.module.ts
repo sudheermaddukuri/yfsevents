@@ -37,6 +37,10 @@ import { ButtonRendererComponent } from './events/renderer/button-renderer.compo
 import { XhrInterceptor } from './xhrInterceptor';
 import { ResetComponent } from './reset/reset.component';
 import { RegisteredEventsComponent } from './registered-events/registered-events.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormModalComponent } from './form-modal/form-modal.component';
+import { SelectablevolunteerComponent } from './selectablevolunteer/selectablevolunteer.component';
+
 @NgModule({
 declarations: [
 AppComponent,
@@ -59,6 +63,8 @@ RegisterComponent,
 ButtonRendererComponent,
 ResetComponent,
 RegisteredEventsComponent
+FormModalComponent,
+SelectablevolunteerComponent
   ],
   imports: [
     AgGridModule.withComponents([ButtonRendererComponent]),
@@ -73,12 +79,13 @@ RegisteredEventsComponent
     TimepickerModule.forRoot(),
     TypeaheadModule.forRoot(),
     AngularMultiSelectModule,
-    HttpModule
+    HttpModule,
+    NgbModule.forRoot(),
   ],
 
   schemas:[NO_ERRORS_SCHEMA],
   providers: [AuthService, UserService, UrlPermission, AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
-
+  entryComponents:[FormModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

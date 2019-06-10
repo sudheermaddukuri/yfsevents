@@ -22,10 +22,11 @@ export class ApiService {
     this.urlList.set('volunteer','/volunteer');
     this.urlList.set('collegeregistration','/collegeregistration');
     this.urlList.set('interestedAreasCategory','/interestedAreasCategory');
-    this.urlList.set('collegeregistration-list','/collegeregistration/list');
     this.urlList.set('preresetpassword','/preresetpassword');
     this.urlList.set('resetpassword','/resetpassword');
     this.urlList.set('registered-events','/registered-events');
+    this.urlList.set('collegeregistration-list','/collegeregistration/list')
+    this.urlList.set('volunteerAccepted','/getAllInformation');
   }
 
    postData(data:any, type:string) {
@@ -41,13 +42,15 @@ export class ApiService {
      
   getData(type:string, id?:any, formatted?:boolean){
     let uri : string =this.basicURL+this.urlList.get(type);
+    console.log(uri);
     if(id){
       uri = uri + '/' + id;
       if(formatted){
         uri = uri + '/' + 'formatted';
       }
     }
-    return this.http.get(uri);
+    console.log(uri);
+    return(this.http.get(uri));
   }
 
   putData(data:any,id:any,type:string){

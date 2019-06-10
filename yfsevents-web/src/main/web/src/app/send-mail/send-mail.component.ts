@@ -20,9 +20,8 @@ export class SendMailComponent implements OnInit {
   constructor(private apiService:ApiService,
               private apiServiceMail: ApiServiceMail,private route: ActivatedRoute,public router:Router) { }
   ngOnInit() {
-    this.pipe = new DatePipe('en-US');
-    this.eventData=new Eventdata();
-    this.email=new Email({to:"",cc:"",bcc:"",
+    this.eventData=new Eventdata(); this.eventData=new Eventdata();
+    this.email=new Email({to:this.route.snapshot.paramMap.get('emails'),cc:"",bcc:"",
     text:"",eventId:this.route.snapshot.paramMap.get('id'),subject:""});
     this.apiService.getData('event',this.route.snapshot.paramMap.get('id'), false).subscribe((data:any)=>{
       this.eventData.eventfromTime=data.eventfromTime;
@@ -35,16 +34,12 @@ export class SendMailComponent implements OnInit {
       console.log(this.eventData.eventtoTime);
       console.log(this.eventData.ngoName);
       console.log(this.eventData.eventName);
-      this.getEmailId();
+      //this.getEmailId();
       console.log(this.resp);
       console.log(this.email.to);
     },( err:HttpErrorResponse)=>{
       console.log(err.message);
    });
-    
-
-
-
   }
 
   public onFormSubmit({value}:{value:Email}) {
@@ -52,13 +47,14 @@ export class SendMailComponent implements OnInit {
     console.log(this.route.snapshot.paramMap.get("name"));
     //this.eventData.eventCategory='abc';
     this.apiServiceMail.postData(this.email);
-     
-
+   // console.log("hello mate, routing offf");
+    //this.router.navigate(['selectVolenteer']);
   }
   public createDefaultSubject(eventName,ngoName,eventTo,eventFor)
   {
     return "We invite You for event : " + eventName + "by NGO : "+ngoName+" from :"+eventFor+"to : "+eventTo; 
   }
+
   public  getEmailId()
   {
     //String resp;

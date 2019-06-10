@@ -45,6 +45,7 @@ export class InventoryDataComponent implements OnInit {
     if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
       this.inventoryService.getInventoryDataById(this.route.snapshot.paramMap.get('id')).subscribe((data: any) => {
         this.inventoryData.setValue({
+        
           itemName: data.itemName,
           eventCategory: data.eventCategory,
           comments: data.comments
