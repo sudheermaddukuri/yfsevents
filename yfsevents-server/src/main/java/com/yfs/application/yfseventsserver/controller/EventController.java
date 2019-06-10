@@ -42,12 +42,9 @@ public class EventController {
 
     @ResponseBody
     @GetMapping("/event/{id}")
-    public Optional<Event> getEventById(@PathVariable Long id) {
-        System.out.println("id " + id);
-        Optional<Event> e = (eventDataRepository.findById(id));
-        Event ev = e.get();
-        System.out.println(ev.getId());
-        return eventDataRepository.findById(id);
+
+    public Event getEventById(@PathVariable Long id) {
+        return eventDataRepository.findById(id).orElse(null);
     }
     @ResponseBody
     @PutMapping("/event/{id}")
