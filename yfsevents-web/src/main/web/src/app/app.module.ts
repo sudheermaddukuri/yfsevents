@@ -62,7 +62,7 @@ WelcomeComponent,
 RegisterComponent,
 ButtonRendererComponent,
 ResetComponent,
-RegisteredEventsComponent
+RegisteredEventsComponent,
 FormModalComponent,
 SelectablevolunteerComponent
   ],
