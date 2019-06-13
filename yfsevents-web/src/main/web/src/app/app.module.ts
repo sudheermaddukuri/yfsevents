@@ -40,6 +40,7 @@ import { RegisteredEventsComponent } from './registered-events/registered-events
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormModalComponent } from './form-modal/form-modal.component';
 import { SelectablevolunteerComponent } from './selectablevolunteer/selectablevolunteer.component';
+import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
 
 @NgModule({
 declarations: [
@@ -64,7 +65,8 @@ ButtonRendererComponent,
 ResetComponent,
 RegisteredEventsComponent,
 FormModalComponent,
-SelectablevolunteerComponent
+SelectablevolunteerComponent,
+BulkUploadComponent
   ],
   imports: [
     AgGridModule.withComponents([ButtonRendererComponent]),

@@ -2,10 +2,7 @@ package com.yfs.application.yfseventsserver.entity;
 
 import com.yfs.application.yfseventsserver.KeyValuePair;
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

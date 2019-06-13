@@ -27,6 +27,7 @@ export class ApiService {
     this.urlList.set('registered-events','/registered-events');
     this.urlList.set('collegeregistration-list','/collegeregistration/list')
     this.urlList.set('volunteerAccepted','/getAllInformation');
+    this.urlList.set('bulkSave','/bulk/save');
   }
 
    postData(data:any, type:string) {
