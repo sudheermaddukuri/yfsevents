@@ -43,7 +43,7 @@ public class VolunteerController {
     @GetMapping("/interestedAreasCategory")
     public Iterable<KeyValuePair> getInterestedAreasCategoryList(){
         Volunteer volunteer = new Volunteer();
-        return volunteer.getInterestedAreasCategoryList();
+        return volunteer.interestedAreasCategoryList();
 
     }
     @ResponseBody
@@ -156,4 +156,15 @@ public class VolunteerController {
         volunteerRepository.deleteById(id);
         return true;
     }
+
+    public Iterable<Volunteer> getAcceptedVolunteers(@PathVariable List<String> emaillist)
+    {
+//        List<String> emaillist=new ArrayList<>();
+//        emaillist.add("try@gmail.com");
+//        emaillist.add("try1@gmail.com");
+//        System.out.println("emails");
+        System.out.println(volunteerRepository.getVolunteersPerEmailIds(emaillist).toString());
+        return volunteerRepository.getVolunteersPerEmailIds(emaillist);
+    }
+
 }
