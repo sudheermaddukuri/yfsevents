@@ -5,7 +5,11 @@ import com.yfs.application.yfseventsserver.KeyValuePair;
 import com.yfs.application.yfseventsserver.entity.PartnerNgo;
 import com.yfs.application.yfseventsserver.entity.Volunteer;
 import com.yfs.application.yfseventsserver.repository.*;
+
+import org.hibernate.annotations.Parameter;
+
 import com.yfs.application.yfseventsserver.services.VolunteerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
@@ -156,4 +160,15 @@ public class VolunteerController {
         volunteerRepository.deleteById(id);
         return true;
     }
+
+    public Iterable<Volunteer> getAcceptedVolunteers(@PathVariable List<String> emaillist)
+    {
+//        List<String> emaillist=new ArrayList<>();
+//        emaillist.add("try@gmail.com");
+//        emaillist.add("try1@gmail.com");
+//        System.out.println("emails");
+        System.out.println(volunteerRepository.getVolunteersPerEmailIds(emaillist).toString());
+        return volunteerRepository.getVolunteersPerEmailIds(emaillist);
+    }
+
 }
