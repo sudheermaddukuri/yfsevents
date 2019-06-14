@@ -30,6 +30,10 @@
 }*/
 
 .btn-space{
+    margin: 5px;
+}
+
+.btn-space .right{
     margin-right: 5px;
 }
 
