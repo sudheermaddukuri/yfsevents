@@ -5,7 +5,11 @@ import com.yfs.application.yfseventsserver.KeyValuePair;
 import com.yfs.application.yfseventsserver.entity.PartnerNgo;
 import com.yfs.application.yfseventsserver.entity.Volunteer;
 import com.yfs.application.yfseventsserver.repository.*;
+
+import org.hibernate.annotations.Parameter;
+
 import com.yfs.application.yfseventsserver.services.VolunteerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;

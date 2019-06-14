@@ -18,8 +18,8 @@ import { RegisteredEventsComponent}from './registered-events/registered-events.c
 import {RegisterComponent}from "./register/register.component";
 import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component';
 import{SelectablevolunteerComponent} from './selectablevolunteer/selectablevolunteer.component';
-import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
 
+import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
 
 const routes: Routes = [
   {

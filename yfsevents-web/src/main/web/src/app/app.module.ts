@@ -67,6 +67,7 @@ RegisteredEventsComponent,
 FormModalComponent,
 SelectablevolunteerComponent,
 BulkUploadComponent
+
   ],
   imports: [
     AgGridModule.withComponents([ButtonRendererComponent]),
