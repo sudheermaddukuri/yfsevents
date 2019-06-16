@@ -133,7 +133,7 @@ public class EmailController {
                 "</body>\n" +
                 "</html>\n";
 
-            message.setContent(s,"text/html");
+            message.setContent(messageText,"text/html");
 
             // Send message
             Transport.send(message);

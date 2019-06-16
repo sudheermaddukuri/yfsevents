@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -57,9 +58,10 @@ public class UserService {
 
         if(!userExists) {
 
-            Volunteer volunteer = volunteerRepository.findOneByEmail(email);
+            List<Volunteer> volunteers = volunteerRepository.findByEmail(email);
 
-            if(volunteer != null) {
+            if(volunteers != null || !volunteers.isEmpty()) {
+                Volunteer  volunteer = volunteers.get(0);
                 user = new User();
                 user.setUsername(email);
                 user.setRole("ROLE_USER");
