@@ -3,9 +3,11 @@ package com.yfs.application.yfseventsserver.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yfs.application.yfseventsserver.controller.EmailController;
 import com.yfs.application.yfseventsserver.entity.Email;
+import com.yfs.application.yfseventsserver.entity.Event;
 import com.yfs.application.yfseventsserver.entity.StagingEmail;
 import com.yfs.application.yfseventsserver.entity.VolunteersAccepted;
 import com.yfs.application.yfseventsserver.model.EmailStatus;
+import com.yfs.application.yfseventsserver.repository.EventDataRepository;
 import com.yfs.application.yfseventsserver.repository.StagingEmailDataRepository;
 import com.yfs.application.yfseventsserver.repository.VolunteerRepository;
 import com.yfs.application.yfseventsserver.repository.VolunteersAcceptedRepository;
@@ -19,9 +21,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Service
@@ -39,9 +39,16 @@ public class StagingEmailPoller {
     @Autowired
     VolunteersAcceptedRepository volunteersAcceptedRepository;
 
+    @Autowired
+    EmailController emailController;
+
+    @Autowired
+    EventDataRepository eventDataRepository;
+
+
     private static Logger logger = LoggerFactory.getLogger(StagingEmailPoller.class);
 
-    //@Scheduled(fixedDelay = 1000 * 30, initialDelay = 1000*1)
+    @Scheduled(fixedDelay = 1000 * 30, initialDelay = 1000*1)
     public void processStagingEmail() {
 
         //TODO: If this the result set it too huge then leverage pagination
@@ -51,11 +58,10 @@ public class StagingEmailPoller {
             logger.info("No pending staging mail to be processed...");
             return;
         }
-
+        System.out.println(stagingEmails);
         stagingEmails.parallelStream().forEach(i -> processEmail(i));
-
-
     }
+
 
     @Transactional
     private void processEmail(StagingEmail stagingEmail) {
@@ -63,16 +69,27 @@ public class StagingEmailPoller {
         if (null == stagingEmail) {
             logger.info("stagingEmail is null hence skipping");
         }
-
         int retryCount = stagingEmail.getRetryCount()+1;
         try {
             if (stagingEmail.getStatus().equals(EmailStatus.NOT_STARTED) && null != stagingEmail.getPayload() && !StringUtils.isEmpty(stagingEmail.getPayload())) {
                 Email email = objectMapper.readValue(stagingEmail.getPayload(), Email.class);
                 String[] toList = email.getTo().split(",");
+                System.out.println("to list "+toList);
                 Stream.of(toList).forEach(emailId -> {
                     VolunteersAccepted volunteersAccepted = new VolunteersAccepted(stagingEmail.getEventId(), emailId, false, VolunteersAccepted.EmailNotificationStatus.NOT_SENT);
                     logger.info("About to send email to [{}] with subject[{}]", emailId,email.getSubject());
-                    boolean isEmailSent = EmailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),email.getText());
+//                    System.out.println("Entered here");
+//                    Optional<Event> opEvent= eventDataRepository.findById(email.getEventId());
+//                    System.out.println("Event is :"+opEvent.get().getNgoName());
+                     Event event = new Event();
+                     event.setCollege("ac");
+                     event.setComments("com");
+                     event.setEventAction("yes");
+                     event.setEventCategory("evCat");
+                     List list = new LinkedList();
+                     list.add("tushaar");
+                     event.setNgoName(list);
+                    boolean isEmailSent = EmailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),email.getEventId(),event);
                     if (isEmailSent) {
                         volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.SENT);
                         volunteersAcceptedRepository.save(volunteersAccepted);
@@ -82,7 +99,6 @@ public class StagingEmailPoller {
                         filedEmailList.add(email);
                     }
                 });
-
                 stagingEmail.setStatus(EmailStatus.IN_PROGRESS);
                 stagingEmailDataRepository.save(stagingEmail);
 
@@ -93,8 +109,16 @@ public class StagingEmailPoller {
                 volunteersAcceptedList.stream().forEach(volunteersAccepted -> {
                     String emailId = volunteersAccepted.getMailId();
                     logger.info("processEmail Retry[{}]:: About to send email to[{}] with subject[{}]", retryCount, emailId,email.getSubject());
-                    boolean isEmailSent = EmailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),email.getText());
 
+                    Event event = new Event();
+                    event.setCollege("ac");
+                    event.setComments("com");
+                    event.setEventAction("yes");
+                    event.setEventCategory("evCat");
+                    List list = new LinkedList();
+                    list.add("tushaar");
+                    event.setNgoName(list);
+                    boolean isEmailSent = emailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),email.getEventId(),event);
                     if (isEmailSent) {
                         volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.SENT);
                         volunteersAcceptedRepository.save(volunteersAccepted);
@@ -117,7 +141,6 @@ public class StagingEmailPoller {
             }else if(retryCount == maxRetryCountAllowed){
                 stagingEmail.setStatus(EmailStatus.FAILED);
             }
-
             stagingEmailDataRepository.save(stagingEmail);
         }catch(Exception e){
             logger.error("Failed to process stagingEmail[{}] with exception[{}]",stagingEmail,e);

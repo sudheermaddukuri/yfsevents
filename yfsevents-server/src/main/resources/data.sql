@@ -8,19 +8,27 @@ insert into authorized_person(id, name, partner_ngo_id) values (2, 'test person 
 insert into user (id, username, password, role) values (1, 'admin', '{noop}admin', 'ROLE_ADMIN');
 insert into user (id, username, password, role) values (2, 'user', '{noop}user' , 'ROLE_USER');
 
+INSERT INTO EVENT VALUES(1,'ABC','College1','Yes','Play','event good','1970-01-01 05:30:00','1970-01-01 05:30:00','Yes',21,33);
+INSERT INTO EVENT VALUES(2,'ABC1','College2','No','Play1','event1 good1','1970-01-01 05:30:00','1970-01-01 05:30:00','No',25,34);
 
-INSERT INTO VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PINCODE,STATE)  VALUES ( 'jammu','rainatushar221995@gmail.com','Tushar','Raina','locality','8146222129','31274','j&k' );
-INSERT INTO VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PINCODE,STATE)  VALUES ( 'hyd','ranom22@gmail.com','T','Raina','locality','3434344343','31274','Hyerabad' );
-INSERT INTO EVENT(ID,COMMENTS,EVENT_NAME,EVENTFROM_TIME,EVENTTO_TIME,NGO_NAME,VOLUNTEERS) VALUES(1,'comments','name','
-2019-04-02 09:15:25.200','
-2019-04-02 09:15:25.200','ngo',23);
+INSERT INTO VOLUNTEER  VALUES(1,'8146222129','jammu','raiantushar221995@gmail.com','tushar','raina','jammu','8146222129','23232','J&K',2-4);
+INSERT INTO VOLUNTEER  VALUES(2,'8146222129','jammu','ranom1234@gmail.com','sachin','tendulkar','ffs','8146234344','23234','J&K1',3-6);
 
 
---INSERT INTO STAGING_EMAIL(ID_EVENT, TX_PAYLOAD, TX_STATUS, NM_RETRY_COUNT, DT_CREATED, DT_UPDATED, ID_CREATED_BY, ID_UPDATED_BY, REASON)
---VALUES (1, '{"to":"akulavij@gmail.com","toMultiple":null,"subject":"Subject1","text":"Some Body text1","bcc":null,"cc":null,"eventId":1}', 'NOT_STARTED',0,sysdate,sysdate,'ADMIN','ADMIN',null);
 
-Insert into VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PHONE_PREFIX,PINCODE,STATE) VALUES ('city','try@gmail.com','sachin','endulkar','locality','334343','12','3432','austalia');
-Insert into VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PHONE_PREFIX,PINCODE,STATE) VALUES ('city','try1@gmail.com','sehwag','virender','locality','334343','12','3432','india');
 
-INSERT INTO VOLUNTEERS_ACCEPTED VALUES(1,TRUE,1,'try@gmail.com','Yes');
-INSERT INTO VOLUNTEERS_ACCEPTED VALUES(2,TRUE,1,'try1@gmail.com','Yes');
+--INSERT INTO VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PINCODE,STATE)  VALUES ( 'jammu','rainatushar221995@gmail.com','Tushar','Raina','locality','8146222129','31274','j&k' );
+--INSERT INTO VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PINCODE,STATE)  VALUES ( 'hyd','ranom22@gmail.com','T','Raina','locality','3434344343','31274','Hyerabad' );
+----INSERT INTO EVENT(ID,COMMENTS,EVENT_NAME,EVENTFROM_TIME,EVENTTO_TIME,NGO_NAME,VOLUNTEERS) VALUES(1,'comments','name','
+----2019-04-02 09:15:25.200','
+----2019-04-02 09:15:25.200','ngo',23);
+--
+--
+----INSERT INTO STAGING_EMAIL(ID_EVENT, TX_PAYLOAD, TX_STATUS, NM_RETRY_COUNT, DT_CREATED, DT_UPDATED, ID_CREATED_BY, ID_UPDATED_BY, REASON)
+----VALUES (1, '{"to":"akulavij@gmail.com","toMultiple":null,"subject":"Subject1","text":"Some Body text1","bcc":null,"cc":null,"eventId":1}', 'NOT_STARTED',0,sysdate,sysdate,'ADMIN','ADMIN',null);
+--
+--Insert into VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PHONE_PREFIX,PINCODE,STATE) VALUES ('city','try@gmail.com','sachin','endulkar','locality','334343','12','3432','austalia');
+--Insert into VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PHONE_PREFIX,PINCODE,STATE) VALUES ('city','try1@gmail.com','sehwag','virender','locality','334343','12','3432','india');
+
+--INSERT INTO VOLUNTEERS_ACCEPTED VALUES(1,TRUE,1,'try@gmail.com','Yes');
+--INSERT INTO VOLUNTEERS_ACCEPTED VALUES(2,TRUE,1,'try1@gmail.com','Yes');

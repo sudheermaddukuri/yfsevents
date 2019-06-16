@@ -134,6 +134,7 @@ var ApiService = /** @class */ (function () {
         this.urlList.set('collegeregistration', '/collegeregistration');
         this.urlList.set('interestedAreasCategory', '/interestedAreasCategory');
         this.urlList.set('collegeregistration-list', '/collegeregistration/list');
+        this.urlList.set('volunteerAccepted', '/getAllInformation');
     };
     ApiService.prototype.postData = function (data, type) {
         return this.post(data, type).subscribe(function (response) {
@@ -145,13 +146,15 @@ var ApiService = /** @class */ (function () {
     };
     ApiService.prototype.getData = function (type, id, formatted) {
         var uri = this.basicURL + this.urlList.get(type);
+        console.log(uri);
         if (id) {
             uri = uri + '/' + id;
             if (formatted) {
                 uri = uri + '/' + 'formatted';
             }
         }
-        return this.http.get(uri);
+        console.log(uri);
+        return (this.http.get(uri));
     };
     ApiService.prototype.putData = function (data, id, type) {
         return this.http.put(this.basicURL + this.urlList.get(type) + "/" + id, data).subscribe(function (response) {
@@ -197,6 +200,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
 /* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
+/* harmony import */ var _selectablevolunteer_selectablevolunteer_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./selectablevolunteer/selectablevolunteer.component */ "./src/app/selectablevolunteer/selectablevolunteer.component.ts");
+
 
 
 
@@ -263,6 +268,9 @@ var routes = [
     },
     {
         path: 'register', component: _register_register_component__WEBPACK_IMPORTED_MODULE_14__["RegisterComponent"]
+    },
+    {
+        path: 'selectVolenteer', component: _selectablevolunteer_selectablevolunteer_component__WEBPACK_IMPORTED_MODULE_16__["SelectablevolunteerComponent"]
     }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -288,7 +296,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#app-root-container{\nwidth:100%;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQSxVQUFVO0FBQ1YiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiNhcHAtcm9vdC1jb250YWluZXJ7XG53aWR0aDoxMDAlO1xufVxuIl19 */"
+module.exports = "#app-root-container{\r\nwidth:100%;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9hcHAuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUNBLFVBQVU7QUFDViIsImZpbGUiOiJhcHAvYXBwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjYXBwLXJvb3QtY29udGFpbmVye1xyXG53aWR0aDoxMDAlO1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -299,7 +307,7 @@ module.exports = "#app-root-container{\nwidth:100%;\n}\n\n/*# sourceMappingURL=d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" style=\"background-color: #ba2a29;margin-bottom:20px;\">\n  <div class=\"container-fluid\">\n\n    <a class=\"navbar-brand\" href=\"#\" style=\"height:70px\">\n      <img src=\"/assets/youth-for-seva.png\" style=\"height:50px\">\n    </a>\n\n    <div class=\"collapse navbar-collapse\">\n      <ul class=\"nav navbar-nav navbar-right text-white\" style=\"margin-top:12px;\">\n        <li><a href=\"\">HOME</a></li>\n        <li class=\"dropdown\" *ngIf=isAdmin()>\n          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">REGISTER\n            <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a [routerLink]=\"['/grid/partnerngo']\">Partner NGO</a></li>\n            <li><a [routerLink]=\"['/grid/volunteer']\">Volunteer</a></li>\n            <li><a [routerLink]=\"['/grid/collegeregistration']\">College</a></li>\n            <li><a [routerLink]=\"['/inventorylist']\">Inventory Data</a></li>\n          </ul>\n        </li>\n        <li *ngIf=isAdmin()><a [routerLink]=\"['/events']\">EVENTS</a></li>\n\n        <li *ngIf=!app.authenticated><a [routerLink]=\"['/login']\">LOGIN</a></li>\n        <li *ngIf=app.authenticated><a href=\"#\" (click)=\"logout()\">LOGOUT</a></li>\n        <!--<li><a [routerLink]=\"\">CONTACT</a></li>-->\n        <!--<li><a [routerLink]=\"\"><span class=\"glyphicon glyphicon-search\"></span></a></li>-->\n      </ul>\n    </div>\n  </div>\n</nav>\n\n<div id=\"app-root-container\" class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n\n\n<!--<footer></footer>-->\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" style=\"background-color: #ba2a29;margin-bottom:20px;\">\r\n  <div class=\"container-fluid\">\r\n\r\n    <a class=\"navbar-brand\" href=\"#\" style=\"height:70px\">\r\n      <img src=\"/assets/youth-for-seva.png\" style=\"height:50px\">\r\n    </a>\r\n\r\n    <div class=\"collapse navbar-collapse\">\r\n      <ul class=\"nav navbar-nav navbar-right text-white\" style=\"margin-top:12px;\">\r\n        <li><a href=\"\">HOME</a></li>\r\n        <li class=\"dropdown\" *ngIf=isAdmin()>\r\n          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">REGISTER\r\n            <span class=\"caret\"></span></a>\r\n          <ul class=\"dropdown-menu\">\r\n            <li><a [routerLink]=\"['/grid/partnerngo']\">Partner NGO</a></li>\r\n            <li><a [routerLink]=\"['/grid/volunteer']\">Volunteer</a></li>\r\n            <li><a [routerLink]=\"['/grid/collegeregistration']\">College</a></li>\r\n            <li><a [routerLink]=\"['/inventorylist']\">Inventory Data</a></li>\r\n          </ul>\r\n        </li>\r\n        <li *ngIf=isAdmin()><a [routerLink]=\"['/events']\">EVENTS</a></li>\r\n\r\n        <li *ngIf=!app.authenticated><a [routerLink]=\"['/login']\">LOGIN</a></li>\r\n        <li *ngIf=app.authenticated><a href=\"#\" (click)=\"logout()\">LOGOUT</a></li>\r\n        <!--<li><a [routerLink]=\"\">CONTACT</a></li>-->\r\n        <!--<li><a [routerLink]=\"\"><span class=\"glyphicon glyphicon-search\"></span></a></li>-->\r\n      </ul>\r\n    </div>\r\n  </div>\r\n</nav>\r\n\r\n<div id=\"app-root-container\" class=\"container\">\r\n  <router-outlet></router-outlet>\r\n</div>\r\n\r\n\r\n<!--<footer></footer>-->\r\n"
 
 /***/ }),
 
@@ -407,6 +415,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
 /* harmony import */ var _events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./events/renderer/button-renderer.component */ "./src/app/events/renderer/button-renderer.component.ts");
 /* harmony import */ var _xhrInterceptor__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./xhrInterceptor */ "./src/app/xhrInterceptor.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _form_modal_form_modal_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./form-modal/form-modal.component */ "./src/app/form-modal/form-modal.component.ts");
+/* harmony import */ var _selectablevolunteer_selectablevolunteer_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./selectablevolunteer/selectablevolunteer.component */ "./src/app/selectablevolunteer/selectablevolunteer.component.ts");
 
 
 
@@ -445,6 +456,9 @@ __webpack_require__.r(__webpack_exports__);
 //import{EventEmiterService} from './event-emmiter-service1.service';
 
 
+
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -468,7 +482,9 @@ var AppModule = /** @class */ (function () {
                 _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_33__["VolunteerGridComponent"],
                 _login_login_component__WEBPACK_IMPORTED_MODULE_27__["LoginComponent"],
                 _register_register_component__WEBPACK_IMPORTED_MODULE_28__["RegisterComponent"],
-                _events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_34__["ButtonRendererComponent"]
+                _events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_34__["ButtonRendererComponent"],
+                _form_modal_form_modal_component__WEBPACK_IMPORTED_MODULE_37__["FormModalComponent"],
+                _selectablevolunteer_selectablevolunteer_component__WEBPACK_IMPORTED_MODULE_38__["SelectablevolunteerComponent"]
             ],
             imports: [
                 ag_grid_angular__WEBPACK_IMPORTED_MODULE_3__["AgGridModule"].withComponents([_events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_34__["ButtonRendererComponent"]]),
@@ -483,10 +499,12 @@ var AppModule = /** @class */ (function () {
                 ngx_bootstrap_timepicker__WEBPACK_IMPORTED_MODULE_14__["TimepickerModule"].forRoot(),
                 ngx_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_15__["TypeaheadModule"].forRoot(),
                 angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_23__["AngularMultiSelectModule"],
-                _angular_http__WEBPACK_IMPORTED_MODULE_18__["HttpModule"]
+                _angular_http__WEBPACK_IMPORTED_MODULE_18__["HttpModule"],
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_36__["NgbModule"].forRoot(),
             ],
             schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_2__["NO_ERRORS_SCHEMA"]],
             providers: [_services_auth_service__WEBPACK_IMPORTED_MODULE_31__["AuthService"], _services_user_service__WEBPACK_IMPORTED_MODULE_30__["UserService"], _urlPermission_url_permission__WEBPACK_IMPORTED_MODULE_29__["UrlPermission"], _app_service__WEBPACK_IMPORTED_MODULE_32__["AppService"], { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_17__["HTTP_INTERCEPTORS"], useClass: _xhrInterceptor__WEBPACK_IMPORTED_MODULE_35__["XhrInterceptor"], multi: true }],
+            entryComponents: [_form_modal_form_modal_component__WEBPACK_IMPORTED_MODULE_37__["FormModalComponent"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
@@ -555,7 +573,7 @@ var AppService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbGxlZ2UtcmVnaXN0cmF0aW9uLWdyaWQvY29sbGVnZS1yZWdpc3RyYXRpb24tZ3JpZC5jb21wb25lbnQuY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvY29sbGVnZS1yZWdpc3RyYXRpb24tZ3JpZC9jb2xsZWdlLXJlZ2lzdHJhdGlvbi1ncmlkLmNvbXBvbmVudC5jc3MifQ== */"
 
 /***/ }),
 
@@ -566,7 +584,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> College Registration</strong></h3>\n  </div>\n  <div  #myGrid  style=\"width: 100%; height: 100%;\">\n    <ag-grid-angular style=\"height: 100%;\"\n      class=\"ag-theme-balham\" \n      [rowData]=\"data\" \n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\">\n    </ag-grid-angular>\n  </div>\n  <div class=\"row\" style=\"margin-top:10px\">\n      <div class=\"col-md-1\"></div>\n      <div class=\"col-md-10\">\n          <div style=\"text-align:right\">\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/collegeregistration'])\">\n              Add College\n          </button>\n          </div>\n      </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"page-header well text-center well-sm\">\r\n    <h3><strong> College Registration</strong></h3>\r\n  </div>\r\n  <div  #myGrid  style=\"width: 100%; height: 100%;\">\r\n    <ag-grid-angular style=\"height: 100%;\"\r\n      class=\"ag-theme-balham\" \r\n      [rowData]=\"data\" \r\n      [columnDefs]=\"headers\"\r\n      (rowClicked)=\"onRowCilcked($event)\">\r\n    </ag-grid-angular>\r\n  </div>\r\n  <div class=\"row\" style=\"margin-top:10px\">\r\n      <div class=\"col-md-1\"></div>\r\n      <div class=\"col-md-10\">\r\n          <div style=\"text-align:right\">\r\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/collegeregistration'])\">\r\n              Add College\r\n          </button>\r\n          </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -667,7 +685,7 @@ var CollegeRegistrationGridComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbGxlZ2UtcmVnaXN0cmF0aW9uL2NvbGxlZ2UtcmVnaXN0cmF0aW9uLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvY29sbGVnZS1yZWdpc3RyYXRpb24vY29sbGVnZS1yZWdpc3RyYXRpb24uY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -678,7 +696,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well well-sm\">\n    <h3><strong> College Registration</strong></h3>\n  </div>\n\n  <form [formGroup]=\"collegeForm\">\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>About College</label>\n      </div>\n      <div class=\"panel-body\">\n        <div formGroupName=\"collegeDetails\">\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">College Name</label>\n                <input type=\"text\" formControlName=\"name\" class=\"form-control well well-sm\">\n               <!-- <div *ngIf=\"collegeForm.controls['collegeDetails'].controls.name.errors&&(collegeForm.controls['collegeDetails'].controls.name.dirty||collegeForm.controls['collegeDetails'].controls.name.touched)\" class=\"invalid-feedback\">\n                  <div *ngIf=\"collegeForm.controls['collegeDetails'].controls.name.errors.required\" class=\"field-invalid\">Name is required</div>\n                </div>-->\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group \">\n                <label class=\"control-label\">Registration Id</label>\n                <input type=\"text\" formControlName=\"registrationId\" class=\"form-control well well-sm\">\n                <!--<div *ngIf=\"collegeform.controls['collegeDetails'].controls.registrationId.errors&&(collegeform.controls['collegeDetails'].controls.registrationId.dirty||collegeform.controls['collegeDetails'].controls.registrationId.touched)\" class=\"invalid-feedback\">\n                  <div *ngIf=\"collegeform.controls['collegeDetails'].controls.registrationId.errors.required\" class=\"field-invalid\"> RegistrationId is required</div>\n                </div>-->\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>Address</label>\n      </div>\n      <div class=\"panel-body\">\n        <div formGroupName=\"address\">\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Address Line 1</label>\n                <input type=\"text\" formControlName=\"addressLine1\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group\">\n                <label class=\"control-label\">Address Line 2</label>\n                <input type=\"text\" formControlName=\"addressLine2\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">City</label>\n                <input type=\"text\" formControlName=\"city\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">State</label>\n                <input type=\"text\" formControlName=\"state\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col-md-6 offset-md-3\">\n              <div class=\"form-group required\">\n                <label class=\"control-label\">Pincode</label>\n                <input type=\"text\" formControlName=\"pincode\" class=\"form-control well well-sm\">\n              </div>\n            </div>\n            <div class=\"col-md-6 offset-md-3\">\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"panel panel-info\">\n      <div class=\"panel-heading\">\n        <label>MOU Details</label>\n      </div>\n      <div class=\"panel-body\">\n        <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n          <li class=\"nav active\" *ngIf=\"numberOfMOUs>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">MOU\n              1</a></li>\n          <li class=\"nav\" *ngFor=\"let num of getArray(numberOfMOUs-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\"\n              (click)=\"activateTab(i+2)\">MOU {{i+2}}</a></li>\n\n          <div class=\"pull-right\">\n            <button class=\"btn btn-primary btn-sm btn-space\" (click)=addMOU() [disabled]=\"isMaxLimitReached(10)\">Add MOU</button>\n            <button class=\"btn btn-primary btn-sm \" (click)=removeMOU() >Remove MOU</button>\n\n          </div>\n\n        </ul>\n\n        <div class=\"tab-content\">\n          <div formArrayName=\"mouDetails\">\n            <div class=\"tab-pane\" *ngFor=\"let person of collegeForm.get('mouDetails').controls;let i=index\"\n              formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n\n              <div *ngIf=\"selectedTab==i\">\n                <div class=\"row\">\n                  \n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU STATUS</label>\n                      <!-- <input type=\"text\" formControlName=\"mouStatus\" class=\"form-control well well-sm\"> -->\n                      <select formControlName=\"mouStatus\" class=\"form-control\">\n                        <option *ngFor=\"let action of moustatusinfo\" [value]=\"action\">{{action}}</option>\n                      </select>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">MOU Name</label>\n                      <input type=\"text\" style=\"text-transform:uppercase\" formControlName=\"mouName\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Number Of Events Agreed</label>\n                      <input type=\"text\" formControlName=\"noOfEvents\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Valid From</label>\n                      <input type=\"text\" formControlName=\"fromDate\" class=\"form-control well well-sm\" bsDatepicker>\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Valid To</label>\n                      <input type=\"text\" formControlName=\"toDate\" class=\"form-control well well-sm\" bsDatepicker>\n                    </div>\n                  </div>\n                </div>\n\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Comments</label>\n                      <textarea type=\"text\" formControlName=\"comments\" class=\"form-control well well-sm\"></textarea>\n                    </div>\n                  </div>\n                </div>\n\n              </div>\n\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n  </form>\n  <div class=\"text-center\">\n    <!--<button class=\"btn btn-primary btn-sx\"  (click)=\"onSubmit()\">Register</button>-->\n    <button (click)=\"onSubmit()\" *ngIf=\"!mode\" class=\"btn btn-primary btn-space\">Register</button>\n    <button (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" class=\"btn btn-primary btn-space\">Update</button>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"page-header well well-sm\">\r\n    <h3><strong> College Registration</strong></h3>\r\n  </div>\r\n\r\n  <form [formGroup]=\"collegeForm\">\r\n    <div class=\"panel panel-info\">\r\n      <div class=\"panel-heading\">\r\n        <label>About College</label>\r\n      </div>\r\n      <div class=\"panel-body\">\r\n        <div formGroupName=\"collegeDetails\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6 offset-md-3\">\r\n              <div class=\"form-group required\">\r\n                <label class=\"control-label\">College Name</label>\r\n                <input type=\"text\" formControlName=\"name\" class=\"form-control well well-sm\">\r\n               <!-- <div *ngIf=\"collegeForm.controls['collegeDetails'].controls.name.errors&&(collegeForm.controls['collegeDetails'].controls.name.dirty||collegeForm.controls['collegeDetails'].controls.name.touched)\" class=\"invalid-feedback\">\r\n                  <div *ngIf=\"collegeForm.controls['collegeDetails'].controls.name.errors.required\" class=\"field-invalid\">Name is required</div>\r\n                </div>-->\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6 offset-md-3\">\r\n              <div class=\"form-group \">\r\n                <label class=\"control-label\">Registration Id</label>\r\n                <input type=\"text\" formControlName=\"registrationId\" class=\"form-control well well-sm\">\r\n                <!--<div *ngIf=\"collegeform.controls['collegeDetails'].controls.registrationId.errors&&(collegeform.controls['collegeDetails'].controls.registrationId.dirty||collegeform.controls['collegeDetails'].controls.registrationId.touched)\" class=\"invalid-feedback\">\r\n                  <div *ngIf=\"collegeform.controls['collegeDetails'].controls.registrationId.errors.required\" class=\"field-invalid\"> RegistrationId is required</div>\r\n                </div>-->\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"panel panel-info\">\r\n      <div class=\"panel-heading\">\r\n        <label>Address</label>\r\n      </div>\r\n      <div class=\"panel-body\">\r\n        <div formGroupName=\"address\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6 offset-md-3\">\r\n              <div class=\"form-group required\">\r\n                <label class=\"control-label\">Address Line 1</label>\r\n                <input type=\"text\" formControlName=\"addressLine1\" class=\"form-control well well-sm\">\r\n              </div>\r\n            </div>\r\n            <div class=\"col-md-6 offset-md-3\">\r\n              <div class=\"form-group\">\r\n                <label class=\"control-label\">Address Line 2</label>\r\n                <input type=\"text\" formControlName=\"addressLine2\" class=\"form-control well well-sm\">\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6 offset-md-3\">\r\n              <div class=\"form-group required\">\r\n                <label class=\"control-label\">City</label>\r\n                <input type=\"text\" formControlName=\"city\" class=\"form-control well well-sm\">\r\n              </div>\r\n            </div>\r\n            <div class=\"col-md-6 offset-md-3\">\r\n              <div class=\"form-group required\">\r\n                <label class=\"control-label\">State</label>\r\n                <input type=\"text\" formControlName=\"state\" class=\"form-control well well-sm\">\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"row\">\r\n            <div class=\"col-md-6 offset-md-3\">\r\n              <div class=\"form-group required\">\r\n                <label class=\"control-label\">Pincode</label>\r\n                <input type=\"text\" formControlName=\"pincode\" class=\"form-control well well-sm\">\r\n              </div>\r\n            </div>\r\n            <div class=\"col-md-6 offset-md-3\">\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"panel panel-info\">\r\n      <div class=\"panel-heading\">\r\n        <label>MOU Details</label>\r\n      </div>\r\n      <div class=\"panel-body\">\r\n        <ul class=\"nav nav-tabs\" active=\"selectedTab\">\r\n          <li class=\"nav active\" *ngIf=\"numberOfMOUs>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">MOU\r\n              1</a></li>\r\n          <li class=\"nav\" *ngFor=\"let num of getArray(numberOfMOUs-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\"\r\n              (click)=\"activateTab(i+2)\">MOU {{i+2}}</a></li>\r\n\r\n          <div class=\"pull-right\">\r\n            <button class=\"btn btn-primary btn-sm btn-space\" (click)=addMOU() [disabled]=\"isMaxLimitReached(10)\">Add MOU</button>\r\n            <button class=\"btn btn-primary btn-sm \" (click)=removeMOU() >Remove MOU</button>\r\n\r\n          </div>\r\n\r\n        </ul>\r\n\r\n        <div class=\"tab-content\">\r\n          <div formArrayName=\"mouDetails\">\r\n            <div class=\"tab-pane\" *ngFor=\"let person of collegeForm.get('mouDetails').controls;let i=index\"\r\n              formGroupName=\"{{i}}\" id=\"tab{{i}}\">\r\n\r\n              <div *ngIf=\"selectedTab==i\">\r\n                <div class=\"row\">\r\n                  \r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group required\">\r\n                      <label class=\"control-label\">MOU STATUS</label>\r\n                      <!-- <input type=\"text\" formControlName=\"mouStatus\" class=\"form-control well well-sm\"> -->\r\n                      <select formControlName=\"mouStatus\" class=\"form-control\">\r\n                        <option *ngFor=\"let action of moustatusinfo\" [value]=\"action\">{{action}}</option>\r\n                      </select>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group required\">\r\n                      <label class=\"control-label\">MOU Name</label>\r\n                      <input type=\"text\" style=\"text-transform:uppercase\" formControlName=\"mouName\" class=\"form-control well well-sm\">\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"control-label\">Number Of Events Agreed</label>\r\n                      <input type=\"text\" formControlName=\"noOfEvents\" class=\"form-control well well-sm\">\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group required\">\r\n                      <label class=\"control-label\">Valid From</label>\r\n                      <input type=\"text\" formControlName=\"fromDate\" class=\"form-control well well-sm\" bsDatepicker [bsConfig]=\"{dateinputFormat:'DD/MM/YYYY'}\">\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group required\">\r\n                      <label class=\"control-label\">Valid To</label>\r\n                      <input type=\"text\" formControlName=\"toDate\" class=\"form-control well well-sm\" bsDatepicker [bsConfig]=\"{dateinputFormat:'DD/MM/YYYY'}\">\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"control-label\">Comments</label>\r\n                      <textarea type=\"text\" formControlName=\"comments\" class=\"form-control well well-sm\"></textarea>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n\r\n              </div>\r\n\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n  </form>\r\n  <div class=\"text-center\">\r\n    <!--<button class=\"btn btn-primary btn-sx\"  (click)=\"onSubmit()\">Register</button>-->\r\n    <button (click)=\"onSubmit()\" *ngIf=\"!mode\" class=\"btn btn-primary btn-space\">Register</button>\r\n    <button (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" class=\"btn btn-primary btn-space\">Update</button>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -892,7 +910,7 @@ var CollegeRegistrationComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".row {\n    margin-bottom:25px;\n}\n:host >>> .alert-md-local {\n    background-color: #009688;\n    border-color: #00695C;\n    color: #fff;\n    margin-bottom:0px;\n    margin-top: 20px;\n}\n.itemsrow{\n    margin-bottom:0px !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZXZlbnRzL2FkZC1ldmVudC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksa0JBQWtCO0FBQ3RCO0FBQ0E7SUFDSSx5QkFBeUI7SUFDekIscUJBQXFCO0lBQ3JCLFdBQVc7SUFDWCxpQkFBaUI7SUFDakIsZ0JBQWdCO0FBQ3BCO0FBRUE7SUFDSSw0QkFBNEI7QUFDaEMiLCJmaWxlIjoic3JjL2FwcC9ldmVudHMvYWRkLWV2ZW50LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucm93IHtcbiAgICBtYXJnaW4tYm90dG9tOjI1cHg7XG59XG46aG9zdCA+Pj4gLmFsZXJ0LW1kLWxvY2FsIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5Njg4O1xuICAgIGJvcmRlci1jb2xvcjogIzAwNjk1QztcbiAgICBjb2xvcjogI2ZmZjtcbiAgICBtYXJnaW4tYm90dG9tOjBweDtcbiAgICBtYXJnaW4tdG9wOiAyMHB4O1xufVxuXG4uaXRlbXNyb3d7XG4gICAgbWFyZ2luLWJvdHRvbTowcHggIWltcG9ydGFudDtcbn0iXX0= */"
+module.exports = ".row {\r\n    margin-bottom:25px;\r\n}\r\n:host >>> .alert-md-local {\r\n    background-color: #009688;\r\n    border-color: #00695C;\r\n    color: #fff;\r\n    margin-bottom:0px;\r\n    margin-top: 20px;\r\n}\r\n.itemsrow{\r\n    margin-bottom:0px !important;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9ldmVudHMvYWRkLWV2ZW50LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxrQkFBa0I7QUFDdEI7QUFDQTtJQUNJLHlCQUF5QjtJQUN6QixxQkFBcUI7SUFDckIsV0FBVztJQUNYLGlCQUFpQjtJQUNqQixnQkFBZ0I7QUFDcEI7QUFFQTtJQUNJLDRCQUE0QjtBQUNoQyIsImZpbGUiOiJhcHAvZXZlbnRzL2FkZC1ldmVudC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJvdyB7XHJcbiAgICBtYXJnaW4tYm90dG9tOjI1cHg7XHJcbn1cclxuOmhvc3QgPj4+IC5hbGVydC1tZC1sb2NhbCB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5Njg4O1xyXG4gICAgYm9yZGVyLWNvbG9yOiAjMDA2OTVDO1xyXG4gICAgY29sb3I6ICNmZmY7XHJcbiAgICBtYXJnaW4tYm90dG9tOjBweDtcclxuICAgIG1hcmdpbi10b3A6IDIwcHg7XHJcbn1cclxuXHJcbi5pdGVtc3Jvd3tcclxuICAgIG1hcmdpbi1ib3R0b206MHB4ICFpbXBvcnRhbnQ7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -903,7 +921,7 @@ module.exports = ".row {\n    margin-bottom:25px;\n}\n:host >>> .alert-md-local 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<alert type=\"md-local\" *ngIf=\"submitSuc\">{{message}}</alert>\n\n<div class=\"container-fluid\">\n    <div class=\"page-header well text-center well-sm\">\n      <h3><strong> Event Registration</strong></h3>\n    </div>\n\n    <form [formGroup]=\"eventForm\" (ngSubmit)=\"onSubmit()\">\n      <div class=\"panel panel-default\">\n        <div class=\"panel-body\">\n          \n          <div class=\"row form-row\">\n            <div class=\"col-md-6 offset-md-3 form-group\">\n                <label class=\"control-label\">Event Name</label>\n                <input type=\"text\" formControlName=\"eventName\" placeholder=\"Event Name\" class=\"form-control\">\n            </div>\n            <div class=\"col-md-4 form-group\">\n                <label class=\"control-label\">Action</label>\n                <select formControlName=\"eventAction\" class=\"form-control\">\n                  <option *ngFor=\"let action of eventActions\" [value]=\"action\">{{action}}</option>\n                </select>\n            </div>\n            <div class=\"col-md-2 form-group\">\n                <label class=\"control-label\">Recurring Event:</label>\n                <select formControlName=\"recurringEvent\" class=\"form-control\">\n                  <option *ngFor=\"let value of recurringEventOptions\" [value]=\"value\">{{value}}</option>\n                </select>\n              </div>\n          </div>\n\n          <div class=\"row form-row\">\n            <div class=\"col-md-4 offset-md-3 form-group\">\n                <label class=\"control-label\">PartnerNGO Name</label>\n                <!-- <input formControlName=\"ngoName\" [typeahead]=\"ngos\" placeholder=\"PartnerNGO Name\" class=\"form-control\"> -->\n                <select formControlName=\"ngoName\" class=\"form-control\">\n                    <option *ngFor=\"let value of ngos\" [value]=\"value\">{{value}}</option>\n                  </select>\n            </div>\n            <div class=\"col-md-4 form-group\">\n                <label class=\"control-label\">Category</label>\n                <select formControlName=\"eventCategory\" class=\"form-control\" (change)=\"onCategorySelected()\">\n                  <option *ngFor=\"let category of eventCategories\" [value]=\"category\">{{category}}</option>\n                </select>\n            </div> \n            <div class=\"col-md-4 form-group\">\n                <label class=\"control-label\">College-MOU</label>\n                <select formControlName=\"college\" class=\"form-control\">\n                  <option *ngFor=\"let mou of mouItems\" [value]=\"mou\">{{mou}}</option>\n                </select>\n            </div>          \n          </div>\n\n            <div class=\"row form-row itemsrow\">\n              <div class=\"col-md-6 offset-md-3 form-group\">\n                <label for=\"datepicker\">Select Date & Time Range</label>\n                <input type=\"text\" class=\"form-control\" id=\"datepicker\" formControlName=\"eventDuration\" bsDaterangepicker/>\n              </div>\n              <div class=\"col-md-3 form-group\">\n                <timepicker [formControlName]=\"'fromTime'\">\n                  </timepicker>\n              </div>\n              <div class=\"col-md-3 form-group\">\n                <timepicker [formControlName]=\"'toTime'\"></timepicker>\n              </div>\n            </div>\n\n            <div class=\"row form-row\">\n              <div class=\"col-md-8 offset-md-3 form-group\">\n                <label class=\"control-label\">Items Required:</label>\n                <angular2-multiselect [data]=\"itemList\" [settings]=\"settings\" \n                  (onSelect)=\"log($event)\"\n                  (onDeSelect)=\"log($event)\" \n                  (onSelectAll)=\"log($event)\" \n                  (onDeSelectAll)=\"log($event)\" formControlName=\"items\">\n                </angular2-multiselect>\n              </div>\n              <div class=\"col-md-2  form-group\">\n                  <label class=\"control-label\">Volunteers Required</label>\n                  <input type=\"text\" formControlName=\"volunteersReq\" placeholder=\"0\" class=\"form-control\">\n              </div>\n              <div class=\"col-md-2 form-group\">\n                  <label class=\"control-label\">Volunteers Registered</label>\n                  <input type=\"text\" formControlName=\"volunteersReg\" placeholder=\"0\" class=\"form-control\">\n              </div>\n            </div>\n\n            <div class=\"row form-row\">\n              <div class =\" col-md-12 offset-md-3 form-group\">\n                <label class=\"control-label\">Comments</label>\n                <textarea type=\"text\" formControlName=\"comments\" class=\"form-control\"></textarea>\n              </div>\n            </div>\n\n        </div>\n      </div>\n      <button type=\"submit\" [disabled]=\"eventForm.pristine\">Save</button>\n    </form>\n</div>  \n\n\n\n\n\n<!-- <form >\n        <div class=\"form-row\">\n            <div class=\"col-md-1\"></div>\n          <div class=\"form-group col-md-5\">\n            <label for=\"eventname\">Event Name</label>\n            <input type=\"text\" class=\"form-control\" id=\"eventname\" placeholder=\"Name\">\n          </div>\n          <div class=\"form-group col-md-5\">\n                <label for=\"eventaction\">Action</label>\n                <select id=\"eventaction\" class=\"form-control\">\n                  <option selected>Choose...</option>\n                  <option>Not Started</option>\n                  <option>In progress</option>\n                  <option>completed</option>\n                  <option>Abandoned</option>\n                </select>\n          </div>\n          <div class=\"col-md-1\"></div>\n        </div>\n\n        <div class=\"form-row\">\n                <div class=\"col-md-1\"></div>\n              <div class=\"form-group col-md-5\">\n                <label for=\"ngoname\">Partner Name</label>\n                <input type=\"text\" class=\"form-control\" id=\"ngoname\" placeholder=\"NGO Name\" >\n              </div>\n              <div class=\"form-group col-md-5\">\n                    <label for=\"eventcategory\">Event category</label>\n                    <select id=\"eventcategory\" class=\"form-control\">\n                      <option selected>Choose...</option>\n                      <option>Not Started</option>\n                      <option>In progress</option>\n                      <option>completed</option>\n                      <option>Abandoned</option>\n                    </select>\n              </div>\n              <div class=\"col-md-1\"></div>\n            </div>\n\n            <div class=\"form-row\">\n              <div class=\"col-md-1\"></div>\n            <div class=\"form-group col-md-5\">\n                <label for=\"datepicker\">Select Date Range</label>\n                <input id=\"datepicker\" class=\"form-control\"\n                bsDaterangepicker [(ngModel)]=\"bsRangeValue\" >\n            </div>\n            <div class=\"form-group col-md-5\">\n                <label for=\"eventaction\">Recurring Event</label>\n                <select id=\"eventaction\" class=\"form-control\">\n                  <option selected>No</option>\n                  <option>Yes</option>\n                </select>\n            </div>\n            <div class=\"col-md-1\"></div>\n          </div>\n\n\n        \n\n            \n</form> -->"
+module.exports = "<alert type=\"md-local\" *ngIf=\"submitSuc\">{{message}}</alert>\r\n\r\n<div class=\"container-fluid\">\r\n  <div class=\"page-header well text-center well-sm\">\r\n    <h3><strong> Event Registration</strong></h3>\r\n  </div>\r\n\r\n  <form [formGroup]=\"eventForm\" (ngSubmit)=\"onSubmit()\">\r\n    <div class=\"panel panel-default\">\r\n      <div class=\"panel-body\">\r\n\r\n        <div class=\"row form-row\">\r\n          <div class=\"col-md-6 offset-md-3 form-group\">\r\n            <label class=\"control-label\">Event Name</label>\r\n            <input type=\"text\" formControlName=\"eventName\" placeholder=\"Event Name\" class=\"form-control\">\r\n          </div>\r\n          <div class=\"col-md-4 form-group\">\r\n            <label class=\"control-label\">Action</label>\r\n            <select formControlName=\"eventAction\" class=\"form-control\">\r\n              <option *ngFor=\"let action of eventActions\" [value]=\"action\">{{action}}</option>\r\n            </select>\r\n          </div>\r\n          <div class=\"col-md-2 form-group\">\r\n            <label class=\"control-label\">Recurring Event:</label>\r\n            <select formControlName=\"recurringEvent\" class=\"form-control\">\r\n              <option *ngFor=\"let value of recurringEventOptions\" [value]=\"value\">{{value}}</option>\r\n            </select>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row form-row\">\r\n          <div class=\"col-md-4 offset-md-3 form-group\">\r\n            <label class=\"control-label\">Partner Ngos</label>\r\n            <angular2-multiselect [data]=\"ngos\" [settings]=\"settingsNgos\" (onSelect)=\"log($event)\"\r\n              (onDeSelect)=\"log($event)\" (onSelectAll)=\"log($event)\" (onDeSelectAll)=\"log($event)\"\r\n              formControlName=\"ngoName\">\r\n            </angular2-multiselect>\r\n          </div>\r\n            <div class=\"row form-row itemsrow\">\r\n              <div class=\"col-md-6 offset-md-3 form-group\">\r\n                <label for=\"datepicker\">Select Date & Time Range</label>\r\n                 <input type=\"text\" class=\"form-control\" id=\"datepicker\" formControlName=\"eventDuration\" bsDaterangepicker [bsConfig]=\"{rangeInputFormat:'DD/MM/YYYY'}\"/>\r\n              </div>\r\n              <div class=\"col-md-3 form-group\">\r\n                <timepicker [formControlName]=\"'fromTime'\">\r\n                  </timepicker>\r\n              </div>\r\n              <div class=\"col-md-3 form-group\">\r\n                <timepicker [formControlName]=\"'toTime'\"></timepicker>\r\n              </div>\r\n            </div>\r\n\r\n          <div class=\"col-md-4 form-group\">\r\n            <label class=\"control-label\">Category</label>\r\n            <select formControlName=\"eventCategory\" class=\"form-control\" (change)=\"onCategorySelected()\">\r\n              <option *ngFor=\"let category of eventCategories\" [value]=\"category\">{{category}}</option>\r\n            </select>\r\n          </div>\r\n          <div class=\"col-md-4 form-group\">\r\n            <label class=\"control-label\">College-MOU</label>\r\n            <select formControlName=\"college\" class=\"form-control\">\r\n              <option *ngFor=\"let mou of mouItems\" [value]=\"mou\">{{mou}}</option>\r\n            </select>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row form-row itemsrow\">\r\n          <div class=\"col-md-6 offset-md-3 form-group\">\r\n            <label for=\"datepicker\">Select Date & Time Range</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"datepicker\" formControlName=\"eventDuration\" bsDaterangepicker />\r\n          </div>\r\n          <div class=\"col-md-3 form-group\">\r\n            <timepicker [formControlName]=\"'fromTime'\">\r\n            </timepicker>\r\n          </div>\r\n          <div class=\"col-md-3 form-group\">\r\n            <timepicker [formControlName]=\"'toTime'\"></timepicker>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"row form-row\">\r\n          <div class=\"col-md-8 offset-md-3 form-group\">\r\n            <label class=\"control-label\">Items Required:</label>\r\n            <angular2-multiselect [data]=\"itemList\" [settings]=\"settings\" (onSelect)=\"log($event)\"\r\n              (onDeSelect)=\"log($event)\" (onSelectAll)=\"log($event)\" (onDeSelectAll)=\"log($event)\"\r\n              formControlName=\"items\">\r\n            </angular2-multiselect>\r\n          </div>\r\n          <div class=\"col-md-2  form-group\">\r\n            <label class=\"control-label\">Volunteers Required</label>\r\n            <input type=\"text\" formControlName=\"volunteersReq\" placeholder=\"0\" class=\"form-control\">\r\n          </div>\r\n          <div class=\"col-md-2 form-group\">\r\n            <label class=\"control-label\">Volunteers Registered</label>\r\n            <input type=\"text\" formControlName=\"volunteersReg\" placeholder=\"0\" class=\"form-control\">\r\n          </div>\r\n        </div>\r\n        <div class=\"row form-row\">\r\n          <div class=\"col-md-6 offset-md-3 form-group\">\r\n            <label class=\"control-label\">Offline Registered Volunteers</label>\r\n            <input type=\"text\" formControlName=\"volunteersOff\" placeholder=\"0\" class=\"form-control\">\r\n          </div>\r\n        </div>\r\n        <div class=\"row form-row\">\r\n          <div class=\" col-md-12 offset-md-3 form-group\">\r\n            <label class=\"control-label\">Comments</label>\r\n            <textarea type=\"text\" formControlName=\"comments\" class=\"form-control\"></textarea>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n    <button type=\"submit\" [disabled]=\"eventForm.pristine\">Save</button>\r\n  </form>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n<!-- <form >\r\n        <div class=\"form-row\">\r\n            <div class=\"col-md-1\"></div>\r\n          <div class=\"form-group col-md-5\">\r\n            <label for=\"eventname\">Event Name</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"eventname\" placeholder=\"Name\">\r\n          </div>\r\n          <div class=\"form-group col-md-5\">\r\n                <label for=\"eventaction\">Action</label>\r\n                <select id=\"eventaction\" class=\"form-control\">\r\n                  <option selected>Choose...</option>\r\n                  <option>Not Started</option>\r\n                  <option>In progress</option>\r\n                  <option>completed</option>\r\n                  <option>Abandoned</option>\r\n                </select>\r\n          </div>\r\n          <div class=\"col-md-1\"></div>\r\n        </div>\r\n\r\n        <div class=\"form-row\">\r\n                <div class=\"col-md-1\"></div>\r\n              <div class=\"form-group col-md-5\">\r\n                <label for=\"ngoname\">Partner Name</label>\r\n                <input type=\"text\" class=\"form-control\" id=\"ngoname\" placeholder=\"NGO Name\" >\r\n              </div>\r\n              <div class=\"form-group col-md-5\">\r\n                    <label for=\"eventcategory\">Event category</label>\r\n                    <select id=\"eventcategory\" class=\"form-control\">\r\n                      <option selected>Choose...</option>\r\n                      <option>Not Started</option>\r\n                      <option>In progress</option>\r\n                      <option>completed</option>\r\n                      <option>Abandoned</option>\r\n                    </select>\r\n              </div>\r\n              <div class=\"col-md-1\"></div>\r\n            </div>\r\n\r\n            <div class=\"form-row\">\r\n              <div class=\"col-md-1\"></div>\r\n            <div class=\"form-group col-md-5\">\r\n                <label for=\"datepicker\">Select Date Range</label>\r\n                <input id=\"datepicker\" class=\"form-control\"\r\n                bsDaterangepicker [(ngModel)]=\"bsRangeValue\" >\r\n            </div>\r\n            <div class=\"form-group col-md-5\">\r\n                <label for=\"eventaction\">Recurring Event</label>\r\n                <select id=\"eventaction\" class=\"form-control\">\r\n                  <option selected>No</option>\r\n                  <option>Yes</option>\r\n                </select>\r\n            </div>\r\n            <div class=\"col-md-1\"></div>\r\n          </div>\r\n\r\n\r\n        \r\n\r\n            \r\n</form> -->\r\n"
 
 /***/ }),
 
@@ -933,11 +951,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AddEventComponent = /** @class */ (function () {
-    function AddEventComponent(formBuilder, apiService, route, inventoryService) {
+    function AddEventComponent(formBuilder, apiService, route, inventoryService, router) {
         this.formBuilder = formBuilder;
         this.apiService = apiService;
         this.route = route;
         this.inventoryService = inventoryService;
+        this.router = router;
+        this.ngos = [];
         this.bsValue = new Date();
         this.maxDate = new Date();
         this.eventData = new Eventdata();
@@ -951,6 +971,7 @@ var AddEventComponent = /** @class */ (function () {
         };
         this.selectedItems = [];
         this.settings = {};
+        this.settingsNgos = {};
         this.eventActions = ['Not Started', 'In progress', 'Completed', 'Abandoned'];
         this.eventCategories = ['PartnerNGO', 'Education', 'Environment', 'Health', 'Other'];
         this.recurringEventOptions = ['Yes', 'No'];
@@ -961,13 +982,14 @@ var AddEventComponent = /** @class */ (function () {
             eventDuration: null,
             fromTime: new Date(),
             toTime: new Date(),
-            ngoName: '',
+            ngoName: [],
             eventCategory: '',
             college: '',
             recurringEvent: 'No',
             items: [],
             volunteersReq: '',
             volunteersReg: '',
+            volunteersOff: '',
             comments: '',
         });
         this.submitSuc = false;
@@ -977,7 +999,9 @@ var AddEventComponent = /** @class */ (function () {
         this.apiService.getData('partnerngo').subscribe(function (data) {
             _this.ngos_data = data;
             _this.ngos = _this.ngos_data.map(function (ngo) {
-                return ngo.name;
+                console.log("888", ngo.name);
+                console.log("pplll", ngo.ngoName);
+                return { "id": data.indexOf(ngo), "itemName": ngo.name };
             });
         });
         this.apiService.getData('collegeregistration-list').subscribe(function (data) {
@@ -1001,6 +1025,13 @@ var AddEventComponent = /** @class */ (function () {
             unSelectAllText: 'UnSelect All',
             enableSearchFilter: true
         };
+        this.settingsNgos = {
+            singleSelection: false,
+            text: "Select PartnerNgos",
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            enableSearchFilter: true
+        };
         if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
             this.apiService.getData('event', this.route.snapshot.paramMap.get('id')).subscribe(function (data) {
                 console.log(data.eventDuration);
@@ -1013,7 +1044,10 @@ var AddEventComponent = /** @class */ (function () {
                     }),
                     fromTime: data.eventfromTime,
                     toTime: data.eventtoTime,
-                    ngoName: data.ngoName,
+                    ngoName: data.ngoName.map(function (ngo) { return ({
+                        id: data.ngoName.indexOf(ngo),
+                        itemName: ngo.name
+                    }); }),
                     eventCategory: data.eventCategory,
                     recurringEvent: data.recurringEvent,
                     items: data.eventItems.map(function (item) { return ({
@@ -1032,33 +1066,50 @@ var AddEventComponent = /** @class */ (function () {
     AddEventComponent.prototype.log = function ($event) {
         console.log("hi");
     };
+    AddEventComponent.prototype.checkForMandatoryValidations = function (eventDataValues) {
+        if (eventDataValues.eventName && eventDataValues.eventAction && eventDataValues.fromTime && eventDataValues.toTime &&
+            eventDataValues.recurringEvent && eventDataValues.eventCategory && eventDataValues.volunteersReg &&
+            eventDataValues.eventDuration && eventDataValues.items && eventDataValues.volunteersOff)
+            return true;
+        else
+            return false;
+    };
     AddEventComponent.prototype.onSubmit = function () {
         var _this = this;
-        console.log(this.eventForm.value);
-        this.eventData.eventName = this.eventForm.value.eventName;
-        this.eventData.eventAction = this.eventForm.value.eventAction;
-        this.eventData.eventfromTime = this.eventForm.value.fromTime;
-        this.eventData.eventtoTime = this.eventForm.value.toTime;
-        this.eventData.ngoName = this.eventForm.value.ngoName;
-        this.eventData.volunteers = this.eventForm.value.volunteersReq;
-        this.eventData.recurringEvent = this.eventForm.value.recurringEvent;
-        // this.eventData.eventDuration=[];
-        // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[0],'fullDate','en-US'));
-        // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[1],'fullDate','en-US'));
-        this.eventData.eventCategory = this.eventForm.value.eventCategory;
-        this.eventData.eventDuration = this.eventForm.value.eventDuration;
-        this.eventData.eventItems = this.eventForm.value.items.map(function (item) { return item.itemName; });
-        this.eventData.comments = this.eventForm.value.comments;
-        this.eventData.college = this.eventForm.value.college;
-        console.log(this.eventData);
-        if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
-            this.apiService.putData(this.eventData, this.route.snapshot.paramMap.get('id'), 'event');
+        var eventDataValues = this.eventForm.getRawValue();
+        if (this.checkForMandatoryValidations(eventDataValues)) {
+            console.log(this.eventForm.value);
+            this.eventData.eventName = this.eventForm.value.eventName;
+            this.eventData.eventAction = this.eventForm.value.eventAction;
+            this.eventData.eventfromTime = this.eventForm.value.fromTime;
+            this.eventData.eventtoTime = this.eventForm.value.toTime;
+            this.eventData.ngoName = this.eventForm.value.ngoName.map(function (ngo) { return ngo.ngoName; });
+            this.eventData.volunteers = this.eventForm.value.volunteersReq;
+            this.eventData.recurringEvent = this.eventForm.value.recurringEvent;
+            // this.eventData.eventDuration=[];
+            // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[0],'fullDate','en-US'));
+            // this.eventData.eventDuration.push(formatDate(this.eventForm.value.eventDuration[1],'fullDate','en-US'));
+            this.eventData.eventCategory = this.eventForm.value.eventCategory;
+            this.eventData.eventDuration = this.eventForm.value.eventDuration;
+            this.eventData.eventItems = this.eventForm.value.items.map(function (item) { return item.itemName; });
+            this.eventData.comments = this.eventForm.value.comments;
+            this.eventData.college = this.eventForm.value.college;
+            this.eventData.volunteersOffline = this.eventForm.value.volunteersOff;
+            console.log(this.eventData);
+            if (this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')) {
+                this.apiService.putData(this.eventData, this.route.snapshot.paramMap.get('id'), 'event');
+            }
+            else {
+                var response = this.apiService.post(this.eventData, 'event').subscribe(function (response) {
+                    _this.message = "Event Submitted: http://yfsevents.com?id=" + response.id;
+                    _this.submitSuc = true;
+                    alert('Succesfully saved Event Details');
+                    _this.router.navigateByUrl("/events");
+                });
+            }
         }
         else {
-            var response = this.apiService.post(this.eventData, 'event').subscribe(function (response) {
-                _this.message = "Event Submitted: http://yfsevents.com?id=" + response.id;
-                _this.submitSuc = true;
-            });
+            alert('Please fill out the mandatory fields');
         }
     };
     AddEventComponent.prototype.onCategorySelected = function (event) {
@@ -1078,7 +1129,8 @@ var AddEventComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./add-event.component.html */ "./src/app/events/add-event.component.html"),
             styles: [__webpack_require__(/*! ./add-event.component.css */ "./src/app/events/add-event.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _api_service__WEBPACK_IMPORTED_MODULE_4__["ApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"], _inventory_data_inventorydata_service__WEBPACK_IMPORTED_MODULE_6__["InventorydataService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _api_service__WEBPACK_IMPORTED_MODULE_4__["ApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"], _inventory_data_inventorydata_service__WEBPACK_IMPORTED_MODULE_6__["InventorydataService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], AddEventComponent);
     return AddEventComponent;
 }());
@@ -1100,7 +1152,7 @@ var Eventdata = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"row\" style=\"margin-top: 20px\">\n<div class=\"col-md-1\">\n\n</div>\n\n<div >\n        <div id=\"myGrid\"  style=\"width: 100%; height: 100%;\">\n<ag-grid-angular style=\"height: 100%;\"\n    class=\"ag-theme-balham\"\n    [rowData]=\"rowData\" \n    [columnDefs]=\"columnDefs\"\n    [frameworkComponents]=\"frameworkComponents\">\n</ag-grid-angular>\n        </div>\n</div>\n<div class=\"col-md-1\">\n    \n</div>\n\n</div>\n\n<div class=\"row\" style=\"margin-top:10px\">\n    <div class=\"col-md-1\"></div>\n    <div class=\"col-md-10\">\n        <div style=\"text-align:right\">\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/addevent'])\">\n            Add Event\n        </button>\n        </div>\n    </div>\n</div>\n"
+module.exports = "\r\n<div class=\"row\" style=\"margin-top: 20px\">\r\n<div class=\"col-md-1\">\r\n</div>\r\n\r\n<div >\r\n        <div id=\"myGrid\"  style=\"width: 100%; height: 100%;\">\r\n<ag-grid-angular \r\n    class=\"ag-theme-balham\"\r\n    [rowData]=\"rowData\" \r\n    [columnDefs]=\"columnDefs\"\r\n    [frameworkComponents]=\"frameworkComponents\">\r\n</ag-grid-angular>\r\n        </div>\r\n</div>\r\n<div class=\"col-md-1\">\r\n    \r\n</div>\r\n\r\n</div>\r\n\r\n<div class=\"row\" style=\"margin-top:10px\">\r\n    <div class=\"col-md-1\"></div>\r\n    <div class=\"col-md-10\">\r\n        <div style=\"text-align:right\">\r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/addevent'])\">\r\n            Add Event\r\n        </button>\r\n        <button (click)=\"openFormModal()\">Open Modal</button>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1120,6 +1172,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./renderer/button-renderer.component */ "./src/app/events/renderer/button-renderer.component.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _form_modal_form_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../form-modal/form-modal.component */ "./src/app/form-modal/form-modal.component.ts");
+
+
 
 
 
@@ -1127,9 +1183,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var EventListComponent = /** @class */ (function () {
-    function EventListComponent(apiService, router) {
+    function EventListComponent(apiService, router, modalService) {
         this.apiService = apiService;
         this.router = router;
+        this.modalService = modalService;
         this.columnDefs = [
             { headerName: 'EventId', field: 'id', filter: true },
             { headerName: 'Action', field: 'eventAction', filter: true },
@@ -1153,7 +1210,15 @@ var EventListComponent = /** @class */ (function () {
                     onClick: this.onSearch.bind(this),
                     label: 'Edit'
                 }
-            }
+            },
+            {
+                headerName: 'Volunteers Accepted',
+                cellRenderer: 'buttonRenderer',
+                cellRendererParams: {
+                    onClick: this.onBtnClick2.bind(this),
+                    label: 'Accepted Count'
+                }
+            },
         ];
         this.frameworkComponents = {
             buttonRenderer: _renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_5__["ButtonRendererComponent"],
@@ -1182,14 +1247,27 @@ var EventListComponent = /** @class */ (function () {
         this.router.navigate(['addevent', { id: event.rowData.id }]);
     };
     EventListComponent.prototype.onBtnClick1 = function (event) {
-        this.router.navigate(['email', { id: event.rowData.id }]);
+        console.log("grid/volunteer", event.rowData.id);
+        this.router.navigate(['grid/volunteer', { id: event.rowData.id }]);
+    };
+    EventListComponent.prototype.onBtnClick2 = function (event) {
+        this.openFormModal();
+    };
+    EventListComponent.prototype.openFormModal = function () {
+        var modalRef = this.modalService.open(_form_modal_form_modal_component__WEBPACK_IMPORTED_MODULE_7__["FormModalComponent"]);
+        console.log("ddff");
+        modalRef.result.then(function (result) {
+            console.log(result);
+        }).catch(function (error) {
+            console.log(error);
+        });
     };
     EventListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'event-list',
             template: __webpack_require__(/*! ./event-list.component.html */ "./src/app/events/event-list.component.html")
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_6__["NgbModal"]])
     ], EventListComponent);
     return EventListComponent;
 }());
@@ -1253,7 +1331,7 @@ var ButtonRendererComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".footer{\n    background-color: #2d2d30;\n    color: #d5d5d5 !important;\n    letter-spacing: 4px;\n    opacity: 0.9;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZm9vdGVyL2Zvb3Rlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0kseUJBQXlCO0lBQ3pCLHlCQUF5QjtJQUN6QixtQkFBbUI7SUFDbkIsWUFBWTtBQUNoQiIsImZpbGUiOiJzcmMvYXBwL2Zvb3Rlci9mb290ZXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5mb290ZXJ7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzJkMmQzMDtcbiAgICBjb2xvcjogI2Q1ZDVkNSAhaW1wb3J0YW50O1xuICAgIGxldHRlci1zcGFjaW5nOiA0cHg7XG4gICAgb3BhY2l0eTogMC45O1xufSJdfQ== */"
+module.exports = ".footer{\r\n    background-color: #2d2d30;\r\n    color: #d5d5d5 !important;\r\n    letter-spacing: 4px;\r\n    opacity: 0.9;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9mb290ZXIvZm9vdGVyLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSx5QkFBeUI7SUFDekIseUJBQXlCO0lBQ3pCLG1CQUFtQjtJQUNuQixZQUFZO0FBQ2hCIiwiZmlsZSI6ImFwcC9mb290ZXIvZm9vdGVyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZm9vdGVye1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzJkMmQzMDtcclxuICAgIGNvbG9yOiAjZDVkNWQ1ICFpbXBvcnRhbnQ7XHJcbiAgICBsZXR0ZXItc3BhY2luZzogNHB4O1xyXG4gICAgb3BhY2l0eTogMC45O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -1264,7 +1342,7 @@ module.exports = ".footer{\n    background-color: #2d2d30;\n    color: #d5d5d5 !
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"text-center footer\">\n    <!--ToDo: Add go to Top Logic on Button Click\n    >a class=\"up-arrow\" href=\"\" data-toggle=\"tooltip\" title=\"TO TOP\">\n      <span class=\"glyphicon glyphicon-chevron-up\"></span>\n    </a><br><br-->\n    <!--TODO: Add below?-->\n    <p>Made by <strong></strong></p>\n    </div>\n"
+module.exports = "<div class=\"text-center footer\">\r\n    <!--ToDo: Add go to Top Logic on Button Click\r\n    >a class=\"up-arrow\" href=\"\" data-toggle=\"tooltip\" title=\"TO TOP\">\r\n      <span class=\"glyphicon glyphicon-chevron-up\"></span>\r\n    </a><br><br-->\r\n    <!--TODO: Add below?-->\r\n    <p>Made by <strong></strong></p>\r\n    </div>\r\n"
 
 /***/ }),
 
@@ -1302,6 +1380,128 @@ var FooterComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/form-modal/form-modal.component.css":
+/*!*****************************************************!*\
+  !*** ./src/app/form-modal/form-modal.component.css ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvZm9ybS1tb2RhbC9mb3JtLW1vZGFsLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/form-modal/form-modal.component.html":
+/*!******************************************************!*\
+  !*** ./src/app/form-modal/form-modal.component.html ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"modal-header\" id=\"abc\">\r\n    <h4 class=\"modal-title\">Volunteers who have accepte the invitation</h4>\r\n    <button type=\"button\" class=\"close\" aria-label=\"Close\"\r\n     (click)=\"activeModal.dismiss('Cross click')\">\r\n    </button>\r\n  </div>\r\n  <div class=\"container-fluid\">\r\n      <div class=\"page-header well text-center well-sm\">\r\n        <h3><strong> Volunteer </strong></h3>\r\n      </div>\r\n      <div  #myGrid  style=\"width: 100%; height: 600px;\">\r\n        <ag-grid-angular style=\"height: 100%;\"\r\n          class=\"ag-theme-balham\"\r\n          [rowData]=\"data\"\r\n          [columnDefs]=\"headers\"\r\n          (rowClicked)=\"onRowCilcked($event)\"\r\n          (gridReady)=\"onGridReady($event)\"\r\n          [rowSelection]=\"rowSelection\"\r\n          [gridOptions]=\"gridOptions\"\r\n          >\r\n        </ag-grid-angular>\r\n      </div>\r\n  <div class=\"modal-footer\">\r\n    <button (click)=\"activeModal.dismiss('Close clicked')\">\r\n      Close Clicked\r\n    </button>\r\n  </div>"
+
+/***/ }),
+
+/***/ "./src/app/form-modal/form-modal.component.ts":
+/*!****************************************************!*\
+  !*** ./src/app/form-modal/form-modal.component.ts ***!
+  \****************************************************/
+/*! exports provided: FormModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormModalComponent", function() { return FormModalComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+
+var FormModalComponent = /** @class */ (function () {
+    function FormModalComponent(apiService, router, activeModal) {
+        this.apiService = apiService;
+        this.router = router;
+        this.activeModal = activeModal;
+        this.data = [];
+        this.selectedEmails = "";
+        this.headers = [
+            { headerName: 'First Name', field: 'firstName', filter: true, sortable: true, headerCheckboxSelection: true,
+                headerCheckboxSelectionFilteredOnly: true,
+                checkboxSelection: true },
+            { headerName: 'Last Name', field: 'lastName', filter: true },
+            { headerName: 'Phone Prefix', field: 'phonePrefix', filter: true },
+            { headerName: 'Phone Number', field: 'phoneNumber', filter: true },
+            { headerName: 'Phone Prefix', field: 'alternatePhonePrefix', filter: true },
+            { headerName: 'Alternate Phone Number', field: 'alternatePhoneNumber', filter: true },
+            { headerName: 'EmailId', field: 'email', filter: true },
+            { headerName: 'EmailId2', field: 'alternateEmail', filter: true },
+            { headerName: 'Locality', field: 'locality', filter: true },
+            { headerName: 'City', field: 'city', filter: true },
+            { headerName: 'State', field: 'state', filter: true },
+            { headerName: 'PinCode', field: 'pincode', filter: true },
+            { headerName: 'Interested Areas', field: 'interestedAreas' }
+        ];
+        this.interestedList = new Array();
+    }
+    FormModalComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.rowSelection = "multiple";
+        this.apiService.getData('volunteerAccepted', '1').subscribe(function (response) {
+            var result = JSON.parse(JSON.stringify(response));
+            Array.from(result).forEach(function (element) {
+                var interestedAreas1 = JSON.parse(JSON.stringify(element)).interestedAreas;
+                while (_this.interestedList.length) {
+                    _this.interestedList.pop();
+                }
+                for (var _i = 0, interestedAreas1_1 = interestedAreas1; _i < interestedAreas1_1.length; _i++) {
+                    var val = interestedAreas1_1[_i];
+                    console.log("hey:" + val["interestedArea"]);
+                    _this.interestedList.push(val["interestedArea"]);
+                }
+                Object.assign(element, { interestedAreas: _this.interestedList.toString()
+                });
+            });
+            console.log(response);
+            console.log(_this.data);
+            _this.data = result;
+        });
+    };
+    FormModalComponent.prototype.onGridReady = function (params) {
+        // this.gridOptions.columnDefs=this.headers;
+        // console.log("You are here");
+        // this.gridApi = params.api;
+        // this.gridColumnApi = params.columnApi;
+    };
+    FormModalComponent.prototype.onRowCilcked = function (event) {
+        console.log(event.rowIndex);
+        this.router.navigateByUrl("/volunteer/edit/" + ((event.rowIndex) + 1));
+        // console.log(this.printAllDisplayedRows());
+        //  this.onBtForEachNodeAfterFilterAndSort();
+    };
+    FormModalComponent.prototype.closeModal = function () {
+        this.activeModal.close('Modal Closed');
+    };
+    FormModalComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-form-modal',
+            template: __webpack_require__(/*! ./form-modal.component.html */ "./src/app/form-modal/form-modal.component.html"),
+            styles: [__webpack_require__(/*! ./form-modal.component.css */ "./src/app/form-modal/form-modal.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbActiveModal"]])
+    ], FormModalComponent);
+    return FormModalComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/header/header.component.css":
 /*!*********************************************!*\
   !*** ./src/app/header/header.component.css ***!
@@ -1309,7 +1509,7 @@ var FooterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".nav-tabs li a {\n    color: #777;\n  }\n  \n  .navbar {\n    font-family: Montserrat, sans-serif;\n    margin-bottom: 0;\n    border: 0;\n    font-size: 15px !important;\n    letter-spacing: 4px;\n    opacity: 0.9;\n  }\n  \n  .navbar li a, .navbar .navbar-brand { \n    color: #d5d5d5 !important;\n  }\n  \n  .navbar-nav li a:hover {\n    color: #fff !important;\n  }\n  \n  .navbar-nav li.active a {\n    color: #fff !important;\n    background-color: #2b2c29 !important;\n  }\n  \n  .navbar-default .navbar-toggle {\n    border-color: transparent;\n  }\n  \n  .open .dropdown-toggle {\n    color: #fff;\n  }\n  \n  .dropdown-menu li a {\n    color: #000 !important;\n  }\n  \n  .dropdown-menu li a:hover {\n    background-color: red !important;\n  }\n  \n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaGVhZGVyL2hlYWRlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksV0FBVztFQUNiOztFQUVBO0lBQ0UsbUNBQW1DO0lBQ25DLGdCQUFnQjtJQUNoQixTQUFTO0lBQ1QsMEJBQTBCO0lBQzFCLG1CQUFtQjtJQUNuQixZQUFZO0VBQ2Q7O0VBQ0E7SUFDRSx5QkFBeUI7RUFDM0I7O0VBQ0E7SUFDRSxzQkFBc0I7RUFDeEI7O0VBQ0E7SUFDRSxzQkFBc0I7SUFDdEIsb0NBQW9DO0VBQ3RDOztFQUNBO0lBQ0UseUJBQXlCO0VBQzNCOztFQUNBO0lBQ0UsV0FBVztFQUNiOztFQUNBO0lBQ0Usc0JBQXNCO0VBQ3hCOztFQUNBO0lBQ0UsZ0NBQWdDO0VBQ2xDIiwiZmlsZSI6InNyYy9hcHAvaGVhZGVyL2hlYWRlci5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm5hdi10YWJzIGxpIGEge1xuICAgIGNvbG9yOiAjNzc3O1xuICB9XG4gIFxuICAubmF2YmFyIHtcbiAgICBmb250LWZhbWlseTogTW9udHNlcnJhdCwgc2Fucy1zZXJpZjtcbiAgICBtYXJnaW4tYm90dG9tOiAwO1xuICAgIGJvcmRlcjogMDtcbiAgICBmb250LXNpemU6IDE1cHggIWltcG9ydGFudDtcbiAgICBsZXR0ZXItc3BhY2luZzogNHB4O1xuICAgIG9wYWNpdHk6IDAuOTtcbiAgfVxuICAubmF2YmFyIGxpIGEsIC5uYXZiYXIgLm5hdmJhci1icmFuZCB7IFxuICAgIGNvbG9yOiAjZDVkNWQ1ICFpbXBvcnRhbnQ7XG4gIH1cbiAgLm5hdmJhci1uYXYgbGkgYTpob3ZlciB7XG4gICAgY29sb3I6ICNmZmYgIWltcG9ydGFudDtcbiAgfVxuICAubmF2YmFyLW5hdiBsaS5hY3RpdmUgYSB7XG4gICAgY29sb3I6ICNmZmYgIWltcG9ydGFudDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMmIyYzI5ICFpbXBvcnRhbnQ7XG4gIH1cbiAgLm5hdmJhci1kZWZhdWx0IC5uYXZiYXItdG9nZ2xlIHtcbiAgICBib3JkZXItY29sb3I6IHRyYW5zcGFyZW50O1xuICB9XG4gIC5vcGVuIC5kcm9wZG93bi10b2dnbGUge1xuICAgIGNvbG9yOiAjZmZmO1xuICB9XG4gIC5kcm9wZG93bi1tZW51IGxpIGEge1xuICAgIGNvbG9yOiAjMDAwICFpbXBvcnRhbnQ7XG4gIH1cbiAgLmRyb3Bkb3duLW1lbnUgbGkgYTpob3ZlciB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmVkICFpbXBvcnRhbnQ7XG4gIH1cbiAgIl19 */"
+module.exports = ".nav-tabs li a {\r\n    color: #777;\r\n  }\r\n  \r\n  .navbar {\r\n    font-family: Montserrat, sans-serif;\r\n    margin-bottom: 0;\r\n    border: 0;\r\n    font-size: 15px !important;\r\n    letter-spacing: 4px;\r\n    opacity: 0.9;\r\n  }\r\n  \r\n  .navbar li a, .navbar .navbar-brand { \r\n    color: #d5d5d5 !important;\r\n  }\r\n  \r\n  .navbar-nav li a:hover {\r\n    color: #fff !important;\r\n  }\r\n  \r\n  .navbar-nav li.active a {\r\n    color: #fff !important;\r\n    background-color: #2b2c29 !important;\r\n  }\r\n  \r\n  .navbar-default .navbar-toggle {\r\n    border-color: transparent;\r\n  }\r\n  \r\n  .open .dropdown-toggle {\r\n    color: #fff;\r\n  }\r\n  \r\n  .dropdown-menu li a {\r\n    color: #000 !important;\r\n  }\r\n  \r\n  .dropdown-menu li a:hover {\r\n    background-color: red !important;\r\n  }\r\n  \r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9oZWFkZXIvaGVhZGVyLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxXQUFXO0VBQ2I7O0VBRUE7SUFDRSxtQ0FBbUM7SUFDbkMsZ0JBQWdCO0lBQ2hCLFNBQVM7SUFDVCwwQkFBMEI7SUFDMUIsbUJBQW1CO0lBQ25CLFlBQVk7RUFDZDs7RUFDQTtJQUNFLHlCQUF5QjtFQUMzQjs7RUFDQTtJQUNFLHNCQUFzQjtFQUN4Qjs7RUFDQTtJQUNFLHNCQUFzQjtJQUN0QixvQ0FBb0M7RUFDdEM7O0VBQ0E7SUFDRSx5QkFBeUI7RUFDM0I7O0VBQ0E7SUFDRSxXQUFXO0VBQ2I7O0VBQ0E7SUFDRSxzQkFBc0I7RUFDeEI7O0VBQ0E7SUFDRSxnQ0FBZ0M7RUFDbEMiLCJmaWxlIjoiYXBwL2hlYWRlci9oZWFkZXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5uYXYtdGFicyBsaSBhIHtcclxuICAgIGNvbG9yOiAjNzc3O1xyXG4gIH1cclxuICBcclxuICAubmF2YmFyIHtcclxuICAgIGZvbnQtZmFtaWx5OiBNb250c2VycmF0LCBzYW5zLXNlcmlmO1xyXG4gICAgbWFyZ2luLWJvdHRvbTogMDtcclxuICAgIGJvcmRlcjogMDtcclxuICAgIGZvbnQtc2l6ZTogMTVweCAhaW1wb3J0YW50O1xyXG4gICAgbGV0dGVyLXNwYWNpbmc6IDRweDtcclxuICAgIG9wYWNpdHk6IDAuOTtcclxuICB9XHJcbiAgLm5hdmJhciBsaSBhLCAubmF2YmFyIC5uYXZiYXItYnJhbmQgeyBcclxuICAgIGNvbG9yOiAjZDVkNWQ1ICFpbXBvcnRhbnQ7XHJcbiAgfVxyXG4gIC5uYXZiYXItbmF2IGxpIGE6aG92ZXIge1xyXG4gICAgY29sb3I6ICNmZmYgIWltcG9ydGFudDtcclxuICB9XHJcbiAgLm5hdmJhci1uYXYgbGkuYWN0aXZlIGEge1xyXG4gICAgY29sb3I6ICNmZmYgIWltcG9ydGFudDtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICMyYjJjMjkgIWltcG9ydGFudDtcclxuICB9XHJcbiAgLm5hdmJhci1kZWZhdWx0IC5uYXZiYXItdG9nZ2xlIHtcclxuICAgIGJvcmRlci1jb2xvcjogdHJhbnNwYXJlbnQ7XHJcbiAgfVxyXG4gIC5vcGVuIC5kcm9wZG93bi10b2dnbGUge1xyXG4gICAgY29sb3I6ICNmZmY7XHJcbiAgfVxyXG4gIC5kcm9wZG93bi1tZW51IGxpIGEge1xyXG4gICAgY29sb3I6ICMwMDAgIWltcG9ydGFudDtcclxuICB9XHJcbiAgLmRyb3Bkb3duLW1lbnUgbGkgYTpob3ZlciB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQgIWltcG9ydGFudDtcclxuICB9XHJcbiAgIl19 */"
 
 /***/ }),
 
@@ -1365,7 +1565,7 @@ var HeaderComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2ludmVudG9yeS1kYXRhL2ludmVudG9yeS1kYXRhLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvaW52ZW50b3J5LWRhdGEvaW52ZW50b3J5LWRhdGEuY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -1376,7 +1576,7 @@ module.exports = "\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJz
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well well-sm\">\n    <h3><strong> Inventory Data</strong></h3>\n  </div>\n  <form [formGroup]=\"inventoryData\">\n    <div class=\"panel panel-info\">\n      <div class=\"panel-body\">\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Item Name</label>\n              <input type=\"text\" formControlName=\"itemName\" class=\"form-control well well-sm\" required>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Event Category</label>\n              <div>\n                <select formControlName=\"eventCategory\" class=\"form-control well well-sm\" required>\n                  <option *ngFor=\"let evCat of eventCategoryList\" [(ngValue)]=\"evCat.value\">{{evCat.value}}</option>\n                </select>          \n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Comments</label>\n              <textarea type=\"text\" formControlName=\"comments\" class=\"form-control well well-sm\"></textarea>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </form>\n  <div class=\"text-center\">\n    <button class=\"btn btn-primary btn-sx\" (click)=\"onSubmit()\">Save</button>\n  </div>\n  <div class=\"spinner-border\" role=\"status\" *ngIf=\"loading\">\n    <span class=\"sr-only\">Loading...</span>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"page-header well well-sm\">\r\n    <h3><strong> Inventory Data</strong></h3>\r\n  </div>\r\n  <form [formGroup]=\"inventoryData\">\r\n    <div class=\"panel panel-info\">\r\n      <div class=\"panel-body\">\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group required\">\r\n              <label class=\"control-label\">Item Name</label>\r\n              <input type=\"text\" formControlName=\"itemName\" class=\"form-control well well-sm\" required>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group required\">\r\n              <label class=\"control-label\">Event Category</label>\r\n              <div>\r\n                <select formControlName=\"eventCategory\" class=\"form-control well well-sm\" required>\r\n                  <option *ngFor=\"let evCat of eventCategoryList\" [(ngValue)]=\"evCat.value\">{{evCat.value}}</option>\r\n                </select>          \r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group\">\r\n              <label class=\"control-label\">Comments</label>\r\n              <textarea type=\"text\" formControlName=\"comments\" class=\"form-control well well-sm\"></textarea>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </form>\r\n  <div class=\"text-center\">\r\n    <button class=\"btn btn-primary btn-sx\" (click)=\"onSubmit()\">Save</button>\r\n  </div>\r\n  <div class=\"spinner-border\" role=\"status\" *ngIf=\"loading\">\r\n    <span class=\"sr-only\">Loading...</span>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1437,7 +1637,7 @@ var InventoryDataComponent = /** @class */ (function () {
         }
     };
     InventoryDataComponent.prototype.checkForMandatoryValidations = function (inventoryData) {
-        if (inventoryData.itemName && inventoryData.eventCategory && inventoryData.comments)
+        if (inventoryData.itemName && inventoryData.eventCategory)
             return true;
         else
             return false;
@@ -1497,7 +1697,7 @@ var InventoryDataComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2ludmVudG9yeS1kYXRhL2ludmVudG9yeS1saXN0LmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvaW52ZW50b3J5LWRhdGEvaW52ZW50b3J5LWxpc3QuY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -1508,7 +1708,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"row\" style=\"margin-top: 20px\">\n  <div class=\"col-md-1\">\n  \n  </div>\n  \n  <div>\n          <div id=\"myGrid\"  style=\"width: 100%; height: 115px;\">\n  <ag-grid-angular style=\"height: 100%;\"\n      class=\"ag-theme-balham\"\n      [rowData]=\"rowData\" \n      [columnDefs]=\"columnDefs\"\n      (rowClicked)=\"onSearch($event)\"\n      >\n  </ag-grid-angular>\n  </div>\n  </div>\n  <div class=\"col-md-1\">\n      \n  </div>\n  \n  </div>\n\n  <div class=\"row\" style=\"margin-top:10px\">\n      <div class=\"col-md-1\"></div>\n      <div class=\"col-md-10\">\n          <div style=\"text-align:right\">\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/inventorydata'])\">\n              Add Inventory\n          </button>\n          </div>\n      </div>\n  </div>\n"
+module.exports = "\r\n<div class=\"row\" style=\"margin-top: 20px\">\r\n  <div class=\"col-md-1\">\r\n  \r\n  </div>\r\n  \r\n  <div>\r\n          <div id=\"myGrid\"  style=\"width: 100%; height: 115px;\">\r\n  <ag-grid-angular style=\"height: 100%;\"\r\n      class=\"ag-theme-balham\"\r\n      [rowData]=\"rowData\" \r\n      [columnDefs]=\"columnDefs\"\r\n      (rowClicked)=\"onSearch($event)\"\r\n      >\r\n  </ag-grid-angular>\r\n  </div>\r\n  </div>\r\n  <div class=\"col-md-1\">\r\n      \r\n  </div>\r\n  \r\n  </div>\r\n\r\n  <div class=\"row\" style=\"margin-top:10px\">\r\n      <div class=\"col-md-1\"></div>\r\n      <div class=\"col-md-10\">\r\n          <div style=\"text-align:right\">\r\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/inventorydata'])\">\r\n              Add Inventory\r\n          </button>\r\n          </div>\r\n      </div>\r\n  </div>\r\n"
 
 /***/ }),
 
@@ -1627,7 +1827,7 @@ var InventorydataService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"card card-container\">\n\n<div class=\"row\"><div class=\"col-md-4\"></div><div class=\"col-md-4\">\n    <form #f=\"ngForm\" (ngSubmit)=\"f.form.valid && login()\" name=\"form-signin\" novalidate>\n      <div *ngIf=\"errorMessage\" class=\"alert alert-danger\" role=\"alert\">{{errorMessage}}</div>\n      <span class=\"reauth-email\" id=\"reauth-email\"></span>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\" class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input #username=\"ngModel\" [(ngModel)]=\"user.username\" class=\"form-control\" id=\"username\" name=\"username\"\n               required type=\"text\"/>\n        <!-- <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">an valid email is required</div>-->\n      </div>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\" class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input #password=\"ngModel\" [(ngModel)]=\"user.password\" class=\"form-control\" id=\"password\" name=\"password\"\n               required type=\"password\"/>\n        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Password is required</div>\n      </div>\n      <div class=\"checkbox\" id=\"remember\">\n\n      </div>\n      <div class=\"row\"><div class=\"col-md-4\"></div>\n    <div class=\"col-md-4\">  <button class=\"btn btn-lg btn-primary btn-block btn-signin\" type=\"submit\">Sign in</button></div>\n        <div class=\"col-md-4\"></div> </div><!--<a [routerLink]=\"['/register']\" class=\"btn btn-link\">Create new Account!</a>-->\n    </form></div> <div class=\"col-md-4\"></div></div><!-- /form -->\n\n  </div><!-- /card-container -->\n</div><!-- /container -->\n"
+module.exports = "<div class=\"container\">\r\n  <div class=\"card card-container\">\r\n\r\n<div class=\"row\"><div class=\"col-md-4\"></div><div class=\"col-md-4\">\r\n    <form #f=\"ngForm\" (ngSubmit)=\"f.form.valid && login()\" name=\"form-signin\" novalidate>\r\n      <div *ngIf=\"errorMessage\" class=\"alert alert-danger\" role=\"alert\">{{errorMessage}}</div>\r\n      <span class=\"reauth-email\" id=\"reauth-email\"></span>\r\n      <div [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\" class=\"form-group\">\r\n        <label for=\"username\">Username</label>\r\n        <input #username=\"ngModel\" [(ngModel)]=\"user.username\" class=\"form-control\" id=\"username\" name=\"username\"\r\n               required type=\"text\"/>\r\n        <!-- <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">an valid email is required</div>-->\r\n      </div>\r\n      <div [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\" class=\"form-group\">\r\n        <label for=\"password\">Password</label>\r\n        <input #password=\"ngModel\" [(ngModel)]=\"user.password\" class=\"form-control\" id=\"password\" name=\"password\"\r\n               required type=\"password\"/>\r\n        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Password is required</div>\r\n      </div>\r\n      <div class=\"checkbox\" id=\"remember\">\r\n\r\n      </div>\r\n      <div class=\"row\"><div class=\"col-md-4\"></div>\r\n    <div class=\"col-md-4\">  <button class=\"btn btn-lg btn-primary btn-block btn-signin\" type=\"submit\">Sign in</button></div>\r\n        <div class=\"col-md-4\"></div> </div><!--<a [routerLink]=\"['/register']\" class=\"btn btn-link\">Create new Account!</a>-->\r\n    </form></div> <div class=\"col-md-4\"></div></div><!-- /form -->\r\n\r\n  </div><!-- /card-container -->\r\n</div><!-- /container -->\r\n"
 
 /***/ }),
 
@@ -1708,7 +1908,7 @@ var User = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhcnRuZXItbmdvLWdyaWQvcGFydG5lci1uZ28tZ3JpZC5jb21wb25lbnQuY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvcGFydG5lci1uZ28tZ3JpZC9wYXJ0bmVyLW5nby1ncmlkLmNvbXBvbmVudC5jc3MifQ== */"
 
 /***/ }),
 
@@ -1719,7 +1919,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> Partner NGO </strong></h3>\n  </div>\n  <div  #myGrid  style=\"width: 100%; height: 100%;\">\n    <ag-grid-angular style=\"height: 100%;\"\n      class=\"ag-theme-balham\" \n      [rowData]=\"data\" \n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\"\n    >\n      <!-- \n      (rowDoubleClicked)=\"onRowDoubleCilcked(event)\"\n      (cellDoubleClicked)=\"onCellDoubleClicked($event)\"-->\n    </ag-grid-angular>\n  </div>\n  <div class=\"col-md-10\">\n      <div style=\"text-align:right\">\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/partnerngo'])\">\n          Add partner NGO\n      </button>\n      </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"page-header well text-center well-sm\">\r\n    <h3><strong> Partner NGO </strong></h3>\r\n  </div>\r\n  <div  #myGrid  style=\"width: 100%; height: 100%;\">\r\n    <ag-grid-angular style=\"height: 100%;\"\r\n      class=\"ag-theme-balham\" \r\n      [rowData]=\"data\" \r\n      [columnDefs]=\"headers\"\r\n      (rowClicked)=\"onRowCilcked($event)\"\r\n    >\r\n      <!-- \r\n      (rowDoubleClicked)=\"onRowDoubleCilcked(event)\"\r\n      (cellDoubleClicked)=\"onCellDoubleClicked($event)\"-->\r\n    </ag-grid-angular>\r\n  </div>\r\n  <div class=\"col-md-10\">\r\n      <div style=\"text-align:right\">\r\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/partnerngo'])\">\r\n          Add partner NGO\r\n      </button>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1865,7 +2065,7 @@ var PartnerNgoGridComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhcnRuZXItbmdvL3BhcnRuZXItbmdvLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvcGFydG5lci1uZ28vcGFydG5lci1uZ28uY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -1876,7 +2076,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1 user-scalable=no\">\n  </head>\n\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"page-header well well-sm\">\n        <h3><strong> Partner NGO Registration</strong></h3>\n      </div>\n      \n      <form [formGroup]=\"myForm\">\n        <!-- ToDo: Decrease space between the table rows-->\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Basic Information</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"basicInfo\">\n              <!-- <table class=\"form-table\"> -->\n              <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Name</label>\n                      <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Description</label>\n                      <input type=\"text\" formControlName = \"description\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Branch</label>\n                      <input type=\"text\" formControlName = \"branch\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Registration Number</label>\n                      <input type=\"text\" formControlName = \"registrationNumber\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Address</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"address\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Address Line 1</label>\n                      <input type=\"text\" formControlName = \"addressLine1\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Address Line 2</label>\n                      <input type=\"text\" formControlName = \"addressLine2\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">City</label>\n                      <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">State</label>\n                      <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Pincode</label>\n                      <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Authorised Persons</label>\n          </div>\n          <div class=\"panel-body\">\n            <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n              <li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">Person 1</a></li>\n              <li class=\"nav\" *ngFor=\"let num of getArray(numberOfAuthorizedPersons-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\" (click)=\"activateTab(i+2)\">Person {{i+2}}</a></li>\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"activateTab(numberOfAuthorizedPersons)\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"selectedTab=i\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <div class=\"pull-right\">\n                <button class=\"btn btn-sm btn-primary btn-space\" (click)=\"addAuthorisedPerson()\" [disabled]=\"isMaxLimitReached(5)\">Add Person</button>\n                <button class=\"btn btn-sm btn-primary\" (click)=\"removeAuthorisedPerson(selectedTab)\" confirm=\"Are you sure you want to delete?\" confirm-ok=\"Yes\" confirm-cancel=\"No\" [disabled]=\"isMinLimitReached()\">Remove Person</button>\n              </div>\n              <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->\n            </ul>\n\n            <div class=\"tab-content\">\n              <div formArrayName=\"authorizedPersons\">\n                <!--ToDo: NgFor not working: Check-->\n                <div class=\"tab-pane\" *ngFor=\"let person of myForm.get('authorizedPersons').controls;let i=index\" formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n                  <!-- <table class=\"form-table\"> -->\n                  <div *ngIf=\"selectedTab==i\">\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Name</label>\n                          <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Contact Number</label>\n                          <input type=\"text\" formControlName = \"contact1\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Alternate Contact Number</label>\n                          <input type=\"text\" formControlName = \"contact2\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Email ID</label>\n                            <input type=\"text\" formControlName = \"email1\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Alternate Email ID</label>\n                            <input type=\"text\" formControlName = \"email2\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n                      </div>\n                    </div>\n                  <!-- </table>               -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </form>\n      <!--<span>{{myForm.value | json}}</span>-->\n      <div class=\"pull-right\">\n        <button (click)=\"onSubmit()\" *ngIf=\"!mode\" class=\"btn btn-primary btn-space\">Register</button>\n        <button (click)=\"onEdit()\" *ngIf=\"mode=='view'\" class=\"btn btn-primary btn-space\">Edit</button>\n        <button (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" class=\"btn btn-primary btn-space\">Update</button>\n        <button (click)=\"onClose()\" *ngIf=\"mode=='view' || mode=='edit'\" class=\"btn btn-primary btn-space\">Close\n        </button>\n      </div>\n    </div>\n\n  </body>\n</html>\n"
+module.exports = "<!doctype html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1 user-scalable=no\">\r\n  </head>\r\n\r\n  <body>\r\n    <div class=\"container-fluid\">\r\n      <div class=\"page-header well well-sm\">\r\n        <h3><strong> Partner NGO Registration</strong></h3>\r\n      </div>\r\n      \r\n      <form [formGroup]=\"myForm\">\r\n        <!-- ToDo: Decrease space between the table rows-->\r\n        <div class=\"panel panel-info\">\r\n          <div class=\"panel-heading\">\r\n            <label>Basic Information</label>\r\n          </div>\r\n          <div class=\"panel-body\">\r\n            <div formGroupName=\"basicInfo\">\r\n              <!-- <table class=\"form-table\"> -->\r\n              <div class=\"row\">\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group required\">\r\n                      <label class=\"control-label\">Name</label>\r\n                      <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"control-label\">Description</label>\r\n                      <input type=\"text\" formControlName = \"description\" class=\"form-control well well-sm\">\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              <div class=\"row\">\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"control-label\">Branch</label>\r\n                      <input type=\"text\" formControlName = \"branch\" class=\"form-control well well-sm\">\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"control-label\">Registration Number</label>\r\n                      <input type=\"text\" formControlName = \"registrationNumber\" class=\"form-control well well-sm\">\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              <!-- </table>               -->\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"panel panel-info\">\r\n          <div class=\"panel-heading\">\r\n            <label>Address</label>\r\n          </div>\r\n          <div class=\"panel-body\">\r\n            <div formGroupName=\"address\">\r\n              <!-- <table class=\"form-table\"> -->\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group required\">\r\n                      <label class=\"control-label\">Address Line 1</label>\r\n                      <input type=\"text\" formControlName = \"addressLine1\" class=\"form-control well well-sm\">\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"control-label\">Address Line 2</label>\r\n                      <input type=\"text\" formControlName = \"addressLine2\" class=\"form-control well well-sm\">\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group required\">\r\n                      <label class=\"control-label\">City</label>\r\n                      <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group required\">\r\n                      <label class=\"control-label\">State</label>\r\n                      <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"row\">\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                    <div class=\"form-group\">\r\n                      <label class=\"control-label\">Pincode</label>\r\n                      <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"col-md-6 offset-md-3\">\r\n                  </div>\r\n                </div>\r\n              <!-- </table>               -->\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"panel panel-info\">\r\n          <div class=\"panel-heading\">\r\n            <label>Authorised Persons</label>\r\n          </div>\r\n          <div class=\"panel-body\">\r\n            <ul class=\"nav nav-tabs\" active=\"selectedTab\">\r\n              <li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">Person 1</a></li>\r\n              <li class=\"nav\" *ngFor=\"let num of getArray(numberOfAuthorizedPersons-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\" (click)=\"activateTab(i+2)\">Person {{i+2}}</a></li>\r\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"activateTab(numberOfAuthorizedPersons)\">Person {{numberOfAuthorizedPersons}}</a></li-->\r\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"selectedTab=i\">Person {{numberOfAuthorizedPersons}}</a></li-->\r\n              <div class=\"pull-right\">\r\n                <button class=\"btn btn-sm btn-primary btn-space\" (click)=\"addAuthorisedPerson()\" [disabled]=\"isMaxLimitReached(5)\">Add Person</button>\r\n                <button class=\"btn btn-sm btn-primary\" (click)=\"removeAuthorisedPerson(selectedTab)\" confirm=\"Are you sure you want to delete?\" confirm-ok=\"Yes\" confirm-cancel=\"No\" [disabled]=\"isMinLimitReached()\">Remove Person</button>\r\n              </div>\r\n              <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->\r\n            </ul>\r\n\r\n            <div class=\"tab-content\">\r\n              <div formArrayName=\"authorizedPersons\">\r\n                <!--ToDo: NgFor not working: Check-->\r\n                <div class=\"tab-pane\" *ngFor=\"let person of myForm.get('authorizedPersons').controls;let i=index\" formGroupName=\"{{i}}\" id=\"tab{{i}}\">\r\n                  <!-- <table class=\"form-table\"> -->\r\n                  <div *ngIf=\"selectedTab==i\">\r\n                    <div class=\"row\">\r\n                      <div class=\"col-md-6 offset-md-3\">\r\n                        <div class=\"form-group required\">\r\n                          <label class=\"control-label\">Name</label>\r\n                          <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\r\n                        </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 offset-md-3\">\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"row\">\r\n                      <div class=\"col-md-6 offset-md-3\">\r\n                        <div class=\"form-group required\">\r\n                          <label class=\"control-label\">Contact Number</label>\r\n                          <input type=\"text\" formControlName = \"contact1\" class=\"form-control well well-sm\">\r\n                        </div>\r\n                      </div>\r\n                      <div class=\"col-md-6 offset-md-3\">\r\n                        <div class=\"form-group\">\r\n                          <label class=\"control-label\">Alternate Contact Number</label>\r\n                          <input type=\"text\" formControlName = \"contact2\" class=\"form-control well well-sm\">\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-6 offset-md-3\">\r\n                          <div class=\"form-group\">\r\n                            <label class=\"control-label\">Email ID</label>\r\n                            <input type=\"text\" formControlName = \"email1\" class=\"form-control well well-sm\">\r\n                          </div>\r\n                        </div>\r\n\r\n                      </div>\r\n                    </div>\r\n                  <!-- </table>               -->\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n      </form>\r\n      <!--<span>{{myForm.value | json}}</span>-->\r\n      <div class=\"pull-right\">\r\n        <button (click)=\"onSubmit()\" *ngIf=\"!mode\" class=\"btn btn-primary btn-space\">Register</button>\r\n        <button (click)=\"onEdit()\" *ngIf=\"mode=='view'\" class=\"btn btn-primary btn-space\">Edit</button>\r\n        <button (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" class=\"btn btn-primary btn-space\">Update</button>\r\n        <button (click)=\"onClose()\" *ngIf=\"mode=='view' || mode=='edit'\" class=\"btn btn-primary btn-space\">Close\r\n        </button>\r\n      </div>\r\n    </div>\r\n\r\n  </body>\r\n</html>\r\n"
 
 /***/ }),
 
@@ -2015,9 +2215,6 @@ var PartnerNGOComponent = /** @class */ (function () {
                 ]],
             email1: ['', [
                     _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(50)
-                ]],
-            email2: ['', [
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(50)
                 ]]
         });
     };
@@ -2139,7 +2336,7 @@ var PartnerNGOComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/*\n * Specific styles of signin component\n */\n/*\n * General styles\n */\nbody, html {\n  height: 100%;\n  background-repeat: no-repeat;\n  background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));\n}\n.card-container.card {\n  max-width: 350px;\n  padding: 40px 40px;\n}\n.btn {\n  font-weight: 700;\n  height: 36px;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n  cursor: default;\n}\n/*\n * Card component\n */\n.card {\n  background-color: #F7F7F7;\n  /* just in case there no content*/\n  padding: 20px 25px 30px;\n  margin: 0 auto 25px;\n  margin-top: 50px;\n  /* shadows and rounded borders */\n  border-radius: 2px;\n  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);\n}\n.profile-img-card {\n  width: 96px;\n  height: 96px;\n  margin: 0 auto 10px;\n  display: block;\n  border-radius: 50%;\n}\n/*\n * Form styles\n */\n.profile-name-card {\n  font-size: 16px;\n  font-weight: bold;\n  text-align: center;\n  margin: 10px 0 0;\n  min-height: 1em;\n}\n.reauth-email {\n  display: block;\n  color: #404040;\n  line-height: 2;\n  margin-bottom: 10px;\n  font-size: 14px;\n  text-align: center;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  box-sizing: border-box;\n}\n.form-signin #inputEmail,\n.form-signin #inputPassword {\n  direction: ltr;\n  height: 44px;\n  font-size: 16px;\n}\n.form-signin input[type=email],\n.form-signin input[type=password],\n.form-signin input[type=text],\n.form-signin button {\n  width: 100%;\n  display: block;\n  margin-bottom: 10px;\n  z-index: 1;\n  position: relative;\n  box-sizing: border-box;\n}\n.form-signin .form-control:focus {\n  border-color: rgb(104, 145, 162);\n  outline: 0;\n  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);\n}\n.btn.btn-signin,.btn-cancel {\n  /*background-color: #4d90fe; */\n  background-color: rgb(104, 145, 162);\n  /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/\n  padding: 0px;\n  font-weight: 700;\n  font-size: 14px;\n  height: 36px;\n  border-radius: 3px;\n  border: none;\n  transition: all 0.218s;\n}\n.btn.btn-cancel {\n  background-color: rgb(255, 34, 24);\n}\n.btn.btn-signin:hover,\n.btn.btn-signin:active,\n.btn.btn-signin:focus {\n  background-color: rgb(12, 97, 33);\n}\n.forgot-password {\n  color: rgb(104, 145, 162);\n}\n.forgot-password:hover,\n.forgot-password:active,\n.forgot-password:focus{\n  color: rgb(12, 97, 33);\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcmVnaXN0ZXIvcmVnaXN0ZXIuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7RUFFRTtBQUNGOztFQUVFO0FBQ0Y7RUFDRSxZQUFZO0VBQ1osNEJBQTRCO0VBQzVCLHNFQUFzRTtBQUN4RTtBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLGtCQUFrQjtBQUNwQjtBQUVBO0VBQ0UsZ0JBQWdCO0VBQ2hCLFlBQVk7RUFDWixzQkFBc0I7RUFDdEIseUJBQXlCO0VBQ3pCLHFCQUFpQjtNQUFqQixpQkFBaUI7RUFDakIsZUFBZTtBQUNqQjtBQUVBOztFQUVFO0FBQ0Y7RUFDRSx5QkFBeUI7RUFDekIsaUNBQWlDO0VBQ2pDLHVCQUF1QjtFQUN2QixtQkFBbUI7RUFDbkIsZ0JBQWdCO0VBQ2hCLGdDQUFnQztFQUdoQyxrQkFBa0I7RUFHbEIsMENBQTBDO0FBQzVDO0FBRUE7RUFDRSxXQUFXO0VBQ1gsWUFBWTtFQUNaLG1CQUFtQjtFQUNuQixjQUFjO0VBR2Qsa0JBQWtCO0FBQ3BCO0FBRUE7O0VBRUU7QUFDRjtFQUNFLGVBQWU7RUFDZixpQkFBaUI7RUFDakIsa0JBQWtCO0VBQ2xCLGdCQUFnQjtFQUNoQixlQUFlO0FBQ2pCO0FBRUE7RUFDRSxjQUFjO0VBQ2QsY0FBYztFQUNkLGNBQWM7RUFDZCxtQkFBbUI7RUFDbkIsZUFBZTtFQUNmLGtCQUFrQjtFQUNsQixnQkFBZ0I7RUFDaEIsdUJBQXVCO0VBQ3ZCLG1CQUFtQjtFQUduQixzQkFBc0I7QUFDeEI7QUFFQTs7RUFFRSxjQUFjO0VBQ2QsWUFBWTtFQUNaLGVBQWU7QUFDakI7QUFFQTs7OztFQUlFLFdBQVc7RUFDWCxjQUFjO0VBQ2QsbUJBQW1CO0VBQ25CLFVBQVU7RUFDVixrQkFBa0I7RUFHbEIsc0JBQXNCO0FBQ3hCO0FBRUE7RUFDRSxnQ0FBZ0M7RUFDaEMsVUFBVTtFQUVWLHVFQUF1RTtBQUN6RTtBQUVBO0VBQ0UsOEJBQThCO0VBQzlCLG9DQUFvQztFQUNwQywyRUFBMkU7RUFDM0UsWUFBWTtFQUNaLGdCQUFnQjtFQUNoQixlQUFlO0VBQ2YsWUFBWTtFQUdaLGtCQUFrQjtFQUNsQixZQUFZO0VBSVosc0JBQXNCO0FBQ3hCO0FBRUE7RUFDRSxrQ0FBa0M7QUFDcEM7QUFDQTs7O0VBR0UsaUNBQWlDO0FBQ25DO0FBRUE7RUFDRSx5QkFBeUI7QUFDM0I7QUFFQTs7O0VBR0Usc0JBQXNCO0FBQ3hCIiwiZmlsZSI6InNyYy9hcHAvcmVnaXN0ZXIvcmVnaXN0ZXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4gKiBTcGVjaWZpYyBzdHlsZXMgb2Ygc2lnbmluIGNvbXBvbmVudFxuICovXG4vKlxuICogR2VuZXJhbCBzdHlsZXNcbiAqL1xuYm9keSwgaHRtbCB7XG4gIGhlaWdodDogMTAwJTtcbiAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcbiAgYmFja2dyb3VuZC1pbWFnZTogbGluZWFyLWdyYWRpZW50KHJnYigxMDQsIDE0NSwgMTYyKSwgcmdiKDEyLCA5NywgMzMpKTtcbn1cblxuLmNhcmQtY29udGFpbmVyLmNhcmQge1xuICBtYXgtd2lkdGg6IDM1MHB4O1xuICBwYWRkaW5nOiA0MHB4IDQwcHg7XG59XG5cbi5idG4ge1xuICBmb250LXdlaWdodDogNzAwO1xuICBoZWlnaHQ6IDM2cHg7XG4gIC1tb3otdXNlci1zZWxlY3Q6IG5vbmU7XG4gIC13ZWJraXQtdXNlci1zZWxlY3Q6IG5vbmU7XG4gIHVzZXItc2VsZWN0OiBub25lO1xuICBjdXJzb3I6IGRlZmF1bHQ7XG59XG5cbi8qXG4gKiBDYXJkIGNvbXBvbmVudFxuICovXG4uY2FyZCB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNGN0Y3Rjc7XG4gIC8qIGp1c3QgaW4gY2FzZSB0aGVyZSBubyBjb250ZW50Ki9cbiAgcGFkZGluZzogMjBweCAyNXB4IDMwcHg7XG4gIG1hcmdpbjogMCBhdXRvIDI1cHg7XG4gIG1hcmdpbi10b3A6IDUwcHg7XG4gIC8qIHNoYWRvd3MgYW5kIHJvdW5kZWQgYm9yZGVycyAqL1xuICAtbW96LWJvcmRlci1yYWRpdXM6IDJweDtcbiAgLXdlYmtpdC1ib3JkZXItcmFkaXVzOiAycHg7XG4gIGJvcmRlci1yYWRpdXM6IDJweDtcbiAgLW1vei1ib3gtc2hhZG93OiAwcHggMnB4IDJweCByZ2JhKDAsIDAsIDAsIDAuMyk7XG4gIC13ZWJraXQtYm94LXNoYWRvdzogMHB4IDJweCAycHggcmdiYSgwLCAwLCAwLCAwLjMpO1xuICBib3gtc2hhZG93OiAwcHggMnB4IDJweCByZ2JhKDAsIDAsIDAsIDAuMyk7XG59XG5cbi5wcm9maWxlLWltZy1jYXJkIHtcbiAgd2lkdGg6IDk2cHg7XG4gIGhlaWdodDogOTZweDtcbiAgbWFyZ2luOiAwIGF1dG8gMTBweDtcbiAgZGlzcGxheTogYmxvY2s7XG4gIC1tb3otYm9yZGVyLXJhZGl1czogNTAlO1xuICAtd2Via2l0LWJvcmRlci1yYWRpdXM6IDUwJTtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xufVxuXG4vKlxuICogRm9ybSBzdHlsZXNcbiAqL1xuLnByb2ZpbGUtbmFtZS1jYXJkIHtcbiAgZm9udC1zaXplOiAxNnB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IDEwcHggMCAwO1xuICBtaW4taGVpZ2h0OiAxZW07XG59XG5cbi5yZWF1dGgtZW1haWwge1xuICBkaXNwbGF5OiBibG9jaztcbiAgY29sb3I6ICM0MDQwNDA7XG4gIGxpbmUtaGVpZ2h0OiAyO1xuICBtYXJnaW4tYm90dG9tOiAxMHB4O1xuICBmb250LXNpemU6IDE0cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XG4gIHdoaXRlLXNwYWNlOiBub3dyYXA7XG4gIC1tb3otYm94LXNpemluZzogYm9yZGVyLWJveDtcbiAgLXdlYmtpdC1ib3gtc2l6aW5nOiBib3JkZXItYm94O1xuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xufVxuXG4uZm9ybS1zaWduaW4gI2lucHV0RW1haWwsXG4uZm9ybS1zaWduaW4gI2lucHV0UGFzc3dvcmQge1xuICBkaXJlY3Rpb246IGx0cjtcbiAgaGVpZ2h0OiA0NHB4O1xuICBmb250LXNpemU6IDE2cHg7XG59XG5cbi5mb3JtLXNpZ25pbiBpbnB1dFt0eXBlPWVtYWlsXSxcbi5mb3JtLXNpZ25pbiBpbnB1dFt0eXBlPXBhc3N3b3JkXSxcbi5mb3JtLXNpZ25pbiBpbnB1dFt0eXBlPXRleHRdLFxuLmZvcm0tc2lnbmluIGJ1dHRvbiB7XG4gIHdpZHRoOiAxMDAlO1xuICBkaXNwbGF5OiBibG9jaztcbiAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgei1pbmRleDogMTtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAtbW96LWJveC1zaXppbmc6IGJvcmRlci1ib3g7XG4gIC13ZWJraXQtYm94LXNpemluZzogYm9yZGVyLWJveDtcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDtcbn1cblxuLmZvcm0tc2lnbmluIC5mb3JtLWNvbnRyb2w6Zm9jdXMge1xuICBib3JkZXItY29sb3I6IHJnYigxMDQsIDE0NSwgMTYyKTtcbiAgb3V0bGluZTogMDtcbiAgLXdlYmtpdC1ib3gtc2hhZG93OiBpbnNldCAwIDFweCAxcHggcmdiYSgwLDAsMCwuMDc1KSwwIDAgOHB4IHJnYigxMDQsIDE0NSwgMTYyKTtcbiAgYm94LXNoYWRvdzogaW5zZXQgMCAxcHggMXB4IHJnYmEoMCwwLDAsLjA3NSksMCAwIDhweCByZ2IoMTA0LCAxNDUsIDE2Mik7XG59XG5cbi5idG4uYnRuLXNpZ25pbiwuYnRuLWNhbmNlbCB7XG4gIC8qYmFja2dyb3VuZC1jb2xvcjogIzRkOTBmZTsgKi9cbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDEwNCwgMTQ1LCAxNjIpO1xuICAvKiBiYWNrZ3JvdW5kLWNvbG9yOiBsaW5lYXItZ3JhZGllbnQocmdiKDEwNCwgMTQ1LCAxNjIpLCByZ2IoMTIsIDk3LCAzMykpOyovXG4gIHBhZGRpbmc6IDBweDtcbiAgZm9udC13ZWlnaHQ6IDcwMDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBoZWlnaHQ6IDM2cHg7XG4gIC1tb3otYm9yZGVyLXJhZGl1czogM3B4O1xuICAtd2Via2l0LWJvcmRlci1yYWRpdXM6IDNweDtcbiAgYm9yZGVyLXJhZGl1czogM3B4O1xuICBib3JkZXI6IG5vbmU7XG4gIC1vLXRyYW5zaXRpb246IGFsbCAwLjIxOHM7XG4gIC1tb3otdHJhbnNpdGlvbjogYWxsIDAuMjE4cztcbiAgLXdlYmtpdC10cmFuc2l0aW9uOiBhbGwgMC4yMThzO1xuICB0cmFuc2l0aW9uOiBhbGwgMC4yMThzO1xufVxuXG4uYnRuLmJ0bi1jYW5jZWwge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAzNCwgMjQpO1xufVxuLmJ0bi5idG4tc2lnbmluOmhvdmVyLFxuLmJ0bi5idG4tc2lnbmluOmFjdGl2ZSxcbi5idG4uYnRuLXNpZ25pbjpmb2N1cyB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYigxMiwgOTcsIDMzKTtcbn1cblxuLmZvcmdvdC1wYXNzd29yZCB7XG4gIGNvbG9yOiByZ2IoMTA0LCAxNDUsIDE2Mik7XG59XG5cbi5mb3Jnb3QtcGFzc3dvcmQ6aG92ZXIsXG4uZm9yZ290LXBhc3N3b3JkOmFjdGl2ZSxcbi5mb3Jnb3QtcGFzc3dvcmQ6Zm9jdXN7XG4gIGNvbG9yOiByZ2IoMTIsIDk3LCAzMyk7XG59XG4iXX0= */"
+module.exports = "/*\r\n * Specific styles of signin component\r\n */\r\n/*\r\n * General styles\r\n */\r\nbody, html {\r\n  height: 100%;\r\n  background-repeat: no-repeat;\r\n  background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));\r\n}\r\n.card-container.card {\r\n  max-width: 350px;\r\n  padding: 40px 40px;\r\n}\r\n.btn {\r\n  font-weight: 700;\r\n  height: 36px;\r\n  -moz-user-select: none;\r\n  -webkit-user-select: none;\r\n  -ms-user-select: none;\r\n      user-select: none;\r\n  cursor: default;\r\n}\r\n/*\r\n * Card component\r\n */\r\n.card {\r\n  background-color: #F7F7F7;\r\n  /* just in case there no content*/\r\n  padding: 20px 25px 30px;\r\n  margin: 0 auto 25px;\r\n  margin-top: 50px;\r\n  /* shadows and rounded borders */\r\n  border-radius: 2px;\r\n  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);\r\n}\r\n.profile-img-card {\r\n  width: 96px;\r\n  height: 96px;\r\n  margin: 0 auto 10px;\r\n  display: block;\r\n  border-radius: 50%;\r\n}\r\n/*\r\n * Form styles\r\n */\r\n.profile-name-card {\r\n  font-size: 16px;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  margin: 10px 0 0;\r\n  min-height: 1em;\r\n}\r\n.reauth-email {\r\n  display: block;\r\n  color: #404040;\r\n  line-height: 2;\r\n  margin-bottom: 10px;\r\n  font-size: 14px;\r\n  text-align: center;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: nowrap;\r\n  box-sizing: border-box;\r\n}\r\n.form-signin #inputEmail,\r\n.form-signin #inputPassword {\r\n  direction: ltr;\r\n  height: 44px;\r\n  font-size: 16px;\r\n}\r\n.form-signin input[type=email],\r\n.form-signin input[type=password],\r\n.form-signin input[type=text],\r\n.form-signin button {\r\n  width: 100%;\r\n  display: block;\r\n  margin-bottom: 10px;\r\n  z-index: 1;\r\n  position: relative;\r\n  box-sizing: border-box;\r\n}\r\n.form-signin .form-control:focus {\r\n  border-color: rgb(104, 145, 162);\r\n  outline: 0;\r\n  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);\r\n}\r\n.btn.btn-signin,.btn-cancel {\r\n  /*background-color: #4d90fe; */\r\n  background-color: rgb(104, 145, 162);\r\n  /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/\r\n  padding: 0px;\r\n  font-weight: 700;\r\n  font-size: 14px;\r\n  height: 36px;\r\n  border-radius: 3px;\r\n  border: none;\r\n  transition: all 0.218s;\r\n}\r\n.btn.btn-cancel {\r\n  background-color: rgb(255, 34, 24);\r\n}\r\n.btn.btn-signin:hover,\r\n.btn.btn-signin:active,\r\n.btn.btn-signin:focus {\r\n  background-color: rgb(12, 97, 33);\r\n}\r\n.forgot-password {\r\n  color: rgb(104, 145, 162);\r\n}\r\n.forgot-password:hover,\r\n.forgot-password:active,\r\n.forgot-password:focus{\r\n  color: rgb(12, 97, 33);\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9yZWdpc3Rlci9yZWdpc3Rlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztFQUVFO0FBQ0Y7O0VBRUU7QUFDRjtFQUNFLFlBQVk7RUFDWiw0QkFBNEI7RUFDNUIsc0VBQXNFO0FBQ3hFO0FBRUE7RUFDRSxnQkFBZ0I7RUFDaEIsa0JBQWtCO0FBQ3BCO0FBRUE7RUFDRSxnQkFBZ0I7RUFDaEIsWUFBWTtFQUNaLHNCQUFzQjtFQUN0Qix5QkFBeUI7RUFDekIscUJBQWlCO01BQWpCLGlCQUFpQjtFQUNqQixlQUFlO0FBQ2pCO0FBRUE7O0VBRUU7QUFDRjtFQUNFLHlCQUF5QjtFQUN6QixpQ0FBaUM7RUFDakMsdUJBQXVCO0VBQ3ZCLG1CQUFtQjtFQUNuQixnQkFBZ0I7RUFDaEIsZ0NBQWdDO0VBR2hDLGtCQUFrQjtFQUdsQiwwQ0FBMEM7QUFDNUM7QUFFQTtFQUNFLFdBQVc7RUFDWCxZQUFZO0VBQ1osbUJBQW1CO0VBQ25CLGNBQWM7RUFHZCxrQkFBa0I7QUFDcEI7QUFFQTs7RUFFRTtBQUNGO0VBQ0UsZUFBZTtFQUNmLGlCQUFpQjtFQUNqQixrQkFBa0I7RUFDbEIsZ0JBQWdCO0VBQ2hCLGVBQWU7QUFDakI7QUFFQTtFQUNFLGNBQWM7RUFDZCxjQUFjO0VBQ2QsY0FBYztFQUNkLG1CQUFtQjtFQUNuQixlQUFlO0VBQ2Ysa0JBQWtCO0VBQ2xCLGdCQUFnQjtFQUNoQix1QkFBdUI7RUFDdkIsbUJBQW1CO0VBR25CLHNCQUFzQjtBQUN4QjtBQUVBOztFQUVFLGNBQWM7RUFDZCxZQUFZO0VBQ1osZUFBZTtBQUNqQjtBQUVBOzs7O0VBSUUsV0FBVztFQUNYLGNBQWM7RUFDZCxtQkFBbUI7RUFDbkIsVUFBVTtFQUNWLGtCQUFrQjtFQUdsQixzQkFBc0I7QUFDeEI7QUFFQTtFQUNFLGdDQUFnQztFQUNoQyxVQUFVO0VBRVYsdUVBQXVFO0FBQ3pFO0FBRUE7RUFDRSw4QkFBOEI7RUFDOUIsb0NBQW9DO0VBQ3BDLDJFQUEyRTtFQUMzRSxZQUFZO0VBQ1osZ0JBQWdCO0VBQ2hCLGVBQWU7RUFDZixZQUFZO0VBR1osa0JBQWtCO0VBQ2xCLFlBQVk7RUFJWixzQkFBc0I7QUFDeEI7QUFFQTtFQUNFLGtDQUFrQztBQUNwQztBQUNBOzs7RUFHRSxpQ0FBaUM7QUFDbkM7QUFFQTtFQUNFLHlCQUF5QjtBQUMzQjtBQUVBOzs7RUFHRSxzQkFBc0I7QUFDeEIiLCJmaWxlIjoiYXBwL3JlZ2lzdGVyL3JlZ2lzdGVyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxyXG4gKiBTcGVjaWZpYyBzdHlsZXMgb2Ygc2lnbmluIGNvbXBvbmVudFxyXG4gKi9cclxuLypcclxuICogR2VuZXJhbCBzdHlsZXNcclxuICovXHJcbmJvZHksIGh0bWwge1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xyXG4gIGJhY2tncm91bmQtaW1hZ2U6IGxpbmVhci1ncmFkaWVudChyZ2IoMTA0LCAxNDUsIDE2MiksIHJnYigxMiwgOTcsIDMzKSk7XHJcbn1cclxuXHJcbi5jYXJkLWNvbnRhaW5lci5jYXJkIHtcclxuICBtYXgtd2lkdGg6IDM1MHB4O1xyXG4gIHBhZGRpbmc6IDQwcHggNDBweDtcclxufVxyXG5cclxuLmJ0biB7XHJcbiAgZm9udC13ZWlnaHQ6IDcwMDtcclxuICBoZWlnaHQ6IDM2cHg7XHJcbiAgLW1vei11c2VyLXNlbGVjdDogbm9uZTtcclxuICAtd2Via2l0LXVzZXItc2VsZWN0OiBub25lO1xyXG4gIHVzZXItc2VsZWN0OiBub25lO1xyXG4gIGN1cnNvcjogZGVmYXVsdDtcclxufVxyXG5cclxuLypcclxuICogQ2FyZCBjb21wb25lbnRcclxuICovXHJcbi5jYXJkIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjRjdGN0Y3O1xyXG4gIC8qIGp1c3QgaW4gY2FzZSB0aGVyZSBubyBjb250ZW50Ki9cclxuICBwYWRkaW5nOiAyMHB4IDI1cHggMzBweDtcclxuICBtYXJnaW46IDAgYXV0byAyNXB4O1xyXG4gIG1hcmdpbi10b3A6IDUwcHg7XHJcbiAgLyogc2hhZG93cyBhbmQgcm91bmRlZCBib3JkZXJzICovXHJcbiAgLW1vei1ib3JkZXItcmFkaXVzOiAycHg7XHJcbiAgLXdlYmtpdC1ib3JkZXItcmFkaXVzOiAycHg7XHJcbiAgYm9yZGVyLXJhZGl1czogMnB4O1xyXG4gIC1tb3otYm94LXNoYWRvdzogMHB4IDJweCAycHggcmdiYSgwLCAwLCAwLCAwLjMpO1xyXG4gIC13ZWJraXQtYm94LXNoYWRvdzogMHB4IDJweCAycHggcmdiYSgwLCAwLCAwLCAwLjMpO1xyXG4gIGJveC1zaGFkb3c6IDBweCAycHggMnB4IHJnYmEoMCwgMCwgMCwgMC4zKTtcclxufVxyXG5cclxuLnByb2ZpbGUtaW1nLWNhcmQge1xyXG4gIHdpZHRoOiA5NnB4O1xyXG4gIGhlaWdodDogOTZweDtcclxuICBtYXJnaW46IDAgYXV0byAxMHB4O1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG4gIC1tb3otYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gIC13ZWJraXQtYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcclxufVxyXG5cclxuLypcclxuICogRm9ybSBzdHlsZXNcclxuICovXHJcbi5wcm9maWxlLW5hbWUtY2FyZCB7XHJcbiAgZm9udC1zaXplOiAxNnB4O1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBtYXJnaW46IDEwcHggMCAwO1xyXG4gIG1pbi1oZWlnaHQ6IDFlbTtcclxufVxyXG5cclxuLnJlYXV0aC1lbWFpbCB7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbiAgY29sb3I6ICM0MDQwNDA7XHJcbiAgbGluZS1oZWlnaHQ6IDI7XHJcbiAgbWFyZ2luLWJvdHRvbTogMTBweDtcclxuICBmb250LXNpemU6IDE0cHg7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIG92ZXJmbG93OiBoaWRkZW47XHJcbiAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XHJcbiAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcclxuICAtbW96LWJveC1zaXppbmc6IGJvcmRlci1ib3g7XHJcbiAgLXdlYmtpdC1ib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XHJcbn1cclxuXHJcbi5mb3JtLXNpZ25pbiAjaW5wdXRFbWFpbCxcclxuLmZvcm0tc2lnbmluICNpbnB1dFBhc3N3b3JkIHtcclxuICBkaXJlY3Rpb246IGx0cjtcclxuICBoZWlnaHQ6IDQ0cHg7XHJcbiAgZm9udC1zaXplOiAxNnB4O1xyXG59XHJcblxyXG4uZm9ybS1zaWduaW4gaW5wdXRbdHlwZT1lbWFpbF0sXHJcbi5mb3JtLXNpZ25pbiBpbnB1dFt0eXBlPXBhc3N3b3JkXSxcclxuLmZvcm0tc2lnbmluIGlucHV0W3R5cGU9dGV4dF0sXHJcbi5mb3JtLXNpZ25pbiBidXR0b24ge1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG4gIG1hcmdpbi1ib3R0b206IDEwcHg7XHJcbiAgei1pbmRleDogMTtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgLW1vei1ib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG4gIC13ZWJraXQtYm94LXNpemluZzogYm9yZGVyLWJveDtcclxuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG59XHJcblxyXG4uZm9ybS1zaWduaW4gLmZvcm0tY29udHJvbDpmb2N1cyB7XHJcbiAgYm9yZGVyLWNvbG9yOiByZ2IoMTA0LCAxNDUsIDE2Mik7XHJcbiAgb3V0bGluZTogMDtcclxuICAtd2Via2l0LWJveC1zaGFkb3c6IGluc2V0IDAgMXB4IDFweCByZ2JhKDAsMCwwLC4wNzUpLDAgMCA4cHggcmdiKDEwNCwgMTQ1LCAxNjIpO1xyXG4gIGJveC1zaGFkb3c6IGluc2V0IDAgMXB4IDFweCByZ2JhKDAsMCwwLC4wNzUpLDAgMCA4cHggcmdiKDEwNCwgMTQ1LCAxNjIpO1xyXG59XHJcblxyXG4uYnRuLmJ0bi1zaWduaW4sLmJ0bi1jYW5jZWwge1xyXG4gIC8qYmFja2dyb3VuZC1jb2xvcjogIzRkOTBmZTsgKi9cclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTA0LCAxNDUsIDE2Mik7XHJcbiAgLyogYmFja2dyb3VuZC1jb2xvcjogbGluZWFyLWdyYWRpZW50KHJnYigxMDQsIDE0NSwgMTYyKSwgcmdiKDEyLCA5NywgMzMpKTsqL1xyXG4gIHBhZGRpbmc6IDBweDtcclxuICBmb250LXdlaWdodDogNzAwO1xyXG4gIGZvbnQtc2l6ZTogMTRweDtcclxuICBoZWlnaHQ6IDM2cHg7XHJcbiAgLW1vei1ib3JkZXItcmFkaXVzOiAzcHg7XHJcbiAgLXdlYmtpdC1ib3JkZXItcmFkaXVzOiAzcHg7XHJcbiAgYm9yZGVyLXJhZGl1czogM3B4O1xyXG4gIGJvcmRlcjogbm9uZTtcclxuICAtby10cmFuc2l0aW9uOiBhbGwgMC4yMThzO1xyXG4gIC1tb3otdHJhbnNpdGlvbjogYWxsIDAuMjE4cztcclxuICAtd2Via2l0LXRyYW5zaXRpb246IGFsbCAwLjIxOHM7XHJcbiAgdHJhbnNpdGlvbjogYWxsIDAuMjE4cztcclxufVxyXG5cclxuLmJ0bi5idG4tY2FuY2VsIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjU1LCAzNCwgMjQpO1xyXG59XHJcbi5idG4uYnRuLXNpZ25pbjpob3ZlcixcclxuLmJ0bi5idG4tc2lnbmluOmFjdGl2ZSxcclxuLmJ0bi5idG4tc2lnbmluOmZvY3VzIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTIsIDk3LCAzMyk7XHJcbn1cclxuXHJcbi5mb3Jnb3QtcGFzc3dvcmQge1xyXG4gIGNvbG9yOiByZ2IoMTA0LCAxNDUsIDE2Mik7XHJcbn1cclxuXHJcbi5mb3Jnb3QtcGFzc3dvcmQ6aG92ZXIsXHJcbi5mb3Jnb3QtcGFzc3dvcmQ6YWN0aXZlLFxyXG4uZm9yZ290LXBhc3N3b3JkOmZvY3Vze1xyXG4gIGNvbG9yOiByZ2IoMTIsIDk3LCAzMyk7XHJcbn1cclxuIl19 */"
 
 /***/ }),
 
@@ -2150,7 +2347,7 @@ module.exports = "/*\n * Specific styles of signin component\n */\n/*\n * Genera
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"card card-container\">\n    <img class=\"profile-img-card\" id=\"profile-img\" src=\"//ssl.gstatic.com/accounts/ui/avatar_2x.png\"/>\n    <p class=\"profile-name-card\" id=\"profile-name\"></p>\n\n    <form #f=\"ngForm\" (ngSubmit)=\"f.form.valid && register()\" name=\"form\" novalidate>\n      <div *ngIf=\"errorMessage\" class=\"alert alert-danger\" role=\"alert\">{{errorMessage}}</div>\n      <span class=\"reauth-email\" id=\"reauth-email\"></span>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !fullName.valid }\" class=\"form-group\">\n        <label for=\"fullName\">Full Name</label>\n        <input #fullName=\"ngModel\" [(ngModel)]=\"user.fullName\" class=\"form-control\" id=\"fullName\" name=\"fullName\"\n               required type=\"text\"/>\n        <div *ngIf=\"f.submitted && !fullName.valid\" class=\"help-block\">The full Name is required</div>\n      </div>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\" class=\"form-group\">\n        <label for=\"username\">Email Address</label>\n        <input #username=\"ngModel\" [(ngModel)]=\"user.username\" class=\"form-control\" id=\"username\" name=\"username\"\n               pattern=\"[^ @]*@[^ @]*\" required type=\"text\"/>\n        <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">\n\n          <div *ngIf=\"username.errors.required\">\n            Email is required.\n          </div>\n          <div *ngIf=\"username.errors.pattern\">\n            A valid email address is required\n          </div>\n\n        </div>\n      </div>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\" class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input #password=\"ngModel\" [(ngModel)]=\"user.password\" class=\"form-control\" id=\"password\" minlength=\"4\"\n               name=\"password\" required type=\"password\"/>\n        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">\n\n          <div *ngIf=\"password.errors.required\">\n            password is required.\n          </div>\n          <div *ngIf=\"password.errors.minlength\">\n            password must be at least 4 characters long.\n          </div>\n\n        </div>\n      </div>\n      <div class=\"checkbox\" id=\"remember\">\n\n      </div>\n      <button class=\"btn btn-lg btn-primary btn-block btn-signin\" type=\"submit\">Create Account</button>\n      <button [routerLink]=\"['/login']\" class=\"btn btn-lg btn-danger btn-block btn-cancel\" type=\"button\">Cancel</button>\n\n    </form><!-- /form -->\n\n  </div><!-- /card-container -->\n</div><!-- /container -->\n\n"
+module.exports = "<div class=\"container\">\r\n  <div class=\"card card-container\">\r\n    <img class=\"profile-img-card\" id=\"profile-img\" src=\"//ssl.gstatic.com/accounts/ui/avatar_2x.png\"/>\r\n    <p class=\"profile-name-card\" id=\"profile-name\"></p>\r\n\r\n    <form #f=\"ngForm\" (ngSubmit)=\"f.form.valid && register()\" name=\"form\" novalidate>\r\n      <div *ngIf=\"errorMessage\" class=\"alert alert-danger\" role=\"alert\">{{errorMessage}}</div>\r\n      <span class=\"reauth-email\" id=\"reauth-email\"></span>\r\n      <div [ngClass]=\"{ 'has-error': f.submitted && !fullName.valid }\" class=\"form-group\">\r\n        <label for=\"fullName\">Full Name</label>\r\n        <input #fullName=\"ngModel\" [(ngModel)]=\"user.fullName\" class=\"form-control\" id=\"fullName\" name=\"fullName\"\r\n               required type=\"text\"/>\r\n        <div *ngIf=\"f.submitted && !fullName.valid\" class=\"help-block\">The full Name is required</div>\r\n      </div>\r\n      <div [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\" class=\"form-group\">\r\n        <label for=\"username\">Email Address</label>\r\n        <input #username=\"ngModel\" [(ngModel)]=\"user.username\" class=\"form-control\" id=\"username\" name=\"username\"\r\n               pattern=\"[^ @]*@[^ @]*\" required type=\"text\"/>\r\n        <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">\r\n\r\n          <div *ngIf=\"username.errors.required\">\r\n            Email is required.\r\n          </div>\r\n          <div *ngIf=\"username.errors.pattern\">\r\n            A valid email address is required\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n      <div [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\" class=\"form-group\">\r\n        <label for=\"password\">Password</label>\r\n        <input #password=\"ngModel\" [(ngModel)]=\"user.password\" class=\"form-control\" id=\"password\" minlength=\"4\"\r\n               name=\"password\" required type=\"password\"/>\r\n        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">\r\n\r\n          <div *ngIf=\"password.errors.required\">\r\n            password is required.\r\n          </div>\r\n          <div *ngIf=\"password.errors.minlength\">\r\n            password must be at least 4 characters long.\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n      <div class=\"checkbox\" id=\"remember\">\r\n\r\n      </div>\r\n      <button class=\"btn btn-lg btn-primary btn-block btn-signin\" type=\"submit\">Create Account</button>\r\n      <button [routerLink]=\"['/login']\" class=\"btn btn-lg btn-danger btn-block btn-cancel\" type=\"button\">Cancel</button>\r\n\r\n    </form><!-- /form -->\r\n\r\n  </div><!-- /card-container -->\r\n</div><!-- /container -->\r\n\r\n"
 
 /***/ }),
 
@@ -2207,6 +2404,135 @@ var RegisterComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/selectablevolunteer/selectablevolunteer.component.css":
+/*!***********************************************************************!*\
+  !*** ./src/app/selectablevolunteer/selectablevolunteer.component.css ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\r\n.text-on-pannel {\r\n    background: #fff none repeat scroll 0 0;\r\n    height: auto;\r\n    margin-left: 20px;\r\n    padding: 3px 5px;\r\n    position: absolute;\r\n    margin-top: -20px;\r\n    border: 1px solid #337ab7;\r\n    border-radius: 8px;\r\n  }\r\n  \r\n  .panel {\r\n  \r\n    margin-top: 27px a!important;\r\n  }\r\n  \r\n  .panel-body {\r\n    padding-top: 30px !important;\r\n  }\r\n  \r\n  .field-invalid\r\n  {\r\n  color:pink;\r\n  }\r\n  \r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9zZWxlY3RhYmxldm9sdW50ZWVyL3NlbGVjdGFibGV2b2x1bnRlZXIuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ0E7SUFDSSx1Q0FBdUM7SUFDdkMsWUFBWTtJQUNaLGlCQUFpQjtJQUNqQixnQkFBZ0I7SUFDaEIsa0JBQWtCO0lBQ2xCLGlCQUFpQjtJQUNqQix5QkFBeUI7SUFDekIsa0JBQWtCO0VBQ3BCOztFQUVBOztJQUVFLDRCQUE0QjtFQUM5Qjs7RUFFQTtJQUNFLDRCQUE0QjtFQUM5Qjs7RUFFQTs7RUFFQSxVQUFVO0VBQ1YiLCJmaWxlIjoiYXBwL3NlbGVjdGFibGV2b2x1bnRlZXIvc2VsZWN0YWJsZXZvbHVudGVlci5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXHJcbi50ZXh0LW9uLXBhbm5lbCB7XHJcbiAgICBiYWNrZ3JvdW5kOiAjZmZmIG5vbmUgcmVwZWF0IHNjcm9sbCAwIDA7XHJcbiAgICBoZWlnaHQ6IGF1dG87XHJcbiAgICBtYXJnaW4tbGVmdDogMjBweDtcclxuICAgIHBhZGRpbmc6IDNweCA1cHg7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBtYXJnaW4tdG9wOiAtMjBweDtcclxuICAgIGJvcmRlcjogMXB4IHNvbGlkICMzMzdhYjc7XHJcbiAgICBib3JkZXItcmFkaXVzOiA4cHg7XHJcbiAgfVxyXG4gIFxyXG4gIC5wYW5lbCB7XHJcbiAgXHJcbiAgICBtYXJnaW4tdG9wOiAyN3B4IGEhaW1wb3J0YW50O1xyXG4gIH1cclxuICBcclxuICAucGFuZWwtYm9keSB7XHJcbiAgICBwYWRkaW5nLXRvcDogMzBweCAhaW1wb3J0YW50O1xyXG4gIH1cclxuICBcclxuICAuZmllbGQtaW52YWxpZFxyXG4gIHtcclxuICBjb2xvcjpwaW5rO1xyXG4gIH1cclxuICAiXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/selectablevolunteer/selectablevolunteer.component.html":
+/*!************************************************************************!*\
+  !*** ./src/app/selectablevolunteer/selectablevolunteer.component.html ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container\">\r\n  <div class=\"page-header well well-sm text-center\">\r\n    <h3><strong> Volunteer Registration</strong></h3>\r\n  </div>\r\n  <div class=\"panel panel-info\" >\r\n   <!-- <fieldset>\r\n\r\n    <legend>Personal Details</legend>-->\r\n    <!--<h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Personal Information</strong></h3>-->\r\n  <div class=\"panel-heading\">\r\n    <label>Personal Information</label>\r\n  </div>\r\n  <div class=\"panel-body\" >\r\n    <form #form=\"ngForm\" [formGroup]=\"myForm\" (ngSubmit)=\"personalInfo()\">\r\n    <div  formGroupName=\"personalInfo\">\r\n\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group required\">\r\n              <label class=\"control-label\">First Name</label>\r\n              <input type=\"text\" formControlName = \"firstName\" class=\"form-control well well-sm\"[ngClass]=\"{'is-invalid':myForm.controls['personalInfo'].controls.firstName.errors&&(myForm.controls['personalInfo'].controls.firstName.dirty||myForm.controls['personalInfo'].controls.firstName.touched)}\">\r\n              <div *ngIf=\"myForm.controls['personalInfo'].controls.firstName.errors&&(myForm.controls['personalInfo'].controls.firstName.dirty||myForm.controls['personalInfo'].controls.firstName.touched)\" class=\"invalid-feedback\">\r\n                <div *ngIf=\"myForm.controls['personalInfo'].controls.firstName.errors.required\" class=\"field-invalid\">First Name is required</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group required\">\r\n              <label class=\"control-label\">Last Name</label>\r\n              <input type=\"text\" formControlName = \"lastName\" class=\"form-control well well-sm\">\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"row\">\r\n          <div class=\"col-md-1 offset-md-3\">\r\n            <div class=\"form-group required\">\r\n              <label class=\"control-label\">Prefix</label>\r\n              <input type=\"text\" formControlName = \"phonePrefix\" class=\"form-control well well-sm\">\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group required\">\r\n              <label class=\"control-label\">Phone Number</label>\r\n              <input type=\"text\" formControlName = \"phoneNumber\" class=\"form-control well well-sm\">\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"row\">\r\n          <div class=\"col-md-1 offset-md-3\">\r\n            <div class=\"form-group\">\r\n              <label class=\"control-label\">Prefix</label>\r\n              <input type=\"text\" formControlName = \"alternatePhonePrefix\" class=\"form-control well well-sm\">\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group\">\r\n              <label class=\"control-label\">Alternate Phone</label>\r\n              <input type=\"text\" formControlName = \"alternatePhoneNumber\" class=\"form-control well well-sm\">\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group required\">\r\n              <label class=\"control-label\">Email</label>\r\n              <input type=\"text\" formControlName = \"email\" class=\"form-control well well-sm\">\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group\">\r\n              <label class=\"control-label\">Alternate Email</label>\r\n              <input type=\"text\" formControlName = \"alternateEmail\" class=\"form-control well well-sm\">\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n\r\n    </div>\r\n    </form>\r\n  </div>\r\n    <!--</fieldset>-->\r\n  </div>\r\n\r\n  <div class=\"panel panel-info\">\r\n    <!--<fieldset>\r\n\r\n      <legend>Address</legend>-->\r\n\r\n    <!--<h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Address</strong></h3>-->\r\n    <div class=\"panel-heading\">\r\n      <label>Address</label>\r\n    </div>\r\n      <div class=\"panel-body\">\r\n        <form [formGroup]=\"myForm\" >\r\n        <div formGroupName=\"address\">\r\n\r\n\r\n            <div class=\"row\">\r\n              <div class=\"col-md-6 offset-md-3\">\r\n                <div class=\"form-group required\">\r\n                  <label class=\"control-label\">Locality</label>\r\n                  <input type=\"text\" formControlName = \"locality\" class=\"form-control well well-sm\">\r\n                </div>\r\n              </div>\r\n              <div class=\"col-md-6 offset-md-3\">\r\n                <div class=\"form-group required\">\r\n                  <label class=\"control-label\">City</label>\r\n                  <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\r\n                </div>\r\n              </div>\r\n            </div>\r\n\r\n            <div class=\"row\">\r\n              <div class=\"col-md-6 offset-md-3\">\r\n                <div class=\"form-group required\">\r\n                  <label class=\"control-label\">State</label>\r\n                  <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"col-md-6 offset-md-3\">\r\n                <div class=\"form-group required\">\r\n                  <label class=\"control-label\">Pin Code</label>\r\n                  <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\r\n                </div>\r\n              </div>\r\n            </div>\r\n\r\n\r\n        </div>\r\n        </form>\r\n      </div>\r\n   <!-- </fieldset>-->\r\n  </div>\r\n  <div class=\"panel panel-info\">\r\n    <!--<fieldset>\r\n\r\n      <legend>Additional Information</legend>-->\r\n   <!-- <h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Additional Information </strong></h3>-->\r\n      <div class=\"panel-heading\">\r\n        <label>Additional Information</label>\r\n      </div>\r\n      <div class=\"panel-body\">\r\n        <form #form=\"ngForm\" [formGroup]=\"myForm\" (ngSubmit)=\"additionalInfo()\">\r\n        <div formGroupName=\"additionalInfo\">\r\n\r\n\r\n            <div class=\"row\">\r\n              <div class=\"col-md\">\r\n                <div class=\"form-group\">\r\n                  <label class=\"control-label\">Interest Areas</label>\r\n\r\n\r\n\r\n                  <angular2-multiselect [data]=\"interestedAreasCategory\" [(ngModel)]=\"selectedList\" formControlName=\"interestedAreas\" settings=\"dropdownSettings\"></angular2-multiselect>\r\n\r\n                </div>\r\n              </div>\r\n\r\n            </div>\r\n\r\n\r\n\r\n\r\n        </div>\r\n\r\n        </form>\r\n\r\n      </div>\r\n    <!--</fieldset>-->\r\n  </div>\r\n  <div class=\"text-center\">\r\n <!-- <button  class=\"btn btn-default\" (click)=\"onSubmit()\">Register</button>-->\r\n    <button class=\"btn btn-default\" (click)=\"onSubmit()\"  *ngIf=\"mode!='view' && mode!='edit'\">Register</button>\r\n    <button class=\"btn btn-default\" (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" >Update</button>\r\n\r\n    <button class=\"btn btn-default\"(click)=\"onEdit()\" *ngIf=\"mode=='view'\">Edit</button>\r\n    <button class=\"btn btn-default\"(click)=\"onClose()\" *ngIf=\"mode=='view' || mode=='edit'\" >Close</button>\r\n  </div>\r\n</div>\r\n\r\n"
+
+/***/ }),
+
+/***/ "./src/app/selectablevolunteer/selectablevolunteer.component.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/selectablevolunteer/selectablevolunteer.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: SelectablevolunteerComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectablevolunteerComponent", function() { return SelectablevolunteerComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+var SelectablevolunteerComponent = /** @class */ (function () {
+    function SelectablevolunteerComponent(apiService, router) {
+        this.apiService = apiService;
+        this.router = router;
+        this.data = [];
+        this.selectedEmails = "";
+        this.headers = [
+            { headerName: 'First Name', field: 'firstName', filter: true, sortable: true, headerCheckboxSelection: true,
+                headerCheckboxSelectionFilteredOnly: true,
+                checkboxSelection: true },
+            { headerName: 'Last Name', field: 'lastName', filter: true },
+            { headerName: 'Phone Prefix', field: 'phonePrefix', filter: true },
+            { headerName: 'Phone Number', field: 'phoneNumber', filter: true },
+            { headerName: 'Phone Prefix', field: 'alternatePhonePrefix', filter: true },
+            { headerName: 'Alternate Phone Number', field: 'alternatePhoneNumber', filter: true },
+            { headerName: 'EmailId', field: 'email', filter: true },
+            { headerName: 'EmailId2', field: 'alternateEmail', filter: true },
+            { headerName: 'Locality', field: 'locality', filter: true },
+            { headerName: 'City', field: 'city', filter: true },
+            { headerName: 'State', field: 'state', filter: true },
+            { headerName: 'PinCode', field: 'pincode', filter: true },
+            { headerName: 'Interested Areas', field: 'interestedAreas' }
+        ];
+        this.interestedList = new Array();
+    }
+    SelectablevolunteerComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.rowSelection = "multiple";
+        this.apiService.getData('volunteer').subscribe(function (response) {
+            var result = JSON.parse(JSON.stringify(response));
+            Array.from(result).forEach(function (element) {
+                var interestedAreas1 = JSON.parse(JSON.stringify(element)).interestedAreas;
+                while (_this.interestedList.length) {
+                    _this.interestedList.pop();
+                }
+                for (var _i = 0, interestedAreas1_1 = interestedAreas1; _i < interestedAreas1_1.length; _i++) {
+                    var val = interestedAreas1_1[_i];
+                    console.log("hey:" + val["interestedArea"]);
+                    _this.interestedList.push(val["interestedArea"]);
+                }
+                Object.assign(element, { interestedAreas: _this.interestedList.toString()
+                });
+            });
+            console.log(response);
+            console.log(_this.data);
+            _this.data = result;
+        });
+    };
+    SelectablevolunteerComponent.prototype.onGridReady = function (params) {
+        this.gridOptions.columnDefs = this.headers;
+        console.log("You are here");
+        this.gridApi = params.api;
+        this.gridColumnApi = params.columnApi;
+    };
+    SelectablevolunteerComponent.prototype.onRowCilcked = function (event) {
+        console.log(event.rowIndex);
+        // this.router.navigateByUrl("/volunteer/edit/"+((event.rowIndex)+1));
+        //console.log(this.printAllDisplayedRows());
+        this.onBtForEachNodeAfterFilterAndSort();
+    };
+    SelectablevolunteerComponent.prototype.onBtForEachNodeAfterFilterAndSort = function () {
+        console.log("### api.forEachNodeAfterFilterAndSort() ###");
+        //this.gridApi.forEachNodeAfterFilterAndSort(this.printNode);
+        this.gridOptions.api.getSelectedNodes().forEach(function (node) { console.log(node.data.email); });
+    };
+    SelectablevolunteerComponent.prototype.printNode = function (node, index) {
+        if (node.group) {
+            console.log(index + " -> group: " + node.key);
+        }
+        else {
+            console.log(index + " -> data: " + node.data.city + ", " + node.data.email);
+        }
+    };
+    SelectablevolunteerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-selectablevolunteer',
+            template: __webpack_require__(/*! ./selectablevolunteer.component.html */ "./src/app/selectablevolunteer/selectablevolunteer.component.html"),
+            styles: [__webpack_require__(/*! ./selectablevolunteer.component.css */ "./src/app/selectablevolunteer/selectablevolunteer.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    ], SelectablevolunteerComponent);
+    return SelectablevolunteerComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/send-mail/send-mail.component.css":
 /*!***************************************************!*\
   !*** ./src/app/send-mail/send-mail.component.css ***!
@@ -2214,7 +2540,7 @@ var RegisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#mainDiv\n{\n  height: 100%;\n  width:70%;\n  margin:auto;\n  background-color: azure;\n  margin-top: 2%;\n  border-radius: 10px;\n}\n\n#heading\n{\n  height: 50px;\n  width: 70%;\n  /*padding-left: 35%;*/\n  /*margin: auto;*/\n  font-size: 25px;\n  margin-top: 25px;   \n  margin-left: 15%;\n   background-color: burlywood;\n   border-radius: 10px;\n}\n\n#buttonTab\n{\n  padding-left:10%;\n  margin-top: 10px;\n}\n\n#buttonCancel\n{\nmargin-left: 30%;\n}\n\n#buttonSubmit\n{\n  margin-left: 4%;\n}\n\n#backButton\n{\n  width:30%;\n  float:left;\n}\n\n#headingText\n{\n  width:70%;\n  padding-left: 29%;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VuZC1tYWlsL3NlbmQtbWFpbC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztFQUVFLFlBQVk7RUFDWixTQUFTO0VBQ1QsV0FBVztFQUNYLHVCQUF1QjtFQUN2QixjQUFjO0VBQ2QsbUJBQW1CO0FBQ3JCOztBQUVBOztFQUVFLFlBQVk7RUFDWixVQUFVO0VBQ1YscUJBQXFCO0VBQ3JCLGdCQUFnQjtFQUNoQixlQUFlO0VBQ2YsZ0JBQWdCO0VBQ2hCLGdCQUFnQjtHQUNmLDJCQUEyQjtHQUMzQixtQkFBbUI7QUFDdEI7O0FBQ0E7O0VBRUUsZ0JBQWdCO0VBQ2hCLGdCQUFnQjtBQUNsQjs7QUFDQTs7QUFFQSxnQkFBZ0I7QUFDaEI7O0FBQ0E7O0VBRUUsZUFBZTtBQUNqQjs7QUFDQTs7RUFFRSxTQUFTO0VBQ1QsVUFBVTtBQUNaOztBQUNBOztFQUVFLFNBQVM7RUFDVCxpQkFBaUI7QUFDbkIiLCJmaWxlIjoic3JjL2FwcC9zZW5kLW1haWwvc2VuZC1tYWlsLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjbWFpbkRpdlxue1xuICBoZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOjcwJTtcbiAgbWFyZ2luOmF1dG87XG4gIGJhY2tncm91bmQtY29sb3I6IGF6dXJlO1xuICBtYXJnaW4tdG9wOiAyJTtcbiAgYm9yZGVyLXJhZGl1czogMTBweDtcbn1cblxuI2hlYWRpbmdcbntcbiAgaGVpZ2h0OiA1MHB4O1xuICB3aWR0aDogNzAlO1xuICAvKnBhZGRpbmctbGVmdDogMzUlOyovXG4gIC8qbWFyZ2luOiBhdXRvOyovXG4gIGZvbnQtc2l6ZTogMjVweDtcbiAgbWFyZ2luLXRvcDogMjVweDsgICBcbiAgbWFyZ2luLWxlZnQ6IDE1JTtcbiAgIGJhY2tncm91bmQtY29sb3I6IGJ1cmx5d29vZDtcbiAgIGJvcmRlci1yYWRpdXM6IDEwcHg7XG59XG4jYnV0dG9uVGFiXG57XG4gIHBhZGRpbmctbGVmdDoxMCU7XG4gIG1hcmdpbi10b3A6IDEwcHg7XG59XG4jYnV0dG9uQ2FuY2VsXG57XG5tYXJnaW4tbGVmdDogMzAlO1xufVxuI2J1dHRvblN1Ym1pdFxue1xuICBtYXJnaW4tbGVmdDogNCU7XG59XG4jYmFja0J1dHRvblxue1xuICB3aWR0aDozMCU7XG4gIGZsb2F0OmxlZnQ7XG59XG4jaGVhZGluZ1RleHRcbntcbiAgd2lkdGg6NzAlO1xuICBwYWRkaW5nLWxlZnQ6IDI5JTtcbn1cbiJdfQ== */"
+module.exports = "#mainDiv\r\n{\r\n  height: 100%;\r\n  width:70%;\r\n  margin:auto;\r\n  background-color: azure;\r\n  margin-top: 2%;\r\n  border-radius: 10px;\r\n}\r\n\r\n#heading\r\n{\r\n  height: 50px;\r\n  width: 70%;\r\n  /*padding-left: 35%;*/\r\n  /*margin: auto;*/\r\n  font-size: 25px;\r\n  margin-top: 25px;   \r\n  margin-left: 15%;\r\n   background-color: burlywood;\r\n   border-radius: 10px;\r\n}\r\n\r\n#buttonTab\r\n{\r\n  padding-left:10%;\r\n  margin-top: 10px;\r\n}\r\n\r\n#buttonCancel\r\n{\r\nmargin-left: 30%;\r\n}\r\n\r\n#buttonSubmit\r\n{\r\n  margin-left: 4%;\r\n}\r\n\r\n#backButton\r\n{\r\n  width:30%;\r\n  float:left;\r\n}\r\n\r\n#headingText\r\n{\r\n  width:70%;\r\n  padding-left: 29%;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9zZW5kLW1haWwvc2VuZC1tYWlsLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0VBRUUsWUFBWTtFQUNaLFNBQVM7RUFDVCxXQUFXO0VBQ1gsdUJBQXVCO0VBQ3ZCLGNBQWM7RUFDZCxtQkFBbUI7QUFDckI7O0FBRUE7O0VBRUUsWUFBWTtFQUNaLFVBQVU7RUFDVixxQkFBcUI7RUFDckIsZ0JBQWdCO0VBQ2hCLGVBQWU7RUFDZixnQkFBZ0I7RUFDaEIsZ0JBQWdCO0dBQ2YsMkJBQTJCO0dBQzNCLG1CQUFtQjtBQUN0Qjs7QUFDQTs7RUFFRSxnQkFBZ0I7RUFDaEIsZ0JBQWdCO0FBQ2xCOztBQUNBOztBQUVBLGdCQUFnQjtBQUNoQjs7QUFDQTs7RUFFRSxlQUFlO0FBQ2pCOztBQUNBOztFQUVFLFNBQVM7RUFDVCxVQUFVO0FBQ1o7O0FBQ0E7O0VBRUUsU0FBUztFQUNULGlCQUFpQjtBQUNuQiIsImZpbGUiOiJhcHAvc2VuZC1tYWlsL3NlbmQtbWFpbC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI21haW5EaXZcclxue1xyXG4gIGhlaWdodDogMTAwJTtcclxuICB3aWR0aDo3MCU7XHJcbiAgbWFyZ2luOmF1dG87XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogYXp1cmU7XHJcbiAgbWFyZ2luLXRvcDogMiU7XHJcbiAgYm9yZGVyLXJhZGl1czogMTBweDtcclxufVxyXG5cclxuI2hlYWRpbmdcclxue1xyXG4gIGhlaWdodDogNTBweDtcclxuICB3aWR0aDogNzAlO1xyXG4gIC8qcGFkZGluZy1sZWZ0OiAzNSU7Ki9cclxuICAvKm1hcmdpbjogYXV0bzsqL1xyXG4gIGZvbnQtc2l6ZTogMjVweDtcclxuICBtYXJnaW4tdG9wOiAyNXB4OyAgIFxyXG4gIG1hcmdpbi1sZWZ0OiAxNSU7XHJcbiAgIGJhY2tncm91bmQtY29sb3I6IGJ1cmx5d29vZDtcclxuICAgYm9yZGVyLXJhZGl1czogMTBweDtcclxufVxyXG4jYnV0dG9uVGFiXHJcbntcclxuICBwYWRkaW5nLWxlZnQ6MTAlO1xyXG4gIG1hcmdpbi10b3A6IDEwcHg7XHJcbn1cclxuI2J1dHRvbkNhbmNlbFxyXG57XHJcbm1hcmdpbi1sZWZ0OiAzMCU7XHJcbn1cclxuI2J1dHRvblN1Ym1pdFxyXG57XHJcbiAgbWFyZ2luLWxlZnQ6IDQlO1xyXG59XHJcbiNiYWNrQnV0dG9uXHJcbntcclxuICB3aWR0aDozMCU7XHJcbiAgZmxvYXQ6bGVmdDtcclxufVxyXG4jaGVhZGluZ1RleHRcclxue1xyXG4gIHdpZHRoOjcwJTtcclxuICBwYWRkaW5nLWxlZnQ6IDI5JTtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -2225,7 +2551,7 @@ module.exports = "#mainDiv\n{\n  height: 100%;\n  width:70%;\n  margin:auto;\n  
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--<div class=\"row custom-row\" id=\"mainDiv\">-->\n  <!--<div class= \"col-sm-5 custom-container jumbotron\">-->\n    <!--<form class=\"form-horizontal\"  #sendmailForm=\"ngForm\"-->\n          <!--(ngSubmit)=\"onFormSubmit(sendmailForm)\" >-->\n      <!--<fieldset>-->\n        <!--<legend>SignUp</legend>-->\n\n        <!--&lt;!&ndash;- To Block -&ndash;&gt;-->\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"toEmail\">to</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"toEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.to\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"to\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"to\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;#emailTo = \"ngModel\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\" required>&ndash;&gt;-->\n        <!--</div>-->\n        <!---->\n\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"ccEmail\">cc</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"ccEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.cc\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"cc\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;#emailCc = \"ngModel\"&ndash;&gt;-->\n\n                 <!--&lt;!&ndash;pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"cc\">&ndash;&gt;-->\n        <!--</div>-->\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"bccEmail\">bcc</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"bccEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.bcc\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"bcc\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;#emailBcc = \"ngModel\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"bcc\" >&ndash;&gt;-->\n        <!--</div>-->\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"subjectEmail\">Subject</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"subjectEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.subject\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"subject\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"subject\" required>&ndash;&gt;-->\n        <!--</div>-->\n        <!--<div class=\"form-group\">-->\n          <!--<label for=\"textEmail\">Text</label>-->\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;id=\"textEmail\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;name=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;placeholder=\"text\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;#pwd = \"ngModel\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;minlength=\"8\"&ndash;&gt;-->\n                 <!--&lt;!&ndash;required>&ndash;&gt;-->\n        <!--</div>-->\n\n\n        <!--&lt;!&ndash;- Buttons Block -&ndash;&gt;-->\n\n      <!--</fieldset>-->\n    <!--</form>-->\n    <!--{{email | json}}-->\n  <!--</div>-->\n  <div id=\"heading\">\n    <div id=\"headingText\">\n    Enter Email Details\n    </div>\n  </div>\n  <div id=\"mainDiv\">\n    <form class=\"form-horizontal\"  #sendmailForm=\"ngForm\"\n          (ngSubmit)=\"onFormSubmit(sendmailForm)\" >\n    <table class=\"table-condensed form-table\">\n      <tr class=\"row\">\n        <td class=\"col-md-6 offset-md-3\">\n          <div class=\"form-group\">\n            <label class=\"control-label\">To</label>\n            <input type=\"text\"\n                   id=\"toEmail\"\n                   [(ngModel)]=\"email.to\"\n                   name=\"to\"\n                   placeholder=\"to\"\n                   #emailTo = \"ngModel\"\n                   pattern=\"([a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3},?)*$\"\n                   class=\"form-control well well-sm\" required>\n          </div>\n        </td>\n        <td class=\"col-md-4 offset-md-3\">\n          <div class=\"form-group\">\n            <div *ngIf=\"emailTo.invalid && (emailTo.dirty || emailTo.touched)\"\n                 class=\"alert alert-danger\">\n              <div *ngIf = \"emailTo.errors?.required\">\n                Email field can't be blank\n              </div>\n              <div *ngIf = \"emailTo.errors?.dirty\">\n                Enter in correct Format\n              </div>\n              <div *ngIf = \"emailTo.errors?.pattern && emailTo.touched\">\n                The email id doesn't seem right\n              </div>\n            </div>\n          </div>\n        </td>\n      </tr>\n\n\n      <tr class=\"row\">\n        <td class=\"col-md-6 offset-md-3\">\n          <div class=\"form-group\">\n            <label class=\"control-label\">Cc</label>\n            <input type=\"text\"\n                   id=\"ccEmail\"\n                   [(ngModel)]=\"email.cc\"\n                   name=\"cc\"\n                   #emailCc = \"ngModel\"\n                   pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\"\n                   placeholder=\"cc\"\n                   class=\"form-control well well-sm\">\n          </div>\n        </td>\n        <td class=\"col-md-4 offset-md-3\">\n          <div class=\"form-group\">\n            <div *ngIf=\"emailCc.invalid && (emailCc.dirty || emailCc.touched)\"\n                 class=\"alert alert-danger\">\n              <div *ngIf = \"emailCc.errors?.required\">\n                Email field can't be blank\n              </div>\n              <div *ngIf = \"emailCc.errors?.dirty\">\n                Enter in correct Format\n              </div>\n              <div *ngIf = \"emailCc.errors?.pattern && emailCc.touched\">\n                The email id doesn't seem right\n              </div>\n            </div>\n          </div>\n        </td>\n      </tr>\n      <tr class=\"row\">\n        <td class=\"col-md-6 offset-md-3\">\n          <div class=\"form-group\">\n            <label class=\"control-label\">Bcc</label>\n            <input type=\"text\"\n                   id=\"bccEmail\"\n                   [(ngModel)]=\"email.bcc\"\n                   name=\"bcc\"\n                   #emailBcc = \"ngModel\"\n                   pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3},?$\"\n                   placeholder=\"bcc\"\n                   class=\"form-control well well-sm\">\n          </div>\n        </td>\n        <td class=\"col-md-4 offset-md-3\">\n          <div class=\"form-group\">\n            <div *ngIf=\"emailBcc.invalid && (emailBcc.dirty || emailBcc.touched)\"\n                 class=\"alert alert-danger\">\n              <div *ngIf = \"emailBcc.errors?.required\">\n                Email field can't be blank\n              </div>\n              <div *ngIf = \"emailBcc.errors?.dirty\">\n                Enter in correct Format\n              </div>\n              <div *ngIf = \"emailBcc.errors?.pattern && emailBcc.touched\">\n                The email id doesn't seem right\n              </div>\n            </div>\n          </div>\n        </td>\n      </tr>\n      <tr class=\"row\">\n        <td class=\"col-md-2 offset-md-3\">\n          <div class=\"form-group\">\n\n            <label class=\"control-label\" for=\"subjectEmail\">Subject</label>\n            <textarea type=\"text\"\n                   id=\"subjectEmail\"\n                   [(ngModel)]=\"email.subject\"\n                   name=\"subject\"\n                   placeholder=\"subject\"\n                   class=\"form-control well well-sm\"\n                   required>\n                   </textarea>\n          </div>\n        </td>\n      </tr>\n      <tr class=\"row\">\n        <td class=\"col-md-2 offset-md-3\">\n          <div class=\"form-group\">\n\n            <label class=\"control-label\" for=\"subjectEmail\">Text</label>\n            <textarea type=\"text\"\n                   id=\"textEmail\"\n                   [(ngModel)]=\"email.text\"\n                   name=\"text\"\n                   placeholder=\"text\"\n                   #pwd = \"ngModel\"\n                   minlength=\"8\"\n                   class=\"form-control well well-sm\"\n                   required>\n                   </textarea>\n          </div>\n        </td>\n      </tr>\n    </table>\n    <div class=\"form-group\" id=\"buttonTab\">\n      <button type=\"reset\" class=\"btn btn-default\" id=\"buttonCancel\" >Cancel</button>\n      <button type=\"submit\" class=\"btn btn-primary\"\n              [disabled]=\"!sendmailForm.form.valid\" id=\"buttonSubmit\">Submit</button>\n    </div>\n</form>\n</div>\n"
+module.exports = "<!--<div class=\"row custom-row\" id=\"mainDiv\">-->\r\n  <!--<div class= \"col-sm-5 custom-container jumbotron\">-->\r\n    <!--<form class=\"form-horizontal\"  #sendmailForm=\"ngForm\"-->\r\n          <!--(ngSubmit)=\"onFormSubmit(sendmailForm)\" >-->\r\n      <!--<fieldset>-->\r\n        <!--<legend>SignUp</legend>-->\r\n\r\n        <!--&lt;!&ndash;- To Block -&ndash;&gt;-->\r\n        <!--<div class=\"form-group\">-->\r\n          <!--<label for=\"toEmail\">to</label>-->\r\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;id=\"toEmail\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.to\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;name=\"to\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;placeholder=\"to\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;#emailTo = \"ngModel\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\" required>&ndash;&gt;-->\r\n        <!--</div>-->\r\n        <!---->\r\n\r\n        <!--<div class=\"form-group\">-->\r\n          <!--<label for=\"ccEmail\">cc</label>-->\r\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;id=\"ccEmail\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.cc\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;name=\"cc\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;#emailCc = \"ngModel\"&ndash;&gt;-->\r\n\r\n                 <!--&lt;!&ndash;pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;placeholder=\"cc\">&ndash;&gt;-->\r\n        <!--</div>-->\r\n        <!--<div class=\"form-group\">-->\r\n          <!--<label for=\"bccEmail\">bcc</label>-->\r\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;id=\"bccEmail\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.bcc\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;name=\"bcc\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;#emailBcc = \"ngModel\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;placeholder=\"bcc\" >&ndash;&gt;-->\r\n        <!--</div>-->\r\n        <!--<div class=\"form-group\">-->\r\n          <!--<label for=\"subjectEmail\">Subject</label>-->\r\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;id=\"subjectEmail\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.subject\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;name=\"subject\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;placeholder=\"subject\" required>&ndash;&gt;-->\r\n        <!--</div>-->\r\n        <!--<div class=\"form-group\">-->\r\n          <!--<label for=\"textEmail\">Text</label>-->\r\n          <!--&lt;!&ndash;<input type=\"text\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;id=\"textEmail\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;[(ngModel)]=\"email.text\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;name=\"text\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;placeholder=\"text\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;#pwd = \"ngModel\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;minlength=\"8\"&ndash;&gt;-->\r\n                 <!--&lt;!&ndash;required>&ndash;&gt;-->\r\n        <!--</div>-->\r\n\r\n\r\n        <!--&lt;!&ndash;- Buttons Block -&ndash;&gt;-->\r\n\r\n      <!--</fieldset>-->\r\n    <!--</form>-->\r\n    <!--{{email | json}}-->\r\n  <!--</div>-->\r\n  <div id=\"heading\">\r\n    <div id=\"headingText\">\r\n    Enter Email Details\r\n    </div>\r\n  </div>\r\n  <div id=\"mainDiv\">\r\n    <form class=\"form-horizontal\"  #sendmailForm=\"ngForm\"\r\n          (ngSubmit)=\"onFormSubmit(sendmailForm)\" >\r\n    <table class=\"table-condensed form-table\">\r\n      <tr class=\"row\">\r\n        <td class=\"col-md-6 offset-md-3\">\r\n          <div class=\"form-group\">\r\n            <label class=\"control-label\">To</label>\r\n            <input type=\"text\"\r\n                   id=\"toEmail\"\r\n                   [(ngModel)]=\"email.to\"\r\n                   name=\"to\"\r\n                   placeholder=\"to\"\r\n                   #emailTo = \"ngModel\"\r\n                   pattern=\"([a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3},?)*$\"\r\n                   class=\"form-control well well-sm\" required>\r\n          </div>\r\n        </td>\r\n        <td class=\"col-md-4 offset-md-3\">\r\n          <div class=\"form-group\">\r\n            <div *ngIf=\"emailTo.invalid && (emailTo.dirty || emailTo.touched)\"\r\n                 class=\"alert alert-danger\">\r\n              <div *ngIf = \"emailTo.errors?.required\">\r\n                Email field can't be blank\r\n              </div>\r\n              <div *ngIf = \"emailTo.errors?.dirty\">\r\n                Enter in correct Format\r\n              </div>\r\n              <div *ngIf = \"emailTo.errors?.pattern && emailTo.touched\">\r\n                The email id doesn't seem right\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </td>\r\n      </tr>\r\n\r\n\r\n      <tr class=\"row\">\r\n        <td class=\"col-md-6 offset-md-3\">\r\n          <div class=\"form-group\">\r\n            <label class=\"control-label\">Cc</label>\r\n            <input type=\"text\"\r\n                   id=\"ccEmail\"\r\n                   [(ngModel)]=\"email.cc\"\r\n                   name=\"cc\"\r\n                   #emailCc = \"ngModel\"\r\n                   pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$\"\r\n                   placeholder=\"cc\"\r\n                   class=\"form-control well well-sm\">\r\n          </div>\r\n        </td>\r\n        <td class=\"col-md-4 offset-md-3\">\r\n          <div class=\"form-group\">\r\n            <div *ngIf=\"emailCc.invalid && (emailCc.dirty || emailCc.touched)\"\r\n                 class=\"alert alert-danger\">\r\n              <div *ngIf = \"emailCc.errors?.required\">\r\n                Email field can't be blank\r\n              </div>\r\n              <div *ngIf = \"emailCc.errors?.dirty\">\r\n                Enter in correct Format\r\n              </div>\r\n              <div *ngIf = \"emailCc.errors?.pattern && emailCc.touched\">\r\n                The email id doesn't seem right\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </td>\r\n      </tr>\r\n      <tr class=\"row\">\r\n        <td class=\"col-md-6 offset-md-3\">\r\n          <div class=\"form-group\">\r\n            <label class=\"control-label\">Bcc</label>\r\n            <input type=\"text\"\r\n                   id=\"bccEmail\"\r\n                   [(ngModel)]=\"email.bcc\"\r\n                   name=\"bcc\"\r\n                   #emailBcc = \"ngModel\"\r\n                   pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3},?$\"\r\n                   placeholder=\"bcc\"\r\n                   class=\"form-control well well-sm\">\r\n          </div>\r\n        </td>\r\n        <td class=\"col-md-4 offset-md-3\">\r\n          <div class=\"form-group\">\r\n            <div *ngIf=\"emailBcc.invalid && (emailBcc.dirty || emailBcc.touched)\"\r\n                 class=\"alert alert-danger\">\r\n              <div *ngIf = \"emailBcc.errors?.required\">\r\n                Email field can't be blank\r\n              </div>\r\n              <div *ngIf = \"emailBcc.errors?.dirty\">\r\n                Enter in correct Format\r\n              </div>\r\n              <div *ngIf = \"emailBcc.errors?.pattern && emailBcc.touched\">\r\n                The email id doesn't seem right\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </td>\r\n      </tr>\r\n      <tr class=\"row\">\r\n        <td class=\"col-md-2 offset-md-3\">\r\n          <div class=\"form-group\">\r\n\r\n            <label class=\"control-label\" for=\"subjectEmail\">Subject</label>\r\n            <textarea type=\"text\"\r\n                   id=\"subjectEmail\"\r\n                   [(ngModel)]=\"email.subject\"\r\n                   name=\"subject\"\r\n                   placeholder=\"subject\"\r\n                   class=\"form-control well well-sm\"\r\n                   required>\r\n                   </textarea>\r\n          </div>\r\n        </td>\r\n      </tr>\r\n      <tr class=\"row\">\r\n        <td class=\"col-md-2 offset-md-3\">\r\n          <div class=\"form-group\">\r\n\r\n            <label class=\"control-label\" for=\"subjectEmail\">Text</label>\r\n            <textarea type=\"text\"\r\n                   id=\"textEmail\"\r\n                   [(ngModel)]=\"email.text\"\r\n                   name=\"text\"\r\n                   placeholder=\"text\"\r\n                   #pwd = \"ngModel\"\r\n                   minlength=\"8\"\r\n                   class=\"form-control well well-sm\"\r\n                   required>\r\n                   </textarea>\r\n          </div>\r\n        </td>\r\n      </tr>\r\n    </table>\r\n    <div class=\"form-group\" id=\"buttonTab\">\r\n      <button type=\"reset\" class=\"btn btn-default\" id=\"buttonCancel\" >Cancel</button>\r\n      <button type=\"submit\" class=\"btn btn-primary\"\r\n              [disabled]=\"!sendmailForm.form.valid\" id=\"buttonSubmit\">Submit</button>\r\n    </div>\r\n</form>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -2246,8 +2572,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
 /* harmony import */ var _api_service_mail__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../api.service.mail */ "./src/app/api.service.mail.ts");
 /* harmony import */ var _events_add_event_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../events/add-event.component */ "./src/app/events/add-event.component.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-
 
 
 
@@ -2264,9 +2588,9 @@ var SendMailComponent = /** @class */ (function () {
     }
     SendMailComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.pipe = new _angular_common__WEBPACK_IMPORTED_MODULE_7__["DatePipe"]('en-US');
         this.eventData = new _events_add_event_component__WEBPACK_IMPORTED_MODULE_6__["Eventdata"]();
-        this.email = new _Email__WEBPACK_IMPORTED_MODULE_3__["Email"]({ to: "", cc: "", bcc: "",
+        this.eventData = new _events_add_event_component__WEBPACK_IMPORTED_MODULE_6__["Eventdata"]();
+        this.email = new _Email__WEBPACK_IMPORTED_MODULE_3__["Email"]({ to: this.route.snapshot.paramMap.get('emails'), cc: "", bcc: "",
             text: "", eventId: this.route.snapshot.paramMap.get('id'), subject: "" });
         this.apiService.getData('event', this.route.snapshot.paramMap.get('id'), false).subscribe(function (data) {
             _this.eventData.eventfromTime = data.eventfromTime;
@@ -2278,7 +2602,7 @@ var SendMailComponent = /** @class */ (function () {
             console.log(_this.eventData.eventtoTime);
             console.log(_this.eventData.ngoName);
             console.log(_this.eventData.eventName);
-            _this.getEmailId();
+            //this.getEmailId();
             console.log(_this.resp);
             console.log(_this.email.to);
         }, function (err) {
@@ -2291,6 +2615,8 @@ var SendMailComponent = /** @class */ (function () {
         console.log(this.route.snapshot.paramMap.get("name"));
         //this.eventData.eventCategory='abc';
         this.apiServiceMail.postData(this.email);
+        // console.log("hello mate, routing offf");
+        //this.router.navigate(['selectVolenteer']);
     };
     SendMailComponent.prototype.createDefaultSubject = function (eventName, ngoName, eventTo, eventFor) {
         return "We invite You for event : " + eventName + "by NGO : " + ngoName + " from :" + eventFor + "to : " + eventTo;
@@ -2468,7 +2794,7 @@ var UrlPermission = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZvbHVudGVlci1ncmlkL3ZvbHVudGVlci1ncmlkLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvdm9sdW50ZWVyLWdyaWQvdm9sdW50ZWVyLWdyaWQuY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -2479,7 +2805,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> Volunteer </strong></h3>\n  </div>\n  <div  #myGrid  style=\"width: 100%; height: 100%;\">\n    <ag-grid-angular style=\"height: 100%;\"\n      class=\"ag-theme-balham\"\n      [rowData]=\"data\"\n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\"\n\n    >\n\n    </ag-grid-angular>\n  </div>\n  <div class=\"col-md-10\">\n      <div style=\"text-align:right\">\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/volunteer'])\">\n          Add Volunteer\n      </button>\n      </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"page-header well text-center well-sm\">\r\n    <h3><strong> Volunteer </strong></h3>\r\n  </div>\r\n  <div  #myGrid  style=\"width: 100%; height: 600px;\">\r\n    <ag-grid-angular style=\"height: 100%;\"\r\n      class=\"ag-theme-balham\"\r\n      [rowData]=\"data\"\r\n      [columnDefs]=\"headers\"\r\n      (rowClicked)=\"onRowCilcked($event)\"\r\n      (gridReady)=\"onGridReady($event)\"\r\n      [rowSelection]=\"rowSelection\"\r\n      [gridOptions]=\"gridOptions\"\r\n      >\r\n    </ag-grid-angular>\r\n  </div>\r\n  <div class=\"col-md-10\">\r\n      <div style=\"text-align:right\">\r\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/volunteer'])\">\r\n          Add Volunteer\r\n      </button>\r\n      <button type=\"button\" (click)=\"onBtForEachNodeAfterFilterAndSort()\">\r\n        send mail\r\n        </button>\r\n      </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -2502,29 +2828,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var VolunteerGridComponent = /** @class */ (function () {
-    function VolunteerGridComponent(apiService, router) {
+    function VolunteerGridComponent(apiService, router, route) {
         this.apiService = apiService;
         this.router = router;
+        this.route = route;
         this.data = [];
+        this.selectedEmails = "";
         this.headers = [
-            { headerName: 'First Name', field: 'firstName', filter: true, sortable: true },
+            { headerName: 'First Name', field: 'firstName', filter: true, sortable: true, headerCheckboxSelection: true,
+                headerCheckboxSelectionFilteredOnly: true,
+                checkboxSelection: true },
             { headerName: 'Last Name', field: 'lastName', filter: true },
-            { headerName: 'Phone Prefix', field: 'phonePrefix', filter: true },
-            { headerName: 'Phone Number', field: 'phoneNumber', filter: true },
-            { headerName: 'Phone Prefix', field: 'alternatePhonePrefix', filter: true },
-            { headerName: 'Alternate Phone Number', field: 'alternatePhoneNumber', filter: true },
+            { headerName: 'Contact Number', field: 'phoneNumber', filter: true },
+            { headerName: 'Alternate Contact Number', field: 'alternatePhoneNumber', filter: true },
             { headerName: 'EmailId', field: 'email', filter: true },
-            { headerName: 'EmailId2', field: 'alternateEmail', filter: true },
             { headerName: 'Locality', field: 'locality', filter: true },
             { headerName: 'City', field: 'city', filter: true },
             { headerName: 'State', field: 'state', filter: true },
             { headerName: 'PinCode', field: 'pincode', filter: true },
-            { headerName: 'Interested Areas', field: 'interestedAreas' }
+            { headerName: 'Interested Areas', field: 'interestedAreas', filter: true },
+            { headerName: 'PreferredTimings', field: 'volunteerPreferredTimings', filter: true }
         ];
         this.interestedList = new Array();
     }
     VolunteerGridComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.emailsSelected = "";
+        this.eventId = this.route.snapshot.paramMap.get('id');
+        this.rowSelection = "multiple";
         this.apiService.getData('volunteer').subscribe(function (response) {
             var result = JSON.parse(JSON.stringify(response));
             Array.from(result).forEach(function (element) {
@@ -2545,9 +2876,46 @@ var VolunteerGridComponent = /** @class */ (function () {
             _this.data = result;
         });
     };
+    VolunteerGridComponent.prototype.onGridReady = function (params) {
+        //this.gridOptions=params.GridOptions;
+        console.log("You are here");
+        this.gridApi = params.api;
+        this.gridColumnApi = params.columnApi;
+        this.gridColumnApi.columnDefs = params.columnDefs;
+        this.gridOptions = {
+            context: { parentComponent: this },
+        };
+        //new agGrid.Grid( this.gridOptions)
+    };
     VolunteerGridComponent.prototype.onRowCilcked = function (event) {
         console.log(event.rowIndex);
-        this.router.navigateByUrl("/volunteer/edit/" + ((event.rowIndex) + 1));
+        // this.router.navigateByUrl("/volunteer/edit/"+((event.rowIndex)+1));
+        //console.log(this.printAllDisplayedRows());
+        console.log("### api.forEachNodeAfterFilterAndSort() ###");
+        //this.gridApi.forEachNodeAfterFilterAndSort(this.printNode);
+        //  this.gridApi.getSelectedNodes().forEach(node=>{console.log(node.data.email)});
+        this.onBtForEachNodeAfterFilterAndSort();
+    };
+    VolunteerGridComponent.prototype.onBtForEachNodeAfterFilterAndSort = function () {
+        var _this = this;
+        console.log("### api.forEachNodeAfterFilterAndSort() ###");
+        //this.gridApi.forEachNodeAfterFilterAndSort(this.printNode);
+        this.gridApi.getSelectedNodes().forEach(function (node) { _this.appendEmails(node.data.email); });
+        this.router.navigate(['email', { id: this.eventId, emails: this.emailsSelected }]);
+    };
+    VolunteerGridComponent.prototype.printNode = function (node, index) {
+        if (node.group) {
+            console.log(index + " -> group: " + node.key);
+        }
+        else {
+            console.log(index + " -> data: " + node.data.city + ", " + node.data.email);
+        }
+    };
+    VolunteerGridComponent.prototype.appendEmails = function (email) {
+        if (this.emailsSelected == "")
+            this.emailsSelected = email;
+        else
+            this.emailsSelected = this.emailsSelected + "," + email;
     };
     VolunteerGridComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2556,7 +2924,7 @@ var VolunteerGridComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./volunteer-grid.component.css */ "./src/app/volunteer-grid/volunteer-grid.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
     ], VolunteerGridComponent);
     return VolunteerGridComponent;
 }());
@@ -2572,7 +2940,7 @@ var VolunteerGridComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n.text-on-pannel {\n  background: #fff none repeat scroll 0 0;\n  height: auto;\n  margin-left: 20px;\n  padding: 3px 5px;\n  position: absolute;\n  margin-top: -20px;\n  border: 1px solid #337ab7;\n  border-radius: 8px;\n}\n\n.panel {\n\n  margin-top: 27px !important;\n}\n\n.panel-body {\n  padding-top: 30px !important;\n}\n\n.field-invalid\n{\ncolor:pink;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdm9sdW50ZWVyL3ZvbHVudGVlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFDQTtFQUNFLHVDQUF1QztFQUN2QyxZQUFZO0VBQ1osaUJBQWlCO0VBQ2pCLGdCQUFnQjtFQUNoQixrQkFBa0I7RUFDbEIsaUJBQWlCO0VBQ2pCLHlCQUF5QjtFQUN6QixrQkFBa0I7QUFDcEI7O0FBRUE7O0VBRUUsMkJBQTJCO0FBQzdCOztBQUVBO0VBQ0UsNEJBQTRCO0FBQzlCOztBQUVBOztBQUVBLFVBQVU7QUFDViIsImZpbGUiOiJzcmMvYXBwL3ZvbHVudGVlci92b2x1bnRlZXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuLnRleHQtb24tcGFubmVsIHtcbiAgYmFja2dyb3VuZDogI2ZmZiBub25lIHJlcGVhdCBzY3JvbGwgMCAwO1xuICBoZWlnaHQ6IGF1dG87XG4gIG1hcmdpbi1sZWZ0OiAyMHB4O1xuICBwYWRkaW5nOiAzcHggNXB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIG1hcmdpbi10b3A6IC0yMHB4O1xuICBib3JkZXI6IDFweCBzb2xpZCAjMzM3YWI3O1xuICBib3JkZXItcmFkaXVzOiA4cHg7XG59XG5cbi5wYW5lbCB7XG5cbiAgbWFyZ2luLXRvcDogMjdweCAhaW1wb3J0YW50O1xufVxuXG4ucGFuZWwtYm9keSB7XG4gIHBhZGRpbmctdG9wOiAzMHB4ICFpbXBvcnRhbnQ7XG59XG5cbi5maWVsZC1pbnZhbGlkXG57XG5jb2xvcjpwaW5rO1xufVxuIl19 */"
+module.exports = "\r\n.text-on-pannel {\r\n  background: #fff none repeat scroll 0 0;\r\n  height: auto;\r\n  margin-left: 20px;\r\n  padding: 3px 5px;\r\n  position: absolute;\r\n  margin-top: -20px;\r\n  border: 1px solid #337ab7;\r\n  border-radius: 8px;\r\n}\r\n\r\n.panel {\r\n\r\n  margin-top: 27px a!important;\r\n}\r\n\r\n.panel-body {\r\n  padding-top: 30px !important;\r\n}\r\n\r\n.field-invalid\r\n{\r\ncolor:pink;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC92b2x1bnRlZXIvdm9sdW50ZWVyLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUNBO0VBQ0UsdUNBQXVDO0VBQ3ZDLFlBQVk7RUFDWixpQkFBaUI7RUFDakIsZ0JBQWdCO0VBQ2hCLGtCQUFrQjtFQUNsQixpQkFBaUI7RUFDakIseUJBQXlCO0VBQ3pCLGtCQUFrQjtBQUNwQjs7QUFFQTs7RUFFRSw0QkFBNEI7QUFDOUI7O0FBRUE7RUFDRSw0QkFBNEI7QUFDOUI7O0FBRUE7O0FBRUEsVUFBVTtBQUNWIiwiZmlsZSI6ImFwcC92b2x1bnRlZXIvdm9sdW50ZWVyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcclxuLnRleHQtb24tcGFubmVsIHtcclxuICBiYWNrZ3JvdW5kOiAjZmZmIG5vbmUgcmVwZWF0IHNjcm9sbCAwIDA7XHJcbiAgaGVpZ2h0OiBhdXRvO1xyXG4gIG1hcmdpbi1sZWZ0OiAyMHB4O1xyXG4gIHBhZGRpbmc6IDNweCA1cHg7XHJcbiAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gIG1hcmdpbi10b3A6IC0yMHB4O1xyXG4gIGJvcmRlcjogMXB4IHNvbGlkICMzMzdhYjc7XHJcbiAgYm9yZGVyLXJhZGl1czogOHB4O1xyXG59XHJcblxyXG4ucGFuZWwge1xyXG5cclxuICBtYXJnaW4tdG9wOiAyN3B4IGEhaW1wb3J0YW50O1xyXG59XHJcblxyXG4ucGFuZWwtYm9keSB7XHJcbiAgcGFkZGluZy10b3A6IDMwcHggIWltcG9ydGFudDtcclxufVxyXG5cclxuLmZpZWxkLWludmFsaWRcclxue1xyXG5jb2xvcjpwaW5rO1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -2583,7 +2951,7 @@ module.exports = "\n.text-on-pannel {\n  background: #fff none repeat scroll 0 0
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"page-header well well-sm text-center\">\n    <h3><strong> Volunteer Registration</strong></h3>\n  </div>\n  <div class=\"panel panel-info\" >\n   <!-- <fieldset>\n\n    <legend>Personal Details</legend>-->\n    <!--<h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Personal Information</strong></h3>-->\n  <div class=\"panel-heading\">\n    <label>Personal Information</label>\n  </div>\n  <div class=\"panel-body\" >\n    <form #form=\"ngForm\" [formGroup]=\"myForm\" (ngSubmit)=\"personalInfo()\">\n    <div  formGroupName=\"personalInfo\">\n\n\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">First Name</label>\n              <input type=\"text\" formControlName = \"firstName\" class=\"form-control well well-sm\"[ngClass]=\"{'is-invalid':myForm.controls['personalInfo'].controls.firstName.errors&&(myForm.controls['personalInfo'].controls.firstName.dirty||myForm.controls['personalInfo'].controls.firstName.touched)}\">\n              <div *ngIf=\"myForm.controls['personalInfo'].controls.firstName.errors&&(myForm.controls['personalInfo'].controls.firstName.dirty||myForm.controls['personalInfo'].controls.firstName.touched)\" class=\"invalid-feedback\">\n                <div *ngIf=\"myForm.controls['personalInfo'].controls.firstName.errors.required\" class=\"field-invalid\">First Name is required</div>\n              </div>\n            </div>\n          </div>\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Last Name</label>\n              <input type=\"text\" formControlName = \"lastName\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-1 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Prefix</label>\n              <input type=\"text\" formControlName = \"phonePrefix\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Phone Number</label>\n              <input type=\"text\" formControlName = \"phoneNumber\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-1 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Prefix</label>\n              <input type=\"text\" formControlName = \"alternatePhonePrefix\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Alternate Phone</label>\n              <input type=\"text\" formControlName = \"alternatePhoneNumber\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group required\">\n              <label class=\"control-label\">Email</label>\n              <input type=\"text\" formControlName = \"email\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n\n          <div class=\"col-md-6 offset-md-3\">\n            <div class=\"form-group\">\n              <label class=\"control-label\">Alternate Email</label>\n              <input type=\"text\" formControlName = \"alternateEmail\" class=\"form-control well well-sm\">\n            </div>\n          </div>\n        </div>\n\n\n    </div>\n    </form>\n  </div>\n    <!--</fieldset>-->\n  </div>\n\n  <div class=\"panel panel-info\">\n    <!--<fieldset>\n\n      <legend>Address</legend>-->\n\n    <!--<h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Address</strong></h3>-->\n    <div class=\"panel-heading\">\n      <label>Address</label>\n    </div>\n      <div class=\"panel-body\">\n        <form [formGroup]=\"myForm\" >\n        <div formGroupName=\"address\">\n\n\n            <div class=\"row\">\n              <div class=\"col-md-6 offset-md-3\">\n                <div class=\"form-group required\">\n                  <label class=\"control-label\">Locality</label>\n                  <input type=\"text\" formControlName = \"locality\" class=\"form-control well well-sm\">\n                </div>\n              </div>\n              <div class=\"col-md-6 offset-md-3\">\n                <div class=\"form-group required\">\n                  <label class=\"control-label\">City</label>\n                  <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\n                </div>\n              </div>\n            </div>\n\n            <div class=\"row\">\n              <div class=\"col-md-6 offset-md-3\">\n                <div class=\"form-group required\">\n                  <label class=\"control-label\">State</label>\n                  <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\n                </div>\n              </div>\n\n              <div class=\"col-md-6 offset-md-3\">\n                <div class=\"form-group required\">\n                  <label class=\"control-label\">Pin Code</label>\n                  <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\n                </div>\n              </div>\n            </div>\n\n\n        </div>\n        </form>\n      </div>\n   <!-- </fieldset>-->\n  </div>\n  <div class=\"panel panel-info\">\n    <!--<fieldset>\n\n      <legend>Additional Information</legend>-->\n   <!-- <h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Additional Information </strong></h3>-->\n      <div class=\"panel-heading\">\n        <label>Additional Information</label>\n      </div>\n      <div class=\"panel-body\">\n        <form #form=\"ngForm\" [formGroup]=\"myForm\" (ngSubmit)=\"additionalInfo()\">\n        <div formGroupName=\"additionalInfo\">\n\n\n            <div class=\"row\">\n              <div class=\"col-md\">\n                <div class=\"form-group\">\n                  <label class=\"control-label\">Interest Areas</label>\n\n\n\n                  <angular2-multiselect [data]=\"interestedAreasCategory\" [(ngModel)]=\"selectedList\" formControlName=\"interestedAreas\" settings=\"dropdownSettings\"></angular2-multiselect>\n\n                </div>\n              </div>\n\n            </div>\n\n\n\n\n        </div>\n\n        </form>\n\n      </div>\n    <!--</fieldset>-->\n  </div>\n  <div class=\"text-center\">\n <!-- <button  class=\"btn btn-default\" (click)=\"onSubmit()\">Register</button>-->\n    <button class=\"btn btn-default\" (click)=\"onSubmit()\"  *ngIf=\"mode!='view' && mode!='edit'\">Register</button>\n    <button class=\"btn btn-default\" (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" >Update</button>\n\n    <button class=\"btn btn-default\"(click)=\"onEdit()\" *ngIf=\"mode=='view'\">Edit</button>\n    <button class=\"btn btn-default\"(click)=\"onClose()\" *ngIf=\"mode=='view' || mode=='edit'\" >Close</button>\n  </div>\n</div>\n\n"
+module.exports = "<div class=\"container\">\r\n  <div class=\"page-header well well-sm text-center\">\r\n    <h3><strong> Volunteer Registration</strong></h3>\r\n  </div>\r\n  <div class=\"panel panel-info\" >\r\n   <!-- <fieldset>\r\n\r\n    <legend>Personal Details</legend>-->\r\n    <!--<h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Personal Information</strong></h3>-->\r\n  <div class=\"panel-heading\">\r\n    <label>Personal Information</label>\r\n  </div>\r\n  <div class=\"panel-body\" >\r\n    <form  [formGroup]=\"myForm\" (ngSubmit)=\"personalInfo()\">\r\n    <div  formGroupName=\"personalInfo\">\r\n\r\n\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group required\">\r\n              <label class=\"control-label\">First Name</label>\r\n              <input type=\"text\" formControlName = \"firstName\" class=\"form-control well well-sm\"[ngClass]=\"{'is-invalid':myForm.controls['personalInfo'].controls.firstName.errors&&(myForm.controls['personalInfo'].controls.firstName.dirty||myForm.controls['personalInfo'].controls.firstName.touched)}\">\r\n              <div *ngIf=\"myForm.controls['personalInfo'].controls.firstName.errors&&(myForm.controls['personalInfo'].controls.firstName.dirty||myForm.controls['personalInfo'].controls.firstName.touched)\" class=\"invalid-feedback\">\r\n                <div *ngIf=\"myForm.controls['personalInfo'].controls.firstName.errors.required\" class=\"field-invalid\">First Name is required</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group required\">\r\n              <label class=\"control-label\">Last Name</label>\r\n              <input type=\"text\" formControlName = \"lastName\" class=\"form-control well well-sm\">\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"row\">\r\n\r\n\r\n\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group required\">\r\n              <label class=\"control-label\">Contact Number</label>\r\n              <input type=\"text\" formControlName = \"phoneNumber\" class=\"form-control well well-sm\">\r\n            </div>\r\n          </div>\r\n\r\n\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group\">\r\n              <label class=\"control-label\">Alternate Contact Number</label>\r\n              <input type=\"text\" formControlName = \"alternatePhoneNumber\" class=\"form-control well well-sm\">\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"row\">\r\n          <div class=\"col-md-6 offset-md-3\">\r\n            <div class=\"form-group required\">\r\n              <label class=\"control-label\">Email</label>\r\n              <input type=\"text\" formControlName = \"email\" class=\"form-control well well-sm\">\r\n            </div>\r\n          </div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n        </div>\r\n\r\n\r\n    </div>\r\n    </form>\r\n  </div>\r\n    <!--</fieldset>-->\r\n  </div>\r\n\r\n  <div class=\"panel panel-info\">\r\n    <!--<fieldset>\r\n\r\n      <legend>Address</legend>-->\r\n\r\n    <!--<h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Address</strong></h3>-->\r\n    <div class=\"panel-heading\">\r\n      <label>Address</label>\r\n    </div>\r\n      <div class=\"panel-body\">\r\n        <form [formGroup]=\"myForm\" >\r\n        <div formGroupName=\"address\">\r\n\r\n\r\n            <div class=\"row\">\r\n              <div class=\"col-md-6 offset-md-3\">\r\n                <div class=\"form-group required\">\r\n                  <label class=\"control-label\">Locality</label>\r\n                  <input type=\"text\" formControlName = \"locality\" class=\"form-control well well-sm\">\r\n                </div>\r\n              </div>\r\n              <div class=\"col-md-6 offset-md-3\">\r\n                <div class=\"form-group required\">\r\n                  <label class=\"control-label\">City</label>\r\n                  <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\r\n                </div>\r\n              </div>\r\n            </div>\r\n\r\n            <div class=\"row\">\r\n              <div class=\"col-md-6 offset-md-3\">\r\n                <div class=\"form-group required\">\r\n                  <label class=\"control-label\">State</label>\r\n                  <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\r\n                </div>\r\n              </div>\r\n\r\n              <div class=\"col-md-6 offset-md-3\">\r\n                <div class=\"form-group required\">\r\n                  <label class=\"control-label\">Pin Code</label>\r\n                  <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\r\n                </div>\r\n              </div>\r\n            </div>\r\n\r\n\r\n        </div>\r\n        </form>\r\n      </div>\r\n   <!-- </fieldset>-->\r\n  </div>\r\n  <div class=\"panel panel-info\">\r\n    <!--<fieldset>\r\n\r\n      <legend>Additional Information</legend>-->\r\n   <!-- <h3 class=\"text-on-pannel text-primary\"><strong class=\"text-uppercase\"> Additional Information </strong></h3>-->\r\n      <div class=\"panel-heading\">\r\n        <label>Additional Information</label>\r\n      </div>\r\n      <div class=\"panel-body\">\r\n        <form [formGroup]=\"myForm\" (ngSubmit)=\"additionalInfo()\">\r\n        <div formGroupName=\"additionalInfo\">\r\n\r\n\r\n            <div class=\"row\">\r\n              <div class=\"col-md-6 offset-md-3\">\r\n                <div class=\"form-group\">\r\n                  <label class=\"control-label\">Interest Areas</label>\r\n\r\n\r\n\r\n                  <angular2-multiselect [data]=\"interestedAreasCategory\" [settings]=\"dropdownSettings\" (onSelect)=\"log($event)\" [(ngModel)]=\"selectedList\"\r\n                                        (onDeSelect)=\"log($event)\" (onSelectAll)=\"log($event)\" (onDeSelectAll)=\"log($event)\"\r\n                                        formControlName=\"interestedAreas\">\r\n                  </angular2-multiselect>\r\n\r\n                  <!--<angular2-multiselect [data]=\"interestedAreasCategory\" [(ngModel)]=\"selectedList\" formControlName=\"interestedAreas\" settings=\"dropdownSettings\"></angular2-multiselect>\r\n-->\r\n                </div>\r\n              </div>\r\n            </div>\r\n          <div class=\"row\">\r\n                <div class=\"col-md-6 offset-md-3\">\r\n                  <div class=\"form-group \">\r\n                    <label class=\"control-label\">Preferred Timings</label>\r\n                    <!-- <input type=\"text\" formControlName=\"mouStatus\" class=\"form-control well well-sm\"> -->\r\n                    <select formControlName=\"volunteerPreferredTimes\" class=\"form-control\">\r\n                      <option *ngFor=\"let action of preferredTimings\" [value]=\"action\">{{action}}</option>\r\n                    </select>\r\n                  </div>\r\n                </div\r\n                >\r\n              </div>\r\n\r\n            </div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n        </form>\r\n\r\n      </div>\r\n    <!--</fieldset>-->\r\n  </div>\r\n  <div class=\"text-center\">\r\n <!-- <button  class=\"btn btn-default\" (click)=\"onSubmit()\">Register</button>-->\r\n    <button class=\"btn btn-default\" (click)=\"onSubmit()\"  *ngIf=\"mode!='view' && mode!='edit'\">Register</button>\r\n    <button class=\"btn btn-default\" (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" >Update</button>\r\n\r\n    <button class=\"btn btn-default\"(click)=\"onEdit()\" *ngIf=\"mode=='view'\">Edit</button>\r\n    <button class=\"btn btn-default\"(click)=\"onClose()\" *ngIf=\"mode=='view' || mode=='edit'\" >Close</button>\r\n  </div>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -2601,21 +2969,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _inventory_data_inventorydata_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../inventory-data/inventorydata.service */ "./src/app/inventory-data/inventorydata.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
 
 
 
 
 
 var VolunteerComponent = /** @class */ (function () {
-    function VolunteerComponent(formBuilder, apiService, route, router) {
+    function VolunteerComponent(formBuilder, inventoryService, apiService, route, router) {
         this.formBuilder = formBuilder;
+        this.inventoryService = inventoryService;
         this.apiService = apiService;
         this.route = route;
         this.router = router;
-        this.selected = new Array();
+        this.interestedAreasCategory = [];
         this.interestedList = new Array();
         this.dropdownSettings = {};
+        this.preferredTimings = ['Weekdays', 'Weekends', 'Both Weekdays and Weekends'];
     }
     VolunteerComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -2624,14 +2996,23 @@ var VolunteerComponent = /** @class */ (function () {
             address: this.address(),
             additionalInfo: this.additionalInfo()
         });
-        this.interestedAreasCategory = [
-            { "id": 1, "itemName": "Education" },
-            { "id": 2, "itemName": "Health" },
-            { "id": 3, "itemName": "Environment" }
-        ];
+        this.inventoryService.getEventCategoryList().subscribe(function (data) {
+            _this.interestedAreasCategorydata = data;
+            _this.interestedAreasCategory = _this.interestedAreasCategorydata.map(function (interestedAreasCategory) {
+                console.log("888", interestedAreasCategory.value);
+                return { "id": interestedAreasCategory.key, "itemName": interestedAreasCategory.value };
+            });
+        }, function (err) {
+            console.log(err.message);
+        });
+        //  this.interestedAreasCategory = [
+        //   { "id": 1, "itemName": "Education" },
+        //  { "id": 2, "itemName": "Health" },
+        // { "id": 3, "itemName": "Environment" }
+        //];
         this.dropdownSettings = {
             singleSelection: false,
-            text: "Select interested Areas",
+            text: "Select Interested Areas",
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             enableSearchFilter: true,
@@ -2648,13 +3029,11 @@ var VolunteerComponent = /** @class */ (function () {
                     _this.apiService.getData('volunteer', _this.id, true).subscribe(function (result) {
                         var data = JSON.parse(JSON.stringify(result));
                         console.log("GetResponse: " + data);
+                        data.additionalInfo.interestedAreas = data.additionalInfo.interestedAreas.map(function (interestedArea1) { return ({
+                            id: data.additionalInfo.interestedAreas.indexOf(interestedArea1),
+                            itemName: interestedArea1.interestedArea
+                        }); });
                         if (data.additionalInfo.interestedAreas) {
-                            data.additionalInfo.interestedAreas.forEach(function (interestedArea, index) {
-                                if (index != 0) {
-                                    _this.selected.push({ "id": interestedArea["id"], "itemName": interestedArea["interestedArea"] });
-                                }
-                            });
-                            _this.setSelectedList(_this.selected);
                         }
                         _this.myForm.setValue(data);
                     });
@@ -2664,10 +3043,6 @@ var VolunteerComponent = /** @class */ (function () {
                 }
             }
         });
-    };
-    VolunteerComponent.prototype.setSelectedList = function (selected) {
-        console.log("came to selected");
-        this.selectedList = selected;
     };
     VolunteerComponent.prototype.ngAfterViewInit = function () {
         if (this.mode == 'view') {
@@ -2680,6 +3055,8 @@ var VolunteerComponent = /** @class */ (function () {
                 element.disabled = false;
             });
         }
+    };
+    VolunteerComponent.prototype.log = function ($event) {
     };
     VolunteerComponent.prototype.personalInfo = function () {
         var aboutVolunteer = this.formBuilder.group({
@@ -2695,12 +3072,7 @@ var VolunteerComponent = /** @class */ (function () {
             alternatePhoneNumber: ['', [
                     _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern("^[0-9]+$"), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(10), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(10)
                 ]],
-            phonePrefix: ['', []],
-            alternatePhonePrefix: ['', []],
             email: ['', [
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(50)
-                ]],
-            alternateEmail: ['', [
                     _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(50)
                 ]]
         });
@@ -2726,14 +3098,10 @@ var VolunteerComponent = /** @class */ (function () {
     VolunteerComponent.prototype.additionalInfo = function () {
         var me = this;
         var additionalInfo = this.formBuilder.group({
-            interestedAreas: [this.formBuilder.array([this.interestedArea]), []],
+            interestedAreas: ['', []],
+            volunteerPreferredTimes: ['', []]
         });
         return additionalInfo;
-    };
-    VolunteerComponent.prototype.interestedArea = function () {
-        return this.formBuilder.group({
-            interestedArea: ['', []]
-        });
     };
     VolunteerComponent.prototype.onEdit = function () {
         this.router.navigateByUrl("/volunteer/edit/" + this.id);
@@ -2744,23 +3112,16 @@ var VolunteerComponent = /** @class */ (function () {
     };
     VolunteerComponent.prototype.onSubmit = function () {
         console.log("Insubmit");
-        if (this.selectedList) {
-            for (var _i = 0, _a = this.selectedList; _i < _a.length; _i++) {
-                var val = _a[_i];
-                console.log("interestedArea:" + val["itemName"]);
-                this.interestedList.push({ "interestedArea": val["itemName"] });
-            }
-        }
-        console.log(this.address);
+        this.interestedList = this.myForm.get('additionalInfo').get('interestedAreas').value.map(function (interestedArea) { return { "interestedArea": interestedArea.itemName }; });
         if (this.myForm.valid) {
             console.log("valid");
-            var json = Object.assign(this.myForm.get('personalInfo').value, this.myForm.get('address').value, { interestedAreas: this.interestedList });
+            var json = Object.assign(this.myForm.get('personalInfo').value, this.myForm.get('address').value, { interestedAreas: this.interestedList }, { volunteerPreferredTimes: this.myForm.get('additionalInfo').get('volunteerPreferredTimes').value });
             if (this.mode == 'edit') {
                 json = Object.assign(json, { id: this.id });
             }
             console.log('submitting: ', json);
             var response = this.apiService.postData(json, 'volunteer');
-            console.log("boolean is" + response);
+            console.log("response is" + response);
             while (this.interestedList.length) {
                 this.interestedList.pop();
             }
@@ -2776,11 +3137,9 @@ var VolunteerComponent = /** @class */ (function () {
         }
         else {
             console.log("invalid");
+            alert('please fill all the mandatory details');
         }
         console.log("address is" + this.myForm.valid);
-    };
-    VolunteerComponent.prototype.fx = function (val) {
-        console.log(val);
     };
     VolunteerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2788,8 +3147,8 @@ var VolunteerComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./volunteer.component.html */ "./src/app/volunteer/volunteer.component.html"),
             styles: [__webpack_require__(/*! ./volunteer.component.css */ "./src/app/volunteer/volunteer.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
-            _api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _inventory_data_inventorydata_service__WEBPACK_IMPORTED_MODULE_4__["InventorydataService"],
+            _api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], VolunteerComponent);
     return VolunteerComponent;
 }());
@@ -2805,7 +3164,7 @@ var VolunteerComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3dlbGNvbWUvd2VsY29tZS5jb21wb25lbnQuY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvd2VsY29tZS93ZWxjb21lLmNvbXBvbmVudC5jc3MifQ== */"
 
 /***/ }),
 
@@ -2816,7 +3175,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  Welcome to Youth For Seva\n</p>\n"
+module.exports = "<p>\r\n  Welcome to Youth For Seva\r\n</p>\r\n"
 
 /***/ }),
 
@@ -2967,7 +3326,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/force/Documents/yfsevents/yfsevents-web/src/main/web/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\Dell\IdeaProjects\yfsevents\yfsevents-web\src\main\web\src\main.ts */"./src/main.ts");
 
 
 /***/ })

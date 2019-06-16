@@ -31,7 +31,7 @@ public class StagingEmailController {
     private static Logger logger = LoggerFactory.getLogger(StagingEmailController.class);
 
     @PostMapping("save")
-    public ResponseEntity<StagingEmail> saveStagingEmail(@RequestBody Email email){
+    public ResponseEntity<Email> saveStagingEmail(@RequestBody Email email){
         ResponseEntity responseEntity = null;
         List<StagingEmail> stagingEmailList = stagingEmailDataRepository.getStagingEmailByEventId(email.getEventId());
        if(!CollectionUtils.isEmpty(stagingEmailList)){
