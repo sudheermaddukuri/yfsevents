@@ -35,21 +35,7 @@
               (onDeSelect)="log($event)" (onSelectAll)="log($event)" (onDeSelectAll)="log($event)"
               formControlName="ngoName">
             </angular2-multiselect>
-          </div>
-            <div class="row form-row itemsrow">
-              <div class="col-md-6 offset-md-3 form-group">
-                <label for="datepicker">Select Date & Time Range</label>
-                 <input type="text" class="form-control" id="datepicker" formControlName="eventDuration" bsDaterangepicker [bsConfig]="{rangeInputFormat:'DD/MM/YYYY'}"/>
-              </div>
-              <div class="col-md-3 form-group">
-                <timepicker [formControlName]="'fromTime'">
-                  </timepicker>
-              </div>
-              <div class="col-md-3 form-group">
-                <timepicker [formControlName]="'toTime'"></timepicker>
-              </div>
-            </div>
-
+          </div>            
           <div class="col-md-4 form-group">
             <label class="control-label">Category</label>
             <select formControlName="eventCategory" class="form-control" (change)="onCategorySelected()">

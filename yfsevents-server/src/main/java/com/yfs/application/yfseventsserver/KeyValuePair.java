@@ -11,6 +11,11 @@ public class KeyValuePair {
         return value;
     }
 
+    public KeyValuePair(){
+        key=null;
+        value=null;
+    }
+
     public KeyValuePair(Integer key, String value)
     {
         this.key=key;
