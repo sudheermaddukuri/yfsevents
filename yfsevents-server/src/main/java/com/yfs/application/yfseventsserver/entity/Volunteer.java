@@ -15,29 +15,16 @@ public class Volunteer {
 
     private String firstName;
     private String lastName;
-
     private String phoneNumber;
-
     private String alternatePhoneNumber;
     private String email;
-
     private String locality;
     private String city;
     private String state;
     private String pincode;
-
-    public String getVolunteerPreferredTimes() {
-        return volunteerPreferredTimes;
-    }
-
-    public void setVolunteerPreferredTimes(String volunteerPreferredTimes) {
-        this.volunteerPreferredTimes = volunteerPreferredTimes;
-    }
-
     private String volunteerPreferredTimes;
-    /*@OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
-    private List<VolunteerPreferredTime> preferredTimes;
-*/
+    private String occupation;
+
     @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
     private List<VolunteerInterestedArea> interestedAreas;
 
@@ -73,8 +60,6 @@ public class Volunteer {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-
 
     public String getAlternatePhoneNumber() {
         return alternatePhoneNumber;
@@ -125,25 +110,33 @@ public class Volunteer {
         this.pincode = pincode;
     }
 
-    /*public List<VolunteerPreferredTime> getPreferredTimes() {
-        return preferredTimes;
+    public List<KeyValuePair> interestedAreasCategoryList(){
+        return InterestedAreasCategory.getEnumList();
     }
 
-    public void setPreferredTimes(List<VolunteerPreferredTime> preferredTimes) {
-        this.preferredTimes = preferredTimes;
-    }*/
+    public String getVolunteerPreferredTimes() {
+        return volunteerPreferredTimes;
+    }
+
+    public void setVolunteerPreferredTimes(String volunteerPreferredTimes) {
+        this.volunteerPreferredTimes = volunteerPreferredTimes;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
 
     public List<VolunteerInterestedArea> getInterestedAreas() {
         return interestedAreas;
     }
 
-    public void setInterstedAreas(List<VolunteerInterestedArea> interestedAreas) {
+    public void setInterestedAreas(List<VolunteerInterestedArea> interestedAreas) {
         this.interestedAreas = interestedAreas;
     }
-    public List<KeyValuePair> interestedAreasCategoryList(){
-        return InterestedAreasCategory.getEnumList();
-    }
-
 }
 enum InterestedAreasCategory {
 
