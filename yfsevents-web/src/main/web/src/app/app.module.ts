@@ -35,6 +35,13 @@ import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component'
 //import{EventEmiterService} from './event-emmiter-service1.service';
 import { ButtonRendererComponent } from './events/renderer/button-renderer.component';
 import { XhrInterceptor } from './xhrInterceptor';
+import { ResetComponent } from './reset/reset.component';
+import { RegisteredEventsComponent } from './registered-events/registered-events.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormModalComponent } from './form-modal/form-modal.component';
+import { SelectablevolunteerComponent } from './selectablevolunteer/selectablevolunteer.component';
+import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
+
 @NgModule({
 declarations: [
 AppComponent,
@@ -54,7 +61,13 @@ WelcomeComponent,
   VolunteerGridComponent,
   LoginComponent,
 RegisterComponent,
-ButtonRendererComponent
+ButtonRendererComponent,
+ResetComponent,
+RegisteredEventsComponent,
+FormModalComponent,
+SelectablevolunteerComponent,
+BulkUploadComponent
+
   ],
   imports: [
     AgGridModule.withComponents([ButtonRendererComponent]),
@@ -69,12 +82,13 @@ ButtonRendererComponent
     TimepickerModule.forRoot(),
     TypeaheadModule.forRoot(),
     AngularMultiSelectModule,
-    HttpModule
+    HttpModule,
+    NgbModule.forRoot(),
   ],
 
   schemas:[NO_ERRORS_SCHEMA],
   providers: [AuthService, UserService, UrlPermission, AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
-
+  entryComponents:[FormModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

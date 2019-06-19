@@ -48,7 +48,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .httpBasic()
             .and().cors().and().csrf().disable()
             .authorizeRequests()
-            .antMatchers("/**/*.png","/*.png","/*.js","/*.css","/*.woff2","/*.woff","/*.ttf","/*.ico","/user", "/index.html", "/", "/home", "/login","/logout", "/h2-console/**").permitAll()
+            .antMatchers("/**/*.png","/*.png","/*.js","/*.css","/*.woff2","/*.woff","/*.ttf","/*.ico",
+                "/api/user", "/api/preresetpassword/**","/api/resetpassword", "/index.html", "/", "/home",
+                "/api/login","/api/logout", "/h2-console/**").permitAll()
+            .antMatchers("/api//bulk/upload","/api/collegeregistration", "/api/collegeregistration/**",
+                "/sendEmail/**", "/api/event/**", "/api/events",
+                "/inventorydata/**", "/api/partnerngo/**", "/api/partnerngo-list", "/staging/**",
+                "/api/volunteer/**","/api/interestedAreasCategory", "/api/volunteerPresent/**",
+                "/register/**", "/set","/getAccepted/*", "/getAcceptedCount/*", "/getNotAccepted/**", "/getNotAccepted/**",
+                "/getNotAcceptedCount/**", "/get/**", "/api/getAllInformation/**").hasAuthority("ROLE_ADMIN")
+            .antMatchers("/registered-events").hasAuthority("ROLE_USER")
             .anyRequest().authenticated().and().logout().logoutUrl("/logout") ;
 
 

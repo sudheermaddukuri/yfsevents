@@ -15,6 +15,17 @@ public class VolunteerInterestedArea {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "volunteer_id")
     private Volunteer volunteer;
+    private int interestedAreaId;
+
+    public int getInterestedAreaId() {
+        return interestedAreaId;
+    }
+
+    public void setInterestedAreaId(int interestedAreaId) {
+        this.interestedAreaId = interestedAreaId;
+    }
+
+
 
     public long getId() {
         return id;

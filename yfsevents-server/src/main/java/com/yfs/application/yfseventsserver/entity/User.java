@@ -39,6 +39,10 @@ public class User implements UserDetails {
      */
     private String fullName;
 
+    @Column(name = "reset_token")
+    private String resetToken;
+
+
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -101,4 +105,16 @@ public class User implements UserDetails {
     }
 
     public static enum Role {USER}
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

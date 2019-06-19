@@ -27,7 +27,7 @@ export class AppComponent {
 
 
    logout() {
-    this.http.get('logout').subscribe((response)=>{
+    this.http.get('api/logout').subscribe((response)=>{
       this.app.authenticated = false;
       this.router.navigateByUrl('/login');}
       );

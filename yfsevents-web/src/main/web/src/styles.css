@@ -30,9 +30,13 @@
 }*/
 
 .btn-space{
+    margin: 5px;
+}
+
+.btn-space .right{
     margin-right: 5px;
 }
 
 .ag-theme-balham{
-    height:100px;
+    height:600px;
 }
