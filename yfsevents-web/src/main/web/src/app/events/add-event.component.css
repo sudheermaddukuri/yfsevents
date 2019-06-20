@@ -12,3 +12,8 @@
 .itemsrow{
     margin-bottom:0px !important;
 }
+
+.form-group.required .control-label:after{
+    content:"*";
+    color: red;
+}
