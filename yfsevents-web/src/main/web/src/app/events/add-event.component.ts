@@ -40,20 +40,24 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
     constructor(private formBuilder: FormBuilder,private apiService: ApiService,private route:ActivatedRoute,private inventoryService: InventorydataService,
       private router: Router) {
       this.eventForm=this.formBuilder.group({
-        eventName: '',
-        eventAction: 'Not Started',
-        eventDuration: null,
-        fromTime: new Date(),
-        toTime: new Date(),
-        ngoName:[],
-        eventCategory:'',
-        college:'',
-        recurringEvent:'No',
-        items:[],
-        volunteersReq: '',
+        eventName: ['', [
+          Validators.required, Validators.maxLength(50)
+        ]],
+        eventAction: ['Not Started',[
+          Validators.required
+        ]],
+        eventDuration: [null,[Validators.required]],
+        fromTime: [new Date(),[Validators.required]],
+        toTime: [new Date(),[Validators.required]],
+        ngoName:[[],[Validators.required]],
+        eventCategory:['',[Validators.required]],
+        college:['',[Validators.required]],
+        recurringEvent:['No',[Validators.required]],
+        items:[[],[Validators.required]],
+        volunteersReq: ['',[Validators.required]],
         volunteersReg:'',
         volunteersOff:'',
-        comments:'',
+        comments:['',[Validators.required]],
       });
       this.submitSuc=false;
     }
@@ -141,8 +145,8 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
     
   checkForMandatoryValidations(eventDataValues) {
     if (eventDataValues.eventName && eventDataValues.eventAction && eventDataValues.fromTime && eventDataValues.toTime &&
-      eventDataValues.recurringEvent  && eventDataValues.eventCategory && eventDataValues.volunteersReg &&
-      eventDataValues.eventDuration && eventDataValues.items && eventDataValues.volunteersOff
+      eventDataValues.recurringEvent  && eventDataValues.eventCategory && eventDataValues.volunteersReq &&
+      eventDataValues.eventDuration && eventDataValues.items
       )
       return true;
     else
