@@ -5,7 +5,11 @@ import com.yfs.application.yfseventsserver.KeyValuePair;
 import com.yfs.application.yfseventsserver.entity.PartnerNgo;
 import com.yfs.application.yfseventsserver.entity.Volunteer;
 import com.yfs.application.yfseventsserver.repository.*;
+
 import org.hibernate.annotations.Parameter;
+
+import com.yfs.application.yfseventsserver.services.VolunteerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,17 +26,28 @@ public class VolunteerController {
     VolunteerRepository volunteerRepository;
 
     @Autowired
+    VolunteerService volunteerService;
+
+    @Autowired
     VolunteerInterestedAreaRepository volunteerInterestedAreaRepository;
     @Autowired
     VolunteerPreferredTimeRepository volunteerPreferredTimeRepository;
 
+    //ToDo: ONLy foR teStIng. Remove lAter.
+    @ResponseBody
+    @GetMapping("/volunteerPresent/{email}")
+    public boolean checkVolunteer(@PathVariable String email){
+        Volunteer volunteer = new Volunteer();
+        volunteer.setEmail(email);
+        return volunteerService.isPresent(volunteer);
+    }
 
 
     @ResponseBody
     @GetMapping("/interestedAreasCategory")
     public Iterable<KeyValuePair> getInterestedAreasCategoryList(){
         Volunteer volunteer = new Volunteer();
-        return volunteer.InterestedAreasCategoryList();
+        return volunteer.interestedAreasCategoryList();
 
     }
     @ResponseBody
@@ -83,20 +98,19 @@ public class VolunteerController {
             personalInfo.put("alternatePhoneNumber", volunteerData.getAlternatePhoneNumber());
             personalInfo.put("email", volunteerData.getEmail());
 
-            Map additionalInfo= new HashMap();
+            Map interestedlist= new HashMap();
             List<Map> interestedAreasList=new ArrayList<>();
             volunteerData.getInterestedAreas().stream().forEach((interestedArea)-> {
                 Map interested= new HashMap();
                 interested.put("interestedArea",interestedArea.getInterestedArea());
-                interested.put("interestedAreaId",interestedArea.getInterestedAreaId());
                 interested.put("id",interestedArea.getId());
                 interestedAreasList.add(interested);
             });
-            additionalInfo.put("interestedAreas",interestedAreasList);
-            additionalInfo.put("volunteerPreferredTimes",volunteerData.getVolunteerPreferredTimes());
+            interestedlist.put("interestedAreas",interestedAreasList);
+            interestedlist.put("volunteerPreferredTimes",volunteerData.getVolunteerPreferredTimes());
             output.put("address", address);
             output.put("personalInfo", personalInfo);
-            output.put("additionalInfo",additionalInfo);
+            output.put("additionalInfo",interestedlist);
         }
 
         return  output;

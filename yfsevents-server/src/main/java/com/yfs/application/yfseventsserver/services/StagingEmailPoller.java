@@ -41,7 +41,7 @@ public class StagingEmailPoller {
 
     private static Logger logger = LoggerFactory.getLogger(StagingEmailPoller.class);
 
-    //@Scheduled(fixedDelay = 1000 * 30, initialDelay = 1000*1)
+    @Scheduled(fixedDelay = 1000 * 30, initialDelay = 1000*1)
     public void processStagingEmail() {
 
         //TODO: If this the result set it too huge then leverage pagination

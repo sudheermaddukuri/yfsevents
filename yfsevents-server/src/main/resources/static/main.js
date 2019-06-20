@@ -133,8 +133,12 @@ var ApiService = /** @class */ (function () {
         this.urlList.set('volunteer', '/volunteer');
         this.urlList.set('collegeregistration', '/collegeregistration');
         this.urlList.set('interestedAreasCategory', '/interestedAreasCategory');
+        this.urlList.set('preresetpassword', '/preresetpassword');
+        this.urlList.set('resetpassword', '/resetpassword');
+        this.urlList.set('registered-events', '/registered-events');
         this.urlList.set('collegeregistration-list', '/collegeregistration/list');
         this.urlList.set('volunteerAccepted', '/getAllInformation');
+        this.urlList.set('bulkSave', '/bulk/save');
     };
     ApiService.prototype.postData = function (data, type) {
         return this.post(data, type).subscribe(function (response) {
@@ -194,13 +198,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inventory_data_inventory_data_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./inventory-data/inventory-data.component */ "./src/app/inventory-data/inventory-data.component.ts");
 /* harmony import */ var _college_registration_college_registration_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./college-registration/college-registration.component */ "./src/app/college-registration/college-registration.component.ts");
 /* harmony import */ var _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./send-mail/send-mail.component */ "./src/app/send-mail/send-mail.component.ts");
-/* harmony import */ var _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./inventory-data/inventory-list.component */ "./src/app/inventory-data/inventory-list.component.ts");
-/* harmony import */ var _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./partner-ngo-grid/partner-ngo-grid.component */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts");
-/* harmony import */ var _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./college-registration-grid/college-registration-grid.component */ "./src/app/college-registration-grid/college-registration-grid.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
-/* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
-/* harmony import */ var _selectablevolunteer_selectablevolunteer_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./selectablevolunteer/selectablevolunteer.component */ "./src/app/selectablevolunteer/selectablevolunteer.component.ts");
+/* harmony import */ var _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./welcome/welcome.component */ "./src/app/welcome/welcome.component.ts");
+/* harmony import */ var _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./inventory-data/inventory-list.component */ "./src/app/inventory-data/inventory-list.component.ts");
+/* harmony import */ var _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./partner-ngo-grid/partner-ngo-grid.component */ "./src/app/partner-ngo-grid/partner-ngo-grid.component.ts");
+/* harmony import */ var _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./college-registration-grid/college-registration-grid.component */ "./src/app/college-registration-grid/college-registration-grid.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _reset_reset_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./reset/reset.component */ "./src/app/reset/reset.component.ts");
+/* harmony import */ var _registered_events_registered_events_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./registered-events/registered-events.component */ "./src/app/registered-events/registered-events.component.ts");
+/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
+/* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
+/* harmony import */ var _selectablevolunteer_selectablevolunteer_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./selectablevolunteer/selectablevolunteer.component */ "./src/app/selectablevolunteer/selectablevolunteer.component.ts");
+/* harmony import */ var _bulk_upload_bulk_upload_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./bulk-upload/bulk-upload.component */ "./src/app/bulk-upload/bulk-upload.component.ts");
+
+
+
+
 
 
 
@@ -226,10 +238,13 @@ var routes = [
         ]
     },
     {
-        path: 'grid/collegeregistration', component: _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_12__["CollegeRegistrationGridComponent"]
+        path: 'grid/collegeregistration', component: _college_registration_grid_college_registration_grid_component__WEBPACK_IMPORTED_MODULE_13__["CollegeRegistrationGridComponent"]
     },
     {
-        path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_13__["LoginComponent"]
+        path: 'bulk/volunteer', component: _bulk_upload_bulk_upload_component__WEBPACK_IMPORTED_MODULE_20__["BulkUploadComponent"]
+    },
+    {
+        path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_14__["LoginComponent"]
     },
     {
         path: 'inventorydata', children: [
@@ -238,10 +253,10 @@ var routes = [
         ]
     },
     {
-        path: 'inventorylist', component: _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_10__["InventoryListComponent"]
+        path: 'inventorylist', component: _inventory_data_inventory_list_component__WEBPACK_IMPORTED_MODULE_11__["InventoryListComponent"]
     },
     {
-        path: 'grid/partnerngo', component: _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_11__["PartnerNgoGridComponent"]
+        path: 'grid/partnerngo', component: _partner_ngo_grid_partner_ngo_grid_component__WEBPACK_IMPORTED_MODULE_12__["PartnerNgoGridComponent"]
     },
     {
         path: 'partnerngo', children: [
@@ -250,12 +265,15 @@ var routes = [
         ]
     },
     { path: 'events', component: _events_event_list_component__WEBPACK_IMPORTED_MODULE_4__["EventListComponent"] },
+    { path: 'home', component: _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_10__["WelcomeComponent"] },
+    { path: 'reset', component: _reset_reset_component__WEBPACK_IMPORTED_MODULE_15__["ResetComponent"] },
+    { path: 'registered-events', component: _registered_events_registered_events_component__WEBPACK_IMPORTED_MODULE_16__["RegisteredEventsComponent"] },
     { path: 'addevent', component: _events_add_event_component__WEBPACK_IMPORTED_MODULE_5__["AddEventComponent"] },
     {
         path: 'email', component: _send_mail_send_mail_component__WEBPACK_IMPORTED_MODULE_9__["SendMailComponent"]
     },
     {
-        path: 'grid/volunteer', component: _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_15__["VolunteerGridComponent"]
+        path: 'grid/volunteer', component: _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_18__["VolunteerGridComponent"]
     },
     {
         path: 'volunteer', children: [
@@ -264,13 +282,13 @@ var routes = [
         ]
     },
     {
-        path: '**', redirectTo: 'login'
+        path: '**', redirectTo: 'home'
     },
     {
-        path: 'register', component: _register_register_component__WEBPACK_IMPORTED_MODULE_14__["RegisterComponent"]
+        path: 'register', component: _register_register_component__WEBPACK_IMPORTED_MODULE_17__["RegisterComponent"]
     },
     {
-        path: 'selectVolenteer', component: _selectablevolunteer_selectablevolunteer_component__WEBPACK_IMPORTED_MODULE_16__["SelectablevolunteerComponent"]
+        path: 'selectVolenteer', component: _selectablevolunteer_selectablevolunteer_component__WEBPACK_IMPORTED_MODULE_19__["SelectablevolunteerComponent"]
     }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -307,7 +325,7 @@ module.exports = "#app-root-container{\nwidth:100%;\n}\n\n/*# sourceMappingURL=d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" style=\"background-color: #ba2a29;margin-bottom:20px;\">\n  <div class=\"container-fluid\">\n\n    <a class=\"navbar-brand\" href=\"#\" style=\"height:70px\">\n      <img src=\"/assets/youth-for-seva.png\" style=\"height:50px\">\n    </a>\n\n    <div class=\"collapse navbar-collapse\">\n      <ul class=\"nav navbar-nav navbar-right text-white\" style=\"margin-top:12px;\">\n        <li><a href=\"\">HOME</a></li>\n        <li class=\"dropdown\" *ngIf=isAdmin()>\n          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">REGISTER\n            <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a [routerLink]=\"['/grid/partnerngo']\">Partner NGO</a></li>\n            <li><a [routerLink]=\"['/grid/volunteer']\">Volunteer</a></li>\n            <li><a [routerLink]=\"['/grid/collegeregistration']\">College</a></li>\n            <li><a [routerLink]=\"['/inventorylist']\">Inventory Data</a></li>\n          </ul>\n        </li>\n        <li *ngIf=isAdmin()><a [routerLink]=\"['/events']\">EVENTS</a></li>\n\n        <li *ngIf=!app.authenticated><a [routerLink]=\"['/login']\">LOGIN</a></li>\n        <li *ngIf=app.authenticated><a href=\"#\" (click)=\"logout()\">LOGOUT</a></li>\n        <!--<li><a [routerLink]=\"\">CONTACT</a></li>-->\n        <!--<li><a [routerLink]=\"\"><span class=\"glyphicon glyphicon-search\"></span></a></li>-->\n      </ul>\n    </div>\n  </div>\n</nav>\n\n<div id=\"app-root-container\" class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n\n\n<!--<footer></footer>-->\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" style=\"background-color: #ba2a29;margin-bottom:20px;\">\n  <div class=\"container-fluid\">\n\n    <a class=\"navbar-brand\" href=\"#\" style=\"height:70px\">\n      <img src=\"/assets/youth-for-seva.png\" style=\"height:50px\">\n    </a>\n\n    <div class=\"collapse navbar-collapse\">\n      <ul class=\"nav navbar-nav navbar-right text-white\" style=\"margin-top:12px;\">\n        <li><a [routerLink]=\"['/home']\">HOME</a></li>\n        <li *ngIf=isUser()><a [routerLink]=\"['/registered-events']\">Accepted Events</a></li>\n        <li class=\"dropdown\" *ngIf=isAdmin()>\n          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">REGISTER\n            <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a [routerLink]=\"['/grid/partnerngo']\">Partner NGO</a></li>\n            <li><a [routerLink]=\"['/grid/volunteer']\">Volunteer</a></li>\n            <li><a [routerLink]=\"['/grid/collegeregistration']\">College</a></li>\n            <li><a [routerLink]=\"['/inventorylist']\">Inventory Data</a></li>\n          </ul>\n        </li>\n        <li *ngIf=isAdmin()><a [routerLink]=\"['/events']\">EVENTS</a></li>\n\n        <li *ngIf=!app.authenticated><a [routerLink]=\"['/login']\">LOGIN</a></li>\n        <li *ngIf=app.authenticated><a href=\"#\" (click)=\"logout()\">LOGOUT</a></li>\n        <!--<li><a [routerLink]=\"\">CONTACT</a></li>-->\n        <!--<li><a [routerLink]=\"\"><span class=\"glyphicon glyphicon-search\"></span></a></li>-->\n      </ul>\n    </div>\n  </div>\n</nav>\n\n<div id=\"app-root-container\" class=\"container\">\n  <router-outlet></router-outlet>\n</div>\n\n\n<!--<footer></footer>-->\n"
 
 /***/ }),
 
@@ -347,7 +365,7 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.logout = function () {
         var _this = this;
-        this.http.get('logout').subscribe(function (response) {
+        this.http.get('api/logout').subscribe(function (response) {
             _this.app.authenticated = false;
             _this.router.navigateByUrl('/login');
         });
@@ -415,9 +433,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _volunteer_grid_volunteer_grid_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./volunteer-grid/volunteer-grid.component */ "./src/app/volunteer-grid/volunteer-grid.component.ts");
 /* harmony import */ var _events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./events/renderer/button-renderer.component */ "./src/app/events/renderer/button-renderer.component.ts");
 /* harmony import */ var _xhrInterceptor__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./xhrInterceptor */ "./src/app/xhrInterceptor.ts");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _form_modal_form_modal_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./form-modal/form-modal.component */ "./src/app/form-modal/form-modal.component.ts");
-/* harmony import */ var _selectablevolunteer_selectablevolunteer_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./selectablevolunteer/selectablevolunteer.component */ "./src/app/selectablevolunteer/selectablevolunteer.component.ts");
+/* harmony import */ var _reset_reset_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./reset/reset.component */ "./src/app/reset/reset.component.ts");
+/* harmony import */ var _registered_events_registered_events_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./registered-events/registered-events.component */ "./src/app/registered-events/registered-events.component.ts");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _form_modal_form_modal_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./form-modal/form-modal.component */ "./src/app/form-modal/form-modal.component.ts");
+/* harmony import */ var _selectablevolunteer_selectablevolunteer_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./selectablevolunteer/selectablevolunteer.component */ "./src/app/selectablevolunteer/selectablevolunteer.component.ts");
+/* harmony import */ var _bulk_upload_bulk_upload_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./bulk-upload/bulk-upload.component */ "./src/app/bulk-upload/bulk-upload.component.ts");
 
 
 
@@ -459,6 +480,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -483,8 +507,11 @@ var AppModule = /** @class */ (function () {
                 _login_login_component__WEBPACK_IMPORTED_MODULE_27__["LoginComponent"],
                 _register_register_component__WEBPACK_IMPORTED_MODULE_28__["RegisterComponent"],
                 _events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_34__["ButtonRendererComponent"],
-                _form_modal_form_modal_component__WEBPACK_IMPORTED_MODULE_37__["FormModalComponent"],
-                _selectablevolunteer_selectablevolunteer_component__WEBPACK_IMPORTED_MODULE_38__["SelectablevolunteerComponent"]
+                _reset_reset_component__WEBPACK_IMPORTED_MODULE_36__["ResetComponent"],
+                _registered_events_registered_events_component__WEBPACK_IMPORTED_MODULE_37__["RegisteredEventsComponent"],
+                _form_modal_form_modal_component__WEBPACK_IMPORTED_MODULE_39__["FormModalComponent"],
+                _selectablevolunteer_selectablevolunteer_component__WEBPACK_IMPORTED_MODULE_40__["SelectablevolunteerComponent"],
+                _bulk_upload_bulk_upload_component__WEBPACK_IMPORTED_MODULE_41__["BulkUploadComponent"]
             ],
             imports: [
                 ag_grid_angular__WEBPACK_IMPORTED_MODULE_3__["AgGridModule"].withComponents([_events_renderer_button_renderer_component__WEBPACK_IMPORTED_MODULE_34__["ButtonRendererComponent"]]),
@@ -500,11 +527,11 @@ var AppModule = /** @class */ (function () {
                 ngx_bootstrap_typeahead__WEBPACK_IMPORTED_MODULE_15__["TypeaheadModule"].forRoot(),
                 angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_23__["AngularMultiSelectModule"],
                 _angular_http__WEBPACK_IMPORTED_MODULE_18__["HttpModule"],
-                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_36__["NgbModule"].forRoot(),
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_38__["NgbModule"].forRoot(),
             ],
             schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_2__["NO_ERRORS_SCHEMA"]],
             providers: [_services_auth_service__WEBPACK_IMPORTED_MODULE_31__["AuthService"], _services_user_service__WEBPACK_IMPORTED_MODULE_30__["UserService"], _urlPermission_url_permission__WEBPACK_IMPORTED_MODULE_29__["UrlPermission"], _app_service__WEBPACK_IMPORTED_MODULE_32__["AppService"], { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_17__["HTTP_INTERCEPTORS"], useClass: _xhrInterceptor__WEBPACK_IMPORTED_MODULE_35__["XhrInterceptor"], multi: true }],
-            entryComponents: [_form_modal_form_modal_component__WEBPACK_IMPORTED_MODULE_37__["FormModalComponent"]],
+            entryComponents: [_form_modal_form_modal_component__WEBPACK_IMPORTED_MODULE_39__["FormModalComponent"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
@@ -542,8 +569,8 @@ var AppService = /** @class */ (function () {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"](credentials ? {
             authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
         } : {});
-        this.http.get('user', { headers: headers }).subscribe(function (response) {
-            if (response['name']) {
+        this.http.get('api/user', { headers: headers }).subscribe(function (response) {
+            if (response && response['name']) {
                 _this.authenticated = true;
                 if (response['principal']) {
                     _this.role = response['principal']['role'];
@@ -560,6 +587,128 @@ var AppService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], AppService);
     return AppService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/bulk-upload/bulk-upload.component.css":
+/*!*******************************************************!*\
+  !*** ./src/app/bulk-upload/bulk-upload.component.css ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2J1bGstdXBsb2FkL2J1bGstdXBsb2FkLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/bulk-upload/bulk-upload.component.html":
+/*!********************************************************!*\
+  !*** ./src/app/bulk-upload/bulk-upload.component.html ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-fluid\">\n\n  <div>\n    <a href={{fileUrl}} download>\n      <button class=\"btn btn-sm btn-primary\">Download Template</button>\n    </a>\n    <div class=\"pull-right\">\n    <button type=\"button\" class=\"btn btn-sm btn-primary\" data-toggle=\"modal\" data-target=\"#content\">Upload Template</button>\n    </div>\n  </div>\n\n  <div *ngIf=\"data.length\">\n    <div class=\"page-header well text-center well-sm\">\n      <h5><strong> Uploaded Volunteer Data </strong></h5>\n    </div>\n    \n    <div  #bulkGrid  style=\"width: 100%; height: 100%;\">\n      <ag-grid-angular style=\"height: 100%;\"\n        class=\"ag-theme-balham\" \n        [rowData]=\"data\" \n        [columnDefs]=\"headers\"\n      >\n      </ag-grid-angular>\n    </div>\n    <div class=\"pull-right\">\n      <button type=\"button\" class=\"btn btn-primary btn-space\" (click)=\"close()\">Close</button>\n    </div>\n  </div>\n</div>\n\n<!-- Modal -->\n<div class=\"modal fade\" id=\"content\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"FileUpload\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header card-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\" aria-hidden=\"true\" data-dismiss=\"modal\">&times;</button>\n        <h4 class=\"modal-title\" id=\"modal-basic-title\">File Upload</h4>\n      </div>\n      <div class=\"modal-body\">\n        <input type=\"file\" (change)=\"selectFile($event)\" placeholder=\"Upload file\" accept=\".xls, .xlsx\">\n      </div>\n      <div class=\"modal-footer\">\n        <button class=\"btn btn-sm btn-primary\" data-dismiss=\"modal\">Cancel</button>\n        <button class=\"btn btn-sm btn-primary\" [disabled]=\"!selectedFiles\" (click)=\"upload()\">Add File</button>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/bulk-upload/bulk-upload.component.ts":
+/*!******************************************************!*\
+  !*** ./src/app/bulk-upload/bulk-upload.component.ts ***!
+  \******************************************************/
+/*! exports provided: BulkUploadComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BulkUploadComponent", function() { return BulkUploadComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _upload_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../upload.service */ "./src/app/upload.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+var BulkUploadComponent = /** @class */ (function () {
+    function BulkUploadComponent(uploadService, router) {
+        this.uploadService = uploadService;
+        this.router = router;
+        this.data = [];
+        this.uploadResponse = [];
+        this.headers = [
+            { headerName: 'Status', field: 'status' },
+            { headerName: 'First Name', field: 'firstName', filter: true, sortable: true },
+            { headerName: 'Last Name', field: 'lastName', filter: true },
+            { headerName: 'Phone Number', field: 'phoneNumber', filter: true },
+            { headerName: 'Alternate Phone Number', field: 'alternatePhoneNumber', filter: true },
+            { headerName: 'EmailId', field: 'email', filter: true },
+            { headerName: 'Locality', field: 'locality', filter: true },
+            { headerName: 'City', field: 'city', filter: true },
+            { headerName: 'State', field: 'state', filter: true },
+            { headerName: 'PinCode', field: 'pincode', filter: true },
+            { headerName: 'Interested Areas', field: 'formattedInterestedAreas' }
+        ];
+    }
+    BulkUploadComponent.prototype.ngOnInit = function () {
+        this.fileUrl = "/assets/Volunteer Template.xls";
+    };
+    BulkUploadComponent.prototype.selectFile = function (event) {
+        this.selectedFiles = event.target.files;
+        console.log('file uploaded: ');
+        console.log(event.target.files);
+    };
+    BulkUploadComponent.prototype.downloadTemplate = function () {
+    };
+    BulkUploadComponent.prototype.upload = function () {
+        var _this = this;
+        $("#content").modal('toggle');
+        this.currentUploadedFile = this.selectedFiles.item(0);
+        this.uploadService.pushFileData(this.currentUploadedFile).subscribe(function (result) {
+            console.log("Upload Response" + result);
+            var response = JSON.parse(JSON.stringify(result));
+            if (response.status && response.status === 200) {
+                _this.uploadResponse = response.body;
+                var volunteers_1 = [];
+                (response.body).forEach(function (element) {
+                    var volunteer = {};
+                    if (element.errors.length) {
+                        Object.assign(volunteer, { "status": element.errors.toString() });
+                    }
+                    else {
+                        Object.assign(volunteer, { "status": "No Errors" });
+                    }
+                    Object.assign(volunteer, element.volunteer);
+                    var interestedAreas = [];
+                    (element.volunteer.interestedAreas).forEach(function (interestedArea) {
+                        interestedAreas.push(interestedArea["interestedArea"]);
+                    });
+                    Object.assign(volunteer, { formattedInterestedAreas: interestedAreas });
+                    volunteers_1.push(volunteer);
+                });
+                _this.data = volunteers_1;
+                alert("Only data with no errors were saved");
+            }
+            console.log("Upload Parsed Response" + result);
+        });
+    };
+    BulkUploadComponent.prototype.close = function () {
+        alert("Please correct and reupload data with errors");
+        this.router.navigateByUrl("/grid/volunteer");
+    };
+    BulkUploadComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-bulk-upload',
+            template: __webpack_require__(/*! ./bulk-upload.component.html */ "./src/app/bulk-upload/bulk-upload.component.html"),
+            styles: [__webpack_require__(/*! ./bulk-upload.component.css */ "./src/app/bulk-upload/bulk-upload.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_upload_service__WEBPACK_IMPORTED_MODULE_2__["UploadService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    ], BulkUploadComponent);
+    return BulkUploadComponent;
 }());
 
 
@@ -1155,7 +1304,7 @@ var Eventdata = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n    <div class=\"page-header well text-center well-sm\">\n      <h3><strong> Events </strong></h3>\n    </div>\n</div>\n<div class=\"row\" style=\"margin-top: 20px\">\n<div class=\"col-md-1\">\n</div>\n\n\n<div class=\"col-md-10\">\n<div id=\"myGrid\"  style=\"width: 100%;\">\n    <ag-grid-angular \n        class=\"ag-theme-balham\"\n        [rowData]=\"rowData\" \n        [columnDefs]=\"columnDefs\"\n        [frameworkComponents]=\"frameworkComponents\">\n    </ag-grid-angular>\n</div>\n\n</div>\n<div class=\"col-md-1\">\n    \n</div>\n\n</div>\n\n<div class=\"row\" style=\"margin-top:10px\">\n    <div class=\"col-md-1\"></div>\n    <div class=\"col-md-10\">\n        <div style=\"text-align:right\">\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/addevent'])\">\n            Add Event\n        </button>\n        </div>\n    </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n    <div class=\"page-header well text-center well-sm\">\n      <h3><strong> Events </strong></h3>\n    </div>\n</div>\n<div class=\"row\" style=\"margin-top: 20px\">\n<div class=\"col-md-1\">\n\n<!-- </div>\n\n<div >\n        <div id=\"myGrid\"  style=\"width: 100%; height: 100%;\">\n<ag-grid-angular \n    class=\"ag-theme-balham\"\n    [rowData]=\"rowData\" \n    [columnDefs]=\"columnDefs\"\n    [frameworkComponents]=\"frameworkComponents\">\n</ag-grid-angular>\n        </div> -->\n\n</div>\n\n\n<div class=\"col-md-10\">\n<div id=\"myGrid\"  style=\"width: 100%;\">\n    <ag-grid-angular \n        class=\"ag-theme-balham\"\n        [rowData]=\"rowData\" \n        [columnDefs]=\"columnDefs\"\n        [frameworkComponents]=\"frameworkComponents\">\n    </ag-grid-angular>\n</div>\n\n</div>\n<div class=\"col-md-1\">\n    \n</div>\n\n</div>\n\n<div class=\"row\" style=\"margin-top:10px\">\n    <div class=\"col-md-1\"></div>\n    <div class=\"col-md-10\">\n        <div style=\"text-align:right\">\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/addevent'])\">\n            Add Event\n        </button>\n        </div>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -1831,7 +1980,7 @@ var InventorydataService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"card card-container\">\n\n<div class=\"row\"><div class=\"col-md-4\"></div><div class=\"col-md-4\">\n    <form #f=\"ngForm\" (ngSubmit)=\"f.form.valid && login()\" name=\"form-signin\" novalidate>\n      <div *ngIf=\"errorMessage\" class=\"alert alert-danger\" role=\"alert\">{{errorMessage}}</div>\n      <span class=\"reauth-email\" id=\"reauth-email\"></span>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\" class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input #username=\"ngModel\" [(ngModel)]=\"user.username\" class=\"form-control\" id=\"username\" name=\"username\"\n               required type=\"text\"/>\n        <!-- <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">an valid email is required</div>-->\n      </div>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\" class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input #password=\"ngModel\" [(ngModel)]=\"user.password\" class=\"form-control\" id=\"password\" name=\"password\"\n               required type=\"password\"/>\n        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Password is required</div>\n      </div>\n      <div class=\"checkbox\" id=\"remember\">\n\n      </div>\n      <div class=\"row\"><div class=\"col-md-4\"></div>\n    <div class=\"col-md-4\">  <button class=\"btn btn-lg btn-primary btn-block btn-signin\" type=\"submit\">Sign in</button></div>\n        <div class=\"col-md-4\"></div> </div><!--<a [routerLink]=\"['/register']\" class=\"btn btn-link\">Create new Account!</a>-->\n    </form></div> <div class=\"col-md-4\"></div></div><!-- /form -->\n\n  </div><!-- /card-container -->\n</div><!-- /container -->\n"
+module.exports = "<div class=\"container\">\n  <div class=\"card card-container\">\n\n<div class=\"row\"><div class=\"col-md-4\"></div><div class=\"col-md-4\">\n    <form #f=\"ngForm\" (ngSubmit)=\"f.form.valid && login()\" name=\"form-signin\" novalidate>\n      <div *ngIf=\"errorMessage\" class=\"alert alert-danger\" role=\"alert\">{{errorMessage}}</div>\n      <span class=\"reauth-email\" id=\"reauth-email\"></span>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !username.valid }\" class=\"form-group\">\n        <label for=\"username\">Username</label>\n        <input #username=\"ngModel\" [(ngModel)]=\"user.username\" class=\"form-control\" id=\"username\" name=\"username\"\n               required type=\"text\"/>\n        <!-- <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">an valid email is required</div>-->\n      </div>\n      <div [ngClass]=\"{ 'has-error': f.submitted && !password.valid }\" class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input #password=\"ngModel\" [(ngModel)]=\"user.password\" class=\"form-control\" id=\"password\" name=\"password\"\n               required type=\"password\"/>\n        <div *ngIf=\"f.submitted && !password.valid\" class=\"help-block\">Password is required</div>\n      </div>\n      <div class=\"row\"><a  a [routerLink]=\"['/reset']\" class=\"pull-right\">Reset Password</a></div>\n\n      <div class=\"row\"><div class=\"col-md-4\"></div>\n    <div class=\"col-md-4\">  <button class=\"btn btn-lg btn-primary btn-block btn-signin\" type=\"submit\">Sign in</button></div>\n        <div class=\"col-md-4\"></div> </div><!--<a [routerLink]=\"['/register']\" class=\"btn btn-link\">Create new Account!</a>-->\n    </form></div> <div class=\"col-md-4\"></div></div><!-- /form -->\n\n  </div><!-- /card-container -->\n</div><!-- /container -->\n"
 
 /***/ }),
 
@@ -2080,7 +2229,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1 user-scalable=no\">\n  </head>\n\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"page-header well well-sm\">\n        <h3><strong> Partner NGO Registration</strong></h3>\n      </div>\n      \n      <form [formGroup]=\"myForm\">\n        <!-- ToDo: Decrease space between the table rows-->\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Basic Information</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"basicInfo\">\n              <!-- <table class=\"form-table\"> -->\n              <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Name</label>\n                      <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Description</label>\n                      <input type=\"text\" formControlName = \"description\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Branch</label>\n                      <input type=\"text\" formControlName = \"branch\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Registration Number</label>\n                      <input type=\"text\" formControlName = \"registrationNumber\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Address</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"address\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Address Line 1</label>\n                      <input type=\"text\" formControlName = \"addressLine1\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Address Line 2</label>\n                      <input type=\"text\" formControlName = \"addressLine2\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">City</label>\n                      <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">State</label>\n                      <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Pincode</label>\n                      <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Authorised Persons</label>\n          </div>\n          <div class=\"panel-body\">\n            <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n              <li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">Person 1</a></li>\n              <li class=\"nav\" *ngFor=\"let num of getArray(numberOfAuthorizedPersons-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\" (click)=\"activateTab(i+2)\">Person {{i+2}}</a></li>\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"activateTab(numberOfAuthorizedPersons)\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"selectedTab=i\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <div class=\"pull-right\">\n                <button class=\"btn btn-sm btn-primary btn-space\" (click)=\"addAuthorisedPerson()\" [disabled]=\"isMaxLimitReached(5)\">Add Person</button>\n                <button class=\"btn btn-sm btn-primary\" (click)=\"removeAuthorisedPerson(selectedTab)\" confirm=\"Are you sure you want to delete?\" confirm-ok=\"Yes\" confirm-cancel=\"No\" [disabled]=\"isMinLimitReached()\">Remove Person</button>\n              </div>\n              <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->\n            </ul>\n\n            <div class=\"tab-content\">\n              <div formArrayName=\"authorizedPersons\">\n                <!--ToDo: NgFor not working: Check-->\n                <div class=\"tab-pane\" *ngFor=\"let person of myForm.get('authorizedPersons').controls;let i=index\" formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n                  <!-- <table class=\"form-table\"> -->\n                  <div *ngIf=\"selectedTab==i\">\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Name</label>\n                          <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Contact Number</label>\n                          <input type=\"text\" formControlName = \"contact1\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Alternate Contact Number</label>\n                          <input type=\"text\" formControlName = \"contact2\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Email ID</label>\n                            <input type=\"text\" formControlName = \"email1\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n\n                      </div>\n                    </div>\n                  <!-- </table>               -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </form>\n      <!--<span>{{myForm.value | json}}</span>-->\n      <div class=\"pull-right\">\n        <button (click)=\"onSubmit()\" *ngIf=\"!mode\" class=\"btn btn-primary btn-space\">Register</button>\n        <button (click)=\"onEdit()\" *ngIf=\"mode=='view'\" class=\"btn btn-primary btn-space\">Edit</button>\n        <button (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" class=\"btn btn-primary btn-space\">Update</button>\n        <button (click)=\"onClose()\" *ngIf=\"mode=='view' || mode=='edit'\" class=\"btn btn-primary btn-space\">Close\n        </button>\n      </div>\n    </div>\n\n  </body>\n</html>\n"
+module.exports = "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1 user-scalable=no\">\n  </head>\n\n  <body>\n    <div class=\"container-fluid\">\n      <div class=\"page-header well well-sm\">\n        <h3><strong> Partner NGO Registration</strong></h3>\n      </div>\n      \n      <form [formGroup]=\"myForm\">\n        <!-- ToDo: Decrease space between the table rows-->\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Basic Information</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"basicInfo\">\n              <!-- <table class=\"form-table\"> -->\n              <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Name</label>\n                      <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Description</label>\n                      <input type=\"text\" formControlName = \"description\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Branch</label>\n                      <input type=\"text\" formControlName = \"branch\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Registration Number</label>\n                      <input type=\"text\" formControlName = \"registrationNumber\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Address</label>\n          </div>\n          <div class=\"panel-body\">\n            <div formGroupName=\"address\">\n              <!-- <table class=\"form-table\"> -->\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">Address Line 1</label>\n                      <input type=\"text\" formControlName = \"addressLine1\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Address Line 2</label>\n                      <input type=\"text\" formControlName = \"addressLine2\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">City</label>\n                      <input type=\"text\" formControlName = \"city\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group required\">\n                      <label class=\"control-label\">State</label>\n                      <input type=\"text\" formControlName = \"state\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                </div>\n                <div class=\"row\">\n                  <div class=\"col-md-6 offset-md-3\">\n                    <div class=\"form-group\">\n                      <label class=\"control-label\">Pincode</label>\n                      <input type=\"text\" formControlName = \"pincode\" class=\"form-control well well-sm\">\n                    </div>\n                  </div>\n                  <div class=\"col-md-6 offset-md-3\">\n                  </div>\n                </div>\n              <!-- </table>               -->\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel panel-info\">\n          <div class=\"panel-heading\">\n            <label>Authorised Persons</label>\n          </div>\n          <div class=\"panel-body\">\n            <ul class=\"nav nav-tabs\" active=\"selectedTab\">\n              <li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab0\" data-toggle=\"tab\" (click)=\"activateTab(1)\">Person 1</a></li>\n              <li class=\"nav\" *ngFor=\"let num of getArray(numberOfAuthorizedPersons-1); let i=index;\"><a href=\"#tab{{i+1}}\" data-toggle=\"tab\" (click)=\"activateTab(i+2)\">Person {{i+2}}</a></li>\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"activateTab(numberOfAuthorizedPersons)\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <!--li class=\"nav active\" *ngIf=\"numberOfAuthorizedPersons>0\"><a href=\"#tab{{numberOfAuthorizedPersons-1}}\" data-toggle=\"tab\" (click)=\"selectedTab=i\">Person {{numberOfAuthorizedPersons}}</a></li-->\n              <div class=\"pull-right\">\n                <button class=\"btn btn-sm btn-primary btn-space right\" (click)=\"addAuthorisedPerson()\" [disabled]=\"isMaxLimitReached(5)\">Add Person</button>\n                <button class=\"btn btn-sm btn-primary\" (click)=\"removeAuthorisedPerson(selectedTab)\" confirm=\"Are you sure you want to delete?\" confirm-ok=\"Yes\" confirm-cancel=\"No\" [disabled]=\"isMinLimitReached()\">Remove Person</button>\n              </div>\n              <!--ToDo: Setup dynamic Tab Creation and Add Delete button-->\n            </ul>\n\n            <div class=\"tab-content\">\n              <div formArrayName=\"authorizedPersons\">\n                <!--ToDo: NgFor not working: Check-->\n                <div class=\"tab-pane\" *ngFor=\"let person of myForm.get('authorizedPersons').controls;let i=index\" formGroupName=\"{{i}}\" id=\"tab{{i}}\">\n                  <!-- <table class=\"form-table\"> -->\n                  <div *ngIf=\"selectedTab==i\">\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Name</label>\n                          <input type=\"text\" formControlName = \"name\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group required\">\n                          <label class=\"control-label\">Contact Number</label>\n                          <input type=\"text\" formControlName = \"contact1\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                      <div class=\"col-md-6 offset-md-3\">\n                        <div class=\"form-group\">\n                          <label class=\"control-label\">Alternate Contact Number</label>\n                          <input type=\"text\" formControlName = \"contact2\" class=\"form-control well well-sm\">\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"row\">\n                        <div class=\"col-md-6 offset-md-3\">\n                          <div class=\"form-group\">\n                            <label class=\"control-label\">Email ID</label>\n                            <input type=\"text\" formControlName = \"email1\" class=\"form-control well well-sm\">\n                          </div>\n                        </div>\n\n                      </div>\n                    </div>\n                  <!-- </table>               -->\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </form>\n      <!--<span>{{myForm.value | json}}</span>-->\n      <div class=\"pull-right\">\n        <button (click)=\"onSubmit()\" *ngIf=\"!mode\" class=\"btn btn-primary btn-space\">Register</button>\n        <button (click)=\"onEdit()\" *ngIf=\"mode=='view'\" class=\"btn btn-primary btn-space\">Edit</button>\n        <button (click)=\"onSubmit()\" *ngIf=\"mode=='edit'\" class=\"btn btn-primary btn-space\">Update</button>\n        <button (click)=\"onClose()\" *ngIf=\"mode=='view' || mode=='edit'\" class=\"btn btn-primary btn-space\">Close\n        </button>\n      </div>\n    </div>\n\n  </body>\n</html>\n"
 
 /***/ }),
 
@@ -2402,6 +2551,199 @@ var RegisterComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], RegisterComponent);
     return RegisterComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/registered-events/registered-events.component.css":
+/*!*******************************************************************!*\
+  !*** ./src/app/registered-events/registered-events.component.css ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3JlZ2lzdGVyZWQtZXZlbnRzL3JlZ2lzdGVyZWQtZXZlbnRzLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/registered-events/registered-events.component.html":
+/*!********************************************************************!*\
+  !*** ./src/app/registered-events/registered-events.component.html ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\" style=\"margin-top: 20px\">\n\n\n  <div class=\"col-md-10\">\n    <div id=\"myGrid\"  style=\"height: 100%;\">\n      <ag-grid-angular style=\"height: 100%;\"\n                       class=\"ag-theme-balham\"\n                       [rowData]=\"rowData\"\n                       [columnDefs]=\"columnDefs\">\n      </ag-grid-angular>\n    </div>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/registered-events/registered-events.component.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/registered-events/registered-events.component.ts ***!
+  \******************************************************************/
+/*! exports provided: RegisteredEventsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisteredEventsComponent", function() { return RegisteredEventsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+
+
+
+
+
+var RegisteredEventsComponent = /** @class */ (function () {
+    function RegisteredEventsComponent(apiService, router) {
+        this.apiService = apiService;
+        this.router = router;
+        this.columnDefs = [
+            { headerName: 'EventId', field: 'id', filter: true },
+            { headerName: 'Action', field: 'eventAction', filter: true },
+            { headerName: 'Event Name', field: 'eventName', filter: true },
+            { headerName: 'Event Category', field: 'eventCategory', filter: true },
+            { headerName: 'Partner NGO', field: 'ngoName', filter: true },
+            { headerName: 'Event Start Date', field: 'event_start_date', filter: true },
+            { headerName: 'Event End Date', field: 'event_end_date', filter: true }
+        ];
+    }
+    RegisteredEventsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.pipe = new _angular_common__WEBPACK_IMPORTED_MODULE_4__["DatePipe"]('en-US');
+        this.apiService.getData('registered-events').subscribe(function (data) {
+            _this.eventData = data;
+            console.log(data);
+            _this.rowData = _this.eventData.map(function (event) { return ({
+                id: event.id,
+                eventAction: event.eventAction,
+                eventName: event.eventName,
+                eventCategory: event.eventCategory,
+                ngoName: event.ngoName,
+                event_start_date: _this.pipe.transform(event.eventDuration[0], 'shortDate'),
+                event_end_date: _this.pipe.transform(event.eventDuration[1], 'shortDate')
+            }); });
+        }, function (err) {
+            console.log(err.message);
+        });
+    };
+    RegisteredEventsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-registered-events',
+            template: __webpack_require__(/*! ./registered-events.component.html */ "./src/app/registered-events/registered-events.component.html"),
+            styles: [__webpack_require__(/*! ./registered-events.component.css */ "./src/app/registered-events/registered-events.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    ], RegisteredEventsComponent);
+    return RegisteredEventsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/reset/reset.component.css":
+/*!*******************************************!*\
+  !*** ./src/app/reset/reset.component.css ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3Jlc2V0L3Jlc2V0LmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/reset/reset.component.html":
+/*!********************************************!*\
+  !*** ./src/app/reset/reset.component.html ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container\">\n  <div class=\"card card-container\">\n\n    <div class=\"row\">\n      <div class=\"col-md-4\"></div>\n      <div class=\"col-md-4\">\n        <form #f=\"ngForm\"  name=\"form-signin\" novalidate>\n          <div *ngIf=\"errorMessage\" class=\"alert alert-danger\" role=\"alert\">{{errorMessage}}</div>\n          <div *ngIf=\"successMessage\" class=\"alert alert-success\" role=\"alert\">{{successMessage}}</div>\n\n          <div [ngClass]=\"{ 'has-error': showError }\" class=\"form-group\">\n            <div *ngIf=\"!showReset\">\n            <label for=\"username\">Email</label>\n            <input #username=\"ngModel\" [(ngModel)]=\"user.username\" class=\"form-control\" id=\"username\" name=\"username\"\n                   required type=\"text\"/>\n            </div>\n            <div *ngIf=\"showReset\">\n            <label for=\"resetToken\">Token</label>\n            <input #token=\"ngModel\" [(ngModel)]=\"user.resetToken\" class=\"form-control\" id=\"resetToken\" name=\"resetToken\"\n                   required type=\"text\"/>\n\n            <label for=\"password\">Password</label>\n            <input #password=\"ngModel\" [(ngModel)]=\"user.password\" class=\"form-control\" id=\"password\" name=\"password\"\n                   required type=\"password\"/>\n            </div>\n            <br/>\n            <div *ngIf=\"!showReset\">\n            <button class=\"btn btn-sm btn-primary btn-block btn-signin\" (click)=\"checkEmail($event)\">Check & Generate Reset Token</button>\n            </div>\n              <div *ngIf=\"showReset\">\n            <button class=\"btn btn-sm btn-primary btn-block btn-signin\" (click)=\"reset($event)\">Reset Password</button>\n            <!-- <div *ngIf=\"f.submitted && !username.valid\" class=\"help-block\">an valid email is required</div>-->\n</div>\n          </div>\n\n        </form>\n\n\n      </div>\n    </div><!-- /form -->\n\n  </div><!-- /card-container -->\n</div><!-- /container -->\n\n"
+
+/***/ }),
+
+/***/ "./src/app/reset/reset.component.ts":
+/*!******************************************!*\
+  !*** ./src/app/reset/reset.component.ts ***!
+  \******************************************/
+/*! exports provided: ResetComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResetComponent", function() { return ResetComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api.service */ "./src/app/api.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+var ResetComponent = /** @class */ (function () {
+    function ResetComponent(apiService, router) {
+        this.apiService = apiService;
+        this.router = router;
+        this.showReset = false;
+        this.errorMessage = "";
+        this.successMessage = "";
+        this.user = { username: '', password: '', resetToken: '' };
+    }
+    ResetComponent.prototype.ngOnInit = function () {
+    };
+    ResetComponent.prototype.checkEmail = function (event) {
+        var _this = this;
+        this.apiService.getData('preresetpassword', this.user.username, false).subscribe(function (response) {
+            var result = JSON.parse(JSON.stringify(response));
+            if (!response['userExists']) {
+                _this.errorMessage = "Email id doesn't exists";
+            }
+            else if (response['userExists'] && !response['mailsent']) {
+                _this.errorMessage = "Unable to send email";
+            }
+            else if (response['userExists'] && response['mailsent']) {
+                _this.errorMessage = "";
+                _this.successMessage = "Please check email, enter token and new password";
+                _this.showReset = true;
+            }
+        });
+        return false;
+    };
+    ;
+    ResetComponent.prototype.reset = function (event) {
+        var _this = this;
+        this.successMessage = '';
+        if (this.user.password.length < 8) {
+            this.errorMessage = "Password length should be more than 8";
+            return false;
+        }
+        this.apiService.post(this.user, 'resetpassword').subscribe(function (response) {
+            var result = JSON.parse(JSON.stringify(response));
+            if (response['reset']) {
+                _this.router.navigateByUrl('/login');
+            }
+            else {
+                _this.errorMessage = "Unable to reset password";
+            }
+        });
+        return false;
+    };
+    ResetComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-reset',
+            template: __webpack_require__(/*! ./reset.component.html */ "./src/app/reset/reset.component.html"),
+            styles: [__webpack_require__(/*! ./reset.component.css */ "./src/app/reset/reset.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    ], ResetComponent);
+    return ResetComponent;
 }());
 
 
@@ -2751,6 +3093,55 @@ var UserService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/upload.service.ts":
+/*!***********************************!*\
+  !*** ./src/app/upload.service.ts ***!
+  \***********************************/
+/*! exports provided: UploadService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UploadService", function() { return UploadService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./api.service */ "./src/app/api.service.ts");
+
+
+
+
+var UploadService = /** @class */ (function () {
+    function UploadService(http, apiService) {
+        this.http = http;
+        this.apiService = apiService;
+    }
+    UploadService.prototype.pushFileData = function (file) {
+        var formData = new FormData();
+        formData.append('file', file);
+        var request = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpRequest"]('POST', '/api/bulk/upload', formData);
+        console.log(request);
+        return this.http.request(request);
+    };
+    UploadService.prototype.saveBulkData = function (data) {
+        var request = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpRequest"]('POST', '/api/bulk/save', data);
+        return this.http.request(request);
+        // return this.http.post('/api/bulk/save', data);
+    };
+    UploadService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _api_service__WEBPACK_IMPORTED_MODULE_3__["ApiService"]])
+    ], UploadService);
+    return UploadService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/urlPermission/url.permission.ts":
 /*!*************************************************!*\
   !*** ./src/app/urlPermission/url.permission.ts ***!
@@ -2809,7 +3200,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> Volunteer </strong></h3>\n  </div>\n  <div  #myGrid  style=\"width: 100%; height: 600px;\">\n    <ag-grid-angular style=\"height: 100%;\"\n      class=\"ag-theme-balham\"\n      [rowData]=\"data\"\n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\"\n      (gridReady)=\"onGridReady($event)\"\n      [rowSelection]=\"rowSelection\"\n      [gridOptions]=\"gridOptions\"\n      >\n    </ag-grid-angular>\n  </div>\n  <div class=\"col-md-10\">\n      <div style=\"text-align:right\">\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/volunteer'])\">\n          Add Volunteer\n      </button>\n      <button type=\"button\" (click)=\"onBtForEachNodeAfterFilterAndSort()\">\n        send mail\n        </button>\n      </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"page-header well text-center well-sm\">\n    <h3><strong> Volunteer </strong></h3>\n  </div>\n  <div  #myGrid  style=\"width: 100%; height: 600px;\">\n    <ag-grid-angular style=\"height: 100%;\"\n      class=\"ag-theme-balham\"\n      [rowData]=\"data\"\n      [columnDefs]=\"headers\"\n      (rowClicked)=\"onRowCilcked($event)\"\n      (gridReady)=\"onGridReady($event)\"\n      [rowSelection]=\"rowSelection\"\n      [gridOptions]=\"gridOptions\"\n      >\n    </ag-grid-angular>\n  </div>\n\n  <div class=\"col-md-10\">\n      <div style=\"text-align:right\">\n      <button type=\"button\" class=\"btn btn-primary\" (click)=\"router.navigate(['/volunteer'])\">\n          Add Volunteer\n      </button>\n      <button type=\"button\" (click)=\"onBtForEachNodeAfterFilterAndSort()\">\n        send mail\n        </button>\n      </div>\n      <button type=\"button\" class=\"btn btn-primary btn-space\" (click)=\"router.navigate(['/bulk/volunteer'])\">\n      Bulk Upload\n    </button>\n\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2843,9 +3234,12 @@ var VolunteerGridComponent = /** @class */ (function () {
                 headerCheckboxSelectionFilteredOnly: true,
                 checkboxSelection: true },
             { headerName: 'Last Name', field: 'lastName', filter: true },
-            { headerName: 'Contact Number', field: 'phoneNumber', filter: true },
-            { headerName: 'Alternate Contact Number', field: 'alternatePhoneNumber', filter: true },
+            { headerName: 'Phone Prefix', field: 'phonePrefix', filter: true },
+            { headerName: 'Phone Number', field: 'phoneNumber', filter: true },
+            { headerName: 'Phone Prefix', field: 'alternatePhonePrefix', filter: true },
+            { headerName: 'Alternate Phone Number', field: 'alternatePhoneNumber', filter: true },
             { headerName: 'EmailId', field: 'email', filter: true },
+            { headerName: 'EmailId2', field: 'alternateEmail', filter: true },
             { headerName: 'Locality', field: 'locality', filter: true },
             { headerName: 'City', field: 'city', filter: true },
             { headerName: 'State', field: 'state', filter: true },
@@ -3177,7 +3571,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  Welcome to Youth For Seva\n</p>\n"
+module.exports = "<div class=\"row\">\n  <div class=\"col-md-1\"></div>\n<div class=\"col-md-10\">\n  <p style=\"text-align: justify;\">Youth for Seva (YFS), founded in April 2007, is a nation-wide volunteering movement that inspires youth to volunteer, and provides them with meaningful opportunities to serve the community.</p>\n  <p style=\"text-align: justify;\">The goal of YFS is to support schools, destitute shelters, government hospitals and other organizations in the social sector through volunteers who can help them mitigate some of their shortcomings and challenges. Volunteering is made easy and customized to the individual’s interests, time availability and skill sets.</p>\n  <p style=\"text-align: justify;\">YFS aims to create positive change agents in the society, through the culture of volunteering.</p>\n  <p style=\"text-align: justify;\"><strong>Vision</strong>:</p>\n  <p style=\"text-align: justify;\">Self-reliant communities powered by selfless individuals.</p>\n  <p style=\"text-align: justify;\"><strong>Mission:</strong></p>\n  <div>\n    <ul>\n      <li>To facilitate a movement of volunteering.</li>\n      <li>To empower and enable individuals to become positive change agents.</li>\n      <li>To enable institutions to effectively engage community to deliver services.</li>\n      <li>To promote sustainable lifestyles.</li>\n    </ul>\n  </div>\n\n  <div class=\"col-md-1\"></div>\n\n\n</div>\n</div>\n"
 
 /***/ }),
 
