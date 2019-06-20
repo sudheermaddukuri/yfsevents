@@ -17,9 +17,8 @@
                required type="password"/>
         <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
       </div>
-      <div class="checkbox" id="remember">
+      <div class="row"><a  a [routerLink]="['/reset']" class="pull-right">Reset Password</a></div>
 
-      </div>
       <div class="row"><div class="col-md-4"></div>
     <div class="col-md-4">  <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button></div>
         <div class="col-md-4"></div> </div><!--<a [routerLink]="['/register']" class="btn btn-link">Create new Account!</a>-->
