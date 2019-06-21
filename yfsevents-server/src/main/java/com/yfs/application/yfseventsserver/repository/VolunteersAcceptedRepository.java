@@ -51,5 +51,8 @@ public interface VolunteersAcceptedRepository extends JpaRepository<VolunteersAc
     @Query(value = "Select * from VOLUNTEERS_ACCEPTED where STATUS='NOT_SENT'", nativeQuery = true)
     List<VolunteersAccepted> getAllByEmailNotSent();
 
+    @Query("SELECT i FROM VolunteersAccepted i where  i.eventId=:eventId and i.status='NOT_SENT'")
+    List<VolunteersAccepted> getUnsentVolunteersByEventId(@Param("eventId") Long eventId);
+
 
 }

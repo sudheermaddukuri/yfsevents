@@ -7,7 +7,6 @@ import com.yfs.application.yfseventsserver.entity.StagingEmail;
 import com.yfs.application.yfseventsserver.entity.VolunteersAccepted;
 import com.yfs.application.yfseventsserver.model.EmailStatus;
 import com.yfs.application.yfseventsserver.repository.StagingEmailDataRepository;
-import com.yfs.application.yfseventsserver.repository.VolunteerRepository;
 import com.yfs.application.yfseventsserver.repository.VolunteersAcceptedRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +19,6 @@ import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -59,7 +57,7 @@ public class StagingEmailPoller {
 
     @Transactional
     private void processEmail(StagingEmail stagingEmail) {
-        final List<Email> filedEmailList = new ArrayList<>();
+        final List<Email> failedEmailList = new ArrayList<>();
         if (null == stagingEmail) {
             logger.info("stagingEmail is null hence skipping");
         }
@@ -79,40 +77,42 @@ public class StagingEmailPoller {
                     }else{
                         volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.NOT_SENT);
                         volunteersAcceptedRepository.save(volunteersAccepted);
-                        filedEmailList.add(email);
+                        failedEmailList.add(email);
                     }
                 });
 
                 stagingEmail.setStatus(EmailStatus.IN_PROGRESS);
-                stagingEmailDataRepository.save(stagingEmail);
 
             } else {
                // List<VolunteersAccepted> volunteersAcceptedList = getVolunteersAcceptedList();
-                List<VolunteersAccepted> volunteersAcceptedList = volunteersAcceptedRepository.getAllByEmailNotSent();
-                Email email = objectMapper.readValue(stagingEmail.getPayload(), Email.class);
-                volunteersAcceptedList.stream().forEach(volunteersAccepted -> {
-                    String emailId = volunteersAccepted.getMailId();
-                    logger.info("processEmail Retry[{}]:: About to send email to[{}] with subject[{}]", retryCount, emailId,email.getSubject());
-                    boolean isEmailSent = EmailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),email.getText());
+                List<VolunteersAccepted> volunteersAcceptedList = volunteersAcceptedRepository.getUnsentVolunteersByEventId(stagingEmail.getEventId());
 
-                    if (isEmailSent) {
-                        volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.SENT);
-                        volunteersAcceptedRepository.save(volunteersAccepted);
-                    }else{
-                        filedEmailList.add(email);
+                if(! CollectionUtils.isEmpty(volunteersAcceptedList)) {
+                    Email email = objectMapper.readValue(stagingEmail.getPayload(), Email.class);
+                    volunteersAcceptedList.stream().forEach(volunteersAccepted -> {
+                        String emailId = volunteersAccepted.getMailId();
+                        logger.info("processEmail Retry[{}]:: About to send email to[{}] with subject[{}]", retryCount, emailId, email.getSubject());
+                        boolean isEmailSent = EmailController.sendMailController(emailId, email.getCc(), email.getBcc(), email.getSubject(), email.getText());
 
-                        if(retryCount == maxRetryCountAllowed){
-                            volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.FAILED);
+                        if (isEmailSent) {
+                            volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.SENT);
                             volunteersAcceptedRepository.save(volunteersAccepted);
+                        } else {
+                            failedEmailList.add(email);
+
+                            if (retryCount == maxRetryCountAllowed) {
+                                volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.FAILED);
+                                volunteersAcceptedRepository.save(volunteersAccepted);
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
             }
 
 
             stagingEmail.setRetryCount(retryCount);
-            if(CollectionUtils.isEmpty(filedEmailList)){
+            if(CollectionUtils.isEmpty(failedEmailList)){
                 stagingEmail.setStatus(EmailStatus.COMPLETED);
             }else if(retryCount == maxRetryCountAllowed){
                 stagingEmail.setStatus(EmailStatus.FAILED);
