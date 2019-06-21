@@ -2,7 +2,19 @@
   <div class="page-header well text-center well-sm">
     <h3><strong> Partner NGO </strong></h3>
   </div>
-  <div  #myGrid  style="width: 100%; height: 100%;">
+
+  <div class="row">
+
+  <div class="col-md-12">
+    <div style="text-align:right">
+      <button type="button" class="btn btn-primary" (click)="router.navigate(['/partnerngo'])">
+        Add partner NGO
+      </button>
+    </div>
+  </div>
+  </div>
+
+  <div  #myGrid  style="width: 100%; height: 110%;margin-top:10px">
     <ag-grid-angular style="height: 100%;"
       class="ag-theme-balham" 
       [rowData]="data" 
@@ -14,11 +26,5 @@
       (cellDoubleClicked)="onCellDoubleClicked($event)"-->
     </ag-grid-angular>
   </div>
-  <div class="col-md-10">
-      <div style="text-align:right">
-      <button type="button" class="btn btn-primary" (click)="router.navigate(['/partnerngo'])">
-          Add partner NGO
-      </button>
-      </div>
-  </div>
+
 </div>

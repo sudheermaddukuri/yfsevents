@@ -36,7 +36,7 @@ export class ApiServiceMail {
 
   saveToStagingEmail(data){
 
-   this.http.post(stagingEmailURL,data).subscribe(response=>{
+   this.http.post(this.stagingEmailURL,data).subscribe(response=>{
         console.log('saveToStagingEmail:: response: ',response);
         alert("Successfully submitted email submission request");
         this.router.navigate(['/events']);
