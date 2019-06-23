@@ -19,11 +19,11 @@ export class EventListComponent implements OnInit{
   private paginationPageSize;
 	columnDefs = [
         {headerName: 'EventId', field: 'id',filter:true },
-        {headerName: 'Action', field: 'eventAction',filter:true},
+        {headerName: 'Action', field: 'eventAction', filter: true},
         {headerName: 'Event Name', field: 'eventName',filter:true},
         {headerName: 'Event Category', field: 'eventCategory',filter:true},
         {headerName: 'Partner NGO', field: 'ngoName',filter:true},
-        {headerName: 'Event Start Date', field: 'event_start_date',filter:true},
+        {headerName: 'Event Start Date', field: 'event_start_date',filter:true, sort: "desc"},
         {headerName: 'Event End Date', field: 'event_end_date',filter:true},
         {
           headerName: 'Email',
