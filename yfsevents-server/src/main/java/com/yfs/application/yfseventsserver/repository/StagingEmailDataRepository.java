@@ -12,9 +12,9 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "stagingemail",path = "stagingemail")
 public interface StagingEmailDataRepository extends JpaRepository<StagingEmail, Long> {
 
-    @Query(value = "SELECT * FROM STAGING_EMAIL WHERE  NM_RETRY_COUNT <= :maxRetryCount AND TX_STATUS NOT IN ('FAILED','COMPLETED') ORDER BY DT_CREATED", nativeQuery = true)
+    @Query(value = "SELECT * FROM staging_email WHERE  NM_RETRY_COUNT <= :maxRetryCount AND TX_STATUS NOT IN ('FAILED','COMPLETED') ORDER BY DT_CREATED", nativeQuery = true)
     List<StagingEmail> getStagingEmailsEligibleToProcess(int maxRetryCount);
 
-    @Query(value = "Select * from STAGING_EMAIL where id_event=:eventId and tx_status not in ('FAILED','COMPLETED')", nativeQuery = true)
+    @Query(value = "Select * from staging_email where id_event=:eventId and tx_status not in ('FAILED','COMPLETED')", nativeQuery = true)
     List<StagingEmail>  getStagingEmailByEventId(long eventId);
 }

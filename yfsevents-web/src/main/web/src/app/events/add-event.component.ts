@@ -115,11 +115,11 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
           eventDuration:data.eventDuration.map(date=>{
             return this.pipe.transform(date,'shortDate');
           }),
-          fromTime: data.eventfromTime,
-          toTime:data.eventtoTime,
+          fromTime: new Date(data.eventfromTime),
+          toTime: new Date(data.eventtoTime),
           ngoName:data.ngoName.map(ngo=>({
             id:data.ngoName.indexOf(ngo),
-            itemName:ngo.name
+            itemName:ngo
           })),
           eventCategory:data.eventCategory,
           recurringEvent:data.recurringEvent,
@@ -161,7 +161,7 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
     this.eventData.eventAction=this.eventForm.value.eventAction;
     this.eventData.eventfromTime= this.eventForm.value.fromTime;
     this.eventData.eventtoTime = this.eventForm.value.toTime;
-    this.eventData.ngoName = this.eventForm.value.ngoName.map(ngo=>ngo.ngoName);
+    this.eventData.ngoName = this.eventForm.value.ngoName.map(ngo=>ngo.itemName);
     this.eventData.volunteers = this.eventForm.value.volunteersReq;
     this.eventData.recurringEvent=this.eventForm.value.recurringEvent;
     // this.eventData.eventDuration=[];
@@ -175,7 +175,16 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
     this.eventData.volunteersOffline=this.eventForm.value.volunteersOff;
     console.log(this.eventData);
     if(this.route.snapshot.paramMap && this.route.snapshot.paramMap.get('id')){
-    this.apiService.putData(this.eventData,this.route.snapshot.paramMap.get('id'),'event')}
+    this.eventData.id = this.route.snapshot.paramMap.get('id');
+          this.eventData.eventDuration = this.eventData.eventDuration.map(date=>{
+                return this.pipe.transform(date,"yyyy-MM-dd'T'HH:mm:ss.SSS");
+              }),
+    this.apiService.post(this.eventData,'event-update').subscribe(response=>{
+
+                                                                    alert('Succesfully saved Event Details');
+                                                                      this.router.navigateByUrl("/events");
+                                                                  });
+    }
     else{
       let response = this.apiService.post(this.eventData,'event').subscribe(response=>{
         this.message="Event Submitted: http://yfsevents.com?id=" + (response as any).id;
@@ -209,6 +218,7 @@ import { InventorydataService } from '../inventory-data/inventorydata.service';
 
 
 export class Eventdata {
+id:any;
   eventName:string;
   eventAction:string;
   eventfromTime:string;
