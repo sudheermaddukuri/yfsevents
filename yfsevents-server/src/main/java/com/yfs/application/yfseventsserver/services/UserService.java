@@ -76,12 +76,8 @@ public class UserService {
 
             user.setResetToken(UUID.randomUUID().toString());
             user = userRepository.save(user);
-
-
-            output.put("mailsent", EmailController.sendMailController(user.getUsername(),"", "", "Youth For Seva password reset token",
-                "Token to reset password : " + user.getResetToken() ));
-
-
+            output.put("mailsent", emailController.sendMailController(user.getUsername(),"", "", "Youth For Seva password reset token",
+                1L,null,"Token to reset password : " + user.getResetToken() ));
         }
 
         output.put("userExists", userExists);

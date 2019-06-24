@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,18 @@ import java.util.stream.Stream;
 @RequestMapping("/sendEmail")
 public class EmailController {
 
+    @Value("${from}")
+    String from;
+
+    @Value("${username}")
+    String userName;
+
+    @Value("${password}")
+    String password;
+
+    @Value("${host}")
+    String host;
+
     @Autowired
     Email email;
 
@@ -40,6 +53,8 @@ public class EmailController {
 
     @Autowired
     VolunteersAcceptedRepository  volunteersAcceptedRepository;
+
+
 
 
     private static Logger logger = LoggerFactory.getLogger(EmailController.class);
@@ -67,7 +82,7 @@ public class EmailController {
 
 
     public  static boolean sendMail(Session session,String from, String to,String cc, String bcc,String Subject,
-                                   Date startTime, Date endTime, String NGOName, String EventName,Long eventId)
+                                   Date startTime, Date endTime, String NGOName, String EventName,Long eventId,String body )
     {
         try {
             // Create a default MimeMessage object.
@@ -85,7 +100,7 @@ public class EmailController {
                 InternetAddress.parse(bcc));
             // Set Subject: header field
             message.setSubject(Subject);
-            message.setContent(createContent(startTime,endTime,NGOName,EventName,createUrl(to,eventId)),"text/html");
+            message.setContent(createContent(startTime,endTime,NGOName,EventName,createUrl(to,eventId),body),"text/html");
             // Send message
             Transport.send(message);
             logger.info("Sent message successfully....");
@@ -98,7 +113,7 @@ public class EmailController {
     }
 
 
-    public static Boolean sendMailController(String to,String cc,String bcc,String Subject,long eventId,Event event)
+    public static Boolean sendMailController(String to,String cc,String bcc,String Subject,long eventId,Event event,String body)
     {
         System.out.println(to);
         boolean result=false;
@@ -109,10 +124,9 @@ public class EmailController {
         Properties props = setProperties();
         Session session=createSession(props,username,password);
         //Event event=eventDataRepository.getOne(eventId);
-        result=sendMail(session,from,to,cc,bcc,Subject,event.getEventfromTime(),event.getEventtoTime(),event.getNgoName().get(0),event.getEventName(),eventId);
+
+        result=sendMail(session,from,to,cc,bcc,Subject,event.getEventfromTime(),event.getEventtoTime(),event.getNgoName().get(0),event.getEventName(),eventId,body);
         System.out.println(result);
-
-
         return result;
     }
     public  static String createUrl(String emailId,Long eventId)
@@ -123,7 +137,7 @@ public class EmailController {
         return uniqueUrl;
     }
 
-    public  static String createContent(Date startTime, Date endTime ,String NGOName, String EventName ,String link)
+    public  static String createContent(Date startTime, Date endTime ,String NGOName, String EventName ,String link ,String extraMessage)
     {
         String content="";
         content=content+""+"<!DOCTYPE html>\n" +
@@ -145,7 +159,6 @@ public class EmailController {
             "  <tr style=\"border:1px solid black\">\n" +
             "    <td style=\"border:1px solid black\">Event name</td>\n" +
             "    <td style=\"border:1px solid black\">"+EventName+"</td>\n"+
-
             "  </tr>\n" +
             "  <tr style=\"border:1px solid black\">\n" +
             "    <td style=\"border:1px solid black\">Date</td>\n" +
@@ -167,6 +180,8 @@ public class EmailController {
             "<b><i>If there are any changes in schedule from our side we will let you know</i></b>.\n" +
             "<br>\n" +
             "<br>\n" +
+
+            extraMessage+
             "\n" +
             "\n" +
             "For More information contact do us at :<br>\n" +
@@ -184,7 +199,12 @@ public class EmailController {
     {
 
         ResponseEntity<Email> emailResponseEntity = stagingEmailController.saveStagingEmail(email);
-        return emailResponseEntity.getStatusCode().equals(HttpStatus.OK);
+        try{
+        return emailResponseEntity.getStatusCode().equals(HttpStatus.OK);}
+        catch(Exception e)
+        {
+            return emailResponseEntity.getStatusCode().equals(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         /*
         System.out.println(email.toString());
         HashMap<String,Boolean> result= new HashMap<>();
@@ -206,8 +226,8 @@ public class EmailController {
         resultString="Email was not sent to "+emailNotSent.toString();
         return  resultString;
         */
-
     }
+
 
     public List<String> parseString(String to)
     {

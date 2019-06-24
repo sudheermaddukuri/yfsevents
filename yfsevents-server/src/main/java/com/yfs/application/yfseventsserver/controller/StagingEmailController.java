@@ -9,6 +9,7 @@ import com.yfs.application.yfseventsserver.repository.StagingEmailDataRepository
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,14 @@ public class StagingEmailController {
     @Autowired
     ObjectMapper objectMapper;
 
+
     private static Logger logger = LoggerFactory.getLogger(StagingEmailController.class);
+    @GetMapping("/getAll")
+    public ResponseEntity<StagingEmail> getAllStagingEmail()
+    {
+        return new ResponseEntity(stagingEmailDataRepository.findAll(), HttpStatus.OK);
+    }
+
 
     @PostMapping("save")
     public ResponseEntity<Email> saveStagingEmail(@RequestBody Email email){

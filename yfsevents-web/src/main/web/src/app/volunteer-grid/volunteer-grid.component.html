@@ -20,7 +20,8 @@
       <button type="button" class="btn btn-primary" (click)="router.navigate(['/volunteer'])">
           Add Volunteer
       </button>
-      <button type="button" (click)="onBtForEachNodeAfterFilterAndSort()">
+      
+      <button *ngIf = "redirectToEmailFun()" type="button" (click)="onBtForEachNodeAfterFilterAndSort()">
         send mail
         </button>
       </div>

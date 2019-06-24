@@ -1,7 +1,7 @@
 package com.yfs.application.yfseventsserver.services;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yfs.application.yfseventsserver.controller.EmailController;
+import com.yfs.application.yfseventsserver.controller.EventController;
 import com.yfs.application.yfseventsserver.entity.Email;
 import com.yfs.application.yfseventsserver.entity.Event;
 import com.yfs.application.yfseventsserver.entity.StagingEmail;
@@ -45,6 +45,8 @@ public class StagingEmailPoller {
     @Autowired
     EventDataRepository eventDataRepository;
 
+    @Autowired
+    EventController eventController;
 
     private static Logger logger = LoggerFactory.getLogger(StagingEmailPoller.class);
 
@@ -64,6 +66,14 @@ public class StagingEmailPoller {
 
 
     @Transactional
+    public Event getEvent(long id)
+    {
+        Event event= eventDataRepository.findEventById(id).get();
+        System.out.println("event details are"+event.getNgoName().get(0));
+        return event;
+    }
+
+    @Transactional
     private void processEmail(StagingEmail stagingEmail) {
         final List<Email> filedEmailList = new ArrayList<>();
         if (null == stagingEmail) {
@@ -81,15 +91,17 @@ public class StagingEmailPoller {
 //                    System.out.println("Entered here");
 //                    Optional<Event> opEvent= eventDataRepository.findById(email.getEventId());
 //                    System.out.println("Event is :"+opEvent.get().getNgoName());
-                     Event event = new Event();
-                     event.setCollege("ac");
-                     event.setComments("com");
-                     event.setEventAction("yes");
-                     event.setEventCategory("evCat");
-                     List list = new LinkedList();
-                     list.add("tushaar");
-                     event.setNgoName(list);
-                    boolean isEmailSent = EmailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),email.getEventId(),event);
+//                     Event event = new Event();
+//                     event.setCollege("ac");
+//                     event.setComments("com");
+//                     event.setEventAction("yes");
+//                     event.setEventCategory("evCat");
+//                     List list = new LinkedList();
+//                     list.add("tushaar");
+//                     event.setNgoName(list);
+
+                    Event event= eventController.getEventById(email.getEventId());
+                    boolean isEmailSent = EmailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),email.getEventId(),event,email.getSubject());
                     if (isEmailSent) {
                         volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.SENT);
                         volunteersAcceptedRepository.save(volunteersAccepted);
@@ -110,15 +122,8 @@ public class StagingEmailPoller {
                     String emailId = volunteersAccepted.getMailId();
                     logger.info("processEmail Retry[{}]:: About to send email to[{}] with subject[{}]", retryCount, emailId,email.getSubject());
 
-                    Event event = new Event();
-                    event.setCollege("ac");
-                    event.setComments("com");
-                    event.setEventAction("yes");
-                    event.setEventCategory("evCat");
-                    List list = new LinkedList();
-                    list.add("tushaar");
-                    event.setNgoName(list);
-                    boolean isEmailSent = emailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),email.getEventId(),event);
+                    Event event= eventController.getEventById(email.getEventId());
+                    boolean isEmailSent = emailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),email.getEventId(),event,email.getSubject());
                     if (isEmailSent) {
                         volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.SENT);
                         volunteersAcceptedRepository.save(volunteersAccepted);
@@ -131,10 +136,7 @@ public class StagingEmailPoller {
                         }
                     }
                 });
-
             }
-
-
             stagingEmail.setRetryCount(retryCount);
             if(CollectionUtils.isEmpty(filedEmailList)){
                 stagingEmail.setStatus(EmailStatus.COMPLETED);
@@ -147,3 +149,4 @@ public class StagingEmailPoller {
         }
     }
 }
+

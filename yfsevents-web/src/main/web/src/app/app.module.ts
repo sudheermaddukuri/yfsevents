@@ -41,6 +41,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormModalComponent } from './form-modal/form-modal.component';
 import { SelectablevolunteerComponent } from './selectablevolunteer/selectablevolunteer.component';
 import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
+import { StudentAcceptedTableComponent } from './student-accepted-table/student-accepted-table.component';
+import { StagingEmailTrackerComponent } from './staging-email-tracker/staging-email-tracker.component';
 
 @NgModule({
 declarations: [
@@ -66,7 +68,9 @@ ResetComponent,
 RegisteredEventsComponent,
 FormModalComponent,
 SelectablevolunteerComponent,
-BulkUploadComponent
+BulkUploadComponent,
+StudentAcceptedTableComponent,
+StagingEmailTrackerComponent
 
   ],
   imports: [

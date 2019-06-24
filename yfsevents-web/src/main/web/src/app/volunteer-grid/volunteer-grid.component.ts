@@ -6,6 +6,7 @@ import {ngDevModeResetPerfCounters}from '@angular/core/src/render3/ng_dev_mode';
 import { JsonPipe}from '@angular/common';
 import { GridApi, Column } from 'ag-grid-community';
 import {GridOptions} from 'ag-grid-community';
+import { CollapseModule } from 'ngx-bootstrap';
 
 
 
@@ -47,12 +48,19 @@ export class VolunteerGridComponent implements OnInit {
    private rowSelection :any;
    private columnDefs: Object[];
    private emailsSelected: any;
+   private redirectToEmail:boolean;
   interestedList:any[]=new Array();
    constructor(private apiService:ApiService,
                private router:Router,private route: ActivatedRoute,) { }
                ngOnInit() {    
                  this.emailsSelected="";  
     this.eventId=this.route.snapshot.paramMap.get('id')
+    console.log("route id is"+this.eventId);
+    if(!(this.eventId==null || this.eventId==""))
+    this.redirectToEmail=true;
+    else
+    this.redirectToEmail=false;
+    console.log("reirect vvalue is"+this.redirectToEmail);
     this.rowSelection = "multiple";
     this.apiService.getData('volunteer').subscribe(response=>{
           let result:any=JSON.parse(JSON.stringify(response));
@@ -92,12 +100,14 @@ export class VolunteerGridComponent implements OnInit {
 
    onRowCilcked(event){
      console.log(event.rowIndex);
-    // this.router.navigateByUrl("/volunteer/edit/"+((event.rowIndex)+1));
-       //console.log(this.printAllDisplayedRows());
-       console.log("### api.forEachNodeAfterFilterAndSort() ###");
-       //this.gridApi.forEachNodeAfterFilterAndSort(this.printNode);
-     //  this.gridApi.getSelectedNodes().forEach(node=>{console.log(node.data.email)});
-      this.onBtForEachNodeAfterFilterAndSort();
+    this.router.navigateByUrl("/volunteer/edit/"+((event.rowIndex)+1));
+
+
+    // console.log(this.printAllDisplayedRows());
+    //    console.log("### api.forEachNodeAfterFilterAndSort() ###");
+    //    //this.gridApi.forEachNodeAfterFilterAndSort(this.printNode);
+    //  //  this.gridApi.getSelectedNodes().forEach(node=>{console.log(node.data.email)});
+    //   this.onBtForEachNodeAfterFilterAndSort();
      }
 
      onBtForEachNodeAfterFilterAndSort() {
@@ -123,5 +133,10 @@ export class VolunteerGridComponent implements OnInit {
     else
     this.emailsSelected=this.emailsSelected+","+email;
     }
-
+    
+    redirectToEmailFun()
+    {
+      console.log("red to email is"+this.redirectToEmail);
+      return this.redirectToEmail;
+    }
 }

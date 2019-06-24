@@ -25,13 +25,14 @@ public class EventController {
     @GetMapping("/events")
     public Iterable<Event> getEvents() {return eventDataRepository.findAll();}
 
-    @ResponseBody
-    @GetMapping("/registered-events")
-    public Iterable<Event> getRegisteredEvents() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = ((UserDetails)auth.getPrincipal()). getUsername();
-        return eventDataRepository.getRegisteredEvents(username);
-    }
+    //check why not working
+//    @ResponseBody
+//    @GetMapping("/registered-events")
+//    public Iterable<Event> getRegisteredEvents() {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String username = ((UserDetails)auth.getPrincipal()). getUsername();
+//        return eventDataRepository.getRegisteredEvents(username);
+//    }
 
     @ResponseBody
     @PostMapping("/event")

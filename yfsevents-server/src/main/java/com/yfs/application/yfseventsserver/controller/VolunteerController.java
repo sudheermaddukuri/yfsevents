@@ -42,14 +42,15 @@ public class VolunteerController {
         return volunteerService.isPresent(volunteer);
     }
 
-
-    @ResponseBody
-    @GetMapping("/interestedAreasCategory")
-    public Iterable<KeyValuePair> getInterestedAreasCategoryList(){
-        Volunteer volunteer = new Volunteer();
-        return volunteer.getInterestedAreasCategoryList();
-
-    }
+//Check why not working
+//
+//    @ResponseBody
+//    @GetMapping("/interestedAreasCategory")
+//    public Iterable<KeyValuePair> getInterestedAreasCategoryList(){
+//        Volunteer volunteer = new Volunteer();
+//        return volunteer.getInterestedAreasCategoryList();
+//
+//    }
     @ResponseBody
     @GetMapping("/volunteer")
     public Iterable<Volunteer> getAllVolunteers() {
