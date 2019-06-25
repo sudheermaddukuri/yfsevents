@@ -210,21 +210,27 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
 
       console.log('submitting: ', json);
 
-      let response = this.apiService.postData(json, 'volunteer');
-      console.log("response is" + response);
-      while (this.interestedList.length) {
-        this.interestedList.pop();
-      }
-      if (response) {
-        if (this.mode == 'edit') {
-          alert('Succesfully updated Volunteer');
-        } else {
-          alert('Succesfully registered Volunteer');
+      let emailCheck: any;
+      this.apiService.getData('volunteerPresent', this.myForm.get('personalInfo').get('email').value).subscribe(response=>{
+        emailCheck = JSON.parse(JSON.stringify(response));
+        if(emailCheck){
+          alert('Volunteer already registered with same email Id');
+        }else if(emailCheck === false){
+          let response = this.apiService.postData(json, 'volunteer');
+          console.log("response is" + response);
+          while (this.interestedList.length) {
+            this.interestedList.pop();
+          }
+          if (response) {
+            if (this.mode == 'edit') {
+              alert('Succesfully updated Volunteer');
+            } else {
+              alert('Succesfully registered Volunteer');
+            }
+            this.router.navigateByUrl("/grid/volunteer");
+          }
         }
-        this.router.navigateByUrl("/grid/volunteer");
-      }
-
-
+      });
 
     }
     else { console.log("invalid");alert('please fill all the mandatory details'); } console.log("address is" + this.myForm.valid);
