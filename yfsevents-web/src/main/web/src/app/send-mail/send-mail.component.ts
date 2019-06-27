@@ -20,13 +20,15 @@ export class SendMailComponent implements OnInit {
   constructor(private apiService:ApiService,
               private apiServiceMail: ApiServiceMail,private route: ActivatedRoute,public router:Router) { }
   ngOnInit() {
+
     this.pipe = new DatePipe('en-US');
     this.eventData=new Eventdata(); this.eventData=new Eventdata();
     this.email=new Email({to:this.route.snapshot.paramMap.get('emails'),cc:"",bcc:"",
-    text:"",eventId:this.route.snapshot.paramMap.get('id'),subject:""});
+    text:"",eventId:this.route.snapshot.paramMap.get('id'),subject:""
+    ,eventfromTime:"",eventtoTime:"",ngoName:"",eventName:""});
     this.apiService.getData('event',this.route.snapshot.paramMap.get('id'), false).subscribe((data:any)=>{
-      this.eventData.eventfromTime=this.pipe.transform(data.eventfromTime,'shortDate')
-      this.eventData.eventtoTime=this.pipe.transform(data.eventtoTime,'shortDate')
+      this.eventData.eventfromTime=this.pipe.transform(data.eventfromTime,'short')
+      this.eventData.eventtoTime=this.pipe.transform(data.eventtoTime,'short')
       this.eventData.ngoName=data.ngoName;
       this.eventData.eventName=data.eventName;
       this.email.subject=this.createDefaultSubject(this.eventData.eventName,
@@ -35,6 +37,12 @@ export class SendMailComponent implements OnInit {
       console.log(this.eventData.eventtoTime);
       console.log(this.eventData.ngoName);
       console.log(this.eventData.eventName);
+      this.email.eventName=this.eventData.eventName;
+      //this.email.ngonames=this.eventData.ngoName;
+      this.email.startTime=this.pipe.transform(data.eventfromTime,'short');
+      this.email.endTime=this.pipe.transform(data.eventtoTime,'short');
+      console.log(this.email.eventName);
+      console.log(this.email.startTime);
       //this.getEmailId();
       console.log(this.resp);
       console.log(this.email.to);
@@ -46,6 +54,7 @@ export class SendMailComponent implements OnInit {
   public onFormSubmit({value}:{value:Email}) {
     console.log(value);
     console.log(this.route.snapshot.paramMap.get("name"));
+    console.log(this.email);
     //this.eventData.eventCategory='abc';
     // this.apiServiceMail.postData(this.email);
     this.apiServiceMail.saveToStagingEmail(this.email);
@@ -54,7 +63,9 @@ export class SendMailComponent implements OnInit {
   }
   public createDefaultSubject(eventName,ngoName,eventTo,eventFor)
   {
+    this.email.ngonames="est";
     return "We invite You for event : " + eventName + "by NGO : "+ngoName+" from :"+eventFor+"to : "+eventTo; 
+
   }
 
   public  getEmailId()

@@ -1,10 +1,12 @@
 package com.yfs.application.yfseventsserver.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Component
 public class Email
 {
@@ -15,6 +17,43 @@ public class Email
     private String bcc;
     private String cc;
     private Long eventId;
+    private String eventName;
+    private String ngonames;
+    private String startTime;
+    private String endTime;
+
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public String getNgonames() {
+        return ngonames;
+    }
+
+    public void setNgonames(String ngonames) {
+        this.ngonames = ngonames;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
     public Email() {
     }
