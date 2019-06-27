@@ -3,9 +3,11 @@ package com.yfs.application.yfseventsserver.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yfs.application.yfseventsserver.controller.EmailController;
 import com.yfs.application.yfseventsserver.entity.Email;
+import com.yfs.application.yfseventsserver.entity.Event;
 import com.yfs.application.yfseventsserver.entity.StagingEmail;
 import com.yfs.application.yfseventsserver.entity.VolunteersAccepted;
 import com.yfs.application.yfseventsserver.model.EmailStatus;
+import com.yfs.application.yfseventsserver.repository.EventDataRepository;
 import com.yfs.application.yfseventsserver.repository.StagingEmailDataRepository;
 import com.yfs.application.yfseventsserver.repository.VolunteersAcceptedRepository;
 import org.slf4j.Logger;
@@ -37,6 +39,12 @@ public class StagingEmailPoller {
     @Autowired
     VolunteersAcceptedRepository volunteersAcceptedRepository;
 
+    @Autowired
+    EventDataRepository eventDataRepository;
+
+    @Value("${baseUrl}")
+    String baseUrl;
+
     private static Logger logger = LoggerFactory.getLogger(StagingEmailPoller.class);
 
     @Scheduled(fixedDelay = 1000 * 30, initialDelay = 1000*1)
@@ -49,8 +57,9 @@ public class StagingEmailPoller {
             logger.info("No pending staging mail to be processed...");
             return;
         }
-
-        stagingEmails.parallelStream().forEach(i -> processEmail(i));
+//
+//        stagingEmails.parallelStream().forEach(i -> processEmail(i));
+        stagingEmails.forEach(StagingEmail->{processEmail(StagingEmail);});
 
 
     }
@@ -70,7 +79,8 @@ public class StagingEmailPoller {
                 Stream.of(toList).forEach(emailId -> {
                     VolunteersAccepted volunteersAccepted = new VolunteersAccepted(stagingEmail.getEventId(), emailId, false, VolunteersAccepted.EmailNotificationStatus.NOT_SENT);
                     logger.info("About to send email to [{}] with subject[{}]", emailId,email.getSubject());
-                    boolean isEmailSent = EmailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),email.getText());
+
+                   boolean isEmailSent = EmailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),createUrl(email.getText(),emailId,email.getEventId().toString()));
                     if (isEmailSent) {
                         volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.SENT);
                         volunteersAcceptedRepository.save(volunteersAccepted);
@@ -93,7 +103,6 @@ public class StagingEmailPoller {
                         String emailId = volunteersAccepted.getMailId();
                         logger.info("processEmail Retry[{}]:: About to send email to[{}] with subject[{}]", retryCount, emailId, email.getSubject());
                         boolean isEmailSent = EmailController.sendMailController(emailId, email.getCc(), email.getBcc(), email.getSubject(), email.getText());
-
                         if (isEmailSent) {
                             volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.SENT);
                             volunteersAcceptedRepository.save(volunteersAccepted);
@@ -122,5 +131,25 @@ public class StagingEmailPoller {
         }catch(Exception e){
             logger.error("Failed to process stagingEmail[{}] with exception[{}]",stagingEmail,e);
         }
+    }
+
+
+    public String createUrl(String content,String emailId,String eventId)
+    {
+        String uniqueUrl="";
+        uniqueUrl=uniqueUrl+baseUrl+emailId.split("@")[0]+"/"+emailId.split("@")[1]+"/"+eventId;
+        System.out.println("Unique Link is "+uniqueUrl);
+        content=content+"Please click on the the following link to accept our invitation.<br> \n" +
+            "<a href=\""+uniqueUrl+"\">Click here to accept invitation</a><br><br>\n";
+        content=content+
+            "For More information contact do us at :<br>\n" +
+            "Website: https://www.youthforseva.org<br>\n" +
+            "Ph Number: 7878787834<br>\n" +
+            "email:     abc@gmail.com\n" +
+
+            "</body>\n" +
+            "</html>\n";
+
+        return content;
     }
 }

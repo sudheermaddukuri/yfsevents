@@ -8,6 +8,12 @@
 insert into user (id, username, password, role) values (1, 'admin', '{noop}admin', 'ROLE_ADMIN');
 insert into user (id, username, password, role) values (2, 'user', '{noop}user' , 'ROLE_USER');
 
+INSERT INTO INVENTORY_DATA  VALUES(1,'A','Environment','Bat');
+INSERT INTO COLLEGE_REGISTRATION VALUES(1,'Add','line','city','name_college','123434','23','state');
+INSERT INTO MOU VALUES(1,'tr','2019-06-16T07:45:33.000Z','1','mou_name','Active',1,'2019-06-18T07:45:33.000Z',1);
+INSERT INTO EVENT VALUES(1,'yu','college--hjhj','Completed','Environment','Event name','2019-06-27 13:34:39.722','	2019-06-27 13:59:39.722','Yes',6,1);
+INSERT INTO EVENT_NGO_NAME VALUES(1,'ngo_name');
+INSERT INTO EVENT_EVENT_ITEMS VALUES(1,'Cat');
 
 --INSERT INTO VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PINCODE,STATE)  VALUES ( 'jammu','rainatushar221995@gmail.com','Tushar','Raina','locality','8146222129','31274','j&k' );
 --INSERT INTO VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PINCODE,STATE)  VALUES ( 'hyd','ranom22@gmail.com','T','Raina','locality','3434344343','31274','Hyerabad' );
