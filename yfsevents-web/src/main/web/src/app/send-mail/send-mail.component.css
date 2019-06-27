@@ -1,7 +1,7 @@
 #mainDiv
 {
   height: 100%;
-  width:95%;
+  width:70%;
   margin:auto;
   background-color: azure;
   margin-top: 2%;
@@ -15,7 +15,7 @@
   /*padding-left: 35%;*/
   /*margin: auto;*/
   font-size: 25px;
-  /* margin-top: 25px;    */
+  margin-top: 25px;   
   margin-left: 15%;
    background-color: burlywood;
    border-radius: 10px;

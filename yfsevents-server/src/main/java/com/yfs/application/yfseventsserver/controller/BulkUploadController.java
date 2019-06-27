@@ -80,7 +80,12 @@ public class BulkUploadController {
                                         interestedAreas.add(volunteerInterestedArea);
                                     }
                                 }
-                                volunteer.setInterstedAreas(interestedAreas);
+                                volunteer.setInterestedAreas(interestedAreas);
+                                volunteer.setVolunteerPreferredTimes(dataFormatter.formatCellValue(row.getCell(baseInterestredAreasIndex + maxInterestedAreas + 0)));
+                                volunteer.setOccupation(dataFormatter.formatCellValue(row.getCell(baseInterestredAreasIndex + maxInterestedAreas + 1)));
+                                if(volunteer.getOccupation().equalsIgnoreCase("Others")){
+                                    volunteer.setOccupation(dataFormatter.formatCellValue(row.getCell(baseInterestredAreasIndex + maxInterestedAreas + 2)));
+                                }
 
                                 BulkVolunteer bulkVolunteer = new BulkVolunteer();
                                 List<String> errors = new ArrayList<>();

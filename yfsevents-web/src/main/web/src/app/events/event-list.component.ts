@@ -88,7 +88,7 @@ export class EventListComponent implements OnInit{
     this.router.navigate(['grid/volunteer',{id:event.rowData.id}]);
   }
   onBtnClick2(event:any){
-    this.openFormModal();
+    this.router.navigate(['accepted-users/' + event.rowData.id]);
   }
 
   

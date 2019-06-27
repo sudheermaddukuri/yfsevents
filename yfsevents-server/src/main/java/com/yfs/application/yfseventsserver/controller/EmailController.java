@@ -33,32 +33,45 @@ import java.util.stream.Stream;
 @RequestMapping("/sendEmail")
 public class EmailController {
 
-    @Value("${from}")
-    String from;
-
-    @Value("${username}")
-    String userName;
-
-    @Value("${password}")
-    String password;
-
-    @Value("${host}")
-    String host;
-
     @Autowired
     Email email;
 
     @Autowired
-    StagingEmailController stagingEmailController;
-
-    @Autowired
     VolunteersAcceptedRepository  volunteersAcceptedRepository;
 
+    @Autowired
+    StagingEmailController stagingEmailController;
 
+
+    static String host;
+
+    static String userName;
+
+
+    static String password;
+
+
+    static String emailSender;
+
+    @Value("${email.password1}")
+    public void setpassword(String un) {
+        password = un;
+    }
+    @Value("${email.host1}")
+    public void sethost(String un) {
+        host = un;
+    }
+    @Value("${email.userName}")
+    public void setUserName(String un) {
+        userName = un;
+    }
+    @Value("${email.sender1}")
+    public void setSener(String un) {
+        emailSender = un;
+    }
 
 
     private static Logger logger = LoggerFactory.getLogger(EmailController.class);
-
     public static Properties setProperties()
     {
         String host = "smtp.gmail.com";
@@ -80,9 +93,7 @@ public class EmailController {
         return session;
     }
 
-
-    public  static boolean sendMail(Session session,String from, String to,String cc, String bcc,String Subject,
-                                   Date startTime, Date endTime, String NGOName, String EventName,Long eventId,String body )
+    public static boolean sendMail(Session session,String from, String to,String cc, String bcc,String Subject,final String messageText)
     {
         try {
             // Create a default MimeMessage object.
@@ -92,19 +103,19 @@ public class EmailController {
             // Set To: header field of the header.
             message.setRecipients(Message.RecipientType.TO,
                 InternetAddress.parse(to));
-            if(!(cc==null || cc=="" ||cc==" "))
             message.setRecipients(Message.RecipientType.CC,
                 InternetAddress.parse(cc));
-            if(!(bcc==null || bcc=="" ||bcc==" "))
             message.setRecipients(Message.RecipientType.BCC,
                 InternetAddress.parse(bcc));
             // Set Subject: header field
             message.setSubject(Subject);
-            message.setContent(createContent(startTime,endTime,NGOName,EventName,createUrl(to,eventId),body),"text/html");
+            message.setContent(messageText,"text/html");
             // Send message
             Transport.send(message);
+
             logger.info("Sent message successfully....");
             return true;
+
         } catch (MessagingException e) {
 
             logger.error("Failed to send mail[{}] with exception[{}]",to, e);
@@ -112,122 +123,46 @@ public class EmailController {
         }
     }
 
-
-    public static Boolean sendMailController(String to,String cc,String bcc,String Subject,long eventId,Event event,String body)
+    public static Boolean sendMailController(String to,String cc,String bcc,String Subject,String Content)
     {
         System.out.println(to);
         boolean result=false;
-        String from = "rainatushar221995221995@gmail.com";
-        String username = "rainatushar221995221995@gmail.com";
-        String password = "youthforseva";
-        String host = "smtp.gmail.com";
-        Properties props = setProperties();
-        Session session=createSession(props,username,password);
-        //Event event=eventDataRepository.getOne(eventId);
 
-        result=sendMail(session,from,to,cc,bcc,Subject,event.getEventfromTime(),event.getEventtoTime(),event.getNgoName().get(0),event.getEventName(),eventId,body);
+        String from = emailSender;
+        String username = userName;
+        String password1 = password;
+        String host1 = host;
+        Properties props = setProperties();
+        System.out.println(from);
+        System.out.println(username);
+        System.out.println(password1);
+        Session session=createSession(props,username,password1);
+
+        result=sendMail(session,from,to,cc,bcc,Subject,Content);
         System.out.println(result);
+
+
         return result;
     }
-    public  static String createUrl(String emailId,Long eventId)
+    public String createUrl(String emailId,String eventId)
     {
         String uniqueUrl="";
         uniqueUrl=uniqueUrl+"http://localhost:8080/register/"+emailId.split("@")[0]+"/"+emailId.split("@")[1]+"/"+eventId;
         System.out.println("Unique Link is "+uniqueUrl);
         return uniqueUrl;
     }
-
-    public  static String createContent(Date startTime, Date endTime ,String NGOName, String EventName ,String link ,String extraMessage)
-    {
-        String content="";
-        content=content+""+"<!DOCTYPE html>\n" +
-            "<html>\n" +
-            "<head>\n" +
-            "<style>\n" +
-            "</style>\n" +
-            "</head>\n" +
-            "<body>\n" +
-            "\n" +
-            "<h2>We require your presence</h2>\n" +
-            "<p>Here are the event Details</p>\n" +
-            "\n" +
-            "<table style=\"width:100%;border:1px solid black\">\n" +
-            "  <tr style=\"border:1px solid black\">\n" +
-            "    <td style=\"border:1px solid black\">NGO Name</td>\n" +
-            "    <td style=\"border:1px solid black\">"+NGOName+"</td>\n"+
-            "  </tr>\n" +
-            "  <tr style=\"border:1px solid black\">\n" +
-            "    <td style=\"border:1px solid black\">Event name</td>\n" +
-            "    <td style=\"border:1px solid black\">"+EventName+"</td>\n"+
-            "  </tr>\n" +
-            "  <tr style=\"border:1px solid black\">\n" +
-            "    <td style=\"border:1px solid black\">Date</td>\n" +
-            "    <td style=\"border:1px solid black\">"+startTime+"</td>\n"+
-            "  </tr>\n" +
-            "  <tr style=\"border:1px solid black\">\n" +
-            "    <td style=\"border:1px solid black\">Event End Time</td>\n" +
-            "    <td style=\"border:1px solid black\">"+endTime+"</td>\n"+
-            "  </tr>\n" +
-            "</table>\n" +
-            "\n" +
-            "<h1>Based on our filters we think that this event may be something  of your intrest.</h1>\n" +
-            "\n" +
-            "Please click on the the following link to accept our invitation.<br> \n" +
-            "<a href="+"\""+link+"\"+"+">Click here to accept invitation</a><br><br>\n" +
-            "\n" +
-            "After accepting , if you feel You wont be able to make to the event ,Please tell us.<br><br>\n" +
-            "\n" +
-            "<b><i>If there are any changes in schedule from our side we will let you know</i></b>.\n" +
-            "<br>\n" +
-            "<br>\n" +
-
-            extraMessage+
-            "\n" +
-            "\n" +
-            "For More information contact do us at :<br>\n" +
-            "Website: https://www.youthforseva.org<br>\n" +
-            "Ph Number: 7878787834<br>\n" +
-            "email:     abc@gmail.com\n" +
-            "</body>\n" +
-            "</html>\n";
-
-        //System.out.println(content);
-        return content;
-
-    }
     public  boolean sendMailToall(Email email)
     {
-
-        ResponseEntity<Email> emailResponseEntity = stagingEmailController.saveStagingEmail(email);
+        System.out.println("Sending mail to all");
+        ResponseEntity<StagingEmail> emailResponseEntity = stagingEmailController.saveStagingEmail(email);
         try{
-        return emailResponseEntity.getStatusCode().equals(HttpStatus.OK);}
+            return emailResponseEntity.getStatusCode().equals(HttpStatus.OK);}
         catch(Exception e)
         {
             return emailResponseEntity.getStatusCode().equals(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        /*
-        System.out.println(email.toString());
-        HashMap<String,Boolean> result= new HashMap<>();
-        System.out.println("Test : "+email.getToMultiple().toString());
-        List<String> toMultiple =email.getToMultiple();
-        System.out.println(" chk :"+toMultiple.toString());
-        toMultiple.parallelStream().flatMap(toUnique-> Stream.of(toUnique)).forEach(toUnique -> result.put(toUnique,sendMailController(
-            toUnique,email.getCc(),email.getBcc(),email.getSubject(),email.getText()+" -- "+
-                createUrl(toUnique,Long.toString(email.getEventId())))));
-        result.forEach((toEmail,response)->insertVolunteerValuesToDB(toEmail,email.getEventId(),response));
-        String resultString ="All the mails were sent sucssfully";
-        List<String> emailNotSent=new ArrayList<>();
-        result.forEach( (toEmail,response) -> {
-            if (response != true) {
-                emailNotSent.add(toEmail);
-            }
-        });
-        if(emailNotSent.size()==0) return resultString;
-        resultString="Email was not sent to "+emailNotSent.toString();
-        return  resultString;
-        */
-    }
 
+    }
 
     public List<String> parseString(String to)
     {
@@ -236,6 +171,7 @@ public class EmailController {
         toMultiple= Arrays.asList(toMultipleString);
         return toMultiple;
     }
+
     public void insertVolunteerValuesToDB(String email,Long eventId ,Boolean response)
     {
         if(response==false)
@@ -260,31 +196,11 @@ public class EmailController {
         System.out.println(em.getTo());
         System.out.println(em.getSubject());
         em.setToMultiple(parseString(em.getTo()));
-        boolean result=sendMailToall(em);
-
+        Boolean result=sendMailToall(em);
         HashMap<String ,Boolean> hm= new HashMap<>();
         hm.put("result",result);
         return hm;
     }
-    public static void main(String[] args) {
-//        Email email= new Email();
-//        email.setTo("rainatushar221995@gmail.com,akulavij@gmail.com ,random1@yahoo.com");
-//        email.setSubject("Subject Test3 again");
-//        email.setText("Text is working");
-//        email.setEventId(1L);
-//        EmailController emailController=new EmailController();
-//        System.out.println(emailController.sendmail(email));
-    }
 
 
-    public void fun()
-    {
-        Email email= new Email();
-        email.setTo("rainatushar221995@gmail.com,akulavij@gmail.com");
-        email.setSubject("Subject Test3 again");
-        email.setText("Text is working");
-        //event.setId(312L);
-        email.setEventId(1L);
-        System.out.println(sendmail(email));
-    }
 }

@@ -3,6 +3,7 @@ package com.yfs.application.yfseventsserver.entity;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
 @Entity
 public class Event {
 
@@ -33,25 +34,20 @@ public class Event {
 
     private Date eventtoTime;
 
-    @ElementCollection
-    private List<String> ngoName;
-
-
     public List<String> getNgoName() {
         return ngoName;
     }
-
 
     public void setNgoName(List<String> ngoName) {
         this.ngoName = ngoName;
     }
 
+    @ElementCollection
+    private List<String> ngoName;
+
     private String eventCategory;
-
     private String recurringEvent;
-
     private String volunteers;
-
     private String volunteersOffline;
 
     public String getVolunteersOffline() {
@@ -61,6 +57,8 @@ public class Event {
     public void setVolunteersOffline(String volunteersOffline) {
         this.volunteersOffline = volunteersOffline;
     }
+
+
 
     public String getCollege() {
         return college;
@@ -98,10 +96,10 @@ public class Event {
     @ElementCollection
     private List<String> eventItems;
 
-
     public List<String> getEventItems() {
         return eventItems;
     }
+
     public void setEventItems(List<String> eventItems) {
         this.eventItems = eventItems;
     }

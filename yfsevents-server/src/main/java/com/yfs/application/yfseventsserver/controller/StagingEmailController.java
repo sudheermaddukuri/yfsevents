@@ -9,7 +9,6 @@ import com.yfs.application.yfseventsserver.repository.StagingEmailDataRepository
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,18 +28,13 @@ public class StagingEmailController {
     @Autowired
     ObjectMapper objectMapper;
 
-
     private static Logger logger = LoggerFactory.getLogger(StagingEmailController.class);
-    @GetMapping("/getAll")
-    public ResponseEntity<StagingEmail> getAllStagingEmail()
-    {
-        return new ResponseEntity(stagingEmailDataRepository.findAll(), HttpStatus.OK);
-    }
-
 
     @PostMapping("save")
-    public ResponseEntity<Email> saveStagingEmail(@RequestBody Email email){
+    public ResponseEntity<StagingEmail> saveStagingEmail(@RequestBody Email email){
         ResponseEntity responseEntity = null;
+        email.setText(createContent(email.getText(),"NGOName","eventName",
+            "startTime","enTime"));
         List<StagingEmail> stagingEmailList = stagingEmailDataRepository.getStagingEmailByEventId(email.getEventId());
        if(!CollectionUtils.isEmpty(stagingEmailList)){
            StagingEmail stagingEmail = new StagingEmail();
@@ -63,5 +57,54 @@ public class StagingEmailController {
 
         return responseEntity;
 
+    }
+    public String createContent(String message,
+                                String ngoName,
+                                String eventName,
+                                String eventStartTime,
+                                String eventEndTime)
+    {
+        String s="<!DOCTYPE html>\n" +
+            "<html>\n" +
+            "<head>\n" +
+            "<style>\n" +
+            "</style>\n" +
+            "</head>\n" +
+            "<body>\n" +
+            "\n" +
+            "<h2>We require your presence</h2>\n" +
+            "<p>Here are the event Details</p>\n" +
+            "\n" +
+            "<table style=\"width:100%;border:1px solid black\">\n" +
+            "  <tr style=\"border:1px solid black\">\n" +
+            "    <td style=\"border:1px solid black\">NGO Name</td>\n" +
+            "    <td style=\"border:1px solid black\">"+ngoName+"</td>\n" +
+            "  </tr>\n" +
+            "  <tr style=\"border:1px solid black\">\n" +
+            "    <td style=\"border:1px solid black\">Event name</td>\n" +
+            "    <td style=\"border:1px solid black\">"+eventName+"</td>\n" +
+            "  </tr>\n" +
+            "  <tr style=\"border:1px solid black\">\n" +
+            "    <td style=\"border:1px solid black\">Event Start Time</td>\n" +
+            "    <td style=\"border:1px solid black\">"+eventStartTime+"</td>\n" +
+            "  </tr>\n" +
+            "  <tr style=\"border:1px solid black\">\n" +
+            "    <td style=\"border:1px solid black\">Event End Time</td>\n" +
+            "    <td style=\"border:1px solid black\">"+eventEndTime+"</td>\n" +
+            "  </tr>\n" +
+            "</table>\n" +
+            "\n" +
+            "<h1>Based on our filters we think that this event may be something  of your intrest.</h1>\n" +
+            "\n" +
+            "\n" +
+            "After accepting , if you feel You wont be able to make to the event ,Please tell us.<br><br>\n" +
+            "\n" +
+            "<b><i>If there are any changes in schedule from our side we will let you know</i></b>.\n" +
+            "<br>\n" +
+            "<br>\n" +
+            "\n" +
+            "\n" +
+            message;
+        return s;
     }
 }

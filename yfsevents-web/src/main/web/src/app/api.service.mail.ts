@@ -8,6 +8,7 @@ import { Router, ActivatedRoute, Params, Data } from '@angular/router';
 export class ApiServiceMail {
 
   private basicURL:string="/sendEmail"
+  private stagingEmailURL:string="/staging/email/save"
   private basicURLVolunteer:string="/api"
   private urlList=new Map<string, string>();
 
@@ -31,5 +32,14 @@ export class ApiServiceMail {
   getData(){
     let uri : string =this.basicURLVolunteer+this.urlList.get("getEmail");
     return this.http.get(uri);
+  }
+
+  saveToStagingEmail(data){
+
+   this.http.post(this.stagingEmailURL,data).subscribe(response=>{
+        console.log('saveToStagingEmail:: response: ',response);
+        alert("Email Submission triggered");
+        this.router.navigate(['/events']);
+      });
   }
 }

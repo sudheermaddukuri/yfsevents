@@ -20,7 +20,7 @@ public interface VolunteerRepository extends JpaRepository<Volunteer,Long> {
     @Query(value = "SELECT * FROM Volunteer i where  i.email in :emails", nativeQuery = true)
     List<Volunteer> getVolunteersPerEmailIds(@Param("emails") List<String> emails);
 
-    Volunteer findOneByEmail(String email);
+    List<Volunteer> findByEmail(String email);
 
     @Query("SELECT v.email FROM Volunteer v where v.email = :email")
     List<Object> findVolunteerWithEmail(@Param("email") String email);

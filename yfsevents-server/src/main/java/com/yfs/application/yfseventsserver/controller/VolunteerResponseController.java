@@ -37,8 +37,7 @@ public class VolunteerResponseController {
    @RequestMapping(value="/set",method = RequestMethod.GET)
     public String set()
    {
-       System.out.println("In set function");
-       emailController.fun();
+       //emailController.fun();
        return "Done";
    }
 

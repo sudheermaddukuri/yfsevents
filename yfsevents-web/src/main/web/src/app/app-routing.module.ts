@@ -20,6 +20,7 @@ import {VolunteerGridComponent} from './volunteer-grid/volunteer-grid.component'
 import{SelectablevolunteerComponent} from './selectablevolunteer/selectablevolunteer.component';
 
 import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
+import { FormModalComponent } from './form-modal/form-modal.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,7 @@ path: 'login', component: LoginComponent
     ]
   },
   {path:'events',component:EventListComponent},
+   {path:'accepted-users/:id',component:FormModalComponent},
   {path:'home',component:WelcomeComponent},
   {path:'reset',component:ResetComponent},
   {path:'registered-events',component:RegisteredEventsComponent},

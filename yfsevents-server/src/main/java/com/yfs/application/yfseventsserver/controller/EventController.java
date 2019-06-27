@@ -3,6 +3,7 @@ package com.yfs.application.yfseventsserver.controller;
 
 import com.yfs.application.yfseventsserver.entity.Event;
 import com.yfs.application.yfseventsserver.repository.EventDataRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -25,14 +26,13 @@ public class EventController {
     @GetMapping("/events")
     public Iterable<Event> getEvents() {return eventDataRepository.findAll();}
 
-    //check why not working
-//    @ResponseBody
-//    @GetMapping("/registered-events")
-//    public Iterable<Event> getRegisteredEvents() {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String username = ((UserDetails)auth.getPrincipal()). getUsername();
-//        return eventDataRepository.getRegisteredEvents(username);
-//    }
+    @ResponseBody
+    @GetMapping("/registered-events")
+    public Iterable<Event> getRegisteredEvents() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = ((UserDetails)auth.getPrincipal()). getUsername();
+        return eventDataRepository.getRegisteredEvents(username);
+    }
 
     @ResponseBody
     @PostMapping("/event")
@@ -46,18 +46,19 @@ public class EventController {
     public Event getEventById(@PathVariable Long id) {
         return eventDataRepository.findById(id).orElse(null);
     }
+
     @ResponseBody
-    @PutMapping("/event/{id}")
-    public ResponseEntity<Object> updateEvent(@RequestBody Event event, @PathVariable Long Id){
-        Optional<Event> updateEventData = eventDataRepository.findById(Id);
+    @PostMapping("/event/update")
+    public Event updateEvent(@RequestBody Event event) throws NotFoundException {
+        Optional<Event> updateEventData = eventDataRepository.findById(event.getId());
         if (!updateEventData.isPresent())
-            return ResponseEntity.notFound().build();
+            throw new NotFoundException("No such Event");
 
-        event.setId(Id);
+        //event.setId(Id);
 
-        eventDataRepository.save(event);
 
-        return ResponseEntity.noContent().build();
+
+        return  eventDataRepository.save(event);
 
     }
 

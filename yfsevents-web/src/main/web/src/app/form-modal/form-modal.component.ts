@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { GridOptions } from 'ag-grid-community';
 import { ApiService } from '../api.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-modal',
@@ -36,11 +35,10 @@ export class FormModalComponent implements OnInit {
    private rowSelection :any;
    public gridOptions: GridOptions;
   interestedList:any[]=new Array();
-   constructor(private apiService:ApiService,
-               private router:Router,public activeModal: NgbActiveModal) { }
+   constructor(private apiService:ApiService,private route:ActivatedRoute,private router:Router) { }
    ngOnInit() {
     this.rowSelection = "multiple";
-    this.apiService.getData('volunteerAccepted','1').subscribe(response=>{
+    this.apiService.getData('volunteerAccepted',this.route.snapshot.paramMap.get('id')).subscribe(response=>{
           let result:any=JSON.parse(JSON.stringify(response));
           Array.from(result).forEach(element => {
             let interestedAreas1=JSON.parse(JSON.stringify(element)).interestedAreas;
@@ -76,13 +74,5 @@ export class FormModalComponent implements OnInit {
       // console.log(this.printAllDisplayedRows());
      //  this.onBtForEachNodeAfterFilterAndSort();
      }
-
-
-
- 
- 
-  closeModal() {
-    this.activeModal.close('Modal Closed');
-  }
 
 }
