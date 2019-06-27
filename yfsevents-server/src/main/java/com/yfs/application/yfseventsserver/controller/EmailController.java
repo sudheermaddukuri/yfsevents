@@ -109,7 +109,68 @@ public class EmailController {
                 InternetAddress.parse(bcc));
             // Set Subject: header field
             message.setSubject(Subject);
+<<<<<<< HEAD
             message.setContent(messageText,"text/html");
+=======
+
+            // Now set the actual message
+            String s="<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "<style>\n" +
+                "</style>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "\n" +
+                "<h2>We require your presence</h2>\n" +
+                "<p>Here are the event Details</p>\n" +
+                "\n" +
+                "<table style=\"width:100%;border:1px solid black\">\n" +
+                "  <tr style=\"border:1px solid black\">\n" +
+                "    <td style=\"border:1px solid black\">NGO Name</td>\n" +
+                "    <td style=\"border:1px solid black\">Youth For Seva</td>\n" +
+                "  </tr>\n" +
+                "  <tr style=\"border:1px solid black\">\n" +
+                "    <td style=\"border:1px solid black\">Event name</td>\n" +
+                "    <td style=\"border:1px solid black\">Blood Bank</td>\n" +
+                "  </tr>\n" +
+                "  <tr style=\"border:1px solid black\">\n" +
+                "    <td style=\"border:1px solid black\">Date</td>\n" +
+                "    <td style=\"border:1px solid black\">12-4-2018</td>\n" +
+                "  </tr>\n" +
+                "  <tr style=\"border:1px solid black\">\n" +
+                "    <td style=\"border:1px solid black\">Event End Time</td>\n" +
+                "    <td style=\"border:1px solid black\">12 a.m</td>\n" +
+                "  </tr>\n" +
+                "  <tr style=\"border:1px solid black\">\n" +
+                "    <td style=\"border:1px solid black\">Event End Time</td>\n" +
+                "    <td style=\"border:1px solid black\">12 a.m</td>\n" +
+                "  </tr>\n" +
+                "</table>\n" +
+                "\n" +
+                "<h1>Based on our filters we think that this event may be something  of your intrest.</h1>\n" +
+                "\n" +
+                "Please click on the the following link to accept our invitation.<br> \n" +
+                "<a href=\"Click  me to accept invitation\">Click here to accept invitation</a><br><br>\n" +
+                "\n" +
+                "After accepting , if you feel You wont be able to make to the event ,Please tell us.<br><br>\n" +
+                "\n" +
+                "<b><i>If there are any changes in schedule from our side we will let you know</i></b>.\n" +
+                "<br>\n" +
+                "<br>\n" +
+                "\n" +
+                "\n" +
+                "For More information contact do us at :<br>\n" +
+                "Website: https://www.youthforseva.org<br>\n" +
+                "Ph Number: 7878787834<br>\n" +
+                "email:     abc@gmail.com\n" +
+                messageText+
+                "</body>\n" +
+                "</html>\n";
+
+            message.setContent(messageText,"text/html");
+
+>>>>>>> 6066e907adb4ba6951128ba022377711c4f7f04f
             // Send message
             Transport.send(message);
 

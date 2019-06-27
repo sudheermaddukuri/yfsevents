@@ -103,6 +103,10 @@ public class StagingEmailPoller {
                         String emailId = volunteersAccepted.getMailId();
                         logger.info("processEmail Retry[{}]:: About to send email to[{}] with subject[{}]", retryCount, emailId, email.getSubject());
                         boolean isEmailSent = EmailController.sendMailController(emailId, email.getCc(), email.getBcc(), email.getSubject(), email.getText());
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6066e907adb4ba6951128ba022377711c4f7f04f
                         if (isEmailSent) {
                             volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.SENT);
                             volunteersAcceptedRepository.save(volunteersAccepted);
