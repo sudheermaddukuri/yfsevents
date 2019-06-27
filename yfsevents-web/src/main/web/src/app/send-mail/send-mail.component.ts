@@ -20,12 +20,13 @@ export class SendMailComponent implements OnInit {
   constructor(private apiService:ApiService,
               private apiServiceMail: ApiServiceMail,private route: ActivatedRoute,public router:Router) { }
   ngOnInit() {
+    this.pipe = new DatePipe('en-US');
     this.eventData=new Eventdata(); this.eventData=new Eventdata();
     this.email=new Email({to:this.route.snapshot.paramMap.get('emails'),cc:"",bcc:"",
     text:"",eventId:this.route.snapshot.paramMap.get('id'),subject:""});
     this.apiService.getData('event',this.route.snapshot.paramMap.get('id'), false).subscribe((data:any)=>{
-      this.eventData.eventfromTime=data.eventfromTime;
-      this.eventData.eventtoTime=data.eventtoTime;
+      this.eventData.eventfromTime=this.pipe.transform(data.eventfromTime,'shortDate')
+      this.eventData.eventtoTime=this.pipe.transform(data.eventtoTime,'shortDate')
       this.eventData.ngoName=data.ngoName;
       this.eventData.eventName=data.eventName;
       this.email.subject=this.createDefaultSubject(this.eventData.eventName,
