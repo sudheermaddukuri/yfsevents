@@ -175,8 +175,8 @@ public class VolunteerController {
 //        emaillist.add("try@gmail.com");
 //        emaillist.add("try1@gmail.com");
 //        System.out.println("emails");
-        System.out.println(volunteerRepository.getVolunteersPerEmailIds(emaillist).toString());
-        return volunteerRepository.getVolunteersPerEmailIds(emaillist);
+        System.out.println(volunteerRepository.findByEmailIn(emaillist).toString());
+        return volunteerRepository.findByEmailIn(emaillist);
     }
 
 }
