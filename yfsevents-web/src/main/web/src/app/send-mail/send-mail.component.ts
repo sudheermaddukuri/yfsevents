@@ -38,7 +38,7 @@ export class SendMailComponent implements OnInit {
       console.log(this.eventData.ngoName);
       console.log(this.eventData.eventName);
       this.email.eventName=this.eventData.eventName;
-      //this.email.ngonames=this.eventData.ngoName;
+      this.email.ngonames=this.eventData.ngoName;
       this.email.startTime=this.pipe.transform(data.eventfromTime,'short');
       this.email.endTime=this.pipe.transform(data.eventtoTime,'short');
       console.log(this.email.eventName);
@@ -63,8 +63,8 @@ export class SendMailComponent implements OnInit {
   }
   public createDefaultSubject(eventName,ngoName,eventTo,eventFor)
   {
-    this.email.ngonames="est";
-    return "We invite You for event : " + eventName + "by NGO : "+ngoName+" from :"+eventFor+"to : "+eventTo; 
+  
+    return "We invite You for event : " + eventName + " in collboraton with  parner NGO's  " + ngoName+" from : "+eventFor+" to : "+eventTo; 
 
   }
 

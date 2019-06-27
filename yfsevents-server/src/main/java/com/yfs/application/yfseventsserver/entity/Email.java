@@ -18,7 +18,7 @@ public class Email
     private String cc;
     private Long eventId;
     private String eventName;
-    private String ngonames;
+    private List<String> ngonames;
     private String startTime;
     private String endTime;
 
@@ -31,11 +31,11 @@ public class Email
         this.eventName = eventName;
     }
 
-    public String getNgonames() {
+    public List<String> getNgonames() {
         return ngonames;
     }
 
-    public void setNgonames(String ngonames) {
+    public void setNgonames(List<String> ngonames) {
         this.ngonames = ngonames;
     }
 

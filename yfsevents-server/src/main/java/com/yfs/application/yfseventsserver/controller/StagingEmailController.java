@@ -33,7 +33,7 @@ public class StagingEmailController {
     @PostMapping("save")
     public ResponseEntity<StagingEmail> saveStagingEmail(@RequestBody Email email){
         ResponseEntity responseEntity = null;
-        email.setText(createContent(email.getText(),email.getNgonames(),email.getEventName(),
+        email.setText(createContent(email.getText(),email.getNgonames().toString(),email.getEventName(),
             email.getStartTime(),email.getEndTime()));
         List<StagingEmail> stagingEmailList = stagingEmailDataRepository.getStagingEmailByEventId(email.getEventId());
        if(!CollectionUtils.isEmpty(stagingEmailList)){
@@ -78,7 +78,7 @@ public class StagingEmailController {
             "\n" +
             "<table style=\"width:100%;border:1px solid black\">\n" +
             "  <tr style=\"border:1px solid black\">\n" +
-            "    <td style=\"border:1px solid black\">NGO Name</td>\n" +
+            "    <td style=\"border:1px solid black\">Partner NGO Names</td>\n" +
             "    <td style=\"border:1px solid black\">"+ngoName+"</td>\n" +
             "  </tr>\n" +
             "  <tr style=\"border:1px solid black\">\n" +
