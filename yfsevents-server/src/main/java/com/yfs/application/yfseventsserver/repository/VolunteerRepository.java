@@ -17,8 +17,10 @@ import java.util.List;
 
 public interface VolunteerRepository extends JpaRepository<Volunteer,Long> {
 
-    @Query(value = "SELECT * FROM Volunteer i where  i.email in :emails", nativeQuery = true)
-    List<Volunteer> getVolunteersPerEmailIds(@Param("emails") List<String> emails);
+    @Query(value = "SELECT * FROM volunteer i where  i.email in (:emails)", nativeQuery = true)
+    List<Volunteer> getVolunteersPerEmailIds(@Param("emails") String emails);
+
+    List<Volunteer> findByEmailIn(List<String> emaillist);
 
     List<Volunteer> findByEmail(String email);
 
