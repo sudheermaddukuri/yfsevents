@@ -2,6 +2,7 @@ package com.yfs.application.yfseventsserver.controller;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.yfs.application.yfseventsserver.entity.*;
+import com.yfs.application.yfseventsserver.repository.EmailSettingsRepository;
 import com.yfs.application.yfseventsserver.repository.EventDataRepository;
 import com.yfs.application.yfseventsserver.repository.VolunteerRepository;
 import com.yfs.application.yfseventsserver.repository.VolunteersAcceptedRepository;
@@ -42,44 +43,19 @@ public class EmailController {
     @Autowired
     StagingEmailController stagingEmailController;
 
+    @Autowired
+    EmailSettingsRepository emailSettingsRepository;
 
-    static String host;
-
-    static String userName;
-
-
-    static String password;
-
-
-    static String emailSender;
-
-    @Value("${email.password1}")
-    public void setpassword(String un) {
-        password = un;
-    }
-    @Value("${email.host1}")
-    public void sethost(String un) {
-        host = un;
-    }
-    @Value("${email.userName}")
-    public void setUserName(String un) {
-        userName = un;
-    }
-    @Value("${email.sender1}")
-    public void setSener(String un) {
-        emailSender = un;
-    }
 
 
     private static Logger logger = LoggerFactory.getLogger(EmailController.class);
-    public static Properties setProperties()
+    public static Properties setProperties(String host, String port)
     {
-        String host = "smtp.gmail.com";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.port", port);
         return props;
     }
     public static Session createSession(Properties props, final String username, final String password)
@@ -124,24 +100,34 @@ public class EmailController {
         }
     }
 
-    public static Boolean sendMailController(String to,String cc,String bcc,String Subject,String Content)
+    public  Boolean sendMailController(String to,String cc,String bcc,String Subject,String Content)
     {
         System.out.println(to);
+
+        Optional<EmailSettings> emailSettings = emailSettingsRepository.findById(1);
         boolean result=false;
 
-        String from = emailSender;
-        String username = userName;
-        String password1 = password;
-        String host1 = host;
-        Properties props = setProperties();
-        System.out.println(from);
-        System.out.println(username);
-        System.out.println(password1);
-        Session session=createSession(props,username,password1);
+        if(emailSettings.isPresent()) {
 
-        result=sendMail(session,from,to,cc,bcc,Subject,Content);
-        System.out.println(result);
+            EmailSettings emailSetting = emailSettings.get();
 
+            String from = emailSetting.getSender();
+            String username = emailSetting.getUserName();
+            String password1 = emailSetting.getPassword();
+            String host = emailSetting.getHost();
+
+            Properties props = setProperties(host, emailSetting.getPort());
+            System.out.println(from);
+            System.out.println(username);
+            System.out.println(password1);
+            Session session=createSession(props,username,password1);
+
+            result=sendMail(session,from,to,cc,bcc,Subject,Content);
+            System.out.println(result);
+
+            return result;
+
+        }
 
         return result;
     }

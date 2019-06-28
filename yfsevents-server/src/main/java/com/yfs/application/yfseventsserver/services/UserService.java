@@ -80,7 +80,7 @@ public class UserService {
             user = userRepository.save(user);
 
 
-            output.put("mailsent", EmailController.sendMailController(user.getUsername(),"", "", "Youth For Seva password reset token",
+            output.put("mailsent", emailController.sendMailController(user.getUsername(),"", "", "Youth For Seva password reset token",
                 "Token to reset password : " + user.getResetToken() ));
 
 

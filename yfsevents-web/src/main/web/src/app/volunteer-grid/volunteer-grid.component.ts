@@ -27,18 +27,18 @@ export class VolunteerGridComponent implements OnInit {
      checkboxSelection: true },
 
      {headerName: 'Last Name', field: 'lastName',filter:true},
-     {headerName: 'Phone Prefix', field: 'phonePrefix',filter:true},
-     {headerName: 'Phone Number', field: 'phoneNumber',filter:true},
-     {headerName: 'Phone Prefix', field: 'alternatePhonePrefix',filter:true},
-     {headerName: 'Alternate Phone Number', field: 'alternatePhoneNumber',filter:true},
+
+     {headerName: 'Contact Number', field: 'phoneNumber',filter:true},
+
+     {headerName: 'Alternate Contact Number', field: 'alternatePhoneNumber',filter:true},
      {headerName: 'EmailId', field: 'email',filter:true},
-     {headerName: 'EmailId2', field: 'alternateEmail',filter:true},
+      {headerName: 'Occupation', field: 'occupation',filter:true},
      {headerName: 'Locality', field: 'locality',filter:true},
      {headerName: 'City', field: 'city',filter:true},
      {headerName: 'State', field: 'state',filter:true},
      {headerName: 'PinCode', field: 'pincode',filter:true},
      {headerName: 'Interested Areas', field: 'interestedAreas',filter:true},
-     {headerName: 'PreferredTimings', field: 'volunteerPreferredTimings',filter:true}
+     {headerName: 'PreferredTimings', field: 'volunteerPreferredTimes',filter:true}
    ];
    private myGrid: any;
    private gridApi: any;
@@ -92,12 +92,12 @@ export class VolunteerGridComponent implements OnInit {
 
    onRowCilcked(event){
      console.log(event.rowIndex);
-    // this.router.navigateByUrl("/volunteer/edit/"+((event.rowIndex)+1));
+     this.router.navigateByUrl("/volunteer/edit/"+((event.rowIndex)+1));
        //console.log(this.printAllDisplayedRows());
-       console.log("### api.forEachNodeAfterFilterAndSort() ###");
-       //this.gridApi.forEachNodeAfterFilterAndSort(this.printNode);
+      // console.log("### api.forEachNodeAfterFilterAndSort() ###");
+       // this.gridApi.forEachNodeAfterFilterAndSort(this.printNode);
      //  this.gridApi.getSelectedNodes().forEach(node=>{console.log(node.data.email)});
-      this.onBtForEachNodeAfterFilterAndSort();
+     // this.onBtForEachNodeAfterFilterAndSort();
      }
 
      onBtForEachNodeAfterFilterAndSort() {

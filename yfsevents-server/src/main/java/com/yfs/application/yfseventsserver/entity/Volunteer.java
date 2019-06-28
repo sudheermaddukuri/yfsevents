@@ -110,9 +110,7 @@ public class Volunteer {
         this.pincode = pincode;
     }
 
-    public List<KeyValuePair> interestedAreasCategoryList(){
-        return InterestedAreasCategory.getEnumList();
-    }
+
 
     public String getVolunteerPreferredTimes() {
         return volunteerPreferredTimes;
@@ -138,32 +136,3 @@ public class Volunteer {
         this.interestedAreas = interestedAreas;
     }
 }
-enum InterestedAreasCategory {
-
-    EDUCATION(1, "Education"),
-    ENVIRONMENT(2, "Environment"),
-    HEALTH(3, "Health");
-
-
-    private final int key;
-    private final String value;
-
-   InterestedAreasCategory(int key, String value) {
-        this.key = key;
-        this.value = value;
-    }
-
-    private String getValue() {
-        return this.value;
-    }
-
-    private int getKey() {
-        return this.key;
-    }
-
-    public static List<KeyValuePair> getEnumList() {
-        return Stream.of(InterestedAreasCategory.values()).map(o -> new KeyValuePair(o.getKey(), o.getValue())).collect(Collectors.toList());
-    }
-
-}
-

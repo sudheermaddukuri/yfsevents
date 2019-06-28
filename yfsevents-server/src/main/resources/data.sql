@@ -15,6 +15,8 @@ INSERT INTO EVENT VALUES(1,'yu','college--hjhj','Completed','Environment','Event
 INSERT INTO EVENT_NGO_NAME VALUES(1,'ngo_name');
 INSERT INTO EVENT_EVENT_ITEMS VALUES(1,'Cat');
 INSERT INTO EVENT_NGO_NAME  VALUES(1,'gno_name1');
+
+insert into email_settings(id, host,sender,user_name, password, base_url,port) values(1, 'smtp.gmail.com','rainatushar221995221995@gmail.com','rainatushar221995221995@gmail.com','youthforseva','http://ec2-13-233-193-210.ap-south-1.compute.amazonaws.com:8080/register/', '587')
 --INSERT INTO VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PINCODE,STATE)  VALUES ( 'jammu','rainatushar221995@gmail.com','Tushar','Raina','locality','8146222129','31274','j&k' );
 --INSERT INTO VOLUNTEER(CITY,EMAIL,FIRST_NAME,LAST_NAME,LOCALITY,PHONE_NUMBER,PINCODE,STATE)  VALUES ( 'hyd','ranom22@gmail.com','T','Raina','locality','3434344343','31274','Hyerabad' );
 --INSERT INTO EVENT(ID,COMMENTS,EVENT_NAME,EVENTFROM_TIME,EVENTTO_TIME,NGO_NAME,VOLUNTEERS) VALUES(1,'comments','name','2019-04-02 09:15:25.200','2019-04-02 09:15:25.200','ngo',23);

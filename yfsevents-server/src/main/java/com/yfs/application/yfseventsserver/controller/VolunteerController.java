@@ -43,13 +43,7 @@ public class VolunteerController {
     }
 
 
-    @ResponseBody
-    @GetMapping("/interestedAreasCategory")
-    public Iterable<KeyValuePair> getInterestedAreasCategoryList(){
-        Volunteer volunteer = new Volunteer();
-        return volunteer.interestedAreasCategoryList();
 
-    }
     @ResponseBody
     @GetMapping("/volunteer")
     public Iterable<Volunteer> getAllVolunteers() {
@@ -103,17 +97,24 @@ public class VolunteerController {
             volunteerData.getInterestedAreas().stream().forEach((interestedArea)-> {
                 Map interested= new HashMap();
                 interested.put("interestedArea",interestedArea.getInterestedArea());
-                interested.put("id",interestedArea.getId());
+                interested.put("interestedAreaId",interestedArea.getInterestedAreaId());
                 interestedAreasList.add(interested);
             });
             additionalInfo.put("interestedAreas",interestedAreasList);
             additionalInfo.put("volunteerPreferredTimes",volunteerData.getVolunteerPreferredTimes());
-            if(!volunteerData.getOccupation().equalsIgnoreCase("Others")) {
-                additionalInfo.put("occupation", volunteerData.getOccupation());
-                additionalInfo.put("others", null);
+            List<String> occupationList = new ArrayList<>();
+            occupationList.add("Student");
+            occupationList.add("Professional");
+            occupationList.add("HomeMaker");
+            occupationList.add("Business");
+            occupationList.add("Retired");
+            if(occupationList.contains(volunteerData.getOccupation())) {
+
+                personalInfo.put("occupation", volunteerData.getOccupation());
+                personalInfo.put("others", null);
             }else{
-                additionalInfo.put("occupation", "Others");
-                additionalInfo.put("others", volunteerData.getOccupation());
+                personalInfo.put("occupation", "Others");
+                personalInfo.put("others", volunteerData.getOccupation());
             }
             output.put("address", address);
             output.put("personalInfo", personalInfo);
@@ -153,7 +154,7 @@ public class VolunteerController {
             preferredTime.setVolunteer(volunteer1);
         volunteerPreferredTimeRepository.save(preferredTime);
         });*/
-     return volunteer1;
+        return volunteer1;
     }
 
 
@@ -177,6 +178,7 @@ public class VolunteerController {
 //        System.out.println("emails");
         System.out.println(volunteerRepository.findByEmailIn(emaillist).toString());
         return volunteerRepository.findByEmailIn(emaillist);
+
     }
 
 }

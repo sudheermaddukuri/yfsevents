@@ -2,11 +2,9 @@ package com.yfs.application.yfseventsserver.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yfs.application.yfseventsserver.controller.EmailController;
-import com.yfs.application.yfseventsserver.entity.Email;
-import com.yfs.application.yfseventsserver.entity.Event;
-import com.yfs.application.yfseventsserver.entity.StagingEmail;
-import com.yfs.application.yfseventsserver.entity.VolunteersAccepted;
+import com.yfs.application.yfseventsserver.entity.*;
 import com.yfs.application.yfseventsserver.model.EmailStatus;
+import com.yfs.application.yfseventsserver.repository.EmailSettingsRepository;
 import com.yfs.application.yfseventsserver.repository.EventDataRepository;
 import com.yfs.application.yfseventsserver.repository.StagingEmailDataRepository;
 import com.yfs.application.yfseventsserver.repository.VolunteersAcceptedRepository;
@@ -22,6 +20,7 @@ import org.springframework.util.StringUtils;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
@@ -32,6 +31,13 @@ public class StagingEmailPoller {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Autowired
+    EmailSettingsRepository emailSettingsRepository;
+
+
+    @Autowired
+    EmailController emailController;
 
     @Autowired
     StagingEmailDataRepository stagingEmailDataRepository;
@@ -80,7 +86,7 @@ public class StagingEmailPoller {
                     VolunteersAccepted volunteersAccepted = new VolunteersAccepted(stagingEmail.getEventId(), emailId, false, VolunteersAccepted.EmailNotificationStatus.NOT_SENT);
                     logger.info("About to send email to [{}] with subject[{}]", emailId,email.getSubject());
 
-                   boolean isEmailSent = EmailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),createUrl(email.getText(),emailId,email.getEventId().toString()));
+                   boolean isEmailSent = emailController.sendMailController(emailId,email.getCc(),email.getBcc(),email.getSubject(),createUrl(email.getText(),emailId,email.getEventId().toString()));
                     if (isEmailSent) {
                         volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.SENT);
                         volunteersAcceptedRepository.save(volunteersAccepted);
@@ -102,7 +108,7 @@ public class StagingEmailPoller {
                     volunteersAcceptedList.stream().forEach(volunteersAccepted -> {
                         String emailId = volunteersAccepted.getMailId();
                         logger.info("processEmail Retry[{}]:: About to send email to[{}] with subject[{}]", retryCount, emailId, email.getSubject());
-                        boolean isEmailSent = EmailController.sendMailController(emailId, email.getCc(), email.getBcc(), email.getSubject(), email.getText());
+                        boolean isEmailSent = emailController.sendMailController(emailId, email.getCc(), email.getBcc(), email.getSubject(), email.getText());
                         if (isEmailSent) {
                             volunteersAccepted.setStatus(VolunteersAccepted.EmailNotificationStatus.SENT);
                             volunteersAcceptedRepository.save(volunteersAccepted);
@@ -136,16 +142,22 @@ public class StagingEmailPoller {
 
     public String createUrl(String content,String emailId,String eventId)
     {
+
+        Optional<EmailSettings> emailSettings = emailSettingsRepository.findById(1);
+
+
+        if(emailSettings.isPresent()) {
+            baseUrl = emailSettings.get().getBaseUrl();
+        }
         String uniqueUrl="";
         uniqueUrl=uniqueUrl+baseUrl+emailId.split("@")[0]+"/"+emailId.split("@")[1]+"/"+eventId;
         System.out.println("Unique Link is "+uniqueUrl);
-        content=content+"Please click on the the following link to accept our invitation.<br> \n" +
+        content=content+"<br/>\nPlease click on the the following link to accept our invitation.<br> \n" +
             "<a href=\""+uniqueUrl+"\">Click here to accept invitation</a><br><br>\n";
         content=content+
-            "For More information contact do us at :<br>\n" +
+            "<br/>\nFor More information contact do us at :<br>\n" +
             "Website: https://www.youthforseva.org<br>\n" +
-            "Ph Number: 7878787834<br>\n" +
-            "email:     abc@gmail.com\n" +
+
 
             "</body>\n" +
             "</html>\n";

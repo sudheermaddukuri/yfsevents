@@ -17,7 +17,8 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
 
   myForm: FormGroup;
   interestedAreasCategorydata: any[];
-
+ personalinfoupdated :any;
+  isVisible: boolean = false ;
  interestedAreasCategory=[];
 
   selectedList: any[];
@@ -26,7 +27,7 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
   private id: number;
   dropdownSettings = {};
   preferredTimings:string[]=['Weekdays','Weekends','Both Weekdays and Weekends'];
-
+ occupationList:string[]=['Student','Professional','Business','Homemaker','Retired','Others'];
   constructor(private formBuilder: FormBuilder, private inventoryService: InventorydataService,
     private apiService: ApiService, private route: ActivatedRoute, private router: Router) { }
 
@@ -96,6 +97,18 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
 
 
             this.myForm.setValue(data);
+            if(this.myForm.get("personalInfo").get("occupation").value=== 'Others')
+                               {
+
+                             this.isVisible= true;
+
+
+                               }
+                               else
+                               {
+                               this.isVisible= false;
+
+                               }
           });
         } else {
           alert('Error in ID');
@@ -142,7 +155,10 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
       ]],
       email: ['', [
         Validators.email, Validators.maxLength(50)
-      ]]
+      ]],
+        occupation : ['', []],
+       others: [ '',[ Validators.maxLength(50) ]
+                           ]
 
     });
     return aboutVolunteer;
@@ -193,17 +209,47 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl("/grid/volunteer");
   }
 
+displayOccupationField(selectedOccupation){
+       console.log(" selected occupation is--->"+ selectedOccupation);
+       if(selectedOccupation=== 'Others')
+       {
+       console.log("yaay!!!!1");
+     this.isVisible= true;
 
+
+       }
+       else
+       {
+       this.isVisible= false;
+
+       }
+     }
+setOtherOccupation()
+{
+
+}
 
   onSubmit() {
     console.log("Insubmit");
-    this.interestedList=this.myForm.get('additionalInfo').get('interestedAreas').value.map(interestedArea=>{return {"interestedArea":interestedArea.itemName,"interestedAreaId":interestedArea.id};});
 
+     if(this.myForm.get('additionalInfo').get('interestedAreas').value){
+        this.interestedList=this.myForm.get('additionalInfo').get('interestedAreas').value.map(interestedArea=>{return {"interestedArea":interestedArea.itemName,"interestedAreaId":interestedArea.id};});
+        }
+        if( this.myForm.get('personalInfo').get('occupation').value === 'Others')
+        {
+
+        this.myForm.get('personalInfo').get('occupation').setValue(this.myForm.get('personalInfo').get('others').value);
+
+        }
 
 
      if (this.myForm.valid) {
+      this.personalinfoupdated = this.myForm.get('personalInfo').value;
+
+      delete this.personalinfoupdated.others;
+
       console.log("valid");
-      let json = Object.assign(this.myForm.get('personalInfo').value, this.myForm.get('address').value, { interestedAreas: this.interestedList },{volunteerPreferredTimes:this.myForm.get('additionalInfo').get('volunteerPreferredTimes').value});
+      let json = Object.assign(this.personalinfoupdated, this.myForm.get('address').value, { interestedAreas: this.interestedList },{volunteerPreferredTimes:this.myForm.get('additionalInfo').get('volunteerPreferredTimes').value});
       if (this.mode == 'edit') {
         json = Object.assign(json, { id: this.id });
       }
