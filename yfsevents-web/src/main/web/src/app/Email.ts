@@ -7,9 +7,15 @@ export class Email
   subject:string;
   text:string;
   eventId: number;
+  eventName:string;
+  ngonames:string;
+  startTime:string;
+  endTime:string;
 
   constructor(values:Object={})
   {
+    console.log(values);
+    
     Object.assign(this,values);
   }
 }

@@ -33,8 +33,8 @@ public class StagingEmailController {
     @PostMapping("save")
     public ResponseEntity<StagingEmail> saveStagingEmail(@RequestBody Email email){
         ResponseEntity responseEntity = null;
-        email.setText(createContent(email.getText(),"NGOName","eventName",
-            "startTime","enTime"));
+        email.setText(createContent(email.getText(),email.getNgonames().toString(),email.getEventName(),
+            email.getStartTime(),email.getEndTime()));
         List<StagingEmail> stagingEmailList = stagingEmailDataRepository.getStagingEmailByEventId(email.getEventId());
        if(!CollectionUtils.isEmpty(stagingEmailList)){
            StagingEmail stagingEmail = new StagingEmail();
@@ -64,6 +64,7 @@ public class StagingEmailController {
                                 String eventStartTime,
                                 String eventEndTime)
     {
+        System.out.println("Ngo name is"+ngoName);
         String s="<!DOCTYPE html>\n" +
             "<html>\n" +
             "<head>\n" +
@@ -77,7 +78,7 @@ public class StagingEmailController {
             "\n" +
             "<table style=\"width:100%;border:1px solid black\">\n" +
             "  <tr style=\"border:1px solid black\">\n" +
-            "    <td style=\"border:1px solid black\">NGO Name</td>\n" +
+            "    <td style=\"border:1px solid black\">Partner NGO Names</td>\n" +
             "    <td style=\"border:1px solid black\">"+ngoName+"</td>\n" +
             "  </tr>\n" +
             "  <tr style=\"border:1px solid black\">\n" +
@@ -104,6 +105,7 @@ public class StagingEmailController {
             "<br>\n" +
             "\n" +
             "\n" +
+            "<br>"+
             message;
         return s;
     }
