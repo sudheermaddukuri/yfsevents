@@ -29,6 +29,7 @@ export class ApiService {
     this.urlList.set('volunteerAccepted','/getAllInformation');
     this.urlList.set('bulkSave','/bulk/save');
     this.urlList.set('event-update','/event/update');
+    this.urlList.set('volunteerPresent', '/volunteerPresent');
   }
 
    postData(data:any, type:string) {
