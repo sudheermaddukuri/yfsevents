@@ -171,7 +171,7 @@ export class VolunteerComponent implements OnInit, AfterViewInit {
         Validators.required, Validators.maxLength(2000)
       ]],
       state: ['', [
-        Validators.required, Validators.maxLength(50)
+        Validators.maxLength(50)
       ]],
       city: ['', [
         Validators.required, Validators.maxLength(50)
@@ -257,11 +257,13 @@ setOtherOccupation()
       console.log('submitting: ', json);
 
       let emailCheck: any;
-      this.apiService.getData('volunteerPresent', this.myForm.get('personalInfo').get('email').value).subscribe(response=>{
-        emailCheck = JSON.parse(JSON.stringify(response));
+      this.apiService.getData('volunteerPresent', this.myForm.get('personalInfo').get('email').value).subscribe(response1=>{
+        emailCheck = JSON.parse(JSON.stringify(response1));
         if(emailCheck){
+        if(!(this.mode=='edit')){
           alert('Volunteer already registered with same email Id');
-        }else if(emailCheck === false){
+          }
+        }if(emailCheck === false || this.mode == 'edit'){
           let response = this.apiService.postData(json, 'volunteer');
           console.log("response is" + response);
           while (this.interestedList.length) {
@@ -279,7 +281,7 @@ setOtherOccupation()
       });
 
     }
-    else { console.log("invalid");alert('please fill all the mandatory details'); } console.log("address is" + this.myForm.valid);
+    else { console.log("invalid");alert('please fill all the mandatory details / Fill all the detalis correctly'); } console.log("address is" + this.myForm.valid);
   }
 
 
